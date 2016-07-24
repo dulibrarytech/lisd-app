@@ -1,3 +1,6 @@
+import 'fetch';
+import {HttpClient} from 'aurelia-fetch-client';
+
 export class Users {
   heading = 'Enter New User Data!';
   firstName = 'John';
@@ -11,6 +14,10 @@ export class Users {
   submit() {
     this.previousValue = this.fullName;
     alert(`Welcome, ${this.fullName}!`);
+
+    // set local active user profile
+
+    // redirect to play.html
   }
 
   canDeactivate() {
