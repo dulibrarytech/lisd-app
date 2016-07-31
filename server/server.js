@@ -17,6 +17,10 @@ var allowCrossDomain = function(req, res, next) {
     next();
 };
 
+// Server includes
+require("helpers/dbHelper.js");
+require("config/app-config.js");
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
