@@ -1,7 +1,7 @@
 export class Play {
   heading = 'Play view:';
 
-  // render();
+  //render();
 
   render() {
   	// load()
