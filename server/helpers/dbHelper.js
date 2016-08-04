@@ -1,14 +1,22 @@
+'use strict';
 
 var mysql = require('mysql')
 
-var connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'your_user',
-  password: 'some_secret',
-  database: 'the_app_database'
+var db = {
+
+	connection : mysql.createConnection({
+	  host: dbInfo.host,
+	  user: dbInfo.user,
+	  password: dbInfo.pass,
+	  database: dbInfo.database
+	})
+
+};
+
+db.connection.connect(function(err) {
+	  if (err) throw err
+	  console.log('You are now connected...')
 })
 
-connection.connect(function(err) {
-  if (err) throw err
-  console.log('You are now connected...')
-})
+module.exports = db;
+
