@@ -1,12 +1,9 @@
 'use strict';
 
-console.log("config");
+var dbInfo = {
 
-module.exports = {
-	db: {
-		host: "localhost",
-		user: "root",
-		password: "jryn003@",
-		database: "dwadb"
-	}
+	host: 'localhost',
+	user: 'your_user',
+	password: 'some_secret',
+	database: 'the_app_database'
 }
