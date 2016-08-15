@@ -1,0 +1,12 @@
+var expect = require("chai").expect;
+var userModel = require("../models/User.js");
+ 
+describe("DocumentParser", function(){
+   describe("#createUserSession()", function(){
+       it("should return true", function(done){
+       	
+           var results = userModel.createUserSession();
+           expect(results).to.equal(true);
+       });
+   });
+});
