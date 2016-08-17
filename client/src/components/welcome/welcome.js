@@ -8,7 +8,7 @@ export class Welcome {
     this.theRouter = router;
   }
 
-  heading = 'Welcome to the Data Warehouse App!';
+  heading = "Welcome to the Data Warehouse App!";
   
   start() {
     this.theRouter.navigate("users");
