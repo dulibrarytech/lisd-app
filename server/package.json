@@ -1,5 +1,5 @@
 {
-  "name": "Library Instruction Statistics Database",
+  "name": "lisd",
   "version": "1.0.0",
   "description": "[description]",
   "main": "server.js",
@@ -17,6 +17,7 @@
     "morgan": "^1.7.0",
     "serve-favicon": "^2.3.0",
     "mysql": "^2.11.1",
-    "chai": "^3.5.0"
+    "chai": "^3.5.0",
+    "dotenv": "^2.0.0"
   }
 }
