@@ -1,5 +1,7 @@
 'use strict';
 
+var express = require('express');
+
 var dbInfo = {
 
 	host: 'localhost',
@@ -7,3 +9,5 @@ var dbInfo = {
 	password: 'some_secret',
 	database: 'the_app_database'
 }
+
+process.env.PORT = 9003;
