@@ -17,7 +17,7 @@ var allowCrossDomain = function(req, res, next) {
     next();
 };
 
-// Server includes
+// Includes
 //require("helpers/dbHelper.js");
 require("./config/app-config.js");
 

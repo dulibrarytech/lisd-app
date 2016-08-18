@@ -1,14 +1,14 @@
 {
-  "name": "aurelia-starter-node",
+  "name": "Library Instruction Statistics Database",
   "version": "1.0.0",
-  "description": "The server component for the Aurelia starter node",
+  "description": "[description]",
   "main": "server.js",
   "scripts": {
     "test": "gulp test",
     "start": "node server.js"
   },
-  "author": "Dwayne Charrington <dwaynecharrington@gmail.com>",
-  "license": "MIT",
+  "author": "Jeff Rynhart <jeff.rynhart@du.edu>",
+  "license": "University of Denver",
   "dependencies": {
     "body-parser": "^1.15.0",
     "cookie-parser": "^1.4.1",
