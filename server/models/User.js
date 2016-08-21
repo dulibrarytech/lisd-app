@@ -1,9 +1,10 @@
 'use strict'
 
-exports.sayHelloInEnglish = function() {
-  return true;
+exports.isValidSession = function() {
+  var token = "12345";
+  return validateSessionToken(token);
 };
 
-var sayHelloInSpanish = function() {
-  return "Hola";
+var validateSessionToken = function(token) {
+  return token == "12345";
 };
