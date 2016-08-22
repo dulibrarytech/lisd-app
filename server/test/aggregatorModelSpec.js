@@ -14,5 +14,13 @@ describe("Aggregator", function(){
         it("should return an object", function(){
             assert.isObject(results);
         });
+
+        it("should return a value for totalStudents", function(){
+            expect(results.totalStudents).to.be.not.null;
+        });
+
+        it("should return a number for totalStudents", function(){
+            expect(results.totalStudents).to.be.a('number');
+        });
     });
 });
