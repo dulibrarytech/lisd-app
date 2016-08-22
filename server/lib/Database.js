@@ -5,10 +5,10 @@ var mysql = require('mysql')
 var db = {
 
 	connection : mysql.createConnection({
-	  host: dbInfo.host,
-	  user: dbInfo.user,
-	  password: dbInfo.pass,
-	  database: dbInfo.database
+	  host: process.env.DB_HOST,
+	  user: process.env.DB_USER,
+	  password: process.env.DB_PASS,
+	  database: process.env.DB_NAME
 	})
 
 };

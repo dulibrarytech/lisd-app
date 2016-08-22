@@ -19,7 +19,6 @@ var allowCrossDomain = function(req, res, next) {
 
 // Includes
 require('dotenv').config();
-//require("helpers/dbHelper.js");
 require("./config/config.js");
 
 app.set('views', path.join(__dirname, 'views'));
