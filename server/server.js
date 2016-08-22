@@ -19,7 +19,7 @@ var allowCrossDomain = function(req, res, next) {
 
 // Includes
 require('dotenv').config();
-require("./config/config.js");
+require("./config/settings.js");
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
