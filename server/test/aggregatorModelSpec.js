@@ -9,18 +9,32 @@ describe("Aggregator", function(){
 
    	    var from = "2015";
         var to = "2016";
-        var results = aggregatorModel.getTotalStudents(from, to);
+        var callback = function(results) {
 
-        it("should return an object", function(){
-            assert.isObject(results);
-        });
+        	console.log("cb");
+        	it("should return an object", function(){
+	            assert.isObject(results);
+	        });
 
-        it("should return a value for totalStudents", function(){
-            expect(results.totalStudents).to.be.not.null;
-        });
+	        it("should return a value for totalStudents", function(){
+	            expect(results).to.be.not.empty;
+	        });
+        };
 
-        it("should return a number for totalStudents", function(){
-            expect(results.totalStudents).to.be.a('number');
-        });
+        aggregatorModel.getTotalStudents(from, to, 0, 0, callback);
+
+        //var results = aggregatorModel.getTotalStudents(from, to, 0, 0, callback);
+
+        // it("should return an object", function(){
+        //     assert.isObject(results);
+        // });
+
+        // it("should return a value for totalStudents", function(){
+        //     expect(results).to.be.not.empty;
+        // });
+
+        // it("should return a number for totalStudents", function(){
+        //     expect(results.totalStudents).to.be.a('number');
+        // });
     });
 });
