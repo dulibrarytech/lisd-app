@@ -8,11 +8,12 @@ var database = require('../lib/Database.js');
 
 /**
 *
-*
+* @param object callback	Function is called once the async data retrieval is complete.  resultSet object is passed into this function, for external processing.
 */
-exports.getTotalStudents = function(fromYear, toYear, listByMonth, librarianID) {
+exports.getTotalStudents = function(fromYear, toYear, listByMonth, librarianID, callback) {
 	
-	var resultSet = {totalStudents: null};
+	var resultSet = {};
+	var returnData = callback;
 
 	var fromDate = fromYear + '-' + settings.fiscalYearStart;
 	var toDate = toYear + '-' + settings.fiscalYearEnd;
@@ -26,14 +27,41 @@ exports.getTotalStudents = function(fromYear, toYear, listByMonth, librarianID) 
 	  }
 	  else {
 	  	var totalStudents = results[0]['SUM(undergraduates)'];
+	  	var resultData = {undergraduates: 0};
 		if(results.length > 0 && typeof totalStudents == "number") {
-			resultSet.totalStudents = totalStudents;
+			resultData.undergraduates = totalStudents;
+			collectResults(resultData);
 		}
 	  }
-	  console.log("1");
 	});
 
-	console.log("2");
+	// Graduates
+	query = 'SELECT SUM(graduates) FROM tbl_lisd WHERE classDate >= "' + fromDate + '" AND classDate <= "' + toDate + '"';
+	database.query(query, function (error, results, fields) {
+	  
+	  if(error) {
+		console.log("Database error: " + error);
+	  }
+	  else {
+	  	var totalStudents = results[0]['SUM(graduates)'];
+	  	var resultData = {graduates: 0};
+		if(results.length > 0 && typeof totalStudents == "number") {
+			resultData.graduates = totalStudents;
+			collectResults(resultData);
+		}
+	  }
+	});
 
-	return resultSet;
-}
+	var collectResults = function(resultData, callback) {
+		
+		var length = 0;
+		for(var key in resultData) {
+			resultSet[key] = resultData[key];
+			length++;
+		}
+
+		if(Object.keys(resultSet).length == 2) {
+			returnData(resultSet);
+		}
+	};
+};
