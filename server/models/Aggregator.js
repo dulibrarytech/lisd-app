@@ -5,16 +5,16 @@ var settings = require("../config/settings.js");
 var database = require('../lib/Database.js');
 
 /**
+* TODO list data object members
+* @param object data 	data object members:
 *
-* @param object callback	Function is called once the async data retrieval is complete.  resultSet object is passed into this function, for external processing.
-* @param function done 		For testing purposes only (mocha-chai asynchronous testing)
+* 	object callback		Function is called once the async data retrieval is complete.  resultSet object is passed into this function, for external processing.
+* 	function done 		For testing purposes only (mocha-chai asynchronous testing)
 */
-exports.getTotalStudents = function(fromYear, toYear, listByMonth, librarianID, callback, done) {
-	
-	var returnData = callback;
+exports.getTotalStudents = function(data, callback, done) {
 
-	var fromDate = fromYear + '-' + settings.fiscalYearStart;
-	var toDate = toYear + '-' + settings.fiscalYearEnd;
+	var fromDate = data.fromYear + '-' + settings.fiscalYearStart;
+	var toDate = data.toYear + '-' + settings.fiscalYearEnd;
 
 	var query = 'SELECT SUM(undergraduates) AS underGraduates, SUM(graduates) AS graduates, SUM(faculty) AS faculty, SUM(other) AS other FROM tbl_lisd WHERE classDate >= "' + fromDate + '" AND classDate <= "' + toDate + '"';
 	database.query(query, function (error, results, fields) {
@@ -26,6 +26,19 @@ exports.getTotalStudents = function(fromYear, toYear, listByMonth, librarianID, 
 	});
 };
 
-exports.getDepartmentTotals = function() {
-
+exports.getDepartmentTotals = function(data, callback, done) {
+	callback({deptTotals: '10'},done);
 };
+
+// exports.getTotalStudentsByDepartment = function(data, callback, done) {
+
+// };
+// exports.getTotalClassesByDepartment = function(data, callback, done) {
+
+// };
+// exports.getTotalClassesByLocation = function(data, callback, done) {
+
+// };
+// exports.getTotalClassesByClassType = function(data, callback, done) {
+
+// };
