@@ -27,11 +27,14 @@ exports.getAllData = function(req, res) {
 		}
 	};
 
-	aggregatorModel.getTotalStudents(data, sendResponse);
-	aggregatorModel.getDepartmentTotals(data, sendResponse);
+	// aggregatorModel.getTotalStudents(data, sendResponse);
+	// aggregatorModel.getDepartmentTotals(data, sendResponse);
 
+	for(var key in aggregatorModel) {
+		aggregatorModel[key](data, sendResponse);
+	}
 
-
+	//console.log(aggregatorModel);
 
 	//res.send({test:12345});
 };
