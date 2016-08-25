@@ -11,7 +11,6 @@ var database = require('../lib/Database.js');
 */
 exports.getTotalStudents = function(fromYear, toYear, listByMonth, librarianID, callback, done) {
 	
-	var resultSet = {};
 	var returnData = callback;
 
 	var fromDate = fromYear + '-' + settings.fiscalYearStart;
@@ -23,8 +22,10 @@ exports.getTotalStudents = function(fromYear, toYear, listByMonth, librarianID, 
 	  if(error) {
 		console.log("Database error: " + error);
 	  }
-	  else {
-		callback(results,done);
-	  }
+	  callback(results,done); // TODO test results for db error?  ex. what is returned with a db error, is it an array?  does it have empty object?  Test and move to getDepartmentTotals()
 	});
+};
+
+exports.getDepartmentTotals = function() {
+
 };
