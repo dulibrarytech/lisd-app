@@ -12,25 +12,21 @@ exports.getAllData = function(req, res) {
 	var response = res;
 
 	// TODO get data from req
-	var from = '2015';
-	var to = '2016';
+	var data = {
+		fromYear: '2015',
+		toYear: '2016',
+		listByMonth: 0,
+		librarianID: 0
+	};
 
 	var sendResponse = function(results) {
-		allResults.push(results);
+		allResults.push(results);	// TODO add under separate keys for each function return
 		if(allResults.length >= maxLength) {
 			response.send(allResults);
 			//done();
 		}
 	};
 
-	var data = {
-		fromYear: from,
-		toYear: to,
-		listByMonth: 0,
-		librarianID: 0
-	};
-
-	
 	aggregatorModel.getTotalStudents(data, sendResponse);
 	aggregatorModel.getDepartmentTotals(data, sendResponse);
 
