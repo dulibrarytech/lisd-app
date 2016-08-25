@@ -7,9 +7,8 @@ router.get('/', function(req, res) {
 });
 
 router.get('/get/data/all', function(req, res) {
-    //aggregatorController.getAllData();
     console.log("GET /get/data/all");
-    res.send({test:123});
+    aggregatorController.getAllData(req, res);
 });
 
 module.exports = router;
