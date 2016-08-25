@@ -10,10 +10,10 @@ describe("Aggregator", function(){
    	    var from = "2015";
         var to = "2016";
 
-		it("should return an object", function(done){
+		it("should return an array", function(done){
 	        var results = aggregatorModel.getTotalStudents(from, to, 0, 0, function(results, done) {
-	            //assert.isObject(results);
-	            console.log(results);
+	            assert.isArray(results);
+	            //console.log(results);
 	    		done();
 	        }, 
 	        done);
