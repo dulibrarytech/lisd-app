@@ -15,6 +15,7 @@ exports.getTotalStudents = function(data, callback, done) {
 
 	var fromDate = data.fromYear + '-' + settings.fiscalYearStart;
 	var toDate = data.toYear + '-' + settings.fiscalYearEnd;
+	var resultObj = {};
 
 	var query = 'SELECT SUM(undergraduates) AS underGraduates, SUM(graduates) AS graduates, SUM(faculty) AS faculty, SUM(other) AS other FROM tbl_lisd WHERE classDate >= "' + fromDate + '" AND classDate <= "' + toDate + '"';
 	database.query(query, function (error, results, fields) {
@@ -22,12 +23,13 @@ exports.getTotalStudents = function(data, callback, done) {
 	  if(error) {
 		console.log("Database error: " + error);
 	  }
+	  // TODO utilize resultObj
 	  callback(results,done); // TODO test results for db error?  ex. what is returned with a db error, is it an array?  does it have empty object?  Test and move to getDepartmentTotals()
 	});
 };
 
-exports.getDepartmentTotals = function(data, callback, done) {
-	callback({deptTotals: '10'},done);
+exports.getTotalStudentsByDepartment = function(data, callback, done) {
+	callback({deptTotals: '17'},done);
 };
 
 // exports.getTotalStudentsByDepartment = function(data, callback, done) {
