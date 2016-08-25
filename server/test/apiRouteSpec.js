@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 describe("Server API", function(){
     describe("#GET /get/data/all", function(){
 		it('should return status 200', function(done) {
-		  chai.request('http://localhost:9004')
+		  chai.request(process.env.BASE_URL)
 		    .get('/get/data/all')
 		    .end(function(err, res){
 		      expect(res).to.have.status(200);
