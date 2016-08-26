@@ -4,6 +4,14 @@ require('dotenv').config();
 var settings = require("../config/settings.js");
 var database = require('../lib/Database.js');
 
+
+
+// exports.getAllData = function(data, callback, done) {
+
+// }
+
+
+
 /**
 * TODO list data object members
 * @param object data 	data object members:
@@ -13,11 +21,9 @@ var database = require('../lib/Database.js');
 */
 exports.getTotalStudents = function(data, callback, done) {
 
-	var fromDate = data.fromYear + '-' + settings.fiscalYearStart;
-	var toDate = data.toYear + '-' + settings.fiscalYearEnd;
 	var resultObj = {};
 
-	var query = 'SELECT SUM(undergraduates) AS underGraduates, SUM(graduates) AS graduates, SUM(faculty) AS faculty, SUM(other) AS other FROM tbl_lisd WHERE classDate >= "' + fromDate + '" AND classDate <= "' + toDate + '"';
+	var query = 'SELECT SUM(undergraduates) AS underGraduates, SUM(graduates) AS graduates, SUM(faculty) AS faculty, SUM(other) AS other FROM tbl_lisd WHERE classDate >= "' + data.fromDate + '" AND classDate <= "' + data.toDate + '"';
 	database.query(query, function (error, results, fields) {
 	  
 	  if(error) {
@@ -29,7 +35,7 @@ exports.getTotalStudents = function(data, callback, done) {
 };
 
 exports.getTotalStudentsByDepartment = function(data, callback, done) {
-	callback({deptTotals: '17'},done);
+	callback({deptTotals: '18'},done);
 };
 
 // exports.getTotalStudentsByDepartment = function(data, callback, done) {
