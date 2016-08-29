@@ -6,8 +6,8 @@ router.get('/', function(req, res) {
     res.render('index.html');
 });
 
-router.get('/get/data/all', function(req, res) {
-    console.log("GET /get/data/all");
+// Data: integer fromYear, integer toYear
+router.post('/get/data/all', function(req, res) {
     aggregatorController.getDataAll(req, res);
 });
 
