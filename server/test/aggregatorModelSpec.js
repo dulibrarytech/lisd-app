@@ -8,15 +8,16 @@ describe("Aggregator", function(){
     describe("#getTotalStudents()", function(){
 
    	    var data = {
-			fromYear: '2015',
-			toYear: '2016',
+			fromDate: '2015-07-01',
+			toDate: '2016-06-30',
 			listByMonth: 0,
 			librarianID: 0
 		}
 		it("should return an array", function(done){
 	        aggregatorModel.getTotalStudents(data, function(results, done) {
 	            assert.isArray(results);
-	    		done();
+	            console.log(results);
+	    	    done();
 	        }, done);
 
     	});
