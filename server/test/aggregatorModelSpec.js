@@ -16,7 +16,7 @@ describe("Aggregator", function(){
 		it("should return an array", function(done){
 	        aggregatorModel.getAllData(data, function(results, done) {
 	            assert.isArray(results);
-	            console.log(results);
+	            //console.log(results);
 	    	    done();
 	        }, done);
 

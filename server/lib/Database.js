@@ -11,10 +11,8 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err) {
 	  if (err) throw err
-	  console.log('You are now connected...');
-})
-
-exports.connection = connection;
+	  //console.log('You are now connected...');
+});
 
 exports.queryDB = function(query, callback) {
 
@@ -27,4 +25,4 @@ exports.queryDB = function(query, callback) {
 	  	callback(results); 
 	  }
 	});
-}
+};
