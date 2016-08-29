@@ -9,60 +9,27 @@ var database = require('../lib/Database.js');
 exports.getAllData = function(data, callback, done) {
 	
 	var allResults = [];
-	var count = Object.keys(model).length;
-	console.log(count);
+	var queries = {
+		totalStudentsQuery : 'SELECT SUM(undergraduates) AS underGraduates, SUM(graduates) AS graduates, SUM(faculty) AS faculty, SUM(other) AS other FROM tbl_lisd WHERE classDate >= "' + data.fromDate + '" AND classDate <= "' + data.toDate + '"'
+	};
 
-	// Aggregate data from DB model functions (Async)
-	// for(var key in model) {
-	// 	model[key](data, callback, done);
-	// }
-
+	// Build response object.  Send to controller once all data has been appended
 	var appendDataToResponseObject = function(data) {
-		// Loop keys of data object, adding each key and its data to the main results object
-		for(var key in data) {
+		// If data is a DB error, send the error response.
 
+		for(var key in data) {
+			allResults[key] = data[key];
 		}
 
-		if(allResults.length >= count) {
-			//callback(allresults,done);
+		// If all results are in the bucket, send it to the controller.
+		if(allResults.length >= Object.keys(queries).length) {
+			callback(allResults, done);
 		}
 	};
 
-	model.getTotalStudents(data, callback, done);
-}
-
-var model = {
-
-	getTotalStudents : function(data, callback, done) {
-
-		var resultObj = {};
-
-		var query = 'SELECT SUM(undergraduates) AS underGraduates, SUM(graduates) AS graduates, SUM(faculty) AS faculty, SUM(other) AS other FROM tbl_lisd WHERE classDate >= "' + data.fromDate + '" AND classDate <= "' + data.toDate + '"';
-		database.query(query, function (error, results, fields) {
-		  
-		  if(error) {
-			console.log("Database error: " + error);
-		  }
-		  // TODO utilize resultObj
-		  callback(results,done); // TODO test results for db error?  ex. what is returned with a db error, is it an array?  does it have empty object?  Test and move to getDepartmentTotals()
-		});
-	},
-
-	getTotalStudentsByDepartment : function(data, callback, done) {
-		callback([{deptTotals: '18'}],done);
+	for(var key in queries) {
+		database.queryDB(queries[key], appendDataToResponseObject);
 	}
-
-	// var getTotalStudentsByDepartment = function(data, callback, done) {
-
-	// };
-	// var getTotalClassesByDepartment = function(data, callback, done) {
-
-	// };
-	// var getTotalClassesByLocation = function(data, callback, done) {
-
-	// };
-	// var getTotalClassesByClassType = function(data, callback, done) {
-
-	// };
 }
+
 

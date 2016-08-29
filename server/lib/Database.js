@@ -1,6 +1,6 @@
 'use strict';
 
-var mysql = require('mysql')
+var mysql = require('mysql');
 
 var connection = mysql.createConnection({
   host     : process.env.DB_HOST,
@@ -11,7 +11,20 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err) {
 	  if (err) throw err
-	  //console.log('You are now connected...');
+	  console.log('You are now connected...');
 })
 
-module.exports = connection;
+exports.connection = connection;
+
+exports.queryDB = function(query, callback) {
+
+	connection.query(query, function (error, results, fields) {
+	  if(error) {
+		console.log("Database error: " + error);
+		callback(error);
+	  }
+	  else {
+	  	callback(results); 
+	  }
+	});
+}

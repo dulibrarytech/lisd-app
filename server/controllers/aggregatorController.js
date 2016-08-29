@@ -18,13 +18,12 @@ exports.getDataAll = function(req, res) {
 		librarianID: 0
 	};
 
-	var sendResponse = function(results) {
-		response.send(results);
+	var sendResponse = function(responseData) {
+		response.send(responseData);
 		//done();
-
 	};
 
-	//aggregatorModel.getAllData(data, sendResponse);
+	aggregatorModel.getAllData(data, sendResponse);
 };
 
 exports.getDataByLibrarian = function() {
