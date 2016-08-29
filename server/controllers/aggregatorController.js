@@ -6,8 +6,8 @@ var aggregatorModel = require("../models/Aggregator.js")
 
 exports.getDataAll = function(req, res) {
 
-	var allResults = [];
-	var maxLength = Object.keys(aggregatorModel).length;
+	// var allResults = [];
+	// var maxLength = Object.keys(aggregatorModel).length;
 	var response = res;
 	var fromYear = '2015', toYear = '2016';
 
@@ -19,7 +19,7 @@ exports.getDataAll = function(req, res) {
 	};
 
 	var sendResponse = function(results) {
-		response.send(allResults);
+		response.send(results);
 		//done();
 
 	};
