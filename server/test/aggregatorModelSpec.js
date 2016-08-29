@@ -14,7 +14,7 @@ describe("Aggregator", function(){
 			librarianID: 0
 		}
 		it("should return an array", function(done){
-	        aggregatorModel.getTotalStudents(data, function(results, done) {
+	        aggregatorModel.getAllData(data, function(results, done) {
 	            assert.isArray(results);
 	            console.log(results);
 	    	    done();
