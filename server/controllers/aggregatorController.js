@@ -7,7 +7,7 @@ var aggregatorModel = require("../models/Aggregator.js")
 exports.getDataAll = function(req, res) {
 
 	var response = res;
-	var fromYear = '2015', toYear = '2016';
+	var fromYear = req.query.fromYear, toYear = req.query.toYear;
 
 	var data = {
 		fromDate: fromYear + '-' + settings.fiscalYearStart,
@@ -18,7 +18,7 @@ exports.getDataAll = function(req, res) {
 
 	var sendResponse = function(responseData) {
 		response.send(responseData);
-		//done();
+		console.log(responseData);	//DEV
 	};
 
 	aggregatorModel.getAllData(data, sendResponse);
