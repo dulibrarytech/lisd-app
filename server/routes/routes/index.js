@@ -7,8 +7,14 @@ router.get('/', function(req, res) {
 });
 
 // Data: integer fromYear, integer toYear
-router.post('/get/data/all', function(req, res) {
-    aggregatorController.getDataAll(req, res);
+router.get('/get/data/all', function(req, res) {
+	if(req.headers['user-agent'] == process.env.CLIENT_USER_AGENT) {
+		aggregatorController.getDataAll(req, res);
+	}
+    else {
+    	res.statusCode = 403;
+    	res.end();
+    }
 });
 
 module.exports = router;
