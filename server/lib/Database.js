@@ -19,7 +19,7 @@ exports.queryDB = function(query, callback) {
 	connection.query(query, function (error, results, fields) {
 	  if(error) {
 		console.log("Database error: " + error);
-		callback(error);
+		//callback(error);
 	  }
 	  else {
 	  	callback(results); 

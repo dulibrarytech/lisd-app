@@ -10,13 +10,13 @@ exports.getAllData = function(data, callback, done) {
 	
 	var allResults = [];
 	var queries = {
-		totalStudentsQuery : 'SELECT SUM(undergraduates) AS underGraduates, SUM(graduates) AS graduates, SUM(faculty) AS faculty, SUM(other) AS other FROM tbl_lisd WHERE classDate >= "' + data.fromDate + '" AND classDate <= "' + data.toDate + '"'
+		totalStudents : 'SELECT SUM(undergraduates) AS underGraduates, SUM(graduates) AS graduates, SUM(faculty) AS faculty, SUM(other) AS other FROM tbl_lisd WHERE classDate >= "' + data.fromDate + '" AND classDate <= "' + data.toDate + '"',
+		totalStudentsByDepartment: 'SELECT department, SUM(a.undergraduates) AS underGraduates, SUM(a.graduates) AS graduates, SUM(a.faculty) AS faculty, SUM(a.other) AS other FROM tbl_lisd a, tbl_lisdDepartment b WHERE a.departmentID = b.departmentID AND classDate BETWEEN "' + data.fromDate +'" AND "' + data.toDate +'" Group By b.department;'
 	};
 
 	// Build response object.  Send to controller once all data has been appended
 	var appendDataToResponseObject = function(data) {
 		// If data is a DB error, send the error response.
-
 		for(var key in data) {
 			allResults[key] = data[key];
 		}
