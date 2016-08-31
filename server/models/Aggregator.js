@@ -19,12 +19,9 @@ exports.getAllData = function(data, callback, done) {
 		totalStudentsByDepartment: 'SELECT department, SUM(a.undergraduates) AS underGraduates, SUM(a.graduates) AS graduates, SUM(a.faculty) AS faculty, SUM(a.other) AS other FROM tbl_lisd a, tbl_lisdDepartment b WHERE a.departmentID = b.departmentID AND classDate BETWEEN "' + data.fromDate +'" AND "' + data.toDate +'" Group By b.department;'
 	};
 
-	// Build the response object.  Send it back to the controller once all data has been appended.
+	// Build the aggregate response object.  Send it back to the controller once all data has been appended.
 	var appendDataToResponseObject = function(data) {
-
-		for(var key in data) {
-			allResults[key] = data[key];
-		}
+		allResults.push(data);
 
 		// If all results are in the bucket, send it to the controller.
 		if(allResults.length >= Object.keys(queries).length) {
