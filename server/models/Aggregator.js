@@ -15,9 +15,12 @@ exports.getAllData = function(data, callback, done) {
 
 	var allResults = [];
 	var queries = {
+		
 		totalStudents : 'SELECT SUM(undergraduates) AS underGraduates, SUM(graduates) AS graduates, SUM(faculty) AS faculty, SUM(other) AS other FROM tbl_lisd WHERE classDate >= "' + data.fromDate + '" AND classDate <= "' + data.toDate + '"',
 		totalStudentsByDepartment: 'SELECT department, SUM(a.undergraduates) AS underGraduates, SUM(a.graduates) AS graduates, SUM(a.faculty) AS faculty, SUM(a.other) AS other FROM tbl_lisd a, tbl_lisdDepartment b WHERE a.departmentID = b.departmentID AND classDate BETWEEN "' + data.fromDate +'" AND "' + data.toDate +'" Group By b.department;',
-		totalClassesByDepartment: 'SELECT department, COUNT(a.className) AS classCount FROM tbl_lisd a, tbl_lisdDepartment b WHERE 0=0 AND a.departmentID = b.departmentID AND classDate >= "' + data.fromDate + '" AND classDate <= "' + data.toDate + '" Group By b.department'
+		totalClassesByDepartment: 'SELECT department, COUNT(a.className) AS classCount FROM tbl_lisd a, tbl_lisdDepartment b WHERE 0=0 AND a.departmentID = b.departmentID AND classDate >= "' + data.fromDate + '" AND classDate <= "' + data.toDate + '" Group By b.department',
+		totalClassesByLocation: 'SELECT b.location, COUNT(a.className) AS classCount FROM tbl_lisd a, tbl_lisdLocation b WHERE 0=0 AND a.locationID = b.locationID AND classDate >= "' + data.fromDate + '" AND classDate <= "' + data.toDate + '" Group By b.location',
+		totalClassesByClassType: 'SELECT b.classType, COUNT(a.className) AS classCount FROM tbl_lisd a, tbl_lisdClassType b WHERE 0=0 AND a.classTypeID = b.classTypeID AND classDate >= "' + data.fromDate + '" AND classDate <= "' + data.toDate + '" Group By b.classType'
 	};
 
 	// Build the aggregate response object.  Send it back to the controller once all data has been appended.
