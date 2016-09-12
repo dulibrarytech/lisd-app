@@ -31,7 +31,7 @@ db.createCollection( "lisd_librarian",
       },
       validationAction: "error"
    }
-}
+)
 
 db.createCollection( "lisd_department",
    {
@@ -43,7 +43,7 @@ db.createCollection( "lisd_department",
       },
       validationAction: "error"
    }
-}
+)
 
 db.createCollection( "lisd_location",
    {
@@ -55,7 +55,7 @@ db.createCollection( "lisd_location",
       },
       validationAction: "error"
    }
-}
+)
 
 db.createCollection( "lisd_classType",
    {
@@ -67,5 +67,5 @@ db.createCollection( "lisd_classType",
       },
       validationAction: "error"
    }
-}
+)
 
