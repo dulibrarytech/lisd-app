@@ -1,12 +1,71 @@
-db.createCollection( "lisd_librarian",
+db.createCollection( "lisd_class",
    {
-      validator: { $or:
+      validator: { $and:
          [
-            { courseInfo: { $type: "string" } },
-            { enrollmentInfo: { $regex: /@mongodb\.com$/ } },
-            { associatedLibrarians: { $in: [ "Unknown", "Incomplete" ] } }
+            { "courseInfo.className" : { $type: "string" } },
+            { "courseInfo.courseNumber" : { $type: 'string' } },
+            { "courseInfo.instructor" : { $type: 'string' } },
+            { "courseInfo.dateCreated" : { $type: 'date' } },
+            { "enrollmentInfo.undergraduates" : { $type: 'number' } },
+            { "enrollmentInfo.graduates" : { $type: 'number' } },
+            { "enrollmentInfo.faculty" : { $type: 'number' } },
+            { "enrollmentInfo.other" : { $type: 'number' } },
+            { "associatedLibrarians": { $type : "string" } },
+            { "location": { $type : "string" } },
+            { "department": { $type : "string" } },
+            { "classType": { $type : "string" } },
+            { "comments": { $type : "string" } }
          ]
       },
-      validationAction: "warn"
+      validationAction: "error"
    }
 )
+
+db.createCollection( "lisd_librarian",
+   {
+      validator: { $and:
+         [
+            { "name" : { $type: "string" } },
+            { "isActive" : { $type: "bool" } }
+         ]
+      },
+      validationAction: "error"
+   }
+}
+
+db.createCollection( "lisd_department",
+   {
+      validator: { $and:
+         [
+            { "name" : { $type: "string" } },
+            { "isActive" : { $type: "bool" } }
+         ]
+      },
+      validationAction: "error"
+   }
+}
+
+db.createCollection( "lisd_location",
+   {
+      validator: { $and:
+         [
+            { "name" : { $type: "string" } },
+            { "isActive" : { $type: "bool" } }
+         ]
+      },
+      validationAction: "error"
+   }
+}
+
+db.createCollection( "lisd_classType",
+   {
+      validator: { $and:
+         [
+            { "name" : { $type: "string" } },
+            { "isActive" : { $type: "bool" } }
+         ]
+      },
+      validationAction: "error"
+   }
+}
+
