@@ -10,11 +10,11 @@ db.createCollection( "lisd_class",
             { "enrollmentInfo.graduates" : { $type: 'number' } },
             { "enrollmentInfo.faculty" : { $type: 'number' } },
             { "enrollmentInfo.other" : { $type: 'number' } },
-            { "associatedLibrarians": { $type : "string" } },
-            { "location": { $type : "string" } },
-            { "department": { $type : "string" } },
-            { "classType": { $type : "string" } },
-            { "comments": { $type : "string" } }
+            { "associatedLibrarians": { $type : "objectId" } },
+            { "location": { $type : "objectId" } },
+            { "department": { $type : "objectId" } },
+            { "classType": { $type : "objectId" } },
+            { "comments": { $type : "object" } }
          ]
       },
       validationAction: "error"
@@ -31,7 +31,7 @@ db.createCollection( "lisd_librarian",
       },
       validationAction: "error"
    }
-)
+);
 
 db.createCollection( "lisd_department",
    {
@@ -43,7 +43,7 @@ db.createCollection( "lisd_department",
       },
       validationAction: "error"
    }
-)
+);
 
 db.createCollection( "lisd_location",
    {
@@ -55,7 +55,7 @@ db.createCollection( "lisd_location",
       },
       validationAction: "error"
    }
-)
+);
 
 db.createCollection( "lisd_classType",
    {
@@ -67,5 +67,5 @@ db.createCollection( "lisd_classType",
       },
       validationAction: "error"
    }
-)
+);
 
