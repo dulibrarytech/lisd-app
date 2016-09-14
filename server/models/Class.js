@@ -1,5 +1,7 @@
 'use strict'
 
+'use strict'
+
 require('dotenv').config();
 
 var settings = require("../config/settings.js");
@@ -15,31 +17,7 @@ MongoClient.connect(url, function(err, db) {
 	console.log('Connected to db: ' + url);
 });
 
-var getStudentTotals = function() {
+exports.addDocument = function(doc) {
 
-}
-
-var getDepartmentTotals = function() {
-	
-}
-
-// ...
-
-exports.getAllData = function(data,callback) {
-
-	// Use above functions, in any config.
-	var queries = [getStudentTotals,getDepartmentTotals];
-
-	var collection = database.collection('lisd_class');
-    var responseData = [];
-
-	collection.find({}).toArray(function(err, docs) {
-
-	    assert.equal(err, null);
-
-
-	    // Build main return doc here
-	    // ...
-	    callback(docs);
-	});
+	// Insert the document
 }
