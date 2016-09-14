@@ -74,3 +74,63 @@ db.lisd_class.insertOne({
     classType: [classType3.insertedId],
     comments: [{ name: "Bill B.", text: "class comment"}]
 });
+
+db.lisd_class.insertOne({
+	courseInfo: { 
+          className: "Calculus",
+          courseNumber: "B2345",
+          instructor: "Miss Muffett",
+          dateCreated: new Date("1992-03-30")
+    },
+    enrollmentInfo: {
+          undergraduates: 21,
+          graduates: 3,
+          faculty: 0,
+          other: 5
+    },
+    associatedLibrarians: [librarian3.insertedId],
+    location: [location2.insertedId],
+    department: [department2.insertedId],
+    classType: [classType1.insertedId],
+    comments: [{ name: "Anonymous", text: "blah blah"}]
+});
+
+db.lisd_class.insertOne({
+	courseInfo: { 
+          className: "Canadian Bacon",
+          courseNumber: "C3456",
+          instructor: "Kevin Bacon",
+          dateCreated: new Date("2000-01-07")
+    },
+    enrollmentInfo: {
+          undergraduates: 12,
+          graduates: 30,
+          faculty: 4,
+          other: 3
+    },
+    associatedLibrarians: [librarian2.insertedId],
+    location: [location3.insertedId],
+    department: [department1.insertedId],
+    classType: [classType2.insertedId],
+    comments: [{}]
+});
+
+db.lisd_class.insertOne({
+	courseInfo: { 
+          className: "Bowling 101",
+          courseNumber: "D4567",
+          instructor: "Chris Christopherson",
+          dateCreated: new Date("2002-03-30")
+    },
+    enrollmentInfo: {
+          undergraduates: 18,
+          graduates: 0,
+          faculty: 5,
+          other: 0
+    },
+    associatedLibrarians: [librarian1.insertedId,librarian1.insertedId],
+    location: [location1.insertedId],
+    department: [department3.insertedId],
+    classType: [classType1.insertedId],
+    comments: [{ name: "Robin Reddferd", text: "this is my comment"}, { name: "Peter Bigg", text: "cest la vie"}]
+});

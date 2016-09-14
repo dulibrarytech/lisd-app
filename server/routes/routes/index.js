@@ -12,6 +12,10 @@ router.get('/get/data/all', function(req, res) {
 		process.env.ENABLE_BROWSER_TEST == 'true') {	// TODO Add middleware
 		
 		aggregatorController.getDataAll(req, res);
+
+        // DEV
+       // res.statusCode = 200;
+       // res.send();
 	}
     else {
     	console.log(process.env.ENABLE_BROWSER_TEST);
