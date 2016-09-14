@@ -1,41 +1,26 @@
 'use strict'
 
 require('dotenv').config();
+
 var settings = require("../config/settings.js");
-var database = require('../lib/Database.js');
+var MongoClient = require('mongodb').MongoClient, assert = require('assert');
+var database;
+var url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME;
+//var url = 'mongodb://localhost:27017/lisddb_development';
 
-// *** This will get data for both sections of the first page.
-// data:  If librarianID is present, get data for that librarian.  If byMonth is true, will aggregate results by monts.
-exports.getAllData = function(data, callback, done) {
-	
-	// Detect empty date values
-	if(data.fromDate.substring(0,9) == 'undefined' || data.toDate.substring(0,9) == 'undefined') {
-		callback({error: 'Aggregator says: no date specified'});
-	}
+// Use connect method to connect to the Server 
+MongoClient.connect(url, function(err, db) {
+	assert.equal(null, err);
+	database = db;
+	console.log('connected to url: ' + url);
+});
 
-	var allResults = [];
-	var queries = {
-		
-		totalStudents : 'SELECT SUM(undergraduates) AS underGraduates, SUM(graduates) AS graduates, SUM(faculty) AS faculty, SUM(other) AS other FROM tbl_lisd WHERE classDate >= "' + data.fromDate + '" AND classDate <= "' + data.toDate + '"',
-		totalStudentsByDepartment: 'SELECT department, SUM(a.undergraduates) AS underGraduates, SUM(a.graduates) AS graduates, SUM(a.faculty) AS faculty, SUM(a.other) AS other FROM tbl_lisd a, tbl_lisdDepartment b WHERE a.departmentID = b.departmentID AND classDate BETWEEN "' + data.fromDate +'" AND "' + data.toDate +'" Group By b.department;',
-		totalClassesByDepartment: 'SELECT department, COUNT(a.className) AS classCount FROM tbl_lisd a, tbl_lisdDepartment b WHERE 0=0 AND a.departmentID = b.departmentID AND classDate >= "' + data.fromDate + '" AND classDate <= "' + data.toDate + '" Group By b.department',
-		totalClassesByLocation: 'SELECT b.location, COUNT(a.className) AS classCount FROM tbl_lisd a, tbl_lisdLocation b WHERE 0=0 AND a.locationID = b.locationID AND classDate >= "' + data.fromDate + '" AND classDate <= "' + data.toDate + '" Group By b.location',
-		totalClassesByClassType: 'SELECT b.classType, COUNT(a.className) AS classCount FROM tbl_lisd a, tbl_lisdClassType b WHERE 0=0 AND a.classTypeID = b.classTypeID AND classDate >= "' + data.fromDate + '" AND classDate <= "' + data.toDate + '" Group By b.classType'
-	};
+exports.getAllData = function(data,callback) {
 
-	// Build the aggregate response object.  Send it back to the controller once all data has been appended.
-	var appendDataToResponseObject = function(data) {
-		allResults.push(data);
+	var collection = database.collection('lisd_class');
+	collection.find({}).toArray(function(err, docs) {
 
-		// If all results are in the bucket, send it to the controller.
-		if(allResults.length >= Object.keys(queries).length) {
-			callback(allResults, done);
-		}
-	};
-
-	for(var key in queries) {
-		database.queryDB(queries[key], appendDataToResponseObject);
-	}
+	    assert.equal(err, null);
+	    callback(docs);
+	});
 }
-
-
