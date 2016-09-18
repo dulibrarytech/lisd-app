@@ -12,7 +12,7 @@ var url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' +
 MongoClient.connect(url, function(err, db) {
 	assert.equal(null, err);
 	database = db;
-	console.log('Connected to db: ' + url);
+	//console.log('Connected to db: ' + url);
 });
 
 var getStudentTotals = function() {
