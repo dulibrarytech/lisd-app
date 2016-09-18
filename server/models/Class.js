@@ -16,9 +16,9 @@ MongoClient.connect(url, function(err, db) {
 	//console.log('Connected to db: ' + url);
 });
 
-exports.addDocument = function(doc) {
+exports.addDocument = function(document, callbck) {
 
 	// Insert the document
 
-	return true;
+	callbck({status: "ok"});
 }
