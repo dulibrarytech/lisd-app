@@ -28,13 +28,13 @@ describe("Class", function(){
     		comments: [{}]
     	};
 
-    	it("should return an object", function(done){
-	        classModel.addDocument(testDoc, function(results) {
-	            assert.isObject(results);
-	            console.log(results);
-	    	    done();
-	        }, done);
-    	});
+    	// it("should return an object", function(done){
+	    //     classModel.addDocument(testDoc, function(results) {
+	    //         assert.isObject(results);
+	    //         console.log(results);
+	    // 	    done();
+	    //     }, done);
+    	// });
 
     	it("should return a status of ok", function(done){
 	        classModel.addDocument(testDoc, function(results) {
