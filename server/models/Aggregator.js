@@ -2,8 +2,8 @@
 
 module.exports = (function() {
 
-	var database = require('../util/database.js');
-	database.connect();
+	// var database = require('../util/database.js');
+	// database.connect();
 
 	var getStudentTotals = function() {
 
@@ -17,7 +17,7 @@ module.exports = (function() {
 
 	var getAllData = function(data,callback) {
 
-		var db = database.connection();
-		var collection = db.collection('lisd_class');
+		// var db = database.connection();
+		// var collection = db.collection('lisd_class');
 	}
 })()
