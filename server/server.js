@@ -7,8 +7,6 @@ var bodyParser = require('body-parser');
 
 var app = express();
 
-var router = require('./routes/index')(app);
-
 var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -36,6 +34,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client')));
 
 app.set('port', process.env.PORT || 9000);
+
+var router = require('./routes/index')(app);
 
 // Dev server
 var server = app.listen(app.get('port'), function() {

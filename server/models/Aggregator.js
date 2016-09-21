@@ -19,5 +19,12 @@ module.exports = (function() {
 
 		// var db = database.connection();
 		// var collection = db.collection('lisd_class');
+		callback({data:"all"});
 	}
+
+	return {
+		getAllData: function(data,callback) {
+			getAllData(data,callback);
+		}
+	};
 })()
