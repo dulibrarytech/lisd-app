@@ -10,7 +10,7 @@ module.exports = (function() {
 	var connect = function(callback) {
 		MongoClient.connect(url, function( err, db ) {
 			assert.equal(null, err);
-			console.log("Connected to database");
+			//console.log("Connected to database");
 			database = db;
 		});
 	};

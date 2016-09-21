@@ -7,16 +7,39 @@ module.exports = (function() {
 
 	var addDocument = function(data, callback) {
 
-		var doc = {}; // prod
+		//var doc = {}; // prod
 		var db = database.connection();
 		var collection = db.collection('lisd_class');
 
 		// Build db document from data
-		doc = data; // DEV
+		var doc = {
+			courseInfo: { 
+		          className: data.className,
+		          courseNumber: data.courseNumber,
+		          instructor: data.instructor,
+		          dateCreated: new Date(data.dateCreated)
+		    },
+		    enrollmentInfo: {
+		          undergraduates: data.undergraduates,
+		          graduates: data.graduates,
+		          faculty: data.faculty,
+		          other: data.other
+		    },
+		    associatedLibrarians: data.associatedLibrarians,
+		    location: data.location,
+		    department: data.department,
+		    classType: data.classType,
+		    comments: data.comments
+		};
+
+		console.log("doc:");
+		console.log(doc);
 
 		// Update date to date format
-		var date = new Date(doc.courseInfo.dateCreated);
-		doc.courseInfo.dateCreated = date;
+		// if(doc.courseInfo.dateCreated) {
+		// 	var date = new Date(doc.courseInfo.dateCreated);
+		// 	doc.courseInfo.dateCreated = date;
+		// }
 
 		try {
 			// Insert the document

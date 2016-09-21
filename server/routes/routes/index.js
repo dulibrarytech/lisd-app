@@ -1,4 +1,6 @@
+
 var express = require('express');
+var app = express();
 var router = express.Router();
 var aggregatorController = require("../../controllers/aggregatorController.js");
 var classController = require("../../controllers/classController.js");
@@ -34,8 +36,8 @@ router.post('/insert/class', function(req, res) {
     }
 });
 
-router.post('/insert/librarian', function(req, res) {
+// router.post('/insert/librarian', function(req, res) {
 
-});
+// });
 
 module.exports = router;
