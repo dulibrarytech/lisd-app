@@ -2,11 +2,11 @@
 
 require('dotenv').config();
 var settings = require("../config/settings.js");
-var aggregatorModel = require("../models/Aggregator.js")
+var Aggregator = require("../models/Aggregator.js")
 
 module.exports.getDataAll = function(req,res) {
 
-	var response = res;
+	//var response = res;
 	var fromYear = req.query.fromYear, toYear = req.query.toYear;
 
 	var data = {
@@ -16,7 +16,7 @@ module.exports.getDataAll = function(req,res) {
 		librarianID: 0
 	};
 
-	aggregatorModel.getAllData(data, function(responseData) {
-		res.send(responseData)
+	Aggregator.getAllData(data, function(responseData) {
+		res.send(responseData);
 	});
 }

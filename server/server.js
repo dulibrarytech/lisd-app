@@ -20,15 +20,6 @@ var allowCrossDomain = function(req, res, next) {
 // Includes
 require('dotenv').config();
 require("./config/settings.js");
-// require("./lib/Database.js");
-
-// Get a db connection
-//var session = require('express-session');
-// var MongoStore = require('connect-mongo')(session);
-// var url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME;
-// app.use(session({
-//     store: new MongoStore({ url: url })
-// }));
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

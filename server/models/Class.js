@@ -2,19 +2,17 @@
 
 module.exports = (function() {
 
-	var database;
-	var url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME;
-	var MongoClient = require('mongodb').MongoClient, assert = require('assert');
-	MongoClient.connect(url, function(err, db) {
+	var database = require('../util/database.js');
+	database.connect();
 
-	  assert.equal(null, err);
-	  console.log("Connected correctly to server");
-	  database = db;
-	});
+	var addDocument = function(data, callback) {
 
-	var addDocument = function(doc, callback) {
+		var doc = {}; // prod
+		var db = database.connection();
+		var collection = db.collection('lisd_class');
 
-		var collection = database.collection('lisd_class');
+		// Build db document from data
+		doc = data; // DEV
 
 		// Update date to date format
 		var date = new Date(doc.courseInfo.dateCreated);
@@ -23,12 +21,17 @@ module.exports = (function() {
 		try {
 			// Insert the document
 		    collection.insertOne(doc, function(err, result) {
-			    assert.equal(err, null);
-			    callback({status: 'ok', message: 'Inserted 1 document into the collection'});
+			    if(err) {
+			    	callback({status: 'error', message: err});
+			    }
+			    else {
+			    	callback({status: 'ok', message: 'Inserted 1 document into the collection', data: result});
+			    }
 			});
 		} catch (e) {
 			callback({status: 'error', message: e});
 		};
+		// db.close();
 	}
 
 	return {
