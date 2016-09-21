@@ -68,10 +68,10 @@ db.lisd_class.insertOne({
           faculty: 0,
           other: 5
     },
-    associatedLibrarians: [librarian1.insertedId],
-    location: [location2.insertedId],
-    department: [department2.insertedId],
-    classType: [classType3.insertedId],
+    associatedLibrarians: [librarian1.insertedId.valueOf()],
+    location: [location2.insertedId.valueOf()],
+    department: [department2.insertedId.valueOf()],
+    classType: [classType3.insertedId.valueOf()],
     comments: [{ name: "Bill B.", text: "class comment"}]
 });
 
@@ -88,10 +88,10 @@ db.lisd_class.insertOne({
           faculty: 0,
           other: 5
     },
-    associatedLibrarians: [librarian3.insertedId],
-    location: [location2.insertedId],
-    department: [department2.insertedId],
-    classType: [classType1.insertedId],
+    associatedLibrarians: [librarian3.insertedId.valueOf()],
+    location: [location2.insertedId.valueOf()],
+    department: [department2.insertedId.valueOf()],
+    classType: [classType1.insertedId.valueOf()],
     comments: [{ name: "Anonymous", text: "blah blah"}]
 });
 
@@ -108,10 +108,10 @@ db.lisd_class.insertOne({
           faculty: 4,
           other: 3
     },
-    associatedLibrarians: [librarian2.insertedId],
-    location: [location3.insertedId],
-    department: [department1.insertedId],
-    classType: [classType2.insertedId],
+    associatedLibrarians: [librarian2.insertedId.valueOf()],
+    location: [location3.insertedId.valueOf()],
+    department: [department1.insertedId.valueOf()],
+    classType: [classType2.insertedId.valueOf()],
     comments: [{}]
 });
 
@@ -128,9 +128,9 @@ db.lisd_class.insertOne({
           faculty: 5,
           other: 0
     },
-    associatedLibrarians: [librarian1.insertedId,librarian1.insertedId],
-    location: [location1.insertedId],
-    department: [department3.insertedId],
-    classType: [classType1.insertedId],
+    associatedLibrarians: [librarian1.insertedId.valueOf(),librarian1.insertedId.valueOf()],
+    location: [location1.insertedId.valueOf()],
+    department: [department3.insertedId.valueOf()],
+    classType: [classType1.insertedId.valueOf()],
     comments: [{ name: "Robin Reddferd", text: "this is my comment"}, { name: "Peter Bigg", text: "cest la vie"}]
 });
