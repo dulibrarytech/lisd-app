@@ -35,16 +35,17 @@ describe("Server API", function(){
 			className: "MOCHA POST TEST - DELETE THIS RECORD",
 			courseNumber: "test-12345",
 			instructor: "Test Teacher",
-			dateCreated: "2002-12-25",
-			undergraduates: 21,
-			graduates: 3,
-			faculty: 7,
-			other: 2,
+			dateCreated: "2000-12-25",
+			undergraduates: "21",
+			graduates: "3",
+			faculty: "5",
+			other: "2",
 			librarian1: "57e1f8bfadb181f4aec01010",
 			librarian2: "57e1f8bfadb181f4aec00000",
 		    location1: "57e1f8bfadb181f4aec01011",
 		    department1: "57e1f8bfadb181f4aec01111",
-		    classType1: "57e1f8bfadb181f4aec01111"
+		    classType1: "57e1f8bfadb181f4aec01111",
+		    comment: {name: "commenter", text: "comment"}
 		}
 
 		it('should return status 200', function() {

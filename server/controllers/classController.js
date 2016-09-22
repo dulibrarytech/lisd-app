@@ -13,17 +13,16 @@ module.exports.insertClass = function(req, res) {
 		courseNumber: req.body.courseNumber,
 		instructor: req.body.instructor,
 		dateCreated: req.body.dateCreated,
-		undergraduates: req.body.undergraduates,
-		graduates: req.body.graduates,
-		faculty: req.body.faculty,
-		other: req.body.other,
+		undergraduates: Number(req.body.undergraduates),
+		graduates: Number(req.body.graduates),
+		faculty: Number(req.body.faculty),
+		other: Number(req.body.other),
 		associatedLibrarians: [],
 	    location: [],
 	    department: [],
-	    classType: []
+	    classType: [],
+	    comment: [req.body.comment]
 	}
-
-	console.log(data);
 
 	for(var key in req.body) {
 		if(key.substring(0,9) == 'librarian') {
@@ -31,10 +30,13 @@ module.exports.insertClass = function(req, res) {
 		}
 	
 	}
+	
 	//console.log(res);
 	Class.addDocument(data, function(response) {
 		res.send(response);
 	});
+
+	// DEV
 	// res.statusCode = 200;
 	// res.send();
 }
