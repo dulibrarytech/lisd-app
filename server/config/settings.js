@@ -2,8 +2,22 @@
 
 var settings = {
 
-fiscalYearStart: 		"07-01",
-fiscalYearEnd: 			"06-30"
+	server: {
+		fiscalYearStart: 		"07-01",
+		fiscalYearEnd: 			"06-30"
+	},
+
+	test: {
+		api: {
+			runGetGetDataAll: 		true,
+			runPostInsertClass: 	true
+		},
+		class: {
+			
+		}
+	}
+
+
 
 };
 

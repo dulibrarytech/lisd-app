@@ -32,15 +32,6 @@ module.exports = (function() {
 		    comments: data.comments
 		};
 
-		console.log("doc:");
-		console.log(doc);
-
-		// Update date to date format
-		// if(doc.courseInfo.dateCreated) {
-		// 	var date = new Date(doc.courseInfo.dateCreated);
-		// 	doc.courseInfo.dateCreated = date;
-		// }
-
 		try {
 			// Insert the document
 		    collection.insertOne(doc, function(err, result) {
@@ -54,7 +45,7 @@ module.exports = (function() {
 		} catch (e) {
 			callback({status: 'error', message: e});
 		};
-		// db.close();
+		db.close();
 	}
 
 	return {
