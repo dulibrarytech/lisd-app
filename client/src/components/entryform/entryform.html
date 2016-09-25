@@ -1,0 +1,24 @@
+<!-- <template>
+  <section class="au-animate">
+    <h2>${heading}</h2>
+    <button type="button" class="btn btn-default" click.delegate="start()">Start</button>
+  </section>
+</template> -->
+
+<template>
+
+	<h3>Entry Form</h3>
+
+	<form role = "form" submit.delegate = "signup()">
+
+      <label for = "email">Email</label>
+      <input type = "text" value.bind = "email" placeholder = "Email">
+
+      <label for = "password">Password</label>
+      <input type = "password" value.bind = "password" placeholder = "Password">
+
+      <button type = "submit">Signup</button>
+   </form>
+
+</template>
+
