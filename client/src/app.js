@@ -5,7 +5,7 @@ export class App {
     config.map([
       { route: ['', 'home'], name: 'home',      moduleId: 'components/home/home',      nav: true, title: 'Home' },
       { route: ['users', 'users'], name: 'users',      moduleId: 'components/users/users',      nav: true, title: 'Users' },
-      { route: ['form', 'form'], name: 'form',      moduleId: 'components/form/form',      nav: true, title: 'Form' }
+      { route: ['entryform', 'entryform'], name: 'entryform',      moduleId: 'components/entryform/entryform',      nav: true, title: 'Entry Form' }
     ]);
 
     this.router = router;
