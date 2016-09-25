@@ -28,7 +28,15 @@ module.exports.insertClass = function(req, res) {
 		if(key.substring(0,9) == 'librarian') {
 			data['associatedLibrarians'].push(req.body[key]);
 		}
-	
+		if(key.substring(0,9) == 'location') {
+			data['location'].push(req.body[key]);
+		}
+		if(key.substring(0,9) == 'department') {
+			data['department'].push(req.body[key]);
+		}
+		if(key.substring(0,9) == 'classType') {
+			data['classType'].push(req.body[key]);
+		}
 	}
 	
 	//console.log(res);
