@@ -15,7 +15,6 @@ var allowCrossDomain = function(req, res, next) {
     next();
 };
 
-// Includes
 require('dotenv').config();
 require("./config/settings.js");
 
@@ -32,6 +31,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(allowCrossDomain);
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client')));
+
+//app.disable('x-powered-by');
 
 app.set('port', process.env.PORT || 9000);
 
