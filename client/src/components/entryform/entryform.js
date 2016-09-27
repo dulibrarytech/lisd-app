@@ -1,12 +1,34 @@
+import 'fetch';
+import {HttpClient, json} from 'aurelia-fetch-client';
+
+let httpClient = new HttpClient();
 
 export class EntryForm {
 
-	email = '';
-   password = '';
+    selectedVal = 3;
 
-   signup() {
-      var myUser = { email: this.email, password: this.password };
-      console.log(myUser);
-   };
+    librarians = this.getLibrarianList();
+
+
+
+
+   // Get data for dropdowns
+
+   // Add handlers
+
+
+
+    getLibrarianList() {
+      console.log("gll");
+      var librarianList = [];
+
+      librarianList.push("librarian 1");
+      librarianList.push("librarian 2");
+      librarianList.push("librarian 3");
+
+      console.log(librarianList);
+
+      return librarianList;
+    };
 }
 
