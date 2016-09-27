@@ -5,7 +5,8 @@ let httpClient = new HttpClient();
 
 export class EntryForm {
 
-    selectedVal = 3;
+    librarianCount = 1;
+    librarian1;
 
     librarians = this.getLibrarianList();
 
@@ -19,16 +20,27 @@ export class EntryForm {
 
 
     getLibrarianList() {
-      console.log("gll");
+
       var librarianList = [];
 
-      librarianList.push("librarian 1");
-      librarianList.push("librarian 2");
-      librarianList.push("librarian 3");
+      // Get list from server
+      librarianList.push("John");
+      librarianList.push("Jane");
+      librarianList.push("June");
 
       console.log(librarianList);
 
       return librarianList;
     };
+
+    addLibrarian() {
+    	this.librarianCount++;
+
+    	// Append select element
+    }
+
+    submit() {
+    	console.log(this.librarianCount);
+    }
 }
 

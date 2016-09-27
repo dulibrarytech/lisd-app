@@ -1,19 +1,25 @@
 
 <template>
 
-	<h3>Entry Form</h3>
+	
+		<h3>Entry Form</h3>
 
-	<form role = "form" submit.delegate = "submit()">
+		<div id="entry-form">
 
-      <select value.bind="selectedVal">
-        <option repeat.for="librarian of librarians" 
+			<form role="form" submit.delegate="submit()">
 
-        	value.bind="librarian">${librarian}
-        </option>
-      </select>
+		      <div class="form-group" id="librarian-select">
+			      <select class="form-control" value.bind="librarian1">
+			        <option repeat.for="librarian of librarians" 
 
-      <button type = "submit">Save</button>
-   	</form>
+			        	value.bind="librarian">${librarian}
+			        </option>
+			      </select>
 
+		      </div>
+
+		      <button type="submit" class="btn btn-default">Save</button>
+		   	</form>
+	   	</div>
 </template>
 
