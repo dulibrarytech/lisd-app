@@ -1,24 +1,19 @@
-<!-- <template>
-  <section class="au-animate">
-    <h2>${heading}</h2>
-    <button type="button" class="btn btn-default" click.delegate="start()">Start</button>
-  </section>
-</template> -->
 
 <template>
 
 	<h3>Entry Form</h3>
 
-	<form role = "form" submit.delegate = "signup()">
+	<form role = "form" submit.delegate = "submit()">
 
-      <label for = "email">Email</label>
-      <input type = "text" value.bind = "email" placeholder = "Email">
+      <select value.bind="selectedVal">
+        <option repeat.for="librarian of librarians" 
 
-      <label for = "password">Password</label>
-      <input type = "password" value.bind = "password" placeholder = "Password">
+        	value.bind="librarian">${librarian}
+        </option>
+      </select>
 
-      <button type = "submit">Signup</button>
-   </form>
+      <button type = "submit">Submit</button>
+   	</form>
 
 </template>
 
