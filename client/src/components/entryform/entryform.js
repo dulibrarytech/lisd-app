@@ -26,9 +26,9 @@ export class EntryForm {
 
       // DEV
       if(dataSet == 'librarian') {
-	      list.push("John");
-	      list.push("Jane");
-	      list.push("June");
+	      list.push({name: "John", id: "12345"});
+	      list.push({name: "Jane", id: "23456"});
+	      list.push({name: "June", id: "34567"});
 	  }
 	  else if(dataSet == 'location') {
 	      list.push("AAC 275");
