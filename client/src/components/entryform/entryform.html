@@ -16,7 +16,7 @@
 
 			      <select repeat.for="i of librarianCount" class="form-control" value.bind="newLibrarianValue[i]">
 
-			        <option repeat.for="librarian of librarianList" value.bind="librarian"> ${librarian} </option>
+			        <option repeat.for="librarian of librarianList" value.bind="librarian.id"> ${librarian.name} </option>
 
 			      </select>
 
