@@ -6,18 +6,27 @@
 
 		<div id="entry-form">
 
-			<form role="form" submit.delegate="submit()">
+			<form role="form" id="entryForm" submit.delegate="submit()">
 
 		      <div class="form-group" id="librarian-select">
-			      <select class="form-control" value.bind="librarian1">
-			        <option repeat.for="librarian of librarians" 
+		      	  <button type="button" class="btn btn-default" click.delegate="addLibrarian()">Add another Librarian</button>
 
-			        	value.bind="librarian">${librarian}
-			        </option>
+
+
+
+			      <select repeat.for="i of librarianCount" class="form-control" value.bind="newLibrarianValue[i]">
+
+			        <option repeat.for="librarian of librarianList" value.bind="librarian"> ${librarian} </option>
+
 			      </select>
+
+
+
+
 
 		      </div>
 
+		   
 		      <button type="submit" class="btn btn-default">Save</button>
 		   	</form>
 	   	</div>

@@ -5,42 +5,66 @@ let httpClient = new HttpClient();
 
 export class EntryForm {
 
+    // Load dropdown data 
     librarianCount = 1;
-    librarian1;
+    librarianList = this.getDropdownList('librarian');
+    newLibrarianValue = [];
 
-    librarians = this.getLibrarianList();
+    locationCount = 1;
+    locationList = this.getDropdownList('location');
+    departmentCount = 1;
+    departmentList = this.getDropdownList('department');
+    classTypeCount = 1;
+    classTypeList = this.getDropdownList('classType');
 
+    // From data variables
+    librarianSelect;
 
+    // Retrieves the current list from the server
+    getDropdownList(dataSet) {
+      var list = [];
 
-
-   // Get data for dropdowns
-
-   // Add handlers
-
-
-
-    getLibrarianList() {
-
-      var librarianList = [];
-
-      // Get list from server
-      librarianList.push("John");
-      librarianList.push("Jane");
-      librarianList.push("June");
-
-      console.log(librarianList);
-
-      return librarianList;
+      // DEV
+      if(dataSet == 'librarian') {
+	      list.push("John");
+	      list.push("Jane");
+	      list.push("June");
+	  }
+	  else if(dataSet == 'location') {
+	      list.push("AAC 275");
+	      list.push("AAC 340");
+	      list.push("AAC 313");
+	  }
+	  else if(dataSet == 'department') {
+	      list.push("Biology");
+	      list.push("Chemistry");
+	      list.push("History");
+	  }
+	  else if(dataSet == 'classType') {
+	      list.push("Undergrad");
+	      list.push("Grad");
+	      list.push("Other");
+	  }
+	  else {
+	  	list.push("error");
+	  }
+      console.log(list);
+      return list;
     };
 
     addLibrarian() {
-    	this.librarianCount++;
 
-    	// Append select element
+		var newValue = "librarian" + (++this.librarianCount);
+    	this.newLibrarianValue.push(newValue);
+    }
+
+    selectOption(dataSet) {
+    	console.log("sel option");
     }
 
     submit() {
-    	console.log(this.librarianCount);
+    	console.log("sel:");
+    	console.log(this.newLibrarianValue);
     }
 }
 

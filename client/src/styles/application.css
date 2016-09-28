@@ -2,6 +2,16 @@
     position: relative;
 }
 
+div#du-header {
+	background-color: #8b2332;
+	color: white;
+	height: 50px;
+}
+
+div#du-header > h5 {
+	margin: 0;
+}
+
 router-view > h3 {
 	margin-left: 2em;
 }
