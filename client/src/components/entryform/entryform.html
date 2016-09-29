@@ -9,24 +9,33 @@
 			<form role="form" id="entryForm" submit.delegate="submit()">
 
 		      <div class="form-group" id="librarian-select">
-		      	  <button type="button" class="btn btn-default" click.delegate="addLibrarian()">Add another Librarian</button>
-
-
-
-
+		      	  <button type="button" id="add-librarian" class="btn btn-default" click.delegate="addLibrarian()">Add another librarian</button>
 			      <select repeat.for="i of librarianCount" class="form-control" value.bind="newLibrarianValue[i]">
-
 			        <option repeat.for="librarian of librarianList" value.bind="librarian.id"> ${librarian.name} </option>
-
 			      </select>
-
-
-
-
-
 		      </div>
 
-		   
+		      <div class="form-group" id="location-select">
+		      	<button type="button" id="add-location" class="btn btn-default" click.delegate="addLocation()">Add another location</button>
+		      	<select repeat.for="i of locationCount" class="form-control" value.bind="newLocationValue[i]">
+			      <option repeat.for="location of locationList" value.bind="location.id"> ${location.name} </option>
+			    </select>
+		      </div>
+
+		      <div class="form-group" id="department-select">
+		      	<button type="button" id="add-department" class="btn btn-default" click.delegate="addDepartment()">Add another department</button>
+		      	<select repeat.for="i of departmentCount" class="form-control" value.bind="newDepartmentValue[i]">
+			      <option repeat.for="department of departmentList" value.bind="department.id"> ${department.name} </option>
+			    </select>
+		      </div>
+
+		      <div class="form-group" id="classtype-select">
+		      	<button type="button" id="add-classtype" class="btn btn-default" click.delegate="addClassType()">Add another class type</button>
+		      	<select repeat.for="i of classTypeCount" class="form-control" value.bind="newClassTypeValue[i]">
+			      <option repeat.for="classType of classTypeList" value.bind="classType.id"> ${classType.name} </option>
+			    </select>
+		      </div>
+
 		      <button type="submit" class="btn btn-default">Save</button>
 		   	</form>
 	   	</div>

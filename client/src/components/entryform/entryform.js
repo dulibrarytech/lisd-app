@@ -5,20 +5,45 @@ let httpClient = new HttpClient();
 
 export class EntryForm {
 
-    // Load dropdown data 
+    // Form control variables
     librarianCount = 1;
-    librarianList = this.getDropdownList('librarian');
     newLibrarianValue = [];
-
     locationCount = 1;
-    locationList = this.getDropdownList('location');
+    newLocationValue = [];
     departmentCount = 1;
-    departmentList = this.getDropdownList('department');
+    newDepartmentValue = [];
     classTypeCount = 1;
+    newClassTypeValue = [];
+
+	// Load dropdown data 
+    librarianList = this.getDropdownList('librarian');
+    locationList = this.getDropdownList('location');
+    departmentList = this.getDropdownList('department');
     classTypeList = this.getDropdownList('classType');
 
-    // From data variables
-    librarianSelect;
+    // Add additional select input
+    addLibrarian() {
+		var newValue = "librarian" + (++this.librarianCount);
+    	this.newLibrarianValue.push(newValue);
+    }
+
+    // Add additional select input
+    addLocation() {
+		var newValue = "location" + (++this.locationCount);
+    	this.newLocationValue.push(newValue);
+    }
+
+    // Add additional select input
+    addDepartment() {
+		var newValue = "department" + (++this.departmentCount);
+    	this.newDepartmentValue.push(newValue);
+    }
+
+    // Add additional select input
+    addLibrarian() {
+		var newValue = "classType" + (++this.classTypeCount);
+    	this.newClassTypeValue.push(newValue);
+    }
 
     // Retrieves the current list from the server
     getDropdownList(dataSet) {
@@ -31,32 +56,26 @@ export class EntryForm {
 	      list.push({name: "June", id: "34567"});
 	  }
 	  else if(dataSet == 'location') {
-	      list.push("AAC 275");
-	      list.push("AAC 340");
-	      list.push("AAC 313");
+	      list.push({name: "AAC 275", id: "12345"});
+	      list.push({name: "AAC 340", id: "23456"});
+	      list.push({name: "AAC 313", id: "34567"});
 	  }
 	  else if(dataSet == 'department') {
-	      list.push("Biology");
-	      list.push("Chemistry");
-	      list.push("History");
+	      list.push({name: "Biology", id: "12345"});
+	      list.push({name: "Chemistry", id: "23456"});
+	      list.push({name: "History", id: "34567"});
 	  }
 	  else if(dataSet == 'classType') {
-	      list.push("Undergrad");
-	      list.push("Grad");
-	      list.push("Other");
+	      list.push({name: "AAC 275", id: "12345"});
+	      list.push({name: "AAC 275", id: "23456"});
+	      list.push({name: "AAC 275", id: "34567"});
 	  }
 	  else {
 	  	list.push("error");
 	  }
-      console.log(list);
+
       return list;
     };
-
-    addLibrarian() {
-
-		var newValue = "librarian" + (++this.librarianCount);
-    	this.newLibrarianValue.push(newValue);
-    }
 
     selectOption(dataSet) {
     	console.log("sel option");
