@@ -15,7 +15,18 @@ export class EntryForm {
     classTypeCount = 1;
     selectedClassTypes = [];
 
+    selectedAcrlFrames = [];
+
     quarters = ['Fall', 'Winter', 'Spring', 'Summer'];
+
+    acrlFrames = [
+    	'Authority Is Constructed and Contextual',
+    	'Information Creation as a Process',
+    	'Information Has Value',
+    	'Research as Inquiry',
+    	'Scholarship as Conversation',
+    	'Searching as Strategic Exploration'
+    ]
 
 	// Load dropdown data 
     librarianList = this.getDropdownList('librarian');

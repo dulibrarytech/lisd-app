@@ -48,3 +48,7 @@ select.form-control {
 	width: 25%;
 	margin: 1.7em;
 }
+
+div#course-enrollment-group > input {
+	width: 4em;
+}
