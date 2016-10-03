@@ -15,9 +15,6 @@ export class EntryForm {
     classTypeCount = 1;
     selectedClassTypes = [];
 
-    // Form data to submit to server
-    formData = {};
-
 	// Load dropdown data 
     librarianList = this.getDropdownList('librarian');
     locationList = this.getDropdownList('location');
@@ -80,17 +77,23 @@ export class EntryForm {
       return list;
     };
 
-    selectOption(dataSet) {
-    	console.log("sel option");
+    selectLibrarian() {
+    	console.log("sel librarian");
+
+    	// Remove the default text
+    	console.log(this.librarianList);
     }
 
     submit() {
-    	this.formData['librarian'] = this.selectedLibrarians;
-    	this.formData['location'] = this.selectedLocations;
-    	this.formData['department'] = this.selectedDepartments;
-    	this.formData['classType'] = this.selectedClassTypes;
 
-    	console.log(this.formData);
+    	var formData = {};
+
+    	formData['librarian'] = this.selectedLibrarians;
+    	formData['location'] = this.selectedLocations;
+    	formData['department'] = this.selectedDepartments;
+    	formData['classType'] = this.selectedClassTypes;
+
+    	//console.log(formData);
     }
 }
 
