@@ -7,13 +7,16 @@ export class EntryForm {
 
     // Form control variables
     librarianCount = 1;
-    newLibrarianValue = [];
+    selectedLibrarians = [];
     locationCount = 1;
-    newLocationValue = [];
+    selectedLocations = [];
     departmentCount = 1;
-    newDepartmentValue = [];
+    selectedDepartments = [];
     classTypeCount = 1;
-    newClassTypeValue = [];
+    selectedClassTypes = [];
+
+    // Form data to submit to server
+    formData = {};
 
 	// Load dropdown data 
     librarianList = this.getDropdownList('librarian');
@@ -24,25 +27,25 @@ export class EntryForm {
     // Add additional select input
     addLibrarian() {
 		var newValue = "librarian" + (++this.librarianCount);
-    	this.newLibrarianValue.push(newValue);
+    	this.selectedLibrarians.push(newValue);
     }
 
     // Add additional select input
     addLocation() {
 		var newValue = "location" + (++this.locationCount);
-    	this.newLocationValue.push(newValue);
+    	this.selectedLocations.push(newValue);
     }
 
     // Add additional select input
     addDepartment() {
 		var newValue = "department" + (++this.departmentCount);
-    	this.newDepartmentValue.push(newValue);
+    	this.selectedDepartments.push(newValue);
     }
 
     // Add additional select input
-    addLibrarian() {
+    addClassType() {
 		var newValue = "classType" + (++this.classTypeCount);
-    	this.newClassTypeValue.push(newValue);
+    	this.selectedClassTypes.push(newValue);
     }
 
     // Retrieves the current list from the server
@@ -82,8 +85,12 @@ export class EntryForm {
     }
 
     submit() {
-    	console.log("sel:");
-    	console.log(this.newLibrarianValue);
+    	this.formData['librarian'] = this.selectedLibrarians;
+    	this.formData['location'] = this.selectedLocations;
+    	this.formData['department'] = this.selectedDepartments;
+    	this.formData['classType'] = this.selectedClassTypes;
+
+    	console.log(this.formData);
     }
 }
 
