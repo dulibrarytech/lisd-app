@@ -12,14 +12,16 @@ export class EntryForm {
     selectedLocations = [];
     departmentCount = 1;
     selectedDepartments = [];
-    classTypeCount = 1;
-    selectedClassTypes = [];
 
-    selectedAcrlFrames = [];
+    selectedClassTypes = {};
+    selectedAcrlFrames = {};
 
     quarters = ['Fall', 'Winter', 'Spring', 'Summer'];
 
+    classTypes = ['Undergraduate', 'Graduate', 'Faculty/Staff', 'Other'];
+
     acrlFrames = [
+    
     	'Authority Is Constructed and Contextual',
     	'Information Creation as a Process',
     	'Information Has Value',
@@ -55,12 +57,16 @@ export class EntryForm {
     	document.getElementById("add-department").style.visibility = "hidden";
     }
 
-    // Add additional select input
-    addClassType() {
-		var newValue = "classType" + (++this.classTypeCount);
-    	this.selectedClassTypes.push(newValue);
-    	document.getElementById("add-classType").style.visibility = "hidden";
-    }
+  //   // Add additional select input
+  //   addClassType() {
+		// var newValue = "classType" + (++this.classTypeCount);
+  //   	this.selectedClassTypes.push(newValue);
+  //   	document.getElementById("add-classType").style.visibility = "hidden";
+  //   }
+
+  //   addACRLFrame(frame) {
+  //   	console.log(frame);
+  //   }
 
     // Retrieves the current list from the server
     getDropdownList(dataSet) {
@@ -102,10 +108,24 @@ export class EntryForm {
 
     	var formData = {};
 
+    	// Get dropdown select data
     	formData['librarian'] = this.selectedLibrarians;
     	formData['location'] = this.selectedLocations;
     	formData['department'] = this.selectedDepartments;
-    	formData['classType'] = this.selectedClassTypes;
+
+    	// Get checkbox group data
+    	formData['classType'] = [];
+    	formData['acrlFrame'] = [];
+    	for(var key in this.selectedClassTypes) {
+    		if(this.selectedClassTypes[key] == true) {
+    			formData['classType'].push(key);
+    		}
+    	}
+    	for(var key in this.selectedAcrlFrames) {
+    		if(this.selectedAcrlFrames[key] == true) {
+    			formData['acrlFrame'].push(key);
+    		}
+    	}
 
     	console.log(formData);
     }

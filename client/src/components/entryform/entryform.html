@@ -45,7 +45,7 @@
 		      </div>
 
 		      <div class="form-group" id="librarian-select-group">
-		      	  <!-- <label for="librarian-select">Select a libraria</label> -->
+		      	  <label for="librarian-select">Librarian:</label>
 		      	  <span id="add-librarian" class="click-span" style="visibility: hidden" click.delegate="addLibrarian()">+ Add another librarian</span>
 			      <select repeat.for="i of librarianCount" click.delegate="selectOption('add-librarian')" id="librarian-select" class="form-control" value.bind="selectedLibrarians[i]">
 			        <option selected hidden>Select a Librarian:</option>
@@ -54,6 +54,7 @@
 		      </div>
 
 		      <div class="form-group" id="location-select-group">
+		        <label for="librarian-select">Location:</label>
 		      	<span id="add-location" class="click-span" style="visibility: hidden" click.delegate="addLocation()">+ Add another location</span>
 		      	<select repeat.for="i of locationCount" click.delegate="selectOption('add-location')" id="location-select" class="form-control" value.bind="selectedLocations[i]">
 		      	  <option selected hidden>Select a Location:</option>
@@ -62,6 +63,7 @@
 		      </div>
 
 		      <div class="form-group" id="department-select-group">
+		        <label for="librarian-select">Department:</label>
 		      	<span id="add-department" class="click-span" style="visibility: hidden" click.delegate="addDepartment()">+ Add another department</span>
 		      	<select repeat.for="i of departmentCount" click.delegate="selectOption('add-department')" id="department-select" class="form-control" value.bind="selectedDepartments[i]">
 		      	  <option selected hidden>Select a Department:</option>
@@ -69,16 +71,22 @@
 			    </select>
 		      </div>
 
-		      <div class="form-group" id="classtype-select-group">
+<!-- 		      <div class="form-group" id="classtype-select-group">
 		      	<span id="add-classType" class="click-span" style="visibility: hidden" click.delegate="addClassType()">+ Add another class type</span>
 		      	<select repeat.for="i of classTypeCount" click.delegate="selectOption('add-classType')" id="classType-select" class="form-control" value.bind="selectedClassTypes[i]">
 		      	  <option selected hidden>Select a Class Type:</option>
 			      <option repeat.for="classType of classTypeList" value.bind="classType.id"> ${classType.name} </option>
 			    </select>
+		      </div> -->
+
+		      <div class="form-group checkbox-group">
+		        <label>Select a class type:</label>
+		      	<label repeat.for="type of classTypes">${type}<input type="checkbox" checked.bind="selectedClassTypes[type]"></label>
 		      </div>
 
-		      <div class="form-group" id="acrl-select-group">
-		      	<label repeat.for="quarter of quarters" for = "acrl-option-1">Checkbox<input type = "checkbox" id = "acrl-option-1" checked.bind = "isChecked"></label>
+		      <div class="form-group checkbox-group">
+		        <label>Select an ACRL framework:</label>
+		      	<label repeat.for="frame of acrlFrames">${frame}<input type="checkbox" checked.bind="selectedAcrlFrames[frame]"></label>
 		      </div>
 
 		      <button type="submit" class="btn btn-default">Save</button>
