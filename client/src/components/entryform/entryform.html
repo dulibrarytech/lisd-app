@@ -10,18 +10,23 @@
 
 			  <div class="form-group" id="class-info-group">
 			  	<div id="class-date">
-			  	  <label for = "classDate">Class Date:</label>
-       			  <input type = "text" value.bind = "classDate" placeholder = "">			<!-- Onclick - date widget -->
+			  	  <label for="classDate">Class Date:</label>
+       			  <input type="text" value.bind="classDate" placeholder = "">			<!-- Onclick - date widget -->
+
+       			  <label for="quarterSelect">Quarter:</label>
+       			  <select value.bind="quarterSelect">
+			        <option repeat.for="quarter of quarters" value.bind="quarter">${quarter}</option>
+			      </select>
        			</div>
        			<div id="class-info">
-			  	  <label for = "className">Class Name:</label>
-       			  <input type = "text" value.bind = "className" placeholder = "">	
+			  	  <label for="className">Class Name:</label>
+       			  <input type="text" value.bind="className" placeholder = "">	
 
-       			  <label for = "courseNumber">Course Number:</label>
-       			  <input type = "text" value.bind = "courseNumber" placeholder = "">
+       			  <label for="courseNumber">Course Number:</label>
+       			  <input type="text" value.bind="courseNumber" placeholder = "">
 
-       			  <label for = "instructorName">Instructor Name:</label>
-       			  <input type = "text" value.bind = "instructorName" placeholder = "">		
+       			  <label for="instructorName">Instructor Name:</label>
+       			  <input type="text" value.bind="instructorName" placeholder = "">		
        			</div>
 		      </div>
 
