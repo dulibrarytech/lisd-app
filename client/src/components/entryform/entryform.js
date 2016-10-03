@@ -15,6 +15,8 @@ export class EntryForm {
     classTypeCount = 1;
     selectedClassTypes = [];
 
+    quarters = ['Fall', 'Winter', 'Spring', 'Summer'];
+
 	// Load dropdown data 
     librarianList = this.getDropdownList('librarian');
     locationList = this.getDropdownList('location');
