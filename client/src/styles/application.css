@@ -52,3 +52,11 @@ select.form-control {
 div#course-enrollment-group > input {
 	width: 4em;
 }
+
+div.checkbox-group > * {
+	display: block;
+}
+
+div.checkbox-group label input {
+	float: left;
+}
