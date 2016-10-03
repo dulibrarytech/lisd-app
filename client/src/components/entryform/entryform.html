@@ -9,45 +9,69 @@
 			<form role="form" id="entryForm" submit.delegate="submit()">
 
 			  <div class="form-group" id="class-info-group">
-			  	<div class="class-info">
-			  	  <label for="classDate">Class Date:</label>
-       			  <input type="text" value.bind="classDate" placeholder = "">			<!-- Onclick - date widget -->
 
-       			  <label for="quarterSelect">Quarter:</label>
-       			  <select value.bind="quarterSelect">
-			        <option repeat.for="quarter of quarters" value.bind="quarter">${quarter}</option>
-			      </select>
-       			</div>
-       			<div class="class-info">
-			  	  <label for="className">Class Name:</label>
-       			  <input type="text" value.bind="className" placeholder = "">	
+			  	<section class="class-info">
+			  	  <div style="float:left;">
+				  	  <label class="form-label" for="classDate">Class Date:</label>
+	       			  <input type="text" value.bind="classDate" placeholder = "">			<!-- Onclick - date widget -->
+       			  </div>
 
-       			  <label for="courseNumber">Course Number:</label>
-       			  <input type="text" value.bind="courseNumber" placeholder = "">
+       			  <div style="float:left;">
+	       			  <label class="form-label" for="quarterSelect">Quarter:</label>
+	       			  <select value.bind="quarterSelect">
+				        <option repeat.for="quarter of quarters" value.bind="quarter">${quarter}</option>
+				      </select>
+			      </div>
+			      <br style="clear:both;" />
+       			</section>
 
-       			  <label for="instructorName">Instructor Name:</label>
-       			  <input type="text" value.bind="instructorName" placeholder = "">		
-       			</div>
+       			<section class="class-info">
+       			  <div style="float:left;">
+				  	  <label class="form-label" for="className">Class Name:</label>
+	       			  <input type="text" value.bind="className" placeholder = "">
+       			  </div>	
+
+       			  <div style="float:left;">
+	       			  <label class="form-label" for="courseNumber">Course Number:</label>
+	       			  <input type="text" value.bind="courseNumber" placeholder = "">
+       			  </div>
+
+       			  <div style="float:left;">
+	       			  <label class="form-label" for="instructorName">Instructor Name:</label>
+	       			  <input type="text" value.bind="instructorName" placeholder = "">
+       			  </div>
+       			  <br style="clear:both;" />		
+       			</section>
+
 		      </div>
 
 		      <div class="form-group" id="course-enrollment-group">
-		      	  <label for="numGraduates">Number of Graduates:</label>
-       			  <input type="text" value.bind="numGraduates" placeholder = "">	
+		      	<div style="float:left;">
+		      	  <label class="form-label" for="numGraduates">Number of Graduates:</label>
+       			  <input type="text" value.bind="numGraduates" placeholder = "">
+       			</div>	
 
-       			  <label for="numUndergraduates">Number of Undergraduates:</label>
-       			  <input type="text" value.bind="numUndergraduates" placeholder = "">
+       			<div style="float:left;">
+       			  <label class="form-label" for="numUndergraduates">Number of Undergraduates:</label>
+       			  <input class="form-label"type="text" value.bind="numUndergraduates" placeholder = "">
+       			</div>
 
-       			  <label for="numFacultyStaff">Number of Faculty/Staff:</label>
+       			<div style="float:left;">
+       			  <label class="form-label" for="numFacultyStaff">Number of Faculty/Staff:</label>
        			  <input type="text" value.bind="numFacultyStaff" placeholder = "">
+       			</div>
 
-       			  <label for="numOther">Number of "Other":</label>
+       			<div style="float:left;">
+       			  <label class="form-label" for="numOther">Number of "Other":</label>
        			  <input type="text" value.bind="numOther" placeholder = "">
+       			</div>
+       			<br style="clear:both;" />
 		      </div>
 
 		      <div class="form-group" id="librarian-select-group">
 		      	  <label for="librarian-select">Librarian:</label>
 		      	  <span id="add-librarian" class="click-span" style="visibility: hidden" click.delegate="addLibrarian()">+ Add another librarian</span>
-			      <select repeat.for="i of librarianCount" click.delegate="selectOption('add-librarian')" id="librarian-select" class="form-control" value.bind="selectedLibrarians[i]">
+			      <select repeat.for="i of librarianCount" change.trigger="selectOption('add-librarian')" id="librarian-select" class="form-control" value.bind="selectedLibrarians[i]">
 			        <option selected hidden>Select a Librarian:</option>
 			        <option repeat.for="librarian of librarianList" value.bind="librarian.id"> ${librarian.name} </option>
 			      </select>
@@ -56,7 +80,7 @@
 		      <div class="form-group" id="location-select-group">
 		        <label for="librarian-select">Location:</label>
 		      	<span id="add-location" class="click-span" style="visibility: hidden" click.delegate="addLocation()">+ Add another location</span>
-		      	<select repeat.for="i of locationCount" click.delegate="selectOption('add-location')" id="location-select" class="form-control" value.bind="selectedLocations[i]">
+		      	<select repeat.for="i of locationCount" change.trigger="selectOption('add-location')" id="location-select" class="form-control" value.bind="selectedLocations[i]">
 		      	  <option selected hidden>Select a Location:</option>
 			      <option repeat.for="location of locationList" value.bind="location.id"> ${location.name} </option>
 			    </select>
@@ -65,7 +89,7 @@
 		      <div class="form-group" id="department-select-group">
 		        <label for="librarian-select">Department:</label>
 		      	<span id="add-department" class="click-span" style="visibility: hidden" click.delegate="addDepartment()">+ Add another department</span>
-		      	<select repeat.for="i of departmentCount" click.delegate="selectOption('add-department')" id="department-select" class="form-control" value.bind="selectedDepartments[i]">
+		      	<select repeat.for="i of departmentCount" change.trigger="selectOption('add-department')" id="department-select" class="form-control" value.bind="selectedDepartments[i]">
 		      	  <option selected hidden>Select a Department:</option>
 			      <option repeat.for="department of departmentList" value.bind="department.id"> ${department.name} </option>
 			    </select>
@@ -81,12 +105,20 @@
 
 		      <div class="form-group checkbox-group">
 		        <label>Select a class type:</label>
-		      	<label repeat.for="type of classTypes">${type}<input type="checkbox" checked.bind="selectedClassTypes[type]"></label>
+		      	<label class="checkbox-text" repeat.for="type of classTypes">${type}<input type="checkbox" checked.bind="selectedClassTypes[type]"></label>
 		      </div>
 
 		      <div class="form-group checkbox-group">
 		        <label>Select an ACRL framework:</label>
-		      	<label repeat.for="frame of acrlFrames">${frame}<input type="checkbox" checked.bind="selectedAcrlFrames[frame]"></label>
+		      	<label class="checkbox-text" repeat.for="frame of acrlFrames">${frame}<input type="checkbox" checked.bind="selectedAcrlFrames[frame]"></label>
+		      </div>
+
+		      <div class="form-group" id="comments">
+		        <div style="float:left;">
+		      	  <label class="form-label" for="commentText">Comments:</label>
+		      	  <textarea value.bind="commentText"></textarea>
+		      	</div>
+		      	<br style="clear:both;" />
 		      </div>
 
 		      <button type="submit" class="btn btn-default">Save</button>

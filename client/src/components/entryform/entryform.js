@@ -21,7 +21,7 @@ export class EntryForm {
     classTypes = ['Undergraduate', 'Graduate', 'Faculty/Staff', 'Other'];
 
     acrlFrames = [
-    
+
     	'Authority Is Constructed and Contextual',
     	'Information Creation as a Process',
     	'Information Has Value',
@@ -102,6 +102,7 @@ export class EntryForm {
 
     selectOption(val) {
     	document.getElementById(val).style.visibility = "visible";	
+    	console.log(document.getElementById(val).value);
     }
 
     submit() {
