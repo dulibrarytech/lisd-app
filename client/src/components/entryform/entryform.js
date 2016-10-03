@@ -25,24 +25,28 @@ export class EntryForm {
     addLibrarian() {
 		var newValue = "librarian" + (++this.librarianCount);
     	this.selectedLibrarians.push(newValue);
+    	document.getElementById("add-librarian").style.visibility = "hidden";
     }
 
     // Add additional select input
     addLocation() {
 		var newValue = "location" + (++this.locationCount);
     	this.selectedLocations.push(newValue);
+    	document.getElementById("add-location").style.visibility = "hidden";
     }
 
     // Add additional select input
     addDepartment() {
 		var newValue = "department" + (++this.departmentCount);
     	this.selectedDepartments.push(newValue);
+    	document.getElementById("add-department").style.visibility = "hidden";
     }
 
     // Add additional select input
     addClassType() {
 		var newValue = "classType" + (++this.classTypeCount);
     	this.selectedClassTypes.push(newValue);
+    	document.getElementById("add-classType").style.visibility = "hidden";
     }
 
     // Retrieves the current list from the server
@@ -66,9 +70,9 @@ export class EntryForm {
 	      list.push({name: "History", id: "34567"});
 	  }
 	  else if(dataSet == 'classType') {
-	      list.push({name: "AAC 275", id: "12345"});
-	      list.push({name: "AAC 275", id: "23456"});
-	      list.push({name: "AAC 275", id: "34567"});
+	      list.push({name: "Undergraduate", id: "12345"});
+	      list.push({name: "Graduate", id: "23456"});
+	      list.push({name: "Other", id: "34567"});
 	  }
 	  else {
 	  	list.push("error");
@@ -77,11 +81,8 @@ export class EntryForm {
       return list;
     };
 
-    selectLibrarian() {
-    	console.log("sel librarian");
-
-    	// Remove the default text
-    	console.log(this.librarianList);
+    selectOption(val) {
+    	document.getElementById(val).style.visibility = "visible";	
     }
 
     submit() {
@@ -93,7 +94,7 @@ export class EntryForm {
     	formData['department'] = this.selectedDepartments;
     	formData['classType'] = this.selectedClassTypes;
 
-    	//console.log(formData);
+    	console.log(formData);
     }
 }
 

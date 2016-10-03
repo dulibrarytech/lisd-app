@@ -10,32 +10,32 @@
 
 		      <div class="form-group" id="librarian-select-group">
 		      	  <!-- <label for="librarian-select">Select a libraria</label> -->
-		      	  <span id="add-librarian" class="click-span" click.delegate="addLibrarian()">+ Add another librarian</span>
-			      <select repeat.for="i of librarianCount" click.delegate="selectLibrarian()" id="librarian-select" class="form-control" value.bind="selectedLibrarians[i]">
+		      	  <span id="add-librarian" class="click-span" style="visibility: hidden" click.delegate="addLibrarian()">+ Add another librarian</span>
+			      <select repeat.for="i of librarianCount" click.delegate="selectOption('add-librarian')" id="librarian-select" class="form-control" value.bind="selectedLibrarians[i]">
 			        <option selected hidden>Select a Librarian:</option>
 			        <option repeat.for="librarian of librarianList" value.bind="librarian.id"> ${librarian.name} </option>
 			      </select>
 		      </div>
 
 		      <div class="form-group" id="location-select-group">
-		      	<button type="button" id="add-location" id="location-select" class="btn btn-default" click.delegate="addLocation()">Add another location</button>
-		      	<select repeat.for="i of locationCount" class="form-control" value.bind="selectedLocations[i]">
+		      	<span id="add-location" class="click-span" style="visibility: hidden" click.delegate="addLocation()">+ Add another location</span>
+		      	<select repeat.for="i of locationCount" click.delegate="selectOption('add-location')" id="location-select" class="form-control" value.bind="selectedLocations[i]">
 		      	  <option selected hidden>Select a Location:</option>
 			      <option repeat.for="location of locationList" value.bind="location.id"> ${location.name} </option>
 			    </select>
 		      </div>
 
 		      <div class="form-group" id="department-select-group">
-		      	<button type="button" id="add-department" id="department-select" class="btn btn-default" click.delegate="addDepartment()">Add another department</button>
-		      	<select repeat.for="i of departmentCount" class="form-control" value.bind="selectedDepartments[i]">
+		      	<span id="add-department" class="click-span" style="visibility: hidden" click.delegate="addDepartment()">+ Add another department</span>
+		      	<select repeat.for="i of departmentCount" click.delegate="selectOption('add-department')" id="department-select" class="form-control" value.bind="selectedDepartments[i]">
 		      	  <option selected hidden>Select a Department:</option>
 			      <option repeat.for="department of departmentList" value.bind="department.id"> ${department.name} </option>
 			    </select>
 		      </div>
 
 		      <div class="form-group" id="classtype-select-group">
-		      	<button type="button" id="add-classtype" id="classType-select" class="btn btn-default" click.delegate="addClassType()">Add another class type</button>
-		      	<select repeat.for="i of classTypeCount" class="form-control" value.bind="selectedClassTypes[i]">
+		      	<span id="add-classType" class="click-span" style="visibility: hidden" click.delegate="addClassType()">+ Add another class type</span>
+		      	<select repeat.for="i of classTypeCount" click.delegate="selectOption('add-classType')" id="classType-select" class="form-control" value.bind="selectedClassTypes[i]">
 		      	  <option selected hidden>Select a Class Type:</option>
 			      <option repeat.for="classType of classTypeList" value.bind="classType.id"> ${classType.name} </option>
 			    </select>
