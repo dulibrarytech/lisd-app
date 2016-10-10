@@ -1,7 +1,10 @@
 import 'fetch';
+import {inject} from 'aurelia-framework';
 import {HttpClient, json} from 'aurelia-fetch-client';
 
 let httpClient = new HttpClient();
+
+@inject(HttpClient)
 
 export class EntryForm {
 
@@ -30,11 +33,23 @@ export class EntryForm {
     	'Searching as Strategic Exploration'
     ]
 
-	// Load dropdown data 
-    librarianList = this.getDropdownList('librarian');
-    locationList = this.getDropdownList('location');
-    departmentList = this.getDropdownList('department');
-    classTypeList = this.getDropdownList('classType');
+    constructor(httpClient) {
+
+        httpClient.configure(config => {
+            config
+                .withBaseUrl('localhost:9004/');
+        });
+
+        this.http = httpClient;
+
+        // Load dropdown data 
+        this.librarianList = this.getDropdownList('librarian');
+        this.locationList = this.getDropdownList('location');
+        this.departmentList = this.getDropdownList('department');
+        this.classTypeList = this.getDropdownList('classType');
+
+        console.log(httpClient);
+    }
 
     // Add additional select input
     addLibrarian() {
@@ -146,7 +161,11 @@ export class EntryForm {
 
     submit() {
 
-    	console.log(this.getFormData());
+    	var data = this.getFormData();
+
+        // Ajax
+
+        console.log(data);
     }
 }
 
