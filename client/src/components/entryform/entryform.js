@@ -37,7 +37,12 @@ export class EntryForm {
 
         httpClient.configure(config => {
             config
-                .withBaseUrl('localhost:9004/');
+                .withBaseUrl('http://localhost:9004/')
+                .withDefaults({
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
         });
 
         this.http = httpClient;
@@ -121,14 +126,14 @@ export class EntryForm {
 
         // Form text fields
         formData['classDate'] = this.classDate;
-        formData['quarterSelect'] = this.quarterSelect;
+        formData['quarter'] = this.quarterSelect;
         formData['className'] = this.className;
         formData['courseNumber'] = this.courseNumber;
         formData['instructorName'] = this.instructorName;
-        formData['numGraduates'] = this.numGraduates;
-        formData['numUndergraduates'] = this.numUndergraduates;
-        formData['numFacultyStaff'] = this.numFacultyStaff;
-        formData['numOther'] = this.numOther;
+        formData['graduates'] = this.numGraduates;
+        formData['undergraduates'] = this.numUndergraduates;
+        formData['facultyStaff'] = this.numFacultyStaff;
+        formData['other'] = this.numOther;
 
         // Get dropdown select data
         formData['librarian'] = this.selectedLibrarians;
@@ -164,7 +169,17 @@ export class EntryForm {
     	var data = this.getFormData();
 
         // Ajax
+        this.http.fetch('insert/class', {
+            method: 'post',
+            body: json(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+                console.log("Client receives: ");
+                console.log(data.message);
+        })
 
+        console.log("client posting: ");
         console.log(data);
     }
 }

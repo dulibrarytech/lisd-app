@@ -11,17 +11,19 @@ module.exports.insertClass = function(req, res) {
 
 		className: req.body.className,
 		courseNumber: req.body.courseNumber,
-		instructor: req.body.instructor,
-		dateCreated: req.body.dateCreated,
+		instructor: req.body.instructorName,
+		date: req.body.classDate,
+		quarter: req.body.quarter,
 		undergraduates: Number(req.body.undergraduates),
 		graduates: Number(req.body.graduates),
-		faculty: Number(req.body.faculty),
+		faculty: Number(req.body.facultyStaff),
 		other: Number(req.body.other),
 		associatedLibrarians: [],
 	    location: [],
 	    department: [],
-	    classType: [],
-	    comment: [req.body.comment]
+	    type: [],
+	    acrlFrame: [],
+	    comments: [req.body.comment]
 	}
 
 	for(var key in req.body) {
@@ -37,14 +39,18 @@ module.exports.insertClass = function(req, res) {
 		if(key.substring(0,9) == 'classType') {
 			data['classType'].push(req.body[key]);
 		}
+		if(key.substring(0,9) == 'acrlFrame') {
+			data['acrlFrame'].push(req.body[key]);
+		}
 	}
 	
-	//console.log(res);
+	console.log("adding data: " + data.className);
 	Class.addDocument(data, function(response) {
 		res.send(response);
 	});
 
 	// DEV
+	// console.log("server receives: " + data);
 	// res.statusCode = 200;
 	// res.send();
 }

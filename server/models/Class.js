@@ -17,7 +17,8 @@ module.exports = (function() {
 		          className: data.className,
 		          courseNumber: data.courseNumber,
 		          instructor: data.instructor,
-		          dateCreated: new Date(data.dateCreated)
+		          date: new Date(data.date),
+		          quarter: data.quarter,
 		    },
 		    enrollmentInfo: {
 		          undergraduates: data.undergraduates,
@@ -28,9 +29,12 @@ module.exports = (function() {
 		    associatedLibrarians: data.associatedLibrarians,
 		    location: data.location,
 		    department: data.department,
-		    classType: data.classType,
+		    type: data.type,
+		    acrlFrame: data.acrlFrame,
 		    comments: data.comments
 		};
+
+		console.log("doc formed: " + doc.courseInfo.className);
 
 		try {
 			// Insert the document
