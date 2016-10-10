@@ -100,6 +100,45 @@ export class EntryForm {
       return list;
     };
 
+    getFormData() {
+
+        var formData = {};
+
+        // Form text fields
+        formData['classDate'] = this.classDate;
+        formData['quarterSelect'] = this.quarterSelect;
+        formData['className'] = this.className;
+        formData['courseNumber'] = this.courseNumber;
+        formData['instructorName'] = this.instructorName;
+        formData['numGraduates'] = this.numGraduates;
+        formData['numUndergraduates'] = this.numUndergraduates;
+        formData['numFacultyStaff'] = this.numFacultyStaff;
+        formData['numOther'] = this.numOther;
+
+        // Get dropdown select data
+        formData['librarian'] = this.selectedLibrarians;
+        formData['location'] = this.selectedLocations;
+        formData['department'] = this.selectedDepartments;
+
+        // Get checkbox group data
+        formData['classType'] = [];
+        formData['acrlFrame'] = [];
+        for(var key in this.selectedClassTypes) {
+            if(this.selectedClassTypes[key] == true) {
+                formData['classType'].push(key);
+            }
+        }
+        for(var key in this.selectedAcrlFrames) {
+            if(this.selectedAcrlFrames[key] == true) {
+                formData['acrlFrame'].push(key);
+            }
+        }
+
+        formData['commentText'] = this.commentText;
+
+        return formData;
+    }
+
     selectOption(val) {
     	document.getElementById(val).style.visibility = "visible";	
     	console.log(document.getElementById(val).value);
@@ -107,28 +146,7 @@ export class EntryForm {
 
     submit() {
 
-    	var formData = {};
-
-    	// Get dropdown select data
-    	formData['librarian'] = this.selectedLibrarians;
-    	formData['location'] = this.selectedLocations;
-    	formData['department'] = this.selectedDepartments;
-
-    	// Get checkbox group data
-    	formData['classType'] = [];
-    	formData['acrlFrame'] = [];
-    	for(var key in this.selectedClassTypes) {
-    		if(this.selectedClassTypes[key] == true) {
-    			formData['classType'].push(key);
-    		}
-    	}
-    	for(var key in this.selectedAcrlFrames) {
-    		if(this.selectedAcrlFrames[key] == true) {
-    			formData['acrlFrame'].push(key);
-    		}
-    	}
-
-    	console.log(formData);
+    	console.log(this.getFormData());
     }
 }
 
