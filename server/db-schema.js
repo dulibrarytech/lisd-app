@@ -5,7 +5,8 @@ db.createCollection( "lisd_class",
             { "courseInfo.className" : { $type: "string" } },
             { "courseInfo.courseNumber" : { $type: 'string' } },
             { "courseInfo.instructor" : { $type: 'string' } },
-            { "courseInfo.dateCreated" : { $type: 'date' } },
+            { "courseInfo.quarter" : { $type: 'string' } },
+            { "courseInfo.date" : { $type: 'date' } },
             { "enrollmentInfo.undergraduates" : { $type: 'number' } },
             { "enrollmentInfo.graduates" : { $type: 'number' } },
             { "enrollmentInfo.faculty" : { $type: 'number' } },
@@ -13,7 +14,8 @@ db.createCollection( "lisd_class",
             { "associatedLibrarians": { $type : "string" } },
             { "location": { $type : "string" } },
             { "department": { $type : "string" } },
-            { "classType": { $type : "string" } },
+            { "type": { $type : "string" } },
+            { "acrlFrame": { $type : "string" } },
             { "comments": { $type : "object" } }
          ]
       },
@@ -46,18 +48,6 @@ db.createCollection( "lisd_department",
 );
 
 db.createCollection( "lisd_location",
-   {
-      validator: { $and:
-         [
-            { "name" : { $type: "string" } },
-            { "isActive" : { $type: "bool" } }
-         ]
-      },
-      validationAction: "error"
-   }
-);
-
-db.createCollection( "lisd_classType",
    {
       validator: { $and:
          [
