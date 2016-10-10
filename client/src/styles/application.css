@@ -30,9 +30,18 @@ div#entry-form {
     border-radius: 7px;
 }
 
+input#date-select {
+	width: 100px;
+}
+
+div.input-group {
+	float: left;
+	margin-left: 35px;
+}
+
 div.form-group {
 	background-color: #f8f8f8;
-	padding: 1em;
+	padding: 3em 0;
 }
 
 div.form-group > button {
@@ -48,13 +57,13 @@ div.form-group > span.click-span {
 	right: 1em;
 }
 
-select.form-control {
+select.single-dropdown {
 	width: 25%;
-	margin: 1.7em;
+	margin: 0 1.7em;
 }
 
-div#course-enrollment-group > input {
-	width: 4em;
+div#course-enrollment-group div input {
+	/*width: 4em !important;*/
 }
 
 div.checkbox-group > * {
