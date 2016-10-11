@@ -19,35 +19,15 @@ module.exports.insertClass = function(req, res) {
 		graduates: Number(req.body.graduates),
 		faculty: Number(req.body.facultyStaff),
 		other: Number(req.body.other),
-		associatedLibrarians: [],
-	    location: [],
-	    department: [],
-	    type: [],
-	    acrlFrame: [],
+		associatedLibrarians: req.body['librarian'],
+	    location: req.body['location'],
+	    department: req.body['department'],
+	    type: req.body['classType'],
+	    acrlFrame: req.body['acrlFrame'],
 	    comments: []
 	}
-
-	// Build arrays required in the data
-	for(var key in req.body) {
-		if(key.substring(0,9) == 'librarian') {
-			data['associatedLibrarians'] = req.body[key];
-		}
-		if(key.substring(0,8) == 'location') {
-			data['location'] = req.body[key];
-		}
-		if(key.substring(0,10) == 'department') {
-			data['department'] = req.body[key];
-		}
-		if(key.substring(0,9) == 'classType') {
-			data['type'] = req.body[key];
-		}
-		if(key.substring(0,9) == 'acrlFrame') {
-			data['acrlFrame'] = req.body[key];
-		}
-	}
-
 	data["comments"].push({
-		name: null,
+		name: "joboo",
 		text: req.body.commentText
 	})
 
@@ -59,4 +39,10 @@ module.exports.insertClass = function(req, res) {
 	// console.log("server receives: " + data);
 	// res.statusCode = 200;
 	// res.send();
+}
+
+module.exports.getClassProperties = function(req, res) {
+	Class.getPropertyData(function(response) {
+		res.send(response);
+	});
 }

@@ -52,16 +52,9 @@ module.exports = (function() {
 		//db.close();
 	}
 
-	var getLibrarians = function() {
+	// Return object of all available property choices 
+	var getPropertyData = function() {
 
-	}
-
-	var getLocations = function() {
-		
-	}
-
-	var getDepartments = function() {
-		
 	}
 
 	return {
