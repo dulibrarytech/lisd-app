@@ -48,12 +48,12 @@ export class EntryForm {
         this.http = httpClient;
 
         // Load dropdown data 
-        this.librarianList = this.getDropdownList('librarian');
-        this.locationList = this.getDropdownList('location');
-        this.departmentList = this.getDropdownList('department');
-        this.classTypeList = this.getDropdownList('classType');
+        var dropdownData = this.getDropdownData();
+        this.librarianList = dropdownData.librarians;
+        this.locationList = dropdownData.locations;
+        this.departmentList = dropdownData.departments;
 
-        console.log(httpClient);
+        console.log(dropdownData);
     }
 
     // Add additional select input
@@ -77,47 +77,29 @@ export class EntryForm {
     	document.getElementById("add-department").style.visibility = "hidden";
     }
 
-  //   // Add additional select input
-  //   addClassType() {
-		// var newValue = "classType" + (++this.classTypeCount);
-  //   	this.selectedClassTypes.push(newValue);
-  //   	document.getElementById("add-classType").style.visibility = "hidden";
-  //   }
-
-  //   addACRLFrame(frame) {
-  //   	console.log(frame);
-  //   }
-
     // Retrieves the current list from the server
-    getDropdownList(dataSet) {
-      var list = [];
+    getDropdownData() {
 
-      // DEV
-      if(dataSet == 'librarian') {
-	      list.push({name: "John", id: "12345"});
-	      list.push({name: "Jane", id: "23456"});
-	      list.push({name: "June", id: "34567"});
-	  }
-	  else if(dataSet == 'location') {
-	      list.push({name: "AAC 275", id: "12345"});
-	      list.push({name: "AAC 340", id: "23456"});
-	      list.push({name: "AAC 313", id: "34567"});
-	  }
-	  else if(dataSet == 'department') {
-	      list.push({name: "Biology", id: "12345"});
-	      list.push({name: "Chemistry", id: "23456"});
-	      list.push({name: "History", id: "34567"});
-	  }
-	  else if(dataSet == 'classType') {
-	      list.push({name: "Undergraduate", id: "12345"});
-	      list.push({name: "Graduate", id: "23456"});
-	      list.push({name: "Other", id: "34567"});
-	  }
-	  else {
-	  	list.push("error");
-	  }
+        var data = {};
 
-      return list;
+        data["librarians"] = [];
+        data["locations"] = [];
+        data["departments"] = [];
+
+        // DEV
+        data["librarians"].push({name: "John", id: "12345"});
+        data["librarians"].push({name: "Jane", id: "23456"});
+        data["librarians"].push({name: "June", id: "34567"});
+
+        data["locations"].push({name: "AAC 275", id: "12345"});
+        data["locations"].push({name: "AAC 340", id: "23456"});
+        data["locations"].push({name: "AAC 313", id: "34567"});
+
+        data["departments"].push({name: "Biology", id: "12345"});
+        data["departments"].push({name: "Chemistry", id: "23456"});
+        data["departments"].push({name: "History", id: "34567"});
+
+        return data;
     };
 
     getFormData() {
