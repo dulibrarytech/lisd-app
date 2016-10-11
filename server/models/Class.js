@@ -36,6 +36,8 @@ module.exports = (function() {
 		//     acrlFrame: data.acrlFrame,
 		//     comments: data.comments
 		// };
+		console.log("THTH");
+		console.log(typeof data.associatedLibrarians[0]);
 
 		var doc = { 
 			courseInfo: { 
@@ -51,12 +53,12 @@ module.exports = (function() {
 			    faculty: data.faculty, 
 			    other: data.other 
 			}, 
-			associatedLibrarians: ["test"], 
-			location: ["test"], 
-			department: ["test"], 
-			type: ["test"], 
-			acrlFrame: ["test"], 
-			comments: {} 
+			associatedLibrarians: data.associatedLibrarians, 
+			location: data.location, 
+			department: data.department, 
+			type: data.type, 
+			acrlFrame: data.acrlFrame,
+			comments: data.comments 
 		};
 
 		try {
@@ -70,6 +72,7 @@ module.exports = (function() {
 			    	console.log("DB Insert OK");
 			    	callback({status: 'ok', message: 'Inserted 1 document into the collection', data: result});
 			    }
+			    // db.close();
 			});
 		} catch (e) {
 			callback({status: 'error', message: e});
