@@ -34,18 +34,19 @@ describe("Server API", function(){
 		var data = {
 			className: "MOCHA POST TEST - DELETE THIS RECORD",
 			courseNumber: "test-12345",
-			instructor: "Test Teacher",
-			dateCreated: "2000-12-25",
+			instructorName: "Test Teacher",
+			classDate: "2000-12-25",
+			quarter: "Fall",
 			undergraduates: "21",
 			graduates: "3",
-			faculty: "5",
+			facultyStaff: "5",
 			other: "2",
-			librarian1: "57e1f8bfadb181f4aec01010",
-			librarian2: "57e1f8bfadb181f4aec00000",
-		    location1: "57e1f8bfadb181f4aec01011",
-		    department1: "57e1f8bfadb181f4aec01111",
-		    classType1: "57e1f8bfadb181f4aec01111",
-		    comment: {name: "commenter", text: "comment"}
+			librarian: ["57e1f8bfadb181f4aec01010"],
+		    location: ["57e1f8bfadb181f4aec01011"],
+		    department: ["57e1f8bfadb181f4aec01111"],
+		    classType: ["undergraduate"],
+		    acrlFrame: ["Sample acrl frame name"],
+		    commentText: "comment by commenter"
 		}
 
 		it('should return status 200', function() {
@@ -53,8 +54,8 @@ describe("Server API", function(){
 		    .post('/insert/class')
 		    .send(data)
 		    .end(function(err, res){
-		      expect(res).to.have.status(200);
-		      //done();
+
+		      console.log("DDD");
 		    });
 		});
 	});
