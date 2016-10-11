@@ -7,37 +7,9 @@ module.exports = (function() {
 
 	var addDocument = function(data, callback) {
 
-		console.log("data in:");
-		console.log(data);
-
 		//var doc = {}; // prod
 		var db = database.connection();
 		var collection = db.collection('lisd_class');
-
-		// Build db document from data
-		// var doc = {
-		// 	courseInfo: { 
-		//           name: data.className,
-		//           number: data.courseNumber,
-		//           instructor: data.instructor,
-		//           quarter: data.quarter,
-		//           date: new Date("2000-10-10")
-		//     },
-		//     enrollmentInfo: {
-		//           undergraduates: data.undergraduates,
-		//           graduates: data.graduates,
-		//           faculty: data.faculty,
-		//           other: data.other
-		//     },
-		//     associatedLibrarians: data.associatedLibrarians,
-		//     location: data.location,
-		//     department: data.department,
-		//     type: data.type,
-		//     acrlFrame: data.acrlFrame,
-		//     comments: data.comments
-		// };
-		console.log("THTH");
-		console.log(typeof data.associatedLibrarians[0]);
 
 		var doc = { 
 			courseInfo: { 
@@ -78,6 +50,18 @@ module.exports = (function() {
 			callback({status: 'error', message: e});
 		};
 		//db.close();
+	}
+
+	var getLibrarians = function() {
+
+	}
+
+	var getLocations = function() {
+		
+	}
+
+	var getDepartments = function() {
+		
 	}
 
 	return {

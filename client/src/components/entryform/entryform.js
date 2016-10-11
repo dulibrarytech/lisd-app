@@ -161,7 +161,7 @@ export class EntryForm {
 
     selectOption(val) {
     	document.getElementById(val).style.visibility = "visible";	
-    	console.log(document.getElementById(val).value);
+    	//console.log(document.getElementById(val).value);
     }
 
     submit() {
@@ -175,12 +175,8 @@ export class EntryForm {
         })
         .then(response => response.json())
         .then(data => {
-                console.log("Client receives: ");
-                console.log(data.message);
+                console.log("Server: " + data.message);
         })
-
-        console.log("client posting: ");
-        console.log(data);
     }
 }
 

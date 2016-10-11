@@ -7,9 +7,6 @@ var bodyParser = require('body-parser');
 
 module.exports.insertClass = function(req, res) {
 
-	console.log("request in controller: ");
-	console.log(req.body);
-
 	// TODO: Validate in middleware. If invalid, either place null or return 400 to client
 	var data = {
 
@@ -53,9 +50,7 @@ module.exports.insertClass = function(req, res) {
 		name: null,
 		text: req.body.commentText
 	})
-	
-	console.log("adding data");
-	console.log(data);
+
 	Class.addDocument(data, function(response) {
 		res.send(response);
 	});
