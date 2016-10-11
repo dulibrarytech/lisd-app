@@ -7,6 +7,10 @@ var bodyParser = require('body-parser');
 
 module.exports.insertClass = function(req, res) {
 
+	console.log("request in controller: ");
+	console.log(req.body);
+
+	// TODO: Validate in middleware. If invalid, either place null or return 400 to client
 	var data = {
 
 		className: req.body.className,
@@ -23,28 +27,35 @@ module.exports.insertClass = function(req, res) {
 	    department: [],
 	    type: [],
 	    acrlFrame: [],
-	    comments: [req.body.comment]
+	    comments: []
 	}
 
+	// Build arrays required in the data
 	for(var key in req.body) {
 		if(key.substring(0,9) == 'librarian') {
-			data['associatedLibrarians'].push(req.body[key]);
+			data['associatedLibrarians'] = req.body[key];
 		}
-		if(key.substring(0,9) == 'location') {
-			data['location'].push(req.body[key]);
+		if(key.substring(0,8) == 'location') {
+			data['location'] = req.body[key];
 		}
-		if(key.substring(0,9) == 'department') {
-			data['department'].push(req.body[key]);
+		if(key.substring(0,10) == 'department') {
+			data['department'] = req.body[key];
 		}
 		if(key.substring(0,9) == 'classType') {
-			data['classType'].push(req.body[key]);
+			data['type'] = req.body[key];
 		}
 		if(key.substring(0,9) == 'acrlFrame') {
-			data['acrlFrame'].push(req.body[key]);
+			data['acrlFrame'] = req.body[key];
 		}
 	}
+
+	data["comments"].push({
+		name: null,
+		text: req.body.commentText
+	})
 	
-	console.log("adding data: " + data.className);
+	console.log("adding data");
+	console.log(data);
 	Class.addDocument(data, function(response) {
 		res.send(response);
 	});

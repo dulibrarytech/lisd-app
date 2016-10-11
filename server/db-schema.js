@@ -2,8 +2,8 @@ db.createCollection( "lisd_class",
    {
       validator: { $and:
          [
-            { "courseInfo.className" : { $type: "string" } },
-            { "courseInfo.courseNumber" : { $type: 'string' } },
+            { "courseInfo.name" : { $type: "string" } },
+            { "courseInfo.number" : { $type: 'string' } },
             { "courseInfo.instructor" : { $type: 'string' } },
             { "courseInfo.quarter" : { $type: 'string' } },
             { "courseInfo.date" : { $type: 'date' } },
