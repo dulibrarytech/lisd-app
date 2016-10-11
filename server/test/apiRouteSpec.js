@@ -41,7 +41,7 @@ describe("Server API", function(){
 			graduates: "3",
 			facultyStaff: "5",
 			other: "2",
-			librarian: ["57e1f8bfadb181f4aec01010"],
+			librarian: ["57e1f8bfadb181f4aec01010", "57e1f8bfadb181f4aaa21221"],
 		    location: ["57e1f8bfadb181f4aec01011"],
 		    department: ["57e1f8bfadb181f4aec01111"],
 		    classType: ["undergraduate"],
