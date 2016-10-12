@@ -52,14 +52,29 @@ module.exports = (function() {
 		//db.close();
 	}
 
-	// Return object of all available property choices 
-	var getPropertyData = function() {
+	/* 
+	* Return object of all available class property choices 
+	*/
+	var getClassPropertyData = function(callback) {
 
+		var propertyData = {test:"test"};
+
+		try {
+
+		}
+		catch (e) {
+
+		}
+
+		callback(propertyData);
 	}
 
 	return {
 		addDocument: function(doc,callback) {
 			addDocument(doc,callback);
+		},
+		getClassPropertyData: function(callback) {
+			getClassPropertyData(callback);
 		}
 	};
 })()
