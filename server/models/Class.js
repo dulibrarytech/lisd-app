@@ -4,10 +4,10 @@ module.exports = (function() {
 
 	var database = require('../util/database.js');
 	database.connect();
+	
 
 	var addDocument = function(data, callback) {
 
-		//var doc = {}; // prod
 		var db = database.connection();
 		var collection = db.collection('lisd_class');
 
@@ -42,7 +42,7 @@ module.exports = (function() {
 			    }
 			    else {
 			    	console.log("DB Insert OK");
-			    	callback({status: 'ok', message: 'Inserted 1 document into the collection', data: result});
+			    	callback({status: "ok", message: 'Inserted 1 document into the collection', data: result});
 			    }
 			    // db.close();
 			});
@@ -53,20 +53,57 @@ module.exports = (function() {
 	}
 
 	/* 
-	* Return object of all available class property choices 
+	* Return object of all available class property choices for libnrarian, location, and department
 	*/
 	var getClassPropertyData = function(callback) {
 
-		var propertyData = {test:"test"};
+		var db = database.connection();
+		var collection = db.collection('lisd_class');
+		var propertyData = [];
+		propertyData['librarian'] = [];
+		propertyData['location'] = [];
+		propertyData['department'] = [];
 
 		try {
+			var cursor = collection.find({}, {"_id": 1, "courseInfo.name": 1});
+			// temp.forEach( function(resultDoc) { 
+				
+			// 	if(temp.objsLeftInBatch()>0) {
+			// 		propertyData.push(resultDoc._id);
+			// 	}
+			// 	else {
+			// 		callback({status: "ok", message: 'OK', data: propertyData});
+			// 	}
 
+			// });
+			// console.log(collection.find( {}, { "_id": 1}).count(function(error, nbDocs) {
+
+			//    callback(nbDocs);
+			// }));
+			// cursor.nextObject(function(err, item) {
+	  //         callback(item);
+
+	  //         db.close();
+	  //       })
+
+	        cursor.each(function(err, item) {
+	        	if(item != null) {
+	        		propertyData.push(item);
+	        	}
+	        	else {
+	        		callback(propertyData);
+	        	}
+	        });
+
+
+
+			//callback(propertyData);
 		}
 		catch (e) {
-
+			callback({status: "error", message: "Error: " + e});
 		}
 
-		callback(propertyData);
+		
 	}
 
 	return {

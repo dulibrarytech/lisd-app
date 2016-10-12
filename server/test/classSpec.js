@@ -18,7 +18,7 @@ describe("Class", function(){
 
 	    			className: "MOCHA TEST - DELETE THIS RECORD",
 	    			courseNumber: randomCourseNum,
-	    			instructor: "Test Teacher",
+	    			instructor: "Test Teacher 2",
 	    			quarter: "Fall",
 	    			date: "2002-12-25",
 	                undergraduates: 12,
@@ -47,8 +47,12 @@ describe("Class", function(){
 		describe("#getClassPropertyData()", function(){
 			it("should return an object", function(){
 				classModel.getClassPropertyData(function(results) {
-					if(results.message) {console.log("MESSAGE: " + results.message);}
+
+					//if(results && typeof results.message != 'undefined') {console.log("MESSAGE: " + results.message);}
+					//assert.isObject(results, 'results is an object');
+					console.log("TEST RESULTS: ");
 					console.log(results);
+
 				});
 			});
 		});
