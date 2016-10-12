@@ -55,10 +55,12 @@ module.exports = (function() {
 	/* 
 	* Return object of all available class property choices for libnrarian, location, and department
 	*/
-	var getClassPropertyData = function(callback) {
+	var getAllPropertyData = function(callback) {
 
 		var db = database.connection();
-		var collection = db.collection('lisd_class');
+		var librarianCollection = db.collection('lisd_librarian');
+		var locationCollection = db.collection('lisd_librarian');
+		var librarianCollection = db.collection('lisd_librarian');
 		var propertyData = [];
 		propertyData['librarian'] = [];
 		propertyData['location'] = [];
