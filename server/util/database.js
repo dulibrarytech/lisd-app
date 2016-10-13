@@ -8,10 +8,16 @@ module.exports = (function() {
 	var database;
 
 	var connect = function(callback) {
+		//var callback = callback;
 		MongoClient.connect(url, function( err, db ) {
 			assert.equal(null, err);
 			//console.log("Connected to database");
 			database = db;
+
+			if(callback) {
+				callback(db);
+			}
+			
 		});
 	};
 
