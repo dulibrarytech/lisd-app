@@ -28,7 +28,7 @@ module.exports.getDataSelectValues = function(req, res) {
 
 	var response = res;
 	var responseData = [];
-	//var queryModules = [];
+	var queryModules = [Librarian, Location, Department];
 	var dataQueries = 3;
 
 	// queryModules.push(Librarian); ...
@@ -44,7 +44,11 @@ module.exports.getDataSelectValues = function(req, res) {
 	};
 
 	// TODO loop queryModules
-	Librarian.getList(sendResponse);
-	Location.getList(sendResponse);
-	Department.getList(sendResponse);
+	// Librarian.getList(sendResponse);
+	// Location.getList(sendResponse);
+	// Department.getList(sendResponse);
+
+	for(var key in queryModules) {
+		queryModules[key].getList(sendResponse);
+	}
 }
