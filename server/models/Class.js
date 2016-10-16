@@ -8,6 +8,7 @@ module.exports = (function() {
 	database.connect(function(db) {
 		//var db = database.connection();
 		collection = db.collection('lisd_class');
+		// DEV
 		console.log("Class model connected to db...");
 	});
 	
@@ -57,18 +58,18 @@ module.exports = (function() {
 	/* 
 	* Return object of all available class property choices for libnrarian, location, and department
 	*/
-	var getClassPropertyData = function(callback) {
+	var getList = function(callback) {
 
-		var propertyData = [];
+		var classes = [];
 
 		try {
 			var cursor = collection.find({}, {"_id": 1, "courseInfo.name": 1});
 	        cursor.each(function(err, item) {
 	        	if(item != null) {
-	        		propertyData.push(item);
+	        		classes.push(item);
 	        	}
 	        	else {
-	        		callback(propertyData);
+	        		callback({status: "error", message: "Ok", data: classes});
 	        	}
 	        });
 		}
@@ -81,8 +82,8 @@ module.exports = (function() {
 		addDocument: function(doc,callback) {
 			addDocument(doc,callback);
 		},
-		getClassPropertyData: function(callback) {
-			getClassPropertyData(callback);
+		getList: function(callback) {
+			getList(callback);
 		}
 	};
 })()

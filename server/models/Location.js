@@ -11,7 +11,7 @@ module.exports = (function() {
 		var collection = db.collection('lisd_location');
 	};
 
-	var getLocations = function(callback) {
+	var getList = function(callback) {
 
 	};
 
@@ -19,8 +19,8 @@ module.exports = (function() {
 		addDocument: function(doc,callback) {
 			addDocument(doc,callback);
 		},
-		getLocations: function(callback) {
-			getLocations(callback);
+		getList: function(callback) {
+			getList(callback);
 		}
 	};
 })()

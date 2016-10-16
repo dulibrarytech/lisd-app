@@ -11,7 +11,7 @@ module.exports = (function() {
 		var collection = db.collection('lisd_department');
 	};
 
-	var getDepartments = function(callback) {
+	var getList = function(callback) {
 
 	};
 
@@ -19,8 +19,8 @@ module.exports = (function() {
 		addDocument: function(doc,callback) {
 			addDocument(doc,callback);
 		},
-		getDepartments: function(callback) {
-			getDepartments(callback);
+		getList: function(callback) {
+			getList(callback);
 		}
 	};
 })()
