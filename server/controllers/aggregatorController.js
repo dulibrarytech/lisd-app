@@ -36,22 +36,15 @@ module.exports.getDataSelectValues = function(req, res) {
 	var sendResponse = function(responseData) {
 		
 		if(responseData.status == "ok") {
-
 			for(var key in responseData.data) {
 				responseObject[key] = responseData.data[key];
 			}
 			count++;
 		}
-		//responseData.push(data);
-		
 
 		if(count >= queryModules.length) {
-
-			console.log("sending response:");
+			//console.log("sending response:");
 			response.send(responseObject);
-
-
-
 		}
 	};
 
