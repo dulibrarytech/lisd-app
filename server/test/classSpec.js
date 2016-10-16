@@ -43,7 +43,7 @@ describe("Class", function(){
 		});
 	}
 
-	if(true) {
+	if(false) {
 		describe("#getList()", function(){
 			it("should return an object", function(){
 				classModel.getList(function(results) {

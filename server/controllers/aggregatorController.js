@@ -27,27 +27,35 @@ module.exports.getDataAll = function(req,res) {
 module.exports.getDataSelectValues = function(req, res) {
 
 	var response = res;
-	var responseData = [];
+	//var responseData = [];
+	var responseObject = {};
+	var count = 0;
 	var queryModules = [Librarian, Location, Department];
-	var dataQueries = 3;
 
-	// queryModules.push(Librarian); ...
+	// Callback for getList responseData, send data when all requests are complete
+	var sendResponse = function(responseData) {
+		
+		if(responseData.status == "ok") {
 
-	var sendResponse = function(data) {
-		responseData.push(data);
-		console.log("DEV: RDlength: pushed data " + responseData.length);
-		if(responseData.length >= dataQueries) {
-			console.log("DEV: Sending data from server...");
-			console.log(data);
-			response.send(responseData);
+			for(var key in responseData.data) {
+				responseObject[key] = responseData.data[key];
+			}
+			count++;
+		}
+		//responseData.push(data);
+		
+
+		if(count >= queryModules.length) {
+
+			console.log("sending response:");
+			response.send(responseObject);
+
+
+
 		}
 	};
 
-	// TODO loop queryModules
-	// Librarian.getList(sendResponse);
-	// Location.getList(sendResponse);
-	// Department.getList(sendResponse);
-
+	// Request the data from all modules
 	for(var key in queryModules) {
 		queryModules[key].getList(sendResponse);
 	}
