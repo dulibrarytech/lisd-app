@@ -7,7 +7,7 @@ chai.use(chaiHttp);
 
 describe("Server API", function(){
     
-	if(true) {
+	if(false) {
 	    describe("#GET /get/data/all", function(){
 			it('should return status 200', function(done) {
 			  chai.request(process.env.BASE_URL)

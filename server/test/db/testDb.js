@@ -41,18 +41,18 @@ var location3 = db.lisd_location.insertOne({
 });
 
 // Insert classTypes
-var classType1 = db.lisd_classType.insertOne({
-	"name" : "Undergraduate",
-	"isActive" : true
-});
-var classType2 = db.lisd_classType.insertOne({
-	"name" : "Graduate",
-	"isActive" : true
-});
-var classType3 = db.lisd_classType.insertOne({
-	"name" : "Workshop",
-	"isActive" : true
-});
+// var classType1 = db.lisd_classType.insertOne({
+// 	"name" : "Undergraduate",
+// 	"isActive" : true
+// });
+// var classType2 = db.lisd_classType.insertOne({
+// 	"name" : "Graduate",
+// 	"isActive" : true
+// });
+// var classType3 = db.lisd_classType.insertOne({
+// 	"name" : "Workshop",
+// 	"isActive" : true
+// });
 
 // Insert individual courses
 db.lisd_class.insertOne({
