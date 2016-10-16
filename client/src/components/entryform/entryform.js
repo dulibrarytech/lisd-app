@@ -75,11 +75,12 @@ export class EntryForm {
     	document.getElementById("add-department").style.visibility = "hidden";
     }
 
-    // Retrieves the current list from the server
+    // Retrieves the current list from the server and populates all select dropdowns
     getDropdownData() {
 
         var data = {};
 
+        // Select elements
         data["librarians"] = [];
         data["locations"] = [];
         data["departments"] = [];
@@ -92,7 +93,7 @@ export class EntryForm {
           // Ajax Callback
           }).then(function(responseObject) { 
 
-            // Populate the select boxes
+            // Populate the select boxes with the name and database id of each item
             var currentData = {};
             for(var key in responseObject) {
                 if(key == 'librarian') {
@@ -128,6 +129,7 @@ export class EntryForm {
         return data;
     };
 
+    // Return a json object of all form data
     getFormData() {
 
         var formData = {};
@@ -164,7 +166,7 @@ export class EntryForm {
 
         formData['commentText'] = this.commentText;
 
-        return formData;
+        return json(formData);
     }
 
     selectOption(val) {
@@ -174,16 +176,21 @@ export class EntryForm {
 
     submit() {
 
-    	var data = this.getFormData();
+    	// Get form data as json
+        var data = this.getFormData();
 
         // Ajax
         this.http.fetch('insert/class', {
             method: 'post',
-            body: json(data)
+            body: data
         })
         .then(response => response.json())
         .then(data => {
                 console.log("Server: " + data.message);
+
+                // TODO: add timeout of 3 sec, display "Form submitted"
+                // Reload the form for next submit
+                location.reload(false);
         })
     }
 }
