@@ -7,7 +7,7 @@ module.exports = (function() {
 
 	database.connect(function(db) {
 		//var db = database.connection();
-		collection = db.collection('lisd_librarian');
+		collection = db.collection('lisd_department');
 		// DEV
 		console.log("Department model connected to db...");
 	});
@@ -17,16 +17,18 @@ module.exports = (function() {
 	};
 
 	var getList = function(callback) {
-		var departments = [];
+		var results = {
+			department: {}
+		};
 
 		try {
 			var cursor = collection.find({}, {"_id": 1, "name": 1});
 	        cursor.each(function(err, item) {
 	        	if(item != null) {
-	        		departments.push(item);
+	        		results.department[item._id] = item.name;
 	        	}
 	        	else {
-	        		callback({status: "ok", message: "Ok", data: departments});
+	        		callback({status: "ok", message: "Ok", data: results});
 	        	}
 	        });
 		}
