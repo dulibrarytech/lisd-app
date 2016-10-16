@@ -31,6 +31,7 @@ describe("Aggregator", function(){
 
 				Librarian.getList(function(results) {
 					assert.isObject(results);
+					expect(results.status).to.equal("ok");
 					if(results.message) {console.log("MESSAGE: " + results.message);}
 					console.log("TEST RESULTS: ");
 					console.log(results);
@@ -45,6 +46,7 @@ describe("Aggregator", function(){
 
 				Location.getList(function(results) {
 					assert.isObject(results);
+					expect(results.status).to.equal("ok");
 					if(results.message) {console.log("MESSAGE: " + results.message);}
 					console.log("TEST RESULTS: ");
 					console.log(results);
@@ -59,6 +61,7 @@ describe("Aggregator", function(){
 
 				Department.getList(function(results) {
 					assert.isObject(results);
+					expect(results.status).to.equal("ok");
 					if(results.message) {console.log("MESSAGE: " + results.message);}
 					console.log("TEST RESULTS: ");
 					console.log(results);

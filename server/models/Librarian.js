@@ -26,7 +26,7 @@ module.exports = (function() {
 	        		librarians.push(item);
 	        	}
 	        	else {
-	        		callback({status: "error", message: "Ok", data: librarians});
+	        		callback({status: "ok", message: "Ok", data: librarians});
 	        	}
 	        });
 		}
