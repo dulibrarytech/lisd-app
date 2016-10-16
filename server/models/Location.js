@@ -3,16 +3,36 @@
 module.exports = (function() {
 
 	var database = require('../util/database.js');
-	database.connect();
+	var collection;
+
+	database.connect(function(db) {
+		//var db = database.connection();
+		collection = db.collection('lisd_librarian');
+		// DEV
+		console.log("Librarian model connected to db...");
+	});
 	
 	var addDocument = function(data, callback) {
 
-		var db = database.connection();
-		var collection = db.collection('lisd_location');
 	};
 
 	var getList = function(callback) {
+		var locations = [];
 
+		try {
+			var cursor = collection.find({}, {"_id": 1, "name": 1});
+	        cursor.each(function(err, item) {
+	        	if(item != null) {
+	        		locations.push(item);
+	        	}
+	        	else {
+	        		callback({status: "error", message: "Ok", data: locations});
+	        	}
+	        });
+		}
+		catch (e) {
+			callback({status: "error", message: "Error: " + e});
+		}
 	};
 
 	return {
