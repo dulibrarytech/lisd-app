@@ -35,7 +35,10 @@ module.exports.getDataSelectValues = function(req, res) {
 
 	var sendResponse = function(data) {
 		responseData.push(data);
+		console.log("DEV: RDlength: pushed data " + responseData.length);
 		if(responseData.length >= dataQueries) {
+			console.log("DEV: Sending data from server...");
+			console.log(data);
 			response.send(responseData);
 		}
 	};

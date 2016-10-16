@@ -31,6 +31,22 @@ describe("Server API", function(){
 	// 	    });
 	// 	});
 	// });
+	if(true) {
+		describe("#GET /get/data/selectValues", function(){
+			it('should return status 200', function(done) {
+				chai.request(process.env.BASE_URL)
+				    .get('/get/data/selectValues')
+				    .end(function(err, res){
+				      expect(res).to.have.status(200);
+				      	console.log("TEST RESULTS: ");
+				      for(var i=0; i<res.body.length; i++) {
+				      	console.log(res.body[i].data);
+				      }
+				      done();
+				    });
+			});
+		});
+	}
 
 	if(false) {
 		describe("#POST /insert/class", function(){
@@ -59,7 +75,7 @@ describe("Server API", function(){
 			    .send(data)
 			    .end(function(err, res){
 
-			      console.log("DDD");
+			      console.log("ajax result: class inserted");
 			    });
 			});
 		});

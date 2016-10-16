@@ -7,7 +7,7 @@ module.exports = (function() {
 
 	database.connect(function(db) {
 		//var db = database.connection();
-		collection = db.collection('lisd_librarian');
+		collection = db.collection('lisd_location');
 		// DEV
 		console.log("Location model connected to db...");
 	});
@@ -17,16 +17,18 @@ module.exports = (function() {
 	};
 
 	var getList = function(callback) {
-		var locations = [];
+		var results = {
+			location: {}
+		};
 
 		try {
 			var cursor = collection.find({}, {"_id": 1, "name": 1});
 	        cursor.each(function(err, item) {
 	        	if(item != null) {
-	        		locations.push(item);
+	        		results.location[item._id] = item.name;
 	        	}
 	        	else {
-	        		callback({status: "ok", message: "Ok", data: locations});
+	        		callback({status: "ok", message: "Ok", data: results});
 	        	}
 	        });
 		}

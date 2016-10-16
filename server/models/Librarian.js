@@ -17,16 +17,18 @@ module.exports = (function() {
 	};
 
 	var getList = function(callback) {
-		var librarians = [];
+		var results = {
+			librarian: {}
+		};
 
 		try {
 			var cursor = collection.find({}, {"_id": 1, "name": 1});
 	        cursor.each(function(err, item) {
 	        	if(item != null) {
-	        		librarians.push(item);
+	        		results.librarian[item._id] = item.name;
 	        	}
 	        	else {
-	        		callback({status: "ok", message: "Ok", data: librarians});
+	        		callback({status: "ok", message: "Ok", data: results});
 	        	}
 	        });
 		}

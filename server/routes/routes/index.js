@@ -24,7 +24,16 @@ router.get('/get/data/all', function(req, res) {
 });
 
 router.get('/get/data/selectValues', function(req, res) {
-
+  if(req.headers['user-agent'] == process.env.CLIENT_USER_AGENT ||
+    process.env.ENABLE_BROWSER_TEST == 'true') {  // TODO Add middleware
+    
+    aggregatorController.getDataSelectValues(req, res);
+  }
+    else {
+      res.statusCode = 403;
+      //res.end();
+      res.send();
+    }
 });
 
 
