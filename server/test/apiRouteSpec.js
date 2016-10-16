@@ -39,9 +39,10 @@ describe("Server API", function(){
 				    .end(function(err, res){
 				      expect(res).to.have.status(200);
 				      	console.log("TEST RESULTS: ");
-				      for(var i=0; i<res.body.length; i++) {
-				      	console.log(res.body[i].data);
-				      }
+				      	console.log(res.body);
+				      // for(var i=0; i<res.body.length; i++) {
+				      // 	console.log(res.body[i].data);
+				      // }
 				      done();
 				    });
 			});

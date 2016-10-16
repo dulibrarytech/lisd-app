@@ -53,6 +53,7 @@ export class EntryForm {
         this.locationList = dropdownData.locations;
         this.departmentList = dropdownData.departments;
 
+        console.log("dropdown data: ");
         console.log(dropdownData);
     }
 
@@ -86,18 +87,50 @@ export class EntryForm {
         data["locations"] = [];
         data["departments"] = [];
 
-        // DEV
-        data["librarians"].push({name: "John", id: "12345"});
-        data["librarians"].push({name: "Jane", id: "23456"});
-        data["librarians"].push({name: "June", id: "34567"});
+        // // DEV
+        // data["librarians"].push({name: "John", id: "12345"});
+        // data["librarians"].push({name: "Jane", id: "23456"});
+        // data["librarians"].push({name: "June", id: "34567"});
 
-        data["locations"].push({name: "AAC 275", id: "12345"});
-        data["locations"].push({name: "AAC 340", id: "23456"});
-        data["locations"].push({name: "AAC 313", id: "34567"});
+        // data["locations"].push({name: "AAC 275", id: "12345"});
+        // data["locations"].push({name: "AAC 340", id: "23456"});
+        // data["locations"].push({name: "AAC 313", id: "34567"});
 
-        data["departments"].push({name: "Biology", id: "12345"});
-        data["departments"].push({name: "Chemistry", id: "23456"});
-        data["departments"].push({name: "History", id: "34567"});
+        // data["departments"].push({name: "Biology", id: "12345"});
+        // data["departments"].push({name: "Chemistry", id: "23456"});
+        // data["departments"].push({name: "History", id: "34567"});
+
+        // Ajax
+        this.http.fetch('get/data/selectValues', {
+            method: 'get'
+        }).then(function(response) {
+            return response.json();
+          }).then(function(responseArray) { 
+            // <!DOCTYPE ....
+            console.log("here");
+            //console.log(responseArray[1].data.location); 
+            var data;
+
+            for(var i in responseArray) {
+               //data["librarians"].push(responseArray[i].data.
+              console.log(responseArray[i].data);
+               //librarians = responseArray[1].data.librarian;
+               // for(var key in responseArray[i].data) {
+               //      // data["librarians"].push({
+               //      //     name: librarians.name,
+               //      //     id: librarians
+               //      // })
+               //      console.log("under key:");
+               //      console.log(responseArray[i].data[key]);
+               //      // if(key == "librarian") {
+               //      //     for(var key in responseArray[i].data) {
+               //      //         console.log("hit");
+               //      //         console.log(responseArray[i].data[key]);
+               //      //     }
+               //      // }
+               // }
+            }
+          });
 
         return data;
     };
