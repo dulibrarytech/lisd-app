@@ -17,7 +17,22 @@ module.exports = (function() {
 	};
 
 	var getList = function(callback) {
+		var librarians = [];
 
+		try {
+			var cursor = collection.find({}, {"_id": 1, "name": 1});
+	        cursor.each(function(err, item) {
+	        	if(item != null) {
+	        		librarians.push(item);
+	        	}
+	        	else {
+	        		callback({status: "error", message: "Ok", data: librarians});
+	        	}
+	        });
+		}
+		catch (e) {
+			callback({status: "error", message: "Error: " + e});
+		}
 	};
 
 	return {
