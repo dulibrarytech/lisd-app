@@ -52,9 +52,6 @@ export class EntryForm {
         this.librarianList = dropdownData.librarians;
         this.locationList = dropdownData.locations;
         this.departmentList = dropdownData.departments;
-
-        console.log("dropdown data: ");
-        console.log(dropdownData);
     }
 
     // Add additional select input
@@ -87,48 +84,44 @@ export class EntryForm {
         data["locations"] = [];
         data["departments"] = [];
 
-        // // DEV
-        // data["librarians"].push({name: "John", id: "12345"});
-        // data["librarians"].push({name: "Jane", id: "23456"});
-        // data["librarians"].push({name: "June", id: "34567"});
-
-        // data["locations"].push({name: "AAC 275", id: "12345"});
-        // data["locations"].push({name: "AAC 340", id: "23456"});
-        // data["locations"].push({name: "AAC 313", id: "34567"});
-
-        // data["departments"].push({name: "Biology", id: "12345"});
-        // data["departments"].push({name: "Chemistry", id: "23456"});
-        // data["departments"].push({name: "History", id: "34567"});
-
         // Ajax
         this.http.fetch('get/data/selectValues', {
             method: 'get'
         }).then(function(response) {
             return response.json();
-          }).then(function(responseArray) { 
-            // <!DOCTYPE ....
-            console.log("here");
-            //console.log(responseArray[1].data.location); 
-            var data;
+          // Ajax Callback
+          }).then(function(responseObject) { 
 
-            for(var i in responseArray) {
-               //data["librarians"].push(responseArray[i].data.
-              console.log(responseArray[i].data);
-               //librarians = responseArray[1].data.librarian;
-               // for(var key in responseArray[i].data) {
-               //      // data["librarians"].push({
-               //      //     name: librarians.name,
-               //      //     id: librarians
-               //      // })
-               //      console.log("under key:");
-               //      console.log(responseArray[i].data[key]);
-               //      // if(key == "librarian") {
-               //      //     for(var key in responseArray[i].data) {
-               //      //         console.log("hit");
-               //      //         console.log(responseArray[i].data[key]);
-               //      //     }
-               //      // }
-               // }
+            // Populate the select boxes
+            var currentData = {};
+            for(var key in responseObject) {
+                if(key == 'librarian') {
+                    currentData = responseObject[key];
+                    for(var dataItem in currentData) {
+                        data["librarians"].push({
+                            name: currentData[dataItem],
+                            id: dataItem
+                        });
+                    }
+                }
+                else if(key == 'location') {
+                    currentData = responseObject[key];
+                    for(var dataItem in currentData) {
+                        data["locations"].push({
+                            name: currentData[dataItem],
+                            id: dataItem
+                        });
+                    }
+                }
+                else if(key == 'department') {
+                    currentData = responseObject[key];
+                    for(var dataItem in currentData) {
+                        data["departments"].push({
+                            name: currentData[dataItem],
+                            id: dataItem
+                        });
+                    }
+                }
             }
           });
 

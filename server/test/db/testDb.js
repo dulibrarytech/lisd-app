@@ -25,6 +25,10 @@ var department3 = db.lisd_department.insertOne({
 	"name" : "Physics",
 	"isActive" : true
 });
+var department4 = db.lisd_department.insertOne({
+  "name" : "Mathematics",
+  "isActive" : true
+});
 
 // Insert locations
 var location1 = db.lisd_location.insertOne({

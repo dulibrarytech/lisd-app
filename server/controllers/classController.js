@@ -27,7 +27,7 @@ module.exports.insertClass = function(req, res) {
 	    comments: []
 	}
 	data["comments"].push({
-		name: "joboo",
+		name: "Commenter",	// DEV: Not implemented, this is a placeholder
 		text: req.body.commentText
 	})
 
