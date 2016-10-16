@@ -3,15 +3,20 @@
 module.exports = (function() {
 
 	var database = require('../util/database.js');
-	database.connect();
+	var collection;
+
+	database.connect(function(db) {
+		//var db = database.connection();
+		collection = db.collection('lisd_librarian');
+		// DEV
+		console.log("Librarian model connected to db...");
+	});
 	
 	var addDocument = function(data, callback) {
 
-		var db = database.connection();
-		var collection = db.collection('lisd_librarian');
 	};
 
-	var getLibrarians = function(callback) {
+	var getList = function(callback) {
 
 	};
 
@@ -19,8 +24,8 @@ module.exports = (function() {
 		addDocument: function(doc,callback) {
 			addDocument(doc,callback);
 		},
-		getLibrarians: function(callback) {
-			getLibrarians(callback);
+		getList: function(callback) {
+			getList(callback);
 		}
 	};
 })()

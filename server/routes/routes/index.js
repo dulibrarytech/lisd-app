@@ -23,6 +23,10 @@ router.get('/get/data/all', function(req, res) {
     }
 });
 
+router.get('/get/data/selectValues', function(req, res) {
+
+});
+
 
 router.post('/insert/class', function(req, res) {
   if(req.headers['user-agent'] == process.env.CLIENT_USER_AGENT ||

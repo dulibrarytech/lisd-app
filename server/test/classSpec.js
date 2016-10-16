@@ -44,12 +44,14 @@ describe("Class", function(){
 	}
 
 	if(true) {
-		describe("#getClassPropertyData()", function(){
+		describe("#getList()", function(){
 			it("should return an object", function(){
-				classModel.getClassPropertyData(function(results) {
+				classModel.getList(function(results) {
 
 					//if(results && typeof results.message != 'undefined') {console.log("MESSAGE: " + results.message);}
 					//assert.isObject(results, 'results is an object');
+					expect(results.status).to.equal('ok');
+	                if(results.message) {console.log("MESSAGE: " + results.message);}
 					console.log("TEST RESULTS: ");
 					console.log(results);
 
