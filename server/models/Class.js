@@ -69,7 +69,7 @@ module.exports = (function() {
 	        		classes.push(item);
 	        	}
 	        	else {
-	        		callback({status: "error", message: "Ok", data: classes});
+	        		callback({status: "ok", message: "Ok", data: classes});
 	        	}
 	        });
 		}
