@@ -6,14 +6,34 @@ input, label, select {
     display:block;
 }
 
-div#du-header {
+header#du-header {
+	width: 100%;
 	background-color: #8b2332;
-	color: white;
-	height: 50px;
 }
 
-div#du-header > h5 {
-	margin: 0;
+div#du-red-header-inner {
+	background-color: #8b2332;
+	height: 50px;
+	margin: auto;
+	width: 99.5%;
+}
+
+span#du-logo {
+	margin-top: 5px;
+}
+
+span#du-logo a img {
+	height: 40px;
+	width: 140px;
+	margin-top: 5px;
+}
+
+span#app-title {
+	position: relative;
+	left: 1.7em;
+	top: 0.3em;
+	font-size: 1.5em;
+	color: white;
 }
 
 router-view > h3 {
@@ -28,6 +48,11 @@ div#entry-form {
     border-color: #e5e3e1;
     padding: 1.5em;
     border-radius: 7px;
+}
+
+div#entry-form > h3 {
+	margin-top: 0.8em;
+	padding-bottom: 1em;
 }
 
 input#date-select {
