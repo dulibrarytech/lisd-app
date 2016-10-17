@@ -26,7 +26,7 @@ export class SystemUtils {
 	}
 
 	doAjax(url, method, data, callback) {
-	
+		console.log("AJAX " + method);
         var options = {
         	method: method
         }
@@ -42,7 +42,11 @@ export class SystemUtils {
         this.http.fetch(url, options).then(response => response.json())
         .then(data => {
         	// TODO Stop spinner
+        	console.log("AJAX callback data:");
+        	console.log(data);
+        	
             callback(data);
+            return data;
         });
 	}
 }

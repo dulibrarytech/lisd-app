@@ -121,10 +121,13 @@ export class EntryForm {
             }
         });
 
+        console.log("GDD ajax method returns:");
+        console.log(test);
+
         return data;
     };
 
-    // Return a json object of all form data
+    // Return an object of all form data
     getFormData() {
 
         var formData = {};
@@ -161,7 +164,7 @@ export class EntryForm {
 
         formData['commentText'] = this.commentText;
 
-        return json(formData);
+        return formData;
     }
 
     selectOption(val) {
@@ -174,6 +177,13 @@ export class EntryForm {
     	// Get form data as json
         var data = this.getFormData();
 
+        console.log("Data being submitted:");
+        console.log(data);
+
+        this.utils.doAjax('insert/class', 'post', data, function(responseObject) {
+
+            console.log("done");
+        });
         // Ajax
         // this.http.fetch('insert/class', {
         //     method: 'post',
