@@ -1,12 +1,13 @@
 import 'fetch';
 import {inject} from 'aurelia-framework';
-import {HttpClient, json} from 'aurelia-fetch-client';
+import {SystemUtils} from '../../utils/SystemUtils.js';
 
-let httpClient = new HttpClient();
+//let systemUtils = new SystemUtils();
 
-@inject(HttpClient)
-
+@inject(SystemUtils)
 export class EntryForm {
+
+    ajax;
 
     // Form control variables
     librarianCount = 1;
@@ -33,19 +34,19 @@ export class EntryForm {
     	'Searching as Strategic Exploration'
     ]
 
-    constructor(httpClient) {
+    constructor(systemUtils) {
 
-        httpClient.configure(config => {
-            config
-                .withBaseUrl('http://localhost:9004/')
-                .withDefaults({
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-        });
+        // httpClient.configure(config => {
+        //     config
+        //         .withBaseUrl('http://localhost:9004/')
+        //         .withDefaults({
+        //             headers: {
+        //                 'Accept': 'application/json'
+        //             }
+        //         });
+        // });
 
-        this.http = httpClient;
+        this.ajax = systemUtils.doAjax("TEST");
 
         // Load dropdown data 
         var dropdownData = this.getDropdownData();
@@ -86,45 +87,46 @@ export class EntryForm {
         data["departments"] = [];
 
         // Ajax
-        this.http.fetch('get/data/selectValues', {
-            method: 'get'
-        }).then(function(response) {
-            return response.json();
-          // Ajax Callback
-          }).then(function(responseObject) { 
+        // this.http.fetch('get/data/selectValues', {
+        //     method: 'get'
+        // }).then(function(response) {
+        //     return response.json();
+        //   // Ajax Callback
+        //   }).then(function(responseObject) { 
 
-            // Populate the select boxes with the name and database id of each item
-            var currentData = {};
-            for(var key in responseObject) {
-                if(key == 'librarian') {
-                    currentData = responseObject[key];
-                    for(var dataItem in currentData) {
-                        data["librarians"].push({
-                            name: currentData[dataItem],
-                            id: dataItem
-                        });
-                    }
-                }
-                else if(key == 'location') {
-                    currentData = responseObject[key];
-                    for(var dataItem in currentData) {
-                        data["locations"].push({
-                            name: currentData[dataItem],
-                            id: dataItem
-                        });
-                    }
-                }
-                else if(key == 'department') {
-                    currentData = responseObject[key];
-                    for(var dataItem in currentData) {
-                        data["departments"].push({
-                            name: currentData[dataItem],
-                            id: dataItem
-                        });
-                    }
-                }
-            }
-          });
+        //     // Populate the select boxes with the name and database id of each item
+        //     var currentData = {};
+        //     for(var key in responseObject) {
+        //         if(key == 'librarian') {
+        //             currentData = responseObject[key];
+        //             for(var dataItem in currentData) {
+        //                 data["librarians"].push({
+        //                     name: currentData[dataItem],
+        //                     id: dataItem
+        //                 });
+        //             }
+        //         }
+        //         else if(key == 'location') {
+        //             currentData = responseObject[key];
+        //             for(var dataItem in currentData) {
+        //                 data["locations"].push({
+        //                     name: currentData[dataItem],
+        //                     id: dataItem
+        //                 });
+        //             }
+        //         }
+        //         else if(key == 'department') {
+        //             currentData = responseObject[key];
+        //             for(var dataItem in currentData) {
+        //                 data["departments"].push({
+        //                     name: currentData[dataItem],
+        //                     id: dataItem
+        //                 });
+        //             }
+        //         }
+        //     }
+        //   });
+
 
         return data;
     };
@@ -180,18 +182,18 @@ export class EntryForm {
         var data = this.getFormData();
 
         // Ajax
-        this.http.fetch('insert/class', {
-            method: 'post',
-            body: data
-        })
-        .then(response => response.json())
-        .then(data => {
-                console.log("Server: " + data.message);
+        // this.http.fetch('insert/class', {
+        //     method: 'post',
+        //     body: data
+        // })
+        // .then(response => response.json())
+        // .then(data => {
+        //         console.log("Server: " + data.message);
 
-                // TODO: add timeout of 3 sec, display "Form submitted"
-                // Reload the form for next submit
-                location.reload(false);
-        })
+        //         // TODO: add timeout of 3 sec, display "Form submitted"
+        //         // Reload the form for next submit
+        //         location.reload(false);
+        // })
     }
 }
 
