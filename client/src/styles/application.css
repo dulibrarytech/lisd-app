@@ -63,9 +63,19 @@ div#entry-form > h3 {
 	width: 100px;
 }*/
 
+button.btn {
+	color: #222;
+	background-color: #e5e3e1;
+}
+
 div.input-group {
 	float: left;
 	margin-left: 35px;
+}
+
+div.input-group > input,
+div.input-group > select {
+	margin-left: 0.6em;
 }
 
 div.select-group {
@@ -74,7 +84,7 @@ div.select-group {
 
 div.select-group div select {
 	width: 60% !important;
-	margin-left: 0px;
+	/*margin-left: 0.6em;*/
 }
 
 div.form-group.checkbox-group {
