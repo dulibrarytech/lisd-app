@@ -36,15 +36,6 @@ export class EntryForm {
 
     constructor(systemUtils) {
 
-        // httpClient.configure(config => {
-        //     config
-        //         .withBaseUrl('http://localhost:9004/')
-        //         .withDefaults({
-        //             headers: {
-        //                 'Accept': 'application/json'
-        //             }
-        //         });
-        // });
         this.utils = systemUtils;
 
         // Load dropdown data 
@@ -121,9 +112,6 @@ export class EntryForm {
             }
         });
 
-        console.log("GDD ajax method returns:");
-        console.log(test);
-
         return data;
     };
 
@@ -177,26 +165,12 @@ export class EntryForm {
     	// Get form data as json
         var data = this.getFormData();
 
-        console.log("Data being submitted:");
-        console.log(data);
-
         this.utils.doAjax('insert/class', 'post', data, function(responseObject) {
-
-            console.log("done");
+            console.log("Server: " + data.message);
+            setTimeout(function() {
+                location.reload(false);
+            }, 3000);
         });
-        // Ajax
-        // this.http.fetch('insert/class', {
-        //     method: 'post',
-        //     body: data
-        // })
-        // .then(response => response.json())
-        // .then(data => {
-        //         console.log("Server: " + data.message);
-
-        //         // TODO: add timeout of 3 sec, display "Form submitted"
-        //         // Reload the form for next submit
-        //         location.reload(false);
-        // })
     }
 }
 

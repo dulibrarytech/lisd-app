@@ -38,13 +38,12 @@ export class SystemUtils {
         // TODO: Add headers
 
         // TODO Start spinner
+        console.log("Spinner start");
 
         this.http.fetch(url, options).then(response => response.json())
         .then(data => {
         	// TODO Stop spinner
-        	console.log("AJAX callback data:");
-        	console.log(data);
-        	
+        	console.log("Spinner stop");
             callback(data);
             return data;
         });
