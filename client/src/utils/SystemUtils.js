@@ -2,7 +2,7 @@
 
 import {inject} from 'aurelia-framework';
 import {HttpClient, json} from 'aurelia-fetch-client';
-let httpClient = new HttpClient();
+//let httpClient = new HttpClient();
 
 @inject(HttpClient)
 export class SystemUtils {
@@ -22,14 +22,28 @@ export class SystemUtils {
 	                });
 	        });
 		}
-	 
-
         this.http = httpClient;
-        console.log(this.http);
 	}
 
 	doAjax(url, method, data, callback) {
-		console.log(data);
+	
+        var options = {
+        	method: method
+        }
+
+        if(method == 'post' && data != null) {
+        	options['body'] = json(data);
+        }
+
+        // TODO: Add headers
+
+        // TODO Start spinner
+
+        this.http.fetch(url, options).then(response => response.json())
+        .then(data => {
+        	// TODO Stop spinner
+            callback(data);
+        });
 	}
 }
 
