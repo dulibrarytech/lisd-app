@@ -2,7 +2,7 @@ import 'fetch';
 import {inject} from 'aurelia-framework';
 import {SystemUtils} from '../../utils/SystemUtils.js';
 
-//let systemUtils = new SystemUtils();
+let systemUtils = new SystemUtils();
 
 @inject(SystemUtils)
 export class EntryForm {
@@ -45,8 +45,7 @@ export class EntryForm {
         //             }
         //         });
         // });
-
-        this.ajax = systemUtils.doAjax("TEST");
+        this.utils = systemUtils;
 
         // Load dropdown data 
         var dropdownData = this.getDropdownData();
@@ -87,46 +86,40 @@ export class EntryForm {
         data["departments"] = [];
 
         // Ajax
-        // this.http.fetch('get/data/selectValues', {
-        //     method: 'get'
-        // }).then(function(response) {
-        //     return response.json();
-        //   // Ajax Callback
-        //   }).then(function(responseObject) { 
+        var test = this.utils.doAjax('get/data/selectValues', 'get', null, function(responseObject) {
 
-        //     // Populate the select boxes with the name and database id of each item
-        //     var currentData = {};
-        //     for(var key in responseObject) {
-        //         if(key == 'librarian') {
-        //             currentData = responseObject[key];
-        //             for(var dataItem in currentData) {
-        //                 data["librarians"].push({
-        //                     name: currentData[dataItem],
-        //                     id: dataItem
-        //                 });
-        //             }
-        //         }
-        //         else if(key == 'location') {
-        //             currentData = responseObject[key];
-        //             for(var dataItem in currentData) {
-        //                 data["locations"].push({
-        //                     name: currentData[dataItem],
-        //                     id: dataItem
-        //                 });
-        //             }
-        //         }
-        //         else if(key == 'department') {
-        //             currentData = responseObject[key];
-        //             for(var dataItem in currentData) {
-        //                 data["departments"].push({
-        //                     name: currentData[dataItem],
-        //                     id: dataItem
-        //                 });
-        //             }
-        //         }
-        //     }
-        //   });
-
+            // Populate the select boxes with the name and database id of each item
+            var currentData = {};
+            for(var key in responseObject) {
+                if(key == 'librarian') {
+                    currentData = responseObject[key];
+                    for(var dataItem in currentData) {
+                        data["librarians"].push({
+                            name: currentData[dataItem],
+                            id: dataItem
+                        });
+                    }
+                }
+                else if(key == 'location') {
+                    currentData = responseObject[key];
+                    for(var dataItem in currentData) {
+                        data["locations"].push({
+                            name: currentData[dataItem],
+                            id: dataItem
+                        });
+                    }
+                }
+                else if(key == 'department') {
+                    currentData = responseObject[key];
+                    for(var dataItem in currentData) {
+                        data["departments"].push({
+                            name: currentData[dataItem],
+                            id: dataItem
+                        });
+                    }
+                }
+            }
+        });
 
         return data;
     };
