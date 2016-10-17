@@ -2,6 +2,10 @@
     position: relative;
 }
 
+body {
+	color: #444 !important;
+}
+
 input, label, select {
     display:block;
 }
@@ -62,6 +66,23 @@ div#entry-form > h3 {
 div.input-group {
 	float: left;
 	margin-left: 35px;
+}
+
+div.select-group {
+	height: 145px;
+}
+
+div.select-group div select {
+	width: 60% !important;
+	margin-left: 0px;
+}
+
+div.form-group.checkbox-group {
+	padding-left: 2.5em;
+}
+
+div.form-group.checkbox-group > label.checkbox-text {
+	margin-left: 0.6em;
 }
 
 div#course-enrollment-group div input {
