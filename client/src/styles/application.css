@@ -55,13 +55,23 @@ div#entry-form > h3 {
 	padding-bottom: 1em;
 }
 
-input#date-select {
+/*input#date-select {
 	width: 100px;
-}
+}*/
 
 div.input-group {
 	float: left;
 	margin-left: 35px;
+}
+
+div#course-enrollment-group div input {
+	width: 55px;
+	float: right;
+	margin-left: 0.7em;
+}
+
+div#course-enrollment-group div label {
+	margin-top: 0.4em;
 }
 
 div.form-group {
