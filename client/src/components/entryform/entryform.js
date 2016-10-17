@@ -162,7 +162,6 @@ export class EntryForm {
 
     submit() {
 
-    	// Get form data as json
         var data = this.getFormData();
 
         this.utils.doAjax('insert/class', 'post', data, function(responseObject) {
