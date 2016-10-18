@@ -44,13 +44,13 @@
 		      </div>
 
 		      <div class="form-group" id="course-enrollment-group">
-		      	<section style="float: left;">
+		      	<section style="width: 64%; float: left;">
 		      		<div class="checkbox-group">
 				        <label>Select class type:</label>
 				      	<label class="checkbox-text" repeat.for="type of classTypes">${type}<input type="checkbox" checked.bind="selectedClassTypes[type]"></label>
 				    </div>
 		      	</section>
-		      	<section style="width: 30%; float: right;">
+		      	<section style="width: 30%; float: left;">
 			      	<div class="inline-group">
 			      	  <label class="form-label" for="numGraduates">Number of Graduates:</label>
 	       			  <input class="form-control" type="text" value.bind="numGraduates" placeholder = "">
@@ -77,7 +77,7 @@
 		      <div class="form-group select-group" id="librarian-select-group">
 			      <div class="input-group">
 			      	  <label for="librarian-select">Librarian:</label>
-			      	  <span id="add-librarian" class="click-span" style="visibility: hidden" click.delegate="addLibrarian()">+ Add another librarian</span>
+			      	  <span id="add-librarian" class="click-span add-input" style="visibility: hidden" click.delegate="addLibrarian()">+ Add another librarian</span>
 				      <select repeat.for="i of librarianCount" change.trigger="selectOption('add-librarian')" id="librarian-select" class="form-control single-dropdown" value.bind="selectedLibrarians[i]">
 				        <option selected hidden>Select a Librarian:</option>
 				        <option repeat.for="librarian of librarianList" value.bind="librarian.id"> ${librarian.name} </option>
@@ -86,7 +86,7 @@
 
 			      <div class="input-group">
 			        <label for="location-select">Location:</label>
-			      	<span id="add-location" class="click-span" style="visibility: hidden" click.delegate="addLocation()">+ Add another location</span>
+			      	<span id="add-location" class="click-span add-input" style="visibility: hidden" click.delegate="addLocation()">+ Add another location</span>
 			      	<select repeat.for="i of locationCount" change.trigger="selectOption('add-location')" id="location-select" class="form-control single-dropdown" value.bind="selectedLocations[i]">
 			      	  <option selected hidden>Select a Location:</option>
 				      <option repeat.for="location of locationList" value.bind="location.id"> ${location.name} </option>
@@ -95,7 +95,7 @@
 
 			      <div class="input-group">
 			        <label for="department-select">Department:</label>
-			      	<span id="add-department" class="click-span" style="visibility: hidden" click.delegate="addDepartment()">+ Add another department</span>
+			      	<span id="add-department" class="click-span add-input" style="visibility: hidden" click.delegate="addDepartment()">+ Add another department</span>
 			      	<select repeat.for="i of departmentCount" change.trigger="selectOption('add-department')" id="department-select" class="form-control single-dropdown" value.bind="selectedDepartments[i]">
 			      	  <option selected hidden>Select a Department:</option>
 				      <option repeat.for="department of departmentList" value.bind="department.id"> ${department.name} </option>
