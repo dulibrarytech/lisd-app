@@ -165,7 +165,7 @@ export class EntryForm {
         var data = this.getFormData();
 
         this.utils.doAjax('insert/class', 'post', data, function(responseObject) {
-            console.log("Server: " + data.message);
+            console.log("Server: " + responseObject.message);
             setTimeout(function() {
                 location.reload(false);
             }, 3000);
