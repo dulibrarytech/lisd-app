@@ -44,25 +44,27 @@
 		      </div>
 
 		      <div class="form-group" id="course-enrollment-group">
-		      	<div class="input-group">
+		      <section id="enrollment-info">
+		      	<div class="inline-group">
 		      	  <label class="form-label" for="numGraduates">Number of Graduates:</label>
        			  <input class="form-control" type="text" value.bind="numGraduates" placeholder = "">
-       			</div>	
+       			</div>
 
-       			<div class="input-group">
+       			<div class="inline-group">
        			  <label class="form-label" for="numUndergraduates">Number of Undergraduates:</label>
        			  <input class="form-control" type="text" value.bind="numUndergraduates" placeholder = "">
        			</div>
 
-       			<div class="input-group">
+       			<div class="inline-group">
        			  <label class="form-label" for="numFacultyStaff">Number of Faculty/Staff:</label>
        			  <input class="form-control" type="text" value.bind="numFacultyStaff" placeholder = "">
        			</div>
 
-       			<div class="input-group">
+       			<div class="inline-group">
        			  <label class="form-label" for="numOther">Number of "Other":</label>
        			  <input class="form-control" type="text" value.bind="numOther" placeholder = "">
        			</div>
+       			</section>
        			<br style="clear:both;" />
 		      </div>
 
@@ -75,9 +77,7 @@
 				        <option repeat.for="librarian of librarianList" value.bind="librarian.id"> ${librarian.name} </option>
 				      </select>
 				  </div>
-		      </div>
 
-		      <div class="form-group select-group" id="location-select-group">
 			      <div class="input-group">
 			        <label for="location-select">Location:</label>
 			      	<span id="add-location" class="click-span" style="visibility: hidden" click.delegate="addLocation()">+ Add another location</span>
@@ -86,9 +86,7 @@
 				      <option repeat.for="location of locationList" value.bind="location.id"> ${location.name} </option>
 				    </select>
 				  </div>
-		      </div>
 
-		      <div class="form-group select-group" id="department-select-group">
 			      <div class="input-group">
 			        <label for="department-select">Department:</label>
 			      	<span id="add-department" class="click-span" style="visibility: hidden" click.delegate="addDepartment()">+ Add another department</span>

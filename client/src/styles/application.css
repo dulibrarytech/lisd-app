@@ -4,6 +4,7 @@
 
 body {
 	color: #444 !important;
+	font-size: 1em;
 }
 
 input, label, select {
@@ -78,13 +79,41 @@ div.input-group > select {
 	margin-left: 0.6em;
 }
 
+div#course-enrollment-group > div.input-group {
+	/*width: 25%;*/
+	/*float: left;*/
+}
+
+section#enrollment-info {
+	width: 30%;
+}
+
+div#librarian-select-group > div.input-group {
+	width: 30%;
+}
+
 div.select-group {
 	height: 145px;
 }
 
 div.select-group div select {
-	width: 60% !important;
+	width: 75% !important;
 	/*margin-left: 0.6em;*/
+}
+
+span#add-librarian {
+	color: #3DBDF3;
+	margin-right: 1.5em;
+}
+
+div.inline-group {
+	/*display: block;*/
+	height: 50px;
+}
+
+div.inline-group input {
+	float: right !important;
+	display: inline;
 }
 
 div.form-group.checkbox-group {
@@ -95,13 +124,17 @@ div.form-group.checkbox-group > label.checkbox-text {
 	margin-left: 0.6em;
 }
 
-div#course-enrollment-group div input {
+div#course-enrollment-group {
+	padding-left: 3em;
+	padding-bottom: 0;
+}
+
+div#course-enrollment-group input {
 	width: 55px;
-	float: right;
 	margin-left: 0.7em;
 }
 
-div#course-enrollment-group div label {
+div#course-enrollment-group label {
 	margin-top: 0.4em;
 }
 
