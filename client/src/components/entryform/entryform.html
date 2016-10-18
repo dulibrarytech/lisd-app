@@ -44,26 +44,32 @@
 		      </div>
 
 		      <div class="form-group" id="course-enrollment-group">
-		      <section id="enrollment-info">
-		      	<div class="inline-group">
-		      	  <label class="form-label" for="numGraduates">Number of Graduates:</label>
-       			  <input class="form-control" type="text" value.bind="numGraduates" placeholder = "">
-       			</div>
+		      	<section style="float: left;">
+		      		<div class="checkbox-group">
+				        <label>Select class type:</label>
+				      	<label class="checkbox-text" repeat.for="type of classTypes">${type}<input type="checkbox" checked.bind="selectedClassTypes[type]"></label>
+				    </div>
+		      	</section>
+		      	<section style="width: 30%; float: right;">
+			      	<div class="inline-group">
+			      	  <label class="form-label" for="numGraduates">Number of Graduates:</label>
+	       			  <input class="form-control" type="text" value.bind="numGraduates" placeholder = "">
+	       			</div>
 
-       			<div class="inline-group">
-       			  <label class="form-label" for="numUndergraduates">Number of Undergraduates:</label>
-       			  <input class="form-control" type="text" value.bind="numUndergraduates" placeholder = "">
-       			</div>
+	       			<div class="inline-group">
+	       			  <label class="form-label" for="numUndergraduates">Number of Undergraduates:</label>
+	       			  <input class="form-control" type="text" value.bind="numUndergraduates" placeholder = "">
+	       			</div>
 
-       			<div class="inline-group">
-       			  <label class="form-label" for="numFacultyStaff">Number of Faculty/Staff:</label>
-       			  <input class="form-control" type="text" value.bind="numFacultyStaff" placeholder = "">
-       			</div>
+	       			<div class="inline-group">
+	       			  <label class="form-label" for="numFacultyStaff">Number of Faculty/Staff:</label>
+	       			  <input class="form-control" type="text" value.bind="numFacultyStaff" placeholder = "">
+	       			</div>
 
-       			<div class="inline-group">
-       			  <label class="form-label" for="numOther">Number of "Other":</label>
-       			  <input class="form-control" type="text" value.bind="numOther" placeholder = "">
-       			</div>
+	       			<div class="inline-group">
+	       			  <label class="form-label" for="numOther">Number of "Other":</label>
+	       			  <input class="form-control" type="text" value.bind="numOther" placeholder = "">
+	       			</div>
        			</section>
        			<br style="clear:both;" />
 		      </div>
@@ -104,11 +110,6 @@
 			      <option repeat.for="classType of classTypeList" value.bind="classType.id"> ${classType.name} </option>
 			    </select>
 		      </div> -->
-
-		      <div class="form-group checkbox-group">
-		        <label>Select class type:</label>
-		      	<label class="checkbox-text" repeat.for="type of classTypes">${type}<input type="checkbox" checked.bind="selectedClassTypes[type]"></label>
-		      </div>
 
 		      <div class="form-group checkbox-group">
 		        <label>Select ACRL framework(s):</label>

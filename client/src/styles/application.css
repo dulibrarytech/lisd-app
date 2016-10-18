@@ -79,19 +79,6 @@ div.input-group > select {
 	margin-left: 0.6em;
 }
 
-div#course-enrollment-group > div.input-group {
-	/*width: 25%;*/
-	/*float: left;*/
-}
-
-section#enrollment-info {
-	width: 30%;
-}
-
-div#librarian-select-group > div.input-group {
-	width: 30%;
-}
-
 div.select-group {
 	height: 145px;
 }
@@ -126,12 +113,22 @@ div.form-group.checkbox-group > label.checkbox-text {
 
 div#course-enrollment-group {
 	padding-left: 3em;
-	padding-bottom: 0;
+	padding-right: 9em;
+	/*padding-bottom: 0;*/
 }
 
 div#course-enrollment-group input {
 	width: 55px;
 	margin-left: 0.7em;
+}
+
+div#course-enrollment-group > div.input-group {
+	/*width: 25%;*/
+	/*float: left;*/
+}
+
+div#librarian-select-group > div.input-group {
+	width: 30%;
 }
 
 div#course-enrollment-group label {
