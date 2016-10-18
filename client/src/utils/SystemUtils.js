@@ -40,7 +40,6 @@ export class SystemUtils {
 			, position: 'relative' // Element positioning
 			}
 		this.spinner = new Spinner(opts);
-		console.log(this.spinner);
 	}
 
 	doAjax(url, method, data, callback) {
