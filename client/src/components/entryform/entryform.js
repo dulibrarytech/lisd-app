@@ -1,8 +1,8 @@
 import 'fetch';
-import {inject} from 'aurelia-framework';
-import {SystemUtils} from '../../utils/SystemUtils.js';
+import { customElement, inject } from 'aurelia-framework';
 
-let systemUtils = new SystemUtils();
+import {SystemUtils} from '../../utils/SystemUtils.js';
+import $ from 'jquery';
 
 @inject(SystemUtils)
 export class EntryForm {
@@ -35,10 +35,8 @@ export class EntryForm {
     ]
 
     constructor(systemUtils) {
+        this.utils = systemUtils
 
-        this.utils = systemUtils;
-
-        // Load dropdown data 
         var dropdownData = this.getDropdownData();
         this.librarianList = dropdownData.librarians;
         this.locationList = dropdownData.locations;

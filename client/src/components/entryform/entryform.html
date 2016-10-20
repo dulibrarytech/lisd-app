@@ -1,5 +1,6 @@
 
 <template>
+<require from="../../utils/datepicker"></require>
 
 		<div id="entry-form">
 
@@ -11,7 +12,9 @@
 			  	<section class="class-info">
 			  	  <div class="input-group">
 				  	  <label class="form-label" for="classDate">Class Date:</label>
-	       			  <input class="form-control" id="date-select" type="text" value.bind="classDate" placeholder = "">			<!-- Onclick - date widget -->
+	       			  <!-- <input class="form-control" id="date-select" type="text" value.bind="classDate" placeholder = "">	 -->		<!-- Onclick - date widget -->
+	       			  <input datepicker value.bind="classDate">
+	       			  <p>${classDate}</p>
        			  </div>
 
        			  <div class="input-group" style="margin-left: 42px">
