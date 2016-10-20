@@ -69,6 +69,12 @@ button.btn {
 	background-color: #e5e3e1;
 }
 
+div#ui-datepicker-div {
+	position: absolute;
+	top: 23% !important;
+	left: 25% !important;
+}
+
 div.input-group {
 	float: left;
 	margin-left: 35px;
