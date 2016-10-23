@@ -85,12 +85,6 @@ div.input-group > select {
 	margin-left: 0.6em;
 }
 
-select#librarian-select,
-select#location-select,
-select#department-select {
-	margin-bottom: 0.8em;
-}
-
 div.select-group {
 	height: 145px;
 }
@@ -139,13 +133,17 @@ div#course-enrollment-group > div.input-group {
 	/*float: left;*/
 }
 
-div#librarian-select-group {
+div#properties-select-group {
 	height: auto;
 	overflow: auto;
 }
 
-div#librarian-select-group > div.input-group {
+div#properties-select-group > div.input-group {
 	width: 30%;
+}
+
+div.dynamic-select > select {
+	margin-bottom: 0.8em !important;
 }
 
 div#course-enrollment-group label {

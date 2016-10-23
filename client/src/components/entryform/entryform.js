@@ -47,7 +47,7 @@ export class EntryForm {
     addLibrarian() {
 		var newValue = "librarian" + (++this.librarianCount);
     	this.selectedLibrarians.push(newValue);
-    	document.getElementById("add-librarian").style.visibility = "hidden";
+    	document.getElementById("librarian-add").style.visibility = "hidden";
     }
 
     // Add additional select input
@@ -153,9 +153,21 @@ export class EntryForm {
         return formData;
     }
 
-    selectOption(val) {
-    	document.getElementById(val).style.visibility = "visible";	
+    selectOption(section) {
+    	document.getElementById(section + "-add").style.visibility = "visible";	
     	//console.log(document.getElementById(val).value);
+        console.log(section);
+        // var libInputs = document.getElementsByClassName(section + "-select");
+        // var newNode = document.createElement("div");
+        // newNode.innerHTML = "<div>TEST</div>";
+        // var parentDiv = document.getElementById("librarian-select-group");
+
+
+        // for(var key in libInputs) {
+        //    console.log(key);
+        //    parentDiv.insertBefore(newNode, libInputs[key]);
+        // }
+
     }
 
     submit() {
