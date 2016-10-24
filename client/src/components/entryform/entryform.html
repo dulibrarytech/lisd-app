@@ -79,41 +79,44 @@
 		      <div class="form-group select-group" id="properties-select-group">
 			      <div class="input-group dynamic-select">
 			      	  <label for="librarian-select">Librarian:</label>
-			      	  <span id="librarian-add" class="click-span add-input" style="visibility: hidden" click.delegate="addLibrarian()">+ Add another librarian</span>
+			      	  <span id="librarian-add" class="click-span add-input" style="visibility: hidden; float: right;" click.delegate="addLibrarian()">+ Add another librarian</span>
 
 				      <div repeat.for="i of librarianCount">
 					      <select id="librarian-select-${i+1}" change.trigger="selectOption('librarian')" class="form-control single-dropdown" value.bind="selectedLibrarians[i]">
 					        <option selected hidden>Select a Librarian:</option>
 					        <option repeat.for="librarian of librarianList" value.bind="librarian.id"> ${librarian.name} </option>
 					      </select>
-					      <span if.one-time="i>=1" id="remove-librarian-select-${i+1}" class="click-span" click.trigger="removeSelectElement('librarian')">REMOVE</span>
+					      <div if.one-time="i==0" id="remove-librarian-select-${i+1}" class="click-span" style="">&nbsp</div>
+					      <div if.one-time="i>=1" id="remove-librarian-select-${i+1}" class="click-span remove-button" click.trigger="removeSelectElement('librarian')">REMOVE</div>
 				      </div>
 
 				  </div>
 
 			      <div class="input-group dynamic-select">
 			        <label for="location-select">Location:</label>
-			      	<span id="location-add" class="click-span add-input" style="visibility: hidden" click.delegate="addLocation()">+ Add another location</span>
+			      	<span id="location-add" class="click-span add-input" style="visibility: hidden; float: right;" click.delegate="addLocation()">+ Add another location</span>
 
 			      	<div repeat.for="i of locationCount">
 				      	<select id="location-select-${i+1}" change.trigger="selectOption('location')" class="form-control single-dropdown" value.bind="selectedLocations[i]">
 				      	  <option selected hidden>Select a Location:</option>
 					      <option repeat.for="location of locationList" value.bind="location.id"> ${location.name} </option>
 					    </select>
-					    <span if.one-time="i>=1" id="remove-location-select-${i+1}" class="click-span" click.trigger="removeSelectElement('location')">REMOVE</span>
+					    <div if.one-time="i==0" id="remove-location-select-${i+1}" class="click-span" style="">&nbsp</div>
+					    <div if.one-time="i>=1" id="remove-location-select-${i+1}" class="click-span remove-button" click.trigger="removeSelectElement('location')">REMOVE</div>
 				    </div>
 				  </div>
 
 			      <div class="input-group dynamic-select">
 			        <label for="department-select">Department:</label>
-			      	<span id="department-add" class="click-span add-input" style="visibility: hidden" click.delegate="addDepartment()">+ Add another department</span>
+			      	<span id="department-add" class="click-span add-input" style="visibility: hidden; float: right;" click.delegate="addDepartment()">+ Add another department</span>
 
 					<div repeat.for="i of departmentCount">
 				      	<select id="department-select-${i+1}" change.trigger="selectOption('department')" class="form-control single-dropdown" value.bind="selectedDepartments[i]">
 				      	  <option selected hidden>Select a Department:</option>
 					      <option repeat.for="department of departmentList" value.bind="department.id"> ${department.name} </option>
 					    </select>
-					    <span if.one-time="i>=1" id="remove-department-select-${i+1}" class="click-span" click.trigger="removeSelectElement('department')">REMOVE</span>
+					    <div if.one-time="i==0" id="remove-department-select-${i+1}" class="click-span" style="">&nbsp</div>
+					    <div if.one-time="i>=1" id="remove-department-select-${i+1}" class="click-span remove-button" click.trigger="removeSelectElement('department')">REMOVE</div>
 				    </div>
 				  </div>
 		      </div>

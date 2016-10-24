@@ -42,17 +42,6 @@ export class EntryForm {
         this.librarianList = dropdownData.librarians;
         this.locationList = dropdownData.locations;
         this.departmentList = dropdownData.departments;
-
-        // Hide remove buttons from initial select inputconsole.log("ff");
-        window.onload = function() {
-
-            console.log("GABBA");
-        }
-
-        
-        
-        // document.getElementById(buttonId).remove();
-        // document.getElementById(buttonId).remove();
     }
 
     // Add additional select input
