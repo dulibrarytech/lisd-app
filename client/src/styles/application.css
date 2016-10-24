@@ -142,7 +142,7 @@ div#properties-select-group > div.input-group {
 	width: 30%;
 }
 
-div.dynamic-select > select {
+div.dynamic-select > div > select {
 	margin-bottom: 0.8em !important;
 }
 

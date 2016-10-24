@@ -35,12 +35,24 @@ export class EntryForm {
     ]
 
     constructor(systemUtils) {
-        this.utils = systemUtils
+
+        this.utils = systemUtils;
 
         var dropdownData = this.getDropdownData();
         this.librarianList = dropdownData.librarians;
         this.locationList = dropdownData.locations;
         this.departmentList = dropdownData.departments;
+
+        // Hide remove buttons from initial select inputconsole.log("ff");
+        window.onload = function() {
+
+            console.log("GABBA");
+        }
+
+        
+        
+        // document.getElementById(buttonId).remove();
+        // document.getElementById(buttonId).remove();
     }
 
     // Add additional select input
@@ -48,6 +60,11 @@ export class EntryForm {
 		var newValue = "librarian" + (++this.librarianCount);
     	this.selectedLibrarians.push(newValue);
     	document.getElementById("librarian-add").style.visibility = "hidden";
+    }
+
+    removeLibrarian() {
+        this.librarianCount--;
+        document.getElementById("librarian-add").style.visibility = "visible";
     }
 
     // Add additional select input
@@ -62,6 +79,15 @@ export class EntryForm {
 		var newValue = "department" + (++this.departmentCount);
     	this.selectedDepartments.push(newValue);
     	document.getElementById("add-department").style.visibility = "hidden";
+    }
+
+    removeSelectElement() {
+        var buttonId = event.srcElement.id;
+        var selectId = event.srcElement.id.substring(7);
+        document.getElementById(buttonId).remove();
+        document.getElementById(selectId).remove();
+
+        this.removeLibrarian();
     }
 
     // Retrieves the current list from the server and populates all select dropdowns
@@ -155,19 +181,6 @@ export class EntryForm {
 
     selectOption(section) {
     	document.getElementById(section + "-add").style.visibility = "visible";	
-    	//console.log(document.getElementById(val).value);
-        console.log(section);
-        // var libInputs = document.getElementsByClassName(section + "-select");
-        // var newNode = document.createElement("div");
-        // newNode.innerHTML = "<div>TEST</div>";
-        // var parentDiv = document.getElementById("librarian-select-group");
-
-
-        // for(var key in libInputs) {
-        //    console.log(key);
-        //    parentDiv.insertBefore(newNode, libInputs[key]);
-        // }
-
     }
 
     submit() {
