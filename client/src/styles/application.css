@@ -46,7 +46,7 @@ router-view > h3 {
 }
 
 div#entry-form {
-	width: 60%;
+	width: 73%;
     margin: 3em auto;
     border-style: solid;
     border-width: 1px;
@@ -90,8 +90,7 @@ div.select-group {
 }
 
 div.select-group div select {
-	width: 75% !important;
-	/*margin-left: 0.6em;*/
+	width: 68% !important;
 }
 
 /*span#add-librarian {
@@ -198,4 +197,79 @@ div#comments div textarea {
 div.remove-button {
 	margin-top: 2em;
 	/*padding-top: 0.6em;*/
+}
+
+@media only screen and (min-width: 1400px) and (max-width: 1599px) {
+	div#entry-form {
+		width: 80%;
+	}
+	div.select-group div select {
+		width: 63% !important;
+	}
+}
+
+@media only screen and (min-width: 1300px) and (max-width: 1399px) {
+	div#entry-form {
+		width: 82%;
+	}
+	div.select-group div select {
+		width: 63% !important;
+	}
+
+	div.input-group {
+		margin-left: 20px;
+	}
+
+	div.input-group > input {
+		margin-left: 0.6em;
+		width: 80% !important;
+	}
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1299px) { 
+
+	div#entry-form {
+		width: 88%;
+	}
+	div.select-group div select {
+		width: 63% !important;
+	}
+
+	div.input-group {
+		margin-left: 20px;
+	}
+
+	div.input-group > input {
+		margin-left: 0.6em;
+		width: 80% !important;
+	}
+}
+
+@media only screen and (min-width: 1100px) and (max-width: 1199px) { 
+
+	div#entry-form {
+		width: 95%;
+	}
+	div.select-group div select {
+		width: 63% !important;
+	}
+
+	div.input-group {
+		margin-left: 10px;
+	}
+
+	div.input-group > input {
+		margin-left: 0.6em;
+		width: 75% !important;
+	}
+}
+
+@media only screen and (max-width: 1099px) { 
+
+	div#entry-form {
+		width: 95%;
+	}
+	div.select-group div select {
+		width: 63% !important;
+	}
 }
