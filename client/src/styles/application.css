@@ -159,8 +159,7 @@ div.form-group > button {
 	float: right;
 }
 
-div.input-group > span.click-span {
-	float: right;
+.click-span {
 	cursor: pointer;
 	color: #0074BD;
 }
@@ -194,4 +193,9 @@ div#comments div textarea {
 	width: 100%;
 	height: 100px;
 	resize: none;
+}
+
+div.remove-button {
+	margin-top: 2em;
+	/*padding-top: 0.6em;*/
 }
