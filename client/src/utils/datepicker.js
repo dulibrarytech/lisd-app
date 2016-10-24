@@ -10,9 +10,6 @@ export class DatePicker {
   }
 
   attached() {
-
-    console.log(this.element); // HAVE element, no .datepicker(); no jquery??   No jqueryui???
-
     $(this.element).datepicker()
       .on('change', e => fireEvent(e.target, 'input'));
 
