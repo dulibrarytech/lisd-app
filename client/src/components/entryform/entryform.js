@@ -60,7 +60,7 @@ export class EntryForm {
     addLocation() {
 		var newValue = "location" + (++this.locationCount);
     	this.selectedLocations.push(newValue);
-    	document.getElementById("add-location").style.visibility = "hidden";
+    	document.getElementById("location-add").style.visibility = "hidden";
     }
 
     removeLocation() {
@@ -72,7 +72,7 @@ export class EntryForm {
     addDepartment() {
 		var newValue = "department" + (++this.departmentCount);
     	this.selectedDepartments.push(newValue);
-    	document.getElementById("add-department").style.visibility = "hidden";
+    	document.getElementById("department-add").style.visibility = "hidden";
     }
 
     removeDepartment() {
