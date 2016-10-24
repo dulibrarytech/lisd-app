@@ -74,6 +74,11 @@ export class EntryForm {
     	document.getElementById("add-location").style.visibility = "hidden";
     }
 
+    removeLocation() {
+        this.locationCount--;
+        document.getElementById("location-add").style.visibility = "visible";
+    }
+
     // Add additional select input
     addDepartment() {
 		var newValue = "department" + (++this.departmentCount);
@@ -81,13 +86,28 @@ export class EntryForm {
     	document.getElementById("add-department").style.visibility = "hidden";
     }
 
-    removeSelectElement() {
+    removeDepartment() {
+        this.departmentCount--;
+        document.getElementById("department-add").style.visibility = "visible";
+    }
+
+    removeSelectElement(element) {
         var buttonId = event.srcElement.id;
         var selectId = event.srcElement.id.substring(7);
         document.getElementById(buttonId).remove();
         document.getElementById(selectId).remove();
 
-        this.removeLibrarian();
+        switch(element) {
+            case "librarian":
+                this.removeLibrarian();
+                break;
+            case "location":
+                this.removeLocation();
+                break;
+            case "department":
+                this.removeDepartment();
+                break;
+        }
     }
 
     // Retrieves the current list from the server and populates all select dropdowns
