@@ -117,7 +117,7 @@ div.form-group.checkbox-group > label.checkbox-text {
 }
 
 div#course-enrollment-group {
-	padding-left: 3em;
+	padding-left: 1.6em;
 	padding-right: 9em;
 	/*padding-bottom: 0;*/
 }
@@ -161,6 +161,10 @@ div.form-group > button {
 .click-span {
 	cursor: pointer;
 	color: #0074BD;
+}
+
+span.add-input {
+	margin-right: 5px;
 }
 
 select.single-dropdown {
@@ -220,7 +224,8 @@ div.remove-button {
 		margin-left: 20px;
 	}
 
-	div.input-group > input {
+	div.input-group > input,
+	div.input-group > select {
 		margin-left: 0.6em;
 		width: 80% !important;
 	}
@@ -236,10 +241,11 @@ div.remove-button {
 	}
 
 	div.input-group {
-		margin-left: 20px;
+		margin-left: 18px;
 	}
 
-	div.input-group > input {
+	div.input-group > input,
+	div.input-group > select {
 		margin-left: 0.6em;
 		width: 80% !important;
 	}
@@ -258,18 +264,12 @@ div.remove-button {
 		margin-left: 10px;
 	}
 
-	div.input-group > input {
+	div.input-group > input,
+	div.input-group > select {
 		margin-left: 0.6em;
 		width: 75% !important;
 	}
 }
 
-@media only screen and (max-width: 1099px) { 
 
-	div#entry-form {
-		width: 95%;
-	}
-	div.select-group div select {
-		width: 63% !important;
-	}
-}
+
