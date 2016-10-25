@@ -78,6 +78,12 @@ div#ui-datepicker-div {
 div.input-group {
 	float: left;
 	margin-left: 35px;
+	margin-left: 20px;
+	width: 30%;
+}
+
+#quarter-select {
+	width: 23%;
 }
 
 div.input-group > input,
@@ -260,9 +266,27 @@ div.remove-button {
 		width: 63% !important;
 	}
 
-	div.input-group {
-		margin-left: 10px;
+
+	div.input-group > input,
+	div.input-group > select {
+		margin-left: 0.6em;
+		width: 75% !important;
 	}
+}
+
+@media only screen and (min-width: 960px) and (max-width: 1099px) { 
+
+	body {
+		font-size: 14px !important;
+	}
+
+	div#entry-form {
+		width: 95%;
+	}
+	div.select-group div select {
+		width: 60% !important;
+	}
+
 
 	div.input-group > input,
 	div.input-group > select {

@@ -2,7 +2,7 @@ import 'fetch';
 import { customElement, inject } from 'aurelia-framework';
 
 import {SystemUtils} from '../../utils/SystemUtils.js';
-import $ from 'jquery';
+import $ from 'jquery'; // for datepicker
 
 @inject(SystemUtils)
 export class EntryForm {
