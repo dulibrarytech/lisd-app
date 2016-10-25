@@ -51,8 +51,9 @@ export class EntryForm {
     	document.getElementById("librarian-add").style.visibility = "hidden";
     }
 
-    removeLibrarian() {
+    removeLibrarian(index) {
         this.librarianCount--;
+        this.selectedLibrarians.splice(index,1);
         document.getElementById("librarian-add").style.visibility = "visible";
     }
 
@@ -63,8 +64,9 @@ export class EntryForm {
     	document.getElementById("location-add").style.visibility = "hidden";
     }
 
-    removeLocation() {
+    removeLocation(index) {
         this.locationCount--;
+        this.selectedLocations.splice(index,1);
         document.getElementById("location-add").style.visibility = "visible";
     }
 
@@ -75,26 +77,32 @@ export class EntryForm {
     	document.getElementById("department-add").style.visibility = "hidden";
     }
 
-    removeDepartment() {
+    removeDepartment(index) {
         this.departmentCount--;
+        this.selectedDepartments.splice(index,1);
         document.getElementById("department-add").style.visibility = "visible";
     }
 
     removeSelectElement(element) {
+
         var buttonId = event.srcElement.id;
         var selectId = event.srcElement.id.substring(7);
         document.getElementById(buttonId).remove();
         document.getElementById(selectId).remove();
 
+        // Get the view array index from the select box ID
+        var index = selectId.substring(17)-1;
+
+        // Remove property from the view array
         switch(element) {
             case "librarian":
-                this.removeLibrarian();
+                this.removeLibrarian(index);
                 break;
             case "location":
-                this.removeLocation();
+                this.removeLocation(index);
                 break;
             case "department":
-                this.removeDepartment();
+                this.removeDepartment(index);
                 break;
         }
     }
@@ -195,13 +203,14 @@ export class EntryForm {
     submit() {
 
         var data = this.getFormData();
-
-        this.utils.doAjax('insert/class', 'post', data, function(responseObject) {
-            console.log("Server: " + responseObject.message);
-            setTimeout(function() {
-                location.reload(false);
-            }, 3000);
-        });
+        console.log(data); // DEV
+        
+        // this.utils.doAjax('insert/class', 'post', data, function(responseObject) {
+        //     console.log("Server: " + responseObject.message);
+        //     setTimeout(function() {
+        //         location.reload(false);
+        //     }, 3000);
+        // });
     }
 }
 
