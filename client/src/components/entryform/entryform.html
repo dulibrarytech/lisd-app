@@ -16,7 +16,7 @@
 	       			  <input datepicker class="form-control" id="date-select" type="text" value.bind="classDate" placeholder = "">
        			  </div>
 
-       			  <div class="input-group" id="quarter-select" style="margin-left: 3%">
+       			  <div class="input-group" id="quarter-select" style="">
 	       			  <label class="form-label" for="quarterSelect">Quarter:</label>
 	       			  <select class="form-control" value.bind="quarterSelect">
 				        <option repeat.for="quarter of quarters" value.bind="quarter">${quarter}</option>
@@ -46,13 +46,8 @@
 		      </div>
 
 		      <div class="form-group" id="course-enrollment-group">
-		      	<section style="width: 64%; float: left;">
-		      		<div class="checkbox-group">
-				        <label>Select class type:</label>
-				      	<label class="checkbox-text" repeat.for="type of classTypes">${type}<input type="checkbox" checked.bind="selectedClassTypes[type]"></label>
-				    </div>
-		      	</section>
-		      	<section style="width: 36%; float: left;">
+		     
+		      	<section id="student-count">
 			      	<div class="inline-group">
 			      	  <label class="form-label" for="numGraduates">Number of Graduates:</label>
 	       			  <input class="form-control" type="text" value.bind="numGraduates" placeholder = "">
@@ -73,6 +68,12 @@
 	       			  <input class="form-control" type="text" value.bind="numOther" placeholder = "">
 	       			</div>
        			</section>
+       			<section id="class-type">
+		      		<div class="checkbox-group">
+				        <label>Select class type:</label>
+				      	<label class="checkbox-text" repeat.for="type of classTypes">${type}<input type="checkbox" checked.bind="selectedClassTypes[type]"></label>
+				    </div>
+		      	</section>
        			<br style="clear:both;" />
 		      </div>
 

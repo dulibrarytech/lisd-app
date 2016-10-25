@@ -89,6 +89,7 @@ div.input-group {
 div.input-group > input,
 div.input-group > select {
 	margin-left: 0.6em;
+	width: 90% !important;
 }
 
 div.select-group {
@@ -123,7 +124,7 @@ div.form-group.checkbox-group > label.checkbox-text {
 }
 
 div#course-enrollment-group {
-	padding-left: 1.6em;
+	padding-left: 1.9em;
 	padding-right: 9em;
 	/*padding-bottom: 0;*/
 }
@@ -178,6 +179,17 @@ select.single-dropdown {
 	margin: 0 1.7em;
 }
 
+section#student-count {
+	width: 27%;
+	float: left;
+}
+
+section#class-type {
+	width: 73%;
+	float: left;
+	padding-left: 6.6em;
+}
+
 div#course-enrollment-group div input {
 	/*width: 4em !important;*/
 }
@@ -209,12 +221,27 @@ div.remove-button {
 	/*padding-top: 0.6em;*/
 }
 
+@media only screen and (min-width: 1600px) {
+	section#class-type {
+		padding-left: 6.9em;
+	}
+}
+
 @media only screen and (min-width: 1400px) and (max-width: 1599px) {
 	div#entry-form {
 		width: 80%;
 	}
 	div.select-group div select {
 		width: 63% !important;
+	}
+
+	section#student-count {
+		width: 28%;;
+	}
+
+	section#class-type {
+		width: 72%;
+		padding-left: 6em;
 	}
 }
 
@@ -234,6 +261,15 @@ div.remove-button {
 	div.input-group > select {
 		margin-left: 0.6em;
 		width: 80% !important;
+	}
+
+	section#student-count {
+		width: 30%;
+	}
+
+	section#class-type {
+		width: 70%;
+		padding-left: 4.6em;
 	}
 }
 
@@ -255,6 +291,15 @@ div.remove-button {
 		margin-left: 0.6em;
 		width: 80% !important;
 	}
+
+	section#student-count {
+		width: 32%;
+	}
+
+	section#class-type {
+		width: 68%;
+		padding-left: 3.2em;
+	}
 }
 
 @media only screen and (min-width: 1100px) and (max-width: 1199px) { 
@@ -271,6 +316,15 @@ div.remove-button {
 	div.input-group > select {
 		margin-left: 0.6em;
 		width: 75% !important;
+	}
+
+	section#student-count {
+		width: 32%;
+	}
+
+	section#class-type {
+		width: 68%;
+		padding-left: 3.4em;
 	}
 }
 
@@ -292,6 +346,15 @@ div.remove-button {
 	div.input-group > select {
 		margin-left: 0.6em;
 		width: 75% !important;
+	}
+
+	section#student-count {
+		width: 35.5%;
+	}
+
+	section#class-type {
+		width: 64.5%;
+		padding-left: 15em;
 	}
 }
 
