@@ -377,8 +377,8 @@ div.remove-button {
 	}
 
 	section#class-type {
-		width: 60%;
-		padding-left: 12em;
+		width: 45%;
+		padding-left: 8em;
 	}
 }
 
@@ -419,6 +419,12 @@ div.remove-button {
 	section#class-type {
 		display: block;
 		padding-left: 0;
+	}
+}
+
+@media only screen and (max-width: 615px) {
+	div#instructor-input {
+		margin-top: 18px;
 	}
 }
 
