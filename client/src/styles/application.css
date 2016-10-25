@@ -330,9 +330,9 @@ div.remove-button {
 
 @media only screen and (min-width: 960px) and (max-width: 1099px) { 
 
-	body {
+/*	body {
 		font-size: 14px !important;
-	}
+	}*/
 
 	div#entry-form {
 		width: 95%;
@@ -357,6 +357,128 @@ div.remove-button {
 		padding-left: 15em;
 	}
 }
+
+@media only screen and (min-width: 768px) and (max-width: 959px) { 
+
+	body {
+		font-size: 12px !important;
+	}
+
+	div#entry-form {
+		width: 99%;
+	}
+	div.select-group div select {
+		width: 63% !important;
+		font-size: 10px;
+	}
+
+	section#student-count {
+		width: 40%;
+	}
+
+	section#class-type {
+		width: 60%;
+		padding-left: 12em;
+	}
+}
+
+@media only screen and (min-width: 480px) and (max-width: 767px) { 
+	body {
+		font-size: 9px !important;
+	}
+
+	div#entry-form {
+		width: 99%;
+	}
+
+	div.input-group input, 
+	div.input-group select,
+	div.inline-group input {
+		height: 26px;
+	}
+/*
+	div#course-enrollment-group input {
+		width: 25px;
+	}*/
+
+	div#properties-select-group > div.input-group {
+		width: 70%;
+	    margin-left: 10px;
+	}
+
+	div.select-group div select {
+		
+		font-size: 10px;
+		display: block;
+	}
+
+	section#student-count {
+		width: 80%;
+	}
+
+	section#class-type {
+		display: block;
+		padding-left: 0;
+	}
+}
+
+@media only screen and (min-width: 550px) and (max-width: 768px) { 
+	section#student-count {
+		width: 53%;
+	}
+}
+
+@media only screen and (min-width: 320px) and (max-width: 366px) { 
+	section#student-count {
+		width: 65%;
+	}
+}
+
+@media only screen and (min-width: 320px) and (max-width: 479px) { 
+	body {
+		font-size: 9px !important;
+	}
+
+	div#entry-form {
+		width: 99%;
+	}
+
+	div.input-group input, 
+	div.input-group select,
+	div.inline-group input {
+		height: 26px;
+	}
+/*
+	div#course-enrollment-group input {
+		width: 25px;
+	}*/
+
+	div#course-enrollment-group {
+	    padding-right: 0;
+	    /* padding-bottom: 0; */
+	}
+
+	div#properties-select-group > div.input-group {
+		width: 70%;
+	    margin-left: 10px;
+	}
+
+	div.select-group div select {
+		
+		font-size: 10px;
+		display: block;
+	}
+
+	section#student-count {
+		width: 90%;
+	}
+
+	section#class-type {
+		display: block;
+		padding-left: 0;
+	}
+}
+
 
 
 
