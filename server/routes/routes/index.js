@@ -25,7 +25,7 @@ router.get('/get/data/all', function(req, res) {
 
 router.get('/get/data/selectValues', function(req, res) {
   if(req.headers['user-agent'] == process.env.CLIENT_USER_AGENT ||
-    process.env.ENABLE_BROWSER_TEST == 'true') {  // TODO Add middleware
+    process.env.ENABLE_BROWSER_TEST == 'true') { 
     
     aggregatorController.getDataSelectValues(req, res);
   }
@@ -39,9 +39,22 @@ router.get('/get/data/selectValues', function(req, res) {
 
 router.post('/insert/class', function(req, res) {
   if(req.headers['user-agent'] == process.env.CLIENT_USER_AGENT ||
-    process.env.ENABLE_BROWSER_TEST == 'true') {  // TODO Add middleware
+    process.env.ENABLE_BROWSER_TEST == 'true') {  
     
     classController.insertClass(req, res);
+  }
+    else {
+      res.statusCode = 403;
+      res.send();
+    }
+});
+
+router.post('/admin/authenticate', function(req, res) {
+  if(req.headers['user-agent'] == process.env.CLIENT_USER_AGENT ||
+    process.env.ENABLE_BROWSER_TEST == 'true') {  
+    
+    var response = {"auth": false, "token": null};
+    res.send(response);
   }
     else {
       res.statusCode = 403;

@@ -25,7 +25,7 @@ describe("Aggregator", function(){
 
  //    	});
 	// });
-	if(true) {
+	if(false) {
 		describe("#Librarian.getList()()", function(){
 			it("should return an object", function(){
 
@@ -40,7 +40,7 @@ describe("Aggregator", function(){
 		});
 	}
 
-	if(true) {
+	if(false) {
 		describe("#Location.getList()()", function(){
 			it("should return an object", function(){
 
@@ -55,7 +55,7 @@ describe("Aggregator", function(){
 		});
 	}
 
-	if(true) {
+	if(false) {
 		describe("#Department.getList()()", function(){
 			it("should return an object", function(){
 
