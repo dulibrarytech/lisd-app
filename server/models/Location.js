@@ -9,7 +9,7 @@ module.exports = (function() {
 		//var db = database.connection();
 		collection = db.collection('lisd_location');
 		// DEV
-		console.log("Location model connected to db...");
+		//console.log("Location model connected to db...");
 	});
 	
 	var addDocument = function(data, callback) {
