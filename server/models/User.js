@@ -10,10 +10,10 @@ exports.isValidSession = function(session) {
   return validateSessionToken(session.token);
 };
 
-exports.authenticateLogin = function(username, password) {
+exports.validateLogin = function(username, password, callback) {
 	var auth = false;
 
-	return auth;
+	callback(auth);
 }
 
 var validateSessionToken = function(token) {
