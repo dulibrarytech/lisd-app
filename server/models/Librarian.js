@@ -9,7 +9,7 @@ module.exports = (function() {
 		//var db = database.connection();
 		collection = db.collection('lisd_librarian');
 		// DEV
-		console.log("Librarian model connected to db...");
+		//console.log("Librarian model connected to db...");
 	});
 	
 	var addDocument = function(data, callback) {
