@@ -4,6 +4,7 @@ var app = express();
 var router = express.Router();
 var aggregatorController = require("../../controllers/aggregatorController.js");
 var classController = require("../../controllers/classController.js");
+var userController = require("../../controllers/userController.js");
 
 router.get('/', function(req, res) {
     res.render('index.html');
@@ -53,8 +54,7 @@ router.post('/admin/authenticate', function(req, res) {
   if(req.headers['user-agent'] == process.env.CLIENT_USER_AGENT ||
     process.env.ENABLE_BROWSER_TEST == 'true') {  
     
-    var response = {"auth": false, "token": null};
-    res.send(response);
+    userController.authenticateUser(req,res);
   }
     else {
       res.statusCode = 403;
