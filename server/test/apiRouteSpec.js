@@ -60,13 +60,40 @@ describe("Server API", function(){
 			    commentText: "comment by commenter"
 			}
 
-			it('should return status 200', function() {
+			it('should return status 200', function(done) {
 			  chai.request(process.env.BASE_URL)
 			    .post('/insert/class')
 			    .send(data)
 			    .end(function(err, res){
 
-			      console.log("ajax result: class inserted");
+			      expect(res).to.have.status(200);
+			      console.log("received response:");
+			      console.log(res.body);
+
+			      done();
+			    });
+			});
+		});
+	}
+
+	if(true) {
+		describe("#POST /admin/authenticate", function(){
+			it('should return status 200', function(done) {
+
+				var data = {
+					username: "jrynhart",
+					password: "12345"
+				};
+				chai.request(process.env.BASE_URL)
+				    .post('/admin/authenticate')
+				    .send(data)
+				    .end(function(err, res){
+
+			      		expect(res).to.have.status(200);
+			      		console.log("received response:");
+			      		console.log(res.body);
+			      		
+						done();
 			    });
 			});
 		});
