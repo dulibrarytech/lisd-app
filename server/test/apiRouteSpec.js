@@ -67,8 +67,8 @@ describe("Server API", function(){
 			    .end(function(err, res){
 
 			      expect(res).to.have.status(200);
-			      console.log("received response:");
-			      console.log(res.body);
+			      	console.log("received response:");
+			      	console.log(res.body);
 
 			      done();
 			    });
@@ -90,11 +90,11 @@ describe("Server API", function(){
 				    .end(function(err, res){
 
 			      		expect(res).to.have.status(200);
-			      		console.log("received response:");
-			      		console.log(res.body);
-			      		
-						done();
+			      			console.log("received response:");
+			      			console.log(res.body);
+			   		done();
 			    });
+				//done();
 			});
 		});
 	}
