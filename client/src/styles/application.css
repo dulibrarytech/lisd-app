@@ -87,6 +87,12 @@ div.input-group {
 	width: 30%;
 }
 
+section#student-count > .inline-group > input {
+	position: relative;
+	left: 10px;
+	width: 55px;
+}
+
 #quarter-select {
 	width: 23%;
 }
@@ -396,6 +402,11 @@ div.remove-button {
 		height: 30px;
 	}
 
+	span#du-logo a img {
+	    margin-top: 4px;
+	    margin-left: 0px;
+	}
+
 	div#entry-form {
 		width: 99%;
 	}
@@ -422,12 +433,14 @@ div.remove-button {
 	}
 
 	section#student-count {
-		width: 80%;
+		width: 53%;
 	}
 
 	section#class-type {
-		display: block;
-		padding-left: 0;
+	    display: block;
+	    padding-left: 4em;
+	    width: 47%;
+	    float: left;
 	}
 }
 
@@ -439,13 +452,11 @@ div.remove-button {
 
 @media only screen and (min-width: 550px) and (max-width: 768px) { 
 	section#student-count {
-		width: 53%;
+		width: 45%;
 	}
-}
-
-@media only screen and (min-width: 320px) and (max-width: 366px) { 
-	section#student-count {
-		width: 65%;
+	section#class-type {
+	    width: 47%;
+	    padding-left: 8em;
 	}
 }
 
@@ -456,6 +467,7 @@ div.remove-button {
 
 	span#app-title {
 		font-size: 1.3em;
+		top: 1em;
 	}
 
 	div#entry-form {
@@ -489,7 +501,11 @@ div.remove-button {
 	}
 
 	section#student-count {
-		width: 90%;
+		width: 55%;
+	}
+	section#class-type {
+	    width: 47%;
+	    padding-left: 8em;
 	}
 
 	section#class-type {
@@ -516,16 +532,20 @@ div.remove-button {
 	}
 
 	span#app-title {
-		top: 0.9em;
+		/*top: 0.9em;*/
+	}
+
+	div#quarter-select > select {
+		font-size: 10px;
+		/*width: 80px !important;*/
 	}
 }
 
-@media only screen and (min-width: 480px) and (max-width: 768px) {
-	span#app-title {
-	    top: 0.25em;
+@media only screen and (min-width: 320px) and (max-width: 366px) { 
+	section#student-count {
+		width: 70%;
 	}
 }
-
 
 
 
