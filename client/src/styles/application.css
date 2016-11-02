@@ -230,6 +230,7 @@ div#comments div textarea {
 div.remove-button {
 	margin-top: 2em;
 	/*padding-top: 0.6em;*/
+	color: red;
 }
 
 @media only screen and (min-width: 1600px) {
