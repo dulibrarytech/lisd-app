@@ -538,7 +538,11 @@ div.remove-button {
 
 	div#quarter-select > select {
 		font-size: 10px;
-		/*width: 80px !important;*/
+		width: 80px !important;
+	}
+
+	section#student-count > .inline-group > input {
+		width: 100%;
 	}
 }
 
@@ -547,6 +551,7 @@ div.remove-button {
 		width: 70%;
 	}
 }
+/* End Special adjustments: */
 
 
 
