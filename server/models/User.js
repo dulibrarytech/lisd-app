@@ -1,7 +1,5 @@
 'use strict'
 
-var LdapAuth = require('ldapauth');
-
 var database = require('../util/database.js');
 var collection;
 
