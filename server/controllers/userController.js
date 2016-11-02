@@ -9,16 +9,28 @@ module.exports.authenticateUser = function(req,res) {
 	var pwd = req.body.password;
 
 	// Validate credentials
-	User.validateLogin(name, pwd, function(isValid) {
-		var response = {
-			message: "Invalid credentials",
-			token: null
-		};
-		if(isValid !== false) { // User is authenticated
-			response.message = "OK";
+	// User.validateLogin(name, pwd, function(isValid) {
 
-			// Validate LDAP binding
-		}
-		res.send(response);
+	// 	if(isValid !== false) { // User is authenticated
+			
+	// 		// Validate LDAP binding
+	// 		authenticateLDAP(name, pwd, function(isLDAPValid) {
+	// 			var response = {
+	// 				message: "Invalid credentialsy",
+	// 				token: null
+	// 			};
+	// 			response.send(response);
+	// 		});
+	// 	}
+	// });
+
+	var pmtest = User.validateLogin(name, pwd).then(function(res) {
+			console.log("Controller receives:");
+			console.log(pmtest)
+		res.send(pmtest);
 	});
 }
+
+var authenticateLDAP = function(username, password, callback) {
+	callback(true);
+};
