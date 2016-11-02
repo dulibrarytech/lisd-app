@@ -538,7 +538,7 @@ div.remove-button {
 
 	div#quarter-select > select {
 		font-size: 10px;
-		width: 80px !important;
+	/*	width: 100% !important;*/
 	}
 
 	section#student-count > .inline-group > input {
