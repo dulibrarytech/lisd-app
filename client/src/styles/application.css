@@ -7,6 +7,10 @@ body {
 	font-size: 1em;
 }
 
+input {
+	width: 55px;
+}
+
 input, label, select {
     display:block;
 }
@@ -28,16 +32,17 @@ span#du-logo {
 }
 
 span#du-logo a img {
-	height: 40px;
-	width: 140px;
+	height: 38px;
+	width: 133px;
 	margin-top: 5px;
+	margin-left: 5px;
 }
 
 span#app-title {
 	position: relative;
 	left: 1.7em;
 	top: 0.3em;
-	font-size: 1.5em;
+	font-size: 1.2em;
 	color: white;
 }
 
@@ -130,7 +135,7 @@ div#course-enrollment-group {
 }
 
 div#course-enrollment-group input {
-	width: 55px;
+	/*width: 55px;*/
 	margin-left: 0.7em;
 }
 
@@ -387,6 +392,10 @@ div.remove-button {
 		font-size: 9px !important;
 	}
 
+	div#du-red-header-inner {
+		height: 30px;
+	}
+
 	div#entry-form {
 		width: 99%;
 	}
@@ -445,6 +454,10 @@ div.remove-button {
 		font-size: 9px !important;
 	}
 
+	span#app-title {
+		font-size: 1.3em;
+	}
+
 	div#entry-form {
 		width: 99%;
 	}
@@ -484,6 +497,36 @@ div.remove-button {
 		padding-left: 0;
 	}
 }
+
+/* Special adjustments: */
+@media only screen and (min-width: 320px) and (max-width: 960px) { 
+	input {
+		margin-top: 1px !important;
+	}
+}
+
+@media only screen and (min-width: 320px) and (max-width: 768px) { 
+	span#du-logo {
+	    margin-left: 3px;
+	}
+
+	span#du-logo a img {
+		width: 80px;
+		height: 22px;
+	}
+
+	span#app-title {
+		top: 0.9em;
+	}
+}
+
+@media only screen and (min-width: 480px) and (max-width: 768px) {
+	span#app-title {
+	    top: 0.25em;
+	}
+}
+
+
 
 
 
