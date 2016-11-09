@@ -21,7 +21,7 @@ describe("Server API", function(){
 		});
 	}
 
-	if(false) {
+	if(true) {
 		describe("#GET /get/data/selectValues", function(){
 			it('should return status 200', function(done) {
 				chai.request(process.env.BASE_URL)
@@ -76,7 +76,7 @@ describe("Server API", function(){
 		});
 	}
 
-	if(true) {
+	if(false) {
 		describe("#POST /admin/authenticate", function(){
 			it('should return status 200', function(done) {
 
