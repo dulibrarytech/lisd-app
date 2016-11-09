@@ -83,30 +83,6 @@ export class EntryForm {
         document.getElementById("department-add").style.visibility = "visible";
     }
 
-    removeSelectElement(element) {
-
-        var buttonId = event.srcElement.id;
-        var selectId = event.srcElement.id.substring(7);
-        document.getElementById(buttonId).remove();
-        document.getElementById(selectId).remove();
-
-        // Get the view array index from the select box ID
-        var index = selectId.substring(17)-1;
-
-        // Remove property from the view array
-        switch(element) {
-            case "librarian":
-                this.removeLibrarian(index);
-                break;
-            case "location":
-                this.removeLocation(index);
-                break;
-            case "department":
-                this.removeDepartment(index);
-                break;
-        }
-    }
-
     // Retrieves the current list from the server and populates all select dropdowns
     getDropdownData() {
 
