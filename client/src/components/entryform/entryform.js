@@ -32,7 +32,7 @@ export class EntryForm {
     	'Research as Inquiry',
     	'Scholarship as Conversation',
     	'Searching as Strategic Exploration'
-    ]
+    ];
 
     constructor(systemUtils) {
 
