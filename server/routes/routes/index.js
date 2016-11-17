@@ -7,6 +7,7 @@ var classController = require("../../controllers/classController.js");
 var userController = require("../../controllers/userController.js");
 
 router.get('/', function(req, res) {
+
     res.render('index.html');
 });
 

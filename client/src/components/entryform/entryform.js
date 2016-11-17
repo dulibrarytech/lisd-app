@@ -138,20 +138,20 @@ export class EntryForm {
         var formData = {};
 
         // Form text fields
-        formData['classDate'] = this.classDate;
-        formData['quarter'] = this.quarterSelect;
-        formData['className'] = this.className;
-        formData['courseNumber'] = this.courseNumber;
-        formData['instructorName'] = this.instructorName;
-        formData['graduates'] = this.numGraduates;
-        formData['undergraduates'] = this.numUndergraduates;
-        formData['facultyStaff'] = this.numFacultyStaff;
-        formData['other'] = this.numOther;
+        formData['classDate'] =         this.classDate;
+        formData['quarter'] =           this.quarterSelect;
+        formData['className'] =         this.className;
+        formData['courseNumber'] =      this.courseNumber;
+        formData['instructorName'] =    this.instructorFName + " " + this.instructorLName;
+        formData['graduates'] =         this.numGraduates;
+        formData['undergraduates'] =    this.numUndergraduates;
+        formData['facultyStaff'] =      this.numFacultyStaff;
+        formData['other'] =             this.numOther;
 
         // Get dropdown select data
-        formData['librarian'] = this.selectedLibrarians;
-        formData['location'] = this.selectedLocations;
-        formData['department'] = this.selectedDepartments;
+        formData['librarian'] =     this.selectedLibrarians;
+        formData['location'] =      this.selectedLocations;
+        formData['department'] =    this.selectedDepartments;
 
         // Get checkbox group data
         formData['classType'] = [];
