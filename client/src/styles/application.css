@@ -235,11 +235,21 @@ div#comments div textarea {
 	resize: none;
 }
 
-div.remove-button {
-	margin-top: 2em;
-	/*padding-top: 0.6em;*/
-	color: red;
+button.remove-button {
+/*	margin-top: 2em;
+	padding-top: 0.6em;
+	color: red;*/
+	position: relative;
+	top: 25px;
 }
+
+.btn-danger {
+	color: #fff !important;
+    background-color: #d9534f !important;
+    border-color: #d43f3a !important;
+}
+
+
 
 @media only screen and (min-width: 1600px) {
 	section#class-type {
