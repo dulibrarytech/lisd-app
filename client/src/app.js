@@ -4,7 +4,7 @@ export class App {
     config.title = 'Library Instruction Statistics Database';
     config.map([
       { route: ['', 'entryform'], name: 'entryform',      moduleId: 'components/entryform/entryform',      nav: true, title: 'Entry Form' },
-      { route: ['admin', 'admin'], name: 'admin',      moduleId: 'components/admin/admin',      nav: true, title: 'Admin' }
+      { route: ['statistics', 'statistics'], name: 'statistics',      moduleId: 'components/statistics/statistics',      nav: true, title: 'Statistics' }
     ]);
 
     this.router = router;
