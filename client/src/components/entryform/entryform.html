@@ -2,7 +2,7 @@
 <template>
 <require from="../../utils/datepicker"></require>
 
-		<div id="entry-form">
+		<div id="entry-form" class="ir-container">
 
 			<!-- <h3>Entry Form</h3> -->
 			<form role="form" id="entryForm" submit.delegate="submit()">
@@ -107,7 +107,8 @@
 					      <option repeat.for="location of locationList" value.bind="location.id"> ${location.name} </option>
 					    </select>
 					    <div if.one-time="i==0" class="click-span" style="">&nbsp</div>
-					    <div if.one-time="i>=1" class="click-span remove-button" click.trigger="removeLocation(i)">Remove</div>
+					    <!-- <div if.one-time="i>=1" class="click-span remove-button" click.trigger="removeLocation(i)">Remove</div> -->
+					    <button if.one-time="i>=1" class="btn btn-danger remove-button" click.trigger="removeLibrarian(i)"></button>
 				    </div>
 				  </div>
 
@@ -121,7 +122,8 @@
 					      <option repeat.for="department of departmentList" value.bind="department.id"> ${department.name} </option>
 					    </select>
 					    <div if.one-time="i==0" class="click-span" style="">&nbsp</div>
-					    <div if.one-time="i>=1" class="click-span remove-button" click.trigger="removeDepartment(i)">Remove</div>
+					    <!-- <div if.one-time="i>=1" class="click-span remove-button" click.trigger="removeDepartment(i)">Remove</div> -->
+					    <button if.one-time="i>=1" class="btn btn-danger remove-button" click.trigger="removeLibrarian(i)"><span>X</span></button>
 				    </div>
 				  </div>
 		      </div>
