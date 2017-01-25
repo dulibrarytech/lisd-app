@@ -20,6 +20,10 @@ header#du-header {
 	background-color: #8b2332;
 }
 
+.navbar {
+	margin-bottom: 0 !important;
+}
+
 div#du-red-header-inner {
 	background-color: #8b2332;
 	height: 50px;
