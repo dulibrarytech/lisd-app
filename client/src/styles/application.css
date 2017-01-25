@@ -277,9 +277,21 @@ form#search-options {
     margin-top: 4.7em;
 }
 
+label.radio-select {
+	display: inline-flex;
+}
 
+div.form-section {
+    border-style: solid;
+    border-color: #e5e3e1;
+    border-width: 1px;
+    border-radius: 6px;
+    padding: 15px 10px 10px 10px;
+}
 
-
+.form-control {
+	margin-bottom: 2em;
+}
 
 
 

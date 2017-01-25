@@ -6,13 +6,19 @@
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
 
-            <form id="search-options">
+            <form id="search-options" role="form">
+
                 <label>Get Statistics:</label>
                 <select class="form-control" value.bind="selectedVal">
                     <option repeat.for="option of searchType" value.bind="option">${option}</option>
                 </select>
 
-
+                <label>For:</label>
+                <div class="form-section">
+                    <label class="radio-select" repeat.for="option of statisticsFor">
+                        <input type="radio" class="" value.bind="option" name="testOptions" checked.bind="$parent.selectedStatisticsFor">${option}
+                    </label>
+                </div>
             </form>
 
 
@@ -59,7 +65,9 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <!-- <h3>Get Statistics</h3> -->
+                        <form id="statistics-search" role="form">
+
+                        </form>
                     </div>
                 </div>
             </div>
