@@ -1,17 +1,17 @@
 {
   "name": "aurelia-starter-node",
   "version": "1.0.0",
-  "description": "Aurelia and Node.js side-by-side.",
+  "description": "Library Instructional Statistics Database Client",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Vheissu/aurelia-starter-node.git"
+    "url": ""
   },
-  "author": "Dwayne Charrington <dwaynecharrington@gmail.com> (http://ilikekillnerds.com)",
-  "license": "MIT",
+  "author": "Jeff Rynhart",
+  "license": "University of Denver",
   "bugs": {
     "url": "https://github.com/Vheissu/aurelia-starter-node/issues"
   },
@@ -80,5 +80,8 @@
         "main": "client/shim.min"
       }
     }
+  },
+  "dependencies": {
+    "gentelella": "^1.3.0"
   }
 }
