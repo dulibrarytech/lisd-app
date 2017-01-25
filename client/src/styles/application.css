@@ -269,6 +269,20 @@ button.remove-button {
     border-color: #d43f3a !important;
 }
 
+div#sidebar-wrapper {
+	padding: 28px;
+}
+
+form#search-options {
+    margin-top: 4.7em;
+}
+
+
+
+
+
+
+
 
 
 @media only screen and (min-width: 1600px) {

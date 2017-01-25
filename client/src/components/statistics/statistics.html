@@ -5,7 +5,27 @@
 
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
+
+            <form id="search-options">
+                <label>Get Statistics:</label>
+                <select class="form-control" value.bind="selectedVal">
+                    <option repeat.for="option of searchType" value.bind="option">${option}</option>
+                </select>
+
+
+            </form>
+
+
+
+
+
+
+
+
+
+
+
+<!--             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
                     Search Options
                 </li>
@@ -30,7 +50,7 @@
                 <li>
                     <a href="#">Contact</a>
                 </li>
-            </ul>
+            </ul> -->
         </div>
         <!-- /#sidebar-wrapper -->
 
@@ -39,7 +59,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1>Statistics Search</h1>
+                        <!-- <h3>Get Statistics</h3> -->
                     </div>
                 </div>
             </div>
