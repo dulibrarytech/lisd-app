@@ -19,44 +19,21 @@
                         <input type="radio" class="" value.bind="option" name="testOptions" checked.bind="$parent.selectedStatisticsFor">${option}
                     </label>
                 </div>
+
+                <label>List by:</label>
+                <div class="form-section">
+                    <label class="radio-select" repeat.for="option of listResultsBy">
+                        <input type="radio" class="" value.bind="option" name="testOptions" checked.bind="$parent.selectedListResultsBy">${option}
+                    </label>
+                </div>
+
+                <label>Display:</label>
+                <div class="form-section">
+                    <label class="radio-select" repeat.for="option of displayStatistics">
+                        <input type="checkbox" class="" value.bind="option" name="testOptions" checked.bind="$parent.selectedDisplayStatistics">${option}
+                    </label>
+                </div>
             </form>
-
-
-
-
-
-
-
-
-
-
-
-<!--             <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    Search Options
-                </li>
-                <li>
-                    <a href="#">Dashboard</a>
-                </li>
-                <li>
-                    <a href="#">Shortcuts</a>
-                </li>
-                <li>
-                    <a href="#">Overview</a>
-                </li>
-                <li>
-                    <a href="#">Events</a>
-                </li>
-                <li>
-                    <a href="#">About</a>
-                </li>
-                <li>
-                    <a href="#">Services</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
-            </ul> -->
         </div>
         <!-- /#sidebar-wrapper -->
 
