@@ -94,7 +94,7 @@ export class EntryForm {
         data["departments"] = [];
 
         // Ajax
-        var test = this.utils.doAjax('get/data/selectValues', 'get', null, function(responseObject) {
+        this.utils.doAjax('get/data/entry/selectValues', 'get', null, function(responseObject) {
 
             // Populate the select boxes with the name and database id of each item
             var currentData = {};

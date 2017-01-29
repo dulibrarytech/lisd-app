@@ -59,7 +59,6 @@ module.exports = (function() {
 	* Return object of all available class property choices for libnrarian, location, and department
 	*/
 	var getList = function(callback) {
-
 		var classes = [];
 
 		try {

@@ -25,11 +25,23 @@ router.get('/get/data/all', function(req, res) {
     }
 });
 
-router.get('/get/data/selectValues', function(req, res) {
+router.get('/get/data/entry/selectValues', function(req, res) {
   if(req.headers['user-agent'] == process.env.CLIENT_USER_AGENT ||
     process.env.ENABLE_BROWSER_TEST == 'true') { 
     
-    aggregatorController.getDataSelectValues(req, res);
+    aggregatorController.getDataEntrySelectValues(req, res);
+  }
+    else {
+      res.statusCode = 403;
+      //res.end();
+      res.send();
+    }
+});
+
+router.get('/get/data/search/selectValues', function(req, res) {
+  if(req.headers['user-agent'] == process.env.CLIENT_USER_AGENT ||
+    process.env.ENABLE_BROWSER_TEST == 'true') { 
+    aggregatorController.getDataSearchSelectValues(req, res);
   }
     else {
       res.statusCode = 403;

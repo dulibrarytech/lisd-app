@@ -10,7 +10,7 @@
 
                 <label>Get Statistics:</label>
                 <select class="form-control" value.bind="selectedVal">
-                    <option repeat.for="option of searchType" value.bind="option">${option}</option>
+                    <option repeat.for="option of searchType" name="searchType" value.bind="option">${option}</option>
                 </select>
 
                 <label>For:</label>
@@ -40,10 +40,34 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
+                <h2 class="view-header">Search</h2>
                 <div class="row">
                     <div class="col-lg-12">
                         <form id="statistics-search" role="form">
 
+                            <div class="search-input-group">
+                                  <label for="librarian-select">For Librarian:</label>
+                                  <span id="librarian-add" class="click-span add-input" style="visibility: hidden; float: right;" click.delegate="addLibrarian()">+ Add another librarian</span>
+
+                                  <div repeat.for="i of librarianCount">
+                                      <select id="librarian-select-${i+1}" change.trigger="selectOption('librarian')" class="form-control" value.bind="selectedLibrarians[i]">
+                                        <option selected hidden>Select a Librarian:</option>
+                                        <option repeat.for="librarian of librarianList" value.bind="librarian.id"> ${librarian.name} </option>
+                                      </select>
+                                      <div if.one-time="i==0" class="click-span" style="">&nbsp</div>
+            <!--                          <div if.one-time="i>=1" class="click-span remove-button" click.trigger="removeLibrarian(i)">Remove</div> -->
+                                        <button if.one-time="i>=1" class="btn btn-danger remove-button" click.trigger="removeLibrarian(i)"><span>X</span></button>
+                                  </div>
+                            </div><br />
+
+                            <div class="search-input-group">
+                            <label>Search Time Period:</label>
+                            <div class="form-section">
+                                <label class="radio-select" repeat.for="option of searchTimeframe">
+                                    <input type="radio" class="" value.bind="option" name="searchTimeframe" checked.bind="$parent.selectedSearchTimeframe">${option}
+                                </label>
+                            </div>
+                            </div>
                         </form>
                     </div>
                 </div>
