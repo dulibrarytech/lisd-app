@@ -5,4 +5,10 @@ export class Statistics {
 
     selectedStatisticsFor = "Class";
     statisticsFor = ["Class", "Student"];
+
+    selectedListResultsBy = "Year";
+    listResultsBy = ["Year", "Month", "Quarter"];
+
+    selectedDisplayStatistics = [];
+    displayStatistics = ["Department", "Location", "Type"];
 }
