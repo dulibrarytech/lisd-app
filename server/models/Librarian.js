@@ -20,7 +20,7 @@ module.exports = (function() {
 		var results = {
 			librarian: {}
 		};
-
+		
 		try {
 			var cursor = collection.find({}, {"_id": 1, "name": 1});
 	        cursor.each(function(err, item) {

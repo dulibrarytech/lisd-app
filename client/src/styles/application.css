@@ -1,5 +1,5 @@
 * {
-    position: relative;
+    /*position: relative;*/
 }
 
 body {
@@ -13,6 +13,10 @@ input {
 
 input, label, select {
     display:block;
+}
+
+.view-header {
+	margin-bottom:2em !important;
 }
 
 header#du-header {
@@ -108,6 +112,10 @@ div.input-group {
 	float: left;
 	margin-top: 1em;
 	margin-left: 20px;
+	width: 30%;
+}
+
+div.search-input-group {
 	width: 30%;
 }
 

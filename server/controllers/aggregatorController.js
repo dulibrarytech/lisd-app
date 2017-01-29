@@ -24,7 +24,8 @@ module.exports.getDataAll = function(req,res) {
 	});
 }
 
-module.exports.getDataSelectValues = function(req, res) {
+// Data for the entry form
+module.exports.getDataEntrySelectValues = function(req, res) {
 
 	var response = res;
 	//var responseData = [];
@@ -44,6 +45,34 @@ module.exports.getDataSelectValues = function(req, res) {
 
 		if(count >= queryModules.length) {
 			//console.log("sending response:");
+			response.send(responseObject);
+		}
+	};
+
+	// Request the data from all modules
+	for(var key in queryModules) {
+		queryModules[key].getList(sendResponse);
+	}
+}
+
+// Data for the search form
+module.exports.getDataSearchSelectValues = function(req, res) {
+
+	var response = res;
+	var responseObject = {};
+	var count = 0;
+	var queryModules = [Librarian];
+
+	var sendResponse = function(responseData) {
+		
+		if(responseData.status == "ok") {
+			for(var key in responseData.data) {
+				responseObject[key] = responseData.data[key];
+			}
+			count++;
+		}
+
+		if(count >= queryModules.length) {
 			response.send(responseObject);
 		}
 	};
