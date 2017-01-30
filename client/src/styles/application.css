@@ -16,7 +16,7 @@ input, label, select {
 }
 
 .view-header {
-	margin-bottom:2em !important;
+	margin-bottom: 1.7em !important;
 }
 
 header#du-header {
@@ -282,7 +282,7 @@ div#sidebar-wrapper {
 }
 
 form#search-options {
-    margin-top: 4.7em;
+    margin-top: 6.85em;
 }
 
 label.radio-select {

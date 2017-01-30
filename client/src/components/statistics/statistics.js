@@ -14,8 +14,8 @@ export class Statistics {
 	librarianCount = 1;
     selectedLibrarians = [];
 
-    selectedSearchTimeframe = [];
-    searchTimeframe = ["Academic year", "Fiscal year", "Quarter"];
+    selectedSearchTimeframe = ["Fiscal year"];
+    searchTimeframe = ["Fiscal year", "Academic year", "Quarter"];
 
     selectedSearchType = [];
     searchType = ["All Statistics", "Librarian Statistics", 'Class Data'];
