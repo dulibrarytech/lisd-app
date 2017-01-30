@@ -54,8 +54,8 @@ router.get('/get/data/search/allStatistics/student', function(req, res) {
   if(req.headers['user-agent'] == process.env.CLIENT_USER_AGENT ||
     process.env.ENABLE_BROWSER_TEST == 'true') { 
     res.statusCode = 403;
-      //res.end();
-      res.send("TEST");
+
+      aggregatorController.getDataSearchAlltatisticsStudent(req,res);
   }
     else {
       res.statusCode = 403;

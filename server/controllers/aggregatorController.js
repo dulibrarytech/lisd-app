@@ -83,3 +83,31 @@ module.exports.getDataSearchSelectValues = function(req, res) {
 	}
 }
 
+module.exports.getDataSearchAlltatisticsStudent = function(req, res) {
+	//var response = res;
+	var fromYear 	= req.query.fromYear;
+	var toYear 		= req.query.toYear;
+	var timeframe	= req.query.timeframe;
+	var librarian 	= req.query.librarian;
+
+	// Set the date for the time period requested
+	var updatedFromDate;
+	var updatedToDate;
+	if(timeframe == "fiscal") {
+		updatedFromDate = fromYear + '-' + settings.server.fiscalYearStart;
+		updatedToDate = toYear + '-' + settings.server.fiscalYearEnd;
+	}
+
+	var data = {
+		fromDate: updatedFromDate,
+		toDate: updatedToDate,
+		listByMonth: 0,
+		librarianID: librarian
+	};
+
+	res.send(data);
+
+	// Aggregator.getAllData(data, function(responseData) {
+	// 	res.send(responseData);
+	// });
+}
