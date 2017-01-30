@@ -105,9 +105,7 @@ module.exports.getDataSearchAlltatisticsStudent = function(req, res) {
 		librarianID: librarian
 	};
 
-	res.send(data);
-
-	// Aggregator.getAllData(data, function(responseData) {
-	// 	res.send(responseData);
-	// });
+	Aggregator.getAllData(data, function(responseData) {
+		res.send(responseData);
+	});
 }
