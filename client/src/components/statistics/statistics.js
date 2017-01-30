@@ -27,7 +27,7 @@ export class Statistics {
     listResultsBy = ["Year", "Month", "Quarter"];
 
     selectedDisplayStatistics = ["Department"];
-    displayStatistics = ["Department", "Location", "Type"];
+    displayStatistics = ["All", Department", "Location", "Type"];
 
     constructor(systemUtils) {
 
