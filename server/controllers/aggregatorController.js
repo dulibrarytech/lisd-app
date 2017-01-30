@@ -83,24 +83,74 @@ module.exports.getDataSearchSelectValues = function(req, res) {
 	}
 }
 
+var getDates = function(fromYear, toYear, timeframe, quarter) {
+
+	var dates = {
+		from: "",
+		to: ""
+	}
+
+	if(timeframe == "fiscal") {
+		dates.from = fromYear + '-' + settings.server.fiscalYearStart;
+		dates.to = toYear + '-' + settings.server.fiscalYearEnd;
+	}
+	else if(timeframe == "academic") {
+		dates.from = fromYear + '-' + settings.server.academicYearStart;
+		dates.to = toYear + '-' + settings.server.academicYearEnd;
+	}
+	else if(timeframe == "quarter") {  // fromYear will == toYear
+		if(quarter == "fall") {
+			dates.from = fromYear + '-' + settings.server.quarter1Start;
+			dates.to = toYear + '-' + settings.server.quarter1End;
+		}
+		else if(quarter == "winter") {
+			dates.from = fromYear + '-' + settings.server.quarter2Start;
+			dates.to = toYear + '-' + settings.server.quarter2End;
+		}
+		else if(quarter == "spring") {
+			dates.from = fromYear + '-' + settings.server.quarter3Start;
+			dates.to = toYear + '-' + settings.server.quarter3End;
+		}
+		else if(quarter == "summer") {
+			dates.from = fromYear + '-' + settings.server.quarter4Start;
+			dates.to = toYear + '-' + settings.server.quarter4End;
+		}
+	}
+	else {
+		dates.from = fromYear + '-01-01';  // defaults to solar year
+		dates.to = toYear + '-12-31';
+	}
+
+	return dates;
+}
+
 module.exports.getDataSearchAlltatisticsStudent = function(req, res) {
-	//var response = res;
+	
+	// Required params
 	var fromYear 	= req.query.fromYear;
 	var toYear 		= req.query.toYear;
 	var timeframe	= req.query.timeframe;
-	var librarian 	= req.query.librarian;
+
+	// Set optional params
+	var librarian, quarter;
+	if(typeof req.query.librarian != 'undefined') { librarian = req.query.librarian; }
+	else { librarian = ""; }
+	if(typeof req.query.quarter != 'undefined') { quarter = req.query.quarter; }
+	else { quarter = ""; }
+
 
 	// Set the date for the time period requested
-	var updatedFromDate;
-	var updatedToDate;
-	if(timeframe == "fiscal") {
-		updatedFromDate = fromYear + '-' + settings.server.fiscalYearStart;
-		updatedToDate = toYear + '-' + settings.server.fiscalYearEnd;
-	}
+	var dates = getDates(fromYear, toYear, timeframe, quarter);
+	
+
+	console.log("FROM: " + dates.from);
+	console.log("TO: " + dates.to);
+
+	
 
 	var data = {
-		fromDate: updatedFromDate,
-		toDate: updatedToDate,
+		fromDate: dates.from,
+		toDate: dates.to,
 		listByMonth: 0,
 		librarianID: librarian
 	};
