@@ -61,13 +61,34 @@
                             </div><br />
 
                             <div class="search-input-group">
-                            <label>Search Time Period:</label>
-                            <div class="form-section">
-                                <label class="radio-select" repeat.for="option of searchTimeframe">
-                                    <input type="radio" class="" value.bind="option" name="searchTimeframe" checked.bind="$parent.selectedSearchTimeframe">${option}
-                                </label>
+                                <label>Search Time Period:</label>
+                                <div class="form-section">
+                                    <label class="radio-select" repeat.for="option of searchTimeframe">
+                                        <input type="radio" class="" value.bind="option" name="searchTimeframe" checked.bind="$parent.selectedSearchTimeframe">${option}
+                                    </label>
+                                </div>
+                                <div id="date-range-select">
+                                    <label>Select Date Range:</label>
+                                    <div class="form-section" style="display: inline-flex">
+                                        <label>From:</label>
+                                        <input datepicker class="form-control" id="from-date-select" type="text" value.bind="fromDate" placeholder = "">
+                                        <label style="margin-left: 2em">To:</label>
+                                        <input datepicker class="form-control" id="to-date-select" type="text" value.bind="toDate" placeholder = "">
+                                    </div>
+                                </div>
+                                <div id="year-quarter-select">
+                                    <label>Select Quarter:</label>
+                                    <div class="form-section" style="display: inline-flex">
+                                        <label>Academic Year:</label>
+                                        <input class="form-control" id="academic-year-select" type="text" value.bind="academicYear" placeholder = "">
+                                        <label style="margin-left: 2em">Quarter:</label>
+                                        <select class="form-control" value.bind="selectedQuarter">
+                                            <option repeat.for="option of quarters" name="quarter" value.bind="option">${option}</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                            </div>
+
                         </form>
                     </div>
                 </div>

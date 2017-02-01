@@ -301,7 +301,11 @@ div.form-section {
 	margin-bottom: 2em;
 }
 
-
+input#from-date-select,
+input#to-date-select {
+	width: 30%;
+	margin-left: 1em;
+}
 
 
 
