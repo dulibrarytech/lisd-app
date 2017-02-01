@@ -14,10 +14,10 @@ export class Statistics {
 	librarianCount = 1;
     selectedLibrarians = [];
 
-    selectedSearchTimeframe = ["Fiscal year"];
+    selectedSearchTimeframe = "Fiscal year";
     searchTimeframe = ["Fiscal year", "Academic year", "Quarter"];
 
-    selectedSearchType = [];
+    selectedSearchType = "All Statistics";
     searchType = ["All Statistics", "Librarian Statistics", 'Class Data'];
 
     selectedStatisticsFor = "Class";
@@ -26,8 +26,11 @@ export class Statistics {
     selectedListResultsBy = "Year";
     listResultsBy = ["Year", "Month", "Quarter"];
 
-    selectedDisplayStatistics = ["Department"];
-    displayStatistics = ["All", Department", "Location", "Type"];
+    selectedDisplayStatistics = ["All"];
+    displayStatistics = ["All", "Department", "Location", "Type"];
+
+    selectedQuarter = "Fall";
+    quarters = ["Fall", "Winter", "Spring", "Summer"];
 
     constructor(systemUtils) {
 
