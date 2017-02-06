@@ -15,49 +15,79 @@ module.exports = (function() {
 		//console.log("Department model connected to db...");
 	});
 
-	var getStudentTotals = function() {
+	var getAllData = function(queryData, callback) {
 
-	}
-
-	var getDepartmentTotals = function() {
-		
-	}
-
-	// ...
-
-	var getAllData = function(data, callback) {
-
-		var resultSet = {};
+		var results = [];
+		var message;
 
 		try {
-			var cursor = classCollection.find( { "courseInfo.date": { $gte: new Date(data.fromDate), $lt: new Date(data.toDate) } } );  // fromDate inclusive
+			var cursor = classCollection.find( { "courseInfo.date": { $gte: new Date(queryData.fromDate), $lt: new Date(queryData.toDate) } } );  // fromDate inclusive
 	        cursor.each(function(err, item) {
 	        	if(item != null) {
-
 	        		console.log(item.courseInfo.date);
+	        		results.push(item);
 	        	}
 	        	else {
-	        		console.log("NULL");
-	        		// callback({status: "ok", message: "Ok", data: results});
-	        		callback({data:"all2"})
+	        		if(results.length == 0) {message = "No results found";} else {message = "Returning all data";}
+	        		callback({status: "ok", message: message, data: results});
 	        	}
 	        });
 		}
 		catch (e) {
 			callback({status: "error", message: "Error: " + e});
 		}
-	}
+	};
 
-	var getClassData = function(data, callback) {
+	var getStudentTotals = function() {
 
-	}
+		var resultSet = {};
+		var results = [];
+
+		try {
+			var cursor = classCollection.find( { "courseInfo.date": { $gte: new Date(queryData.fromDate), $lt: new Date(queryData.toDate) } } );  // fromDate inclusive
+	        cursor.each(function(err, item) {
+	        	if(item != null) {
+
+	        		results.push(item);
+
+
+
+
+
+
+
+
+
+
+
+	        		console.log(results);
+
+
+	        	}
+	        	else {
+	        		if(results.length == 0) {message = "No results found";} else {message = "Returning all data";}
+	        		callback({status: "ok", message: message, data: results});
+	        	}
+	        });
+		}
+		catch (e) {
+			callback({status: "error", message: "Error: " + e});
+		}
+	};
+
+	var getClassTotals = function() {
+		
+	};
 
 	return {
-		getAllData: function(data,callback) {
-			getAllData(data,callback);
+		getAllData: function(queryData,callback) {
+			getAllData(queryData,callback);
 		},
-		getClassData: function(data,callback) {
-			getClassData(data,callback);
+		getStudentTotals: function(queryData,callback) {
+			getStudentTotals(queryData,callback);
+		},
+		getClassTotals: function(queryData,callback) {
+			getClassTotals(queryData,callback);
 		}
 	};
 })()
