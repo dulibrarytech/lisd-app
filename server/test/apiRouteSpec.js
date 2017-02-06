@@ -3,6 +3,7 @@
 var expect = require("chai").expect;
 var chai = require('chai');
 var chaiHttp = require('chai-http');
+let should = chai.should();
 chai.use(chaiHttp);
 
 describe("Server API", function(){
@@ -21,58 +22,87 @@ describe("Server API", function(){
 		});
 	}
 
-	if(true) {
-		describe("#GET /get/data/selectValues", function(){
-			it('should return status 200', function(done) {
-				chai.request(process.env.BASE_URL)
-				    .get('/get/data/selectValues')
-				    .end(function(err, res){
-				      expect(res).to.have.status(200);
-				      	console.log("TEST RESULTS: ");
-				      	console.log(res.body);
-				      // for(var i=0; i<res.body.length; i++) {
-				      // 	console.log(res.body[i].data);
-				      // }
-				      done();
-				    });
-			});
+	if(false) {
+		describe("#GET /get/data/search/selectValues", function(){
+			
+			it('it should GET an object ', (done) => {
+
+		        chai.request(process.env.BASE_URL)
+		            .get('/get/data/search/selectValues')
+		            .end((err, res) => {
+		               res.should.have.status(200);
+		                console.log(res.body);
+		              done();
+		            });
+		      });
+			
 		});
 	}
 
-	if(false) {
+	if(true) {
 		describe("#POST /insert/class", function(){
 
-			var data = {
-				className: "MOCHA POST TEST - DELETE THIS RECORD",
-				courseNumber: "test-12345",
-				instructorName: "Test Teacher",
-				classDate: "2000-12-25",
-				quarter: "Fall",
-				undergraduates: "21",
-				graduates: "3",
-				facultyStaff: "5",
-				other: "2",
-				librarian: ["57e1f8bfadb181f4aec01010", "57e1f8bfadb181f4aaa21221"],
-			    location: ["57e1f8bfadb181f4aec01011"],
-			    department: ["57e1f8bfadb181f4aec01111"],
-			    classType: ["undergraduate"],
-			    acrlFrame: ["Sample acrl frame name"],
-			    commentText: "comment by commenter"
-			}
+			// var data = {
+			// 	className: "MOCHA POST TEST - DELETE THIS RECORD",
+			// 	courseNumber: "test-12345",
+			// 	instructorName: "Test Teacher",
+			// 	classDate: "2000-12-25",
+			// 	quarter: "Fall",
+			// 	undergraduates: "21",
+			// 	graduates: "3",
+			// 	facultyStaff: "5",
+			// 	other: "2",
+			// 	librarian: ["57e1f8bfadb181f4aec01010", "57e1f8bfadb181f4aaa21221"],
+			//     location: ["57e1f8bfadb181f4aec01011"],
+			//     department: ["57e1f8bfadb181f4aec01111"],
+			//     classType: ["undergraduate"],
+			//     acrlFrame: ["Sample acrl frame name"],
+			//     commentText: "comment by commenter"
+			// }
 
-			it('should return status 200', function(done) {
-			  chai.request(process.env.BASE_URL)
-			    .post('/insert/class')
-			    .send(data)
-			    .end(function(err, res){
+			// it('should return status 200', function(done) {
+			//   chai.request(process.env.BASE_URL)
+			//     .post('/insert/class')
+			//     .send(data)
+			//     .end(function(err, res){
 
-			      expect(res).to.have.status(200);
-			      	console.log("received response:");
-			      	console.log(res.body);
+			//       expect(res).to.have.status(200);
+			//       	console.log("received response:");
+			//       	console.log(res.body);
 
-			      done();
-			    });
-			});
+			//       done();
+			//     });
+			// });
+
+			it('it should POST a class ', (done) => {
+		        let data = {
+					className: "MOCHA POST TEST - DELETE THIS RECORD",
+					courseNumber: "test-12345",
+					instructorName: "Test Teacher",
+					classDate: "2000-12-25",
+					quarter: "Fall",
+					undergraduates: "21",
+					graduates: "3",
+					facultyStaff: "5",
+					other: "2",
+					librarian: ["57e1f8bfadb181f4aec01010", "57e1f8bfadb181f4aaa21221"],
+				    location: ["57e1f8bfadb181f4aec01011"],
+				    department: ["57e1f8bfadb181f4aec01111"],
+				    classType: ["undergraduate"],
+				    acrlFrame: ["Sample acrl frame name"],
+				    commentText: "comment by commenter"
+				}
+		        chai.request(process.env.BASE_URL)
+		            .post('/insert/class')
+		            .send(data)
+		            .end((err, res) => {
+		                res.should.have.status(200);
+		                //res.body.should.be.a('object');
+		                console.log(res.body);
+		              done();
+		            });
+		      });
+
 		});
 	}
 
