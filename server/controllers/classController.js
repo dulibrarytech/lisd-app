@@ -38,7 +38,7 @@ module.exports.insertClass = function(req, res) {
 	// DEV
 	// console.log("server receives: " + data);
 	// res.statusCode = 200;
-	// res.send();
+	// res.send(data);
 }
 
 module.exports.getClassProperties = function(req, res) {
