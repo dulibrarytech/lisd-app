@@ -183,10 +183,9 @@ export class EntryForm {
         
         this.utils.doAjax('insert/class', 'post', data, function(responseObject) {
             console.log("Class insert: Server: " + responseObject.message);
-            // setTimeout(function() {
-            //     console.log("Reload");
-            //     //location.reload(false);
-            // }, 3000);
+            setTimeout(function() {
+                location.reload(false);
+            }, 3000);
         });
     }
 }
