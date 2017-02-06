@@ -9,13 +9,24 @@ var Department = require("../models/Department");
 
 module.exports.getDataAll = function(req,res) {
 
-	//var response = res;
-	var fromYear = req.query.fromYear, toYear = req.query.toYear;
+	var fromYear, toYear;
+	var d = new Date();
+	if(typeof req.query.fromYear == 'undefined') {
+		fromYear = "1864";
+	}
+	else {
+		fromYear = req.query.fromYear + '-' + settings.server.fiscalYearStart;
+	}
+	if(typeof req.query.toYear == 'undefined') {
+		toYear = d.getFullYear();
+	}
+	else {
+		toYear = req.query.toYear + '-' + settings.server.fiscalYearEnd;
+	}
 
 	var data = {
-		fromDate: fromYear + '-' + settings.server.fiscalYearStart,
-		toDate: toYear + '-' + settings.server.fiscalYearEnd,
-		listByMonth: 0,
+		fromDate: fromYear + "-01-01",
+		toDate: toYear + "-12-31",
 		librarianID: 0
 	};
 
@@ -155,7 +166,7 @@ module.exports.getDataSearchAlltatisticsStudent = function(req, res) {
 		librarianID: librarian
 	};
 
-	Aggregator.getAllData(data, function(responseData) {
+	Aggregator.getStudentTotals(data, function(responseData) {
 		res.send(responseData);
 	});
 }
