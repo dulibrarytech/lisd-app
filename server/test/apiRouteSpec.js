@@ -8,15 +8,15 @@ chai.use(chaiHttp);
 
 describe("Server API", function(){
     
-	if(false) {
+	if(true) {
 	    describe("#GET /get/data/all", function(){
-			it('should return status 200', function(done) {
+			it('should return status 200', function() {
 			  chai.request(process.env.BASE_URL)
 			    .get('/get/data/all')
-			    .query({fromYear:'2015', toYear:'2016'})
+			    .send({fromYear:'2015', toYear:'2016'})
 			    .end(function(err, res){
 			      expect(res).to.have.status(200);
-			      done();
+			      //done();
 			    });
 			});
 		});
@@ -39,7 +39,7 @@ describe("Server API", function(){
 		});
 	}
 
-	if(true) {
+	if(false) {
 		describe("#POST /insert/class", function(){
 
 			// var data = {

@@ -15,6 +15,20 @@ module.exports = (function() {
 		//console.log("Department model connected to db...");
 	});
 
+	var monthlyTotals = {};
+	monthlyTotals['january'] = {};
+	monthlyTotals['february'] = {};
+	monthlyTotals['march'] = {};
+	monthlyTotals['april'] = {};
+	monthlyTotals['may'] = {};
+	monthlyTotals['june'] = {};
+	monthlyTotals['july'] = {};
+	monthlyTotals['august'] = {};
+	monthlyTotals['september'] = {};
+	monthlyTotals['october'] = {};
+	monthlyTotals['november'] = {};
+	monthlyTotals['december'] = {};
+
 	var getAllData = function(queryData, callback) {
 
 		var results = [];
@@ -25,6 +39,11 @@ module.exports = (function() {
 	        cursor.each(function(err, item) {
 	        	if(item != null) {
 	        		console.log(item.courseInfo.date);
+
+
+
+
+
 	        		results.push(item);
 	        	}
 	        	else {
@@ -50,7 +69,7 @@ module.exports = (function() {
 
 	        		results.push(item);
 
-
+	        		
 
 
 
