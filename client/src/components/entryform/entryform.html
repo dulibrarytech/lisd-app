@@ -88,7 +88,7 @@
 				      <div repeat.for="i of librarianCount">
 					      <select id="librarian-select-${i+1}" change.trigger="selectOption('librarian')" class="form-control single-dropdown" value.bind="selectedLibrarians[i]">
 					        <option selected hidden>Select a Librarian:</option>
-					        <option repeat.for="librarian of librarianList" value.bind="librarian.id"> ${librarian.name} </option>
+					        <option repeat.for="librarian of librarianList" value.bind="librarian.name"> ${librarian.name} </option>
 					      </select>
 					      <div if.one-time="i==0" class="click-span" style="">&nbsp</div>
 <!-- 					      <div if.one-time="i>=1" class="click-span remove-button" click.trigger="removeLibrarian(i)">Remove</div> -->
@@ -104,7 +104,7 @@
 			      	<div repeat.for="i of locationCount">
 				      	<select id="location-select-${i+1}" change.trigger="selectOption('location')" class="form-control single-dropdown" value.bind="selectedLocations[i]">
 				      	  <option selected hidden>Select a Location:</option>
-					      <option repeat.for="location of locationList" value.bind="location.id"> ${location.name} </option>
+					      <option repeat.for="location of locationList" value.bind="location.name"> ${location.name} </option>
 					    </select>
 					    <div if.one-time="i==0" class="click-span" style="">&nbsp</div>
 					    <!-- <div if.one-time="i>=1" class="click-span remove-button" click.trigger="removeLocation(i)">Remove</div> -->
@@ -119,7 +119,7 @@
 					<div repeat.for="i of departmentCount">
 				      	<select id="department-select-${i+1}" change.trigger="selectOption('department')" class="form-control single-dropdown" value.bind="selectedDepartments[i]">
 				      	  <option selected hidden>Select a Department:</option>
-					      <option repeat.for="department of departmentList" value.bind="department.id"> ${department.name} </option>
+					      <option repeat.for="department of departmentList" value.bind="department.name"> ${department.name} </option>
 					    </select>
 					    <div if.one-time="i==0" class="click-span" style="">&nbsp</div>
 					    <!-- <div if.one-time="i>=1" class="click-span remove-button" click.trigger="removeDepartment(i)">Remove</div> -->
