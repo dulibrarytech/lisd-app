@@ -57,33 +57,49 @@ module.exports = (function() {
 		}
 	};
 
-	var getStudentTotals = function() {
+	var getStudentTotals = function(queryData, callback) {
 
 		var resultSet = {};
 		var results = [];
+		var message;
+		var courseObject;
+		var date, month;
+
+		var months = [];
 
 		try {
 			var cursor = classCollection.find( { "courseInfo.date": { $gte: new Date(queryData.fromDate), $lt: new Date(queryData.toDate) } } );  // fromDate inclusive
 	        cursor.each(function(err, item) {
 	        	if(item != null) {
-
 	        		results.push(item);
-
-	        		
-
-
-
-
-
-
-
-
-
-	        		console.log(results);
-
-
 	        	}
 	        	else {
+
+	        		// Monthly totals
+	        		var studentsByMonth = {};
+	        		for(var i=1; i<13; i++) {
+	        			studentsByMonth[i] = {};
+	        			studentsByMonth[i]['undergraduates'] = 0;
+	        			studentsByMonth[i]['graduates'] = 0;
+	        			studentsByMonth[i]['faculty'] = 0;
+	        			studentsByMonth[i]['other'] = 0;
+	        		}
+	        		for(var index in results) {
+	        			courseObject = results[index];
+	        			month = courseObject.courseInfo.date.getMonth() + 1; // getMonth months range 0-11
+
+	        			studentsByMonth[month].undergraduates += courseObject.enrollmentInfo.undergraduates;
+	        			studentsByMonth[month].graduates += courseObject.enrollmentInfo.graduates;
+	        			studentsByMonth[month].faculty += courseObject.enrollmentInfo.faculty;
+	        			studentsByMonth[month].other += courseObject.enrollmentInfo.other;
+	        		}
+
+	        		console.log(studentsByMonth);
+
+	        		// Totals for year (actual, fiscal, academic)
+
+	        		// Totals by quarter ()
+
 	        		if(results.length == 0) {message = "No results found";} else {message = "Returning all data";}
 	        		callback({status: "ok", message: message, data: results});
 	        	}
@@ -94,7 +110,7 @@ module.exports = (function() {
 		}
 	};
 
-	var getClassTotals = function() {
+	var getClassTotals = function(queryData, callback) {
 		
 	};
 

@@ -153,16 +153,9 @@ module.exports.getDataSearchAlltatisticsStudent = function(req, res) {
 	// Set the date for the time period requested
 	var dates = getDates(fromYear, toYear, timeframe, quarter);
 	
-
-	console.log("FROM: " + dates.from);
-	console.log("TO: " + dates.to);
-
-	
-
 	var data = {
 		fromDate: dates.from,
 		toDate: dates.to,
-		listByMonth: 0,
 		librarianID: librarian
 	};
 
