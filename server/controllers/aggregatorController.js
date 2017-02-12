@@ -135,11 +135,12 @@ var getDates = function(fromYear, toYear, timeframe, quarter) {
 	return dates;
 }
 
-module.exports.getDataSearchAlltatisticsStudent = function(req, res) {
+module.exports.getDataSearchAllStatisticsStudent = function(req, res) {
 	
 	// Required params
 	var fromYear 	= req.query.fromYear;
 	var toYear 		= req.query.toYear;
+	var display 	= req.query.display; // Can be either All or Department
 	var timeframe	= req.query.timeframe;
 
 	// Set optional params
@@ -156,6 +157,7 @@ module.exports.getDataSearchAlltatisticsStudent = function(req, res) {
 	var data = {
 		fromDate: dates.from,
 		toDate: dates.to,
+		display: display,
 		librarianID: librarian
 	};
 
