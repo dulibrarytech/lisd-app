@@ -55,7 +55,7 @@ router.get('/get/data/search/allStatistics/student', function(req, res) {
     process.env.ENABLE_BROWSER_TEST == 'true') { 
     res.statusCode = 403;
 
-      aggregatorController.getDataSearchAlltatisticsStudent(req,res);
+      aggregatorController.getDataSearchAllStatisticsStudent(req,res);
   }
     else {
       res.statusCode = 403;

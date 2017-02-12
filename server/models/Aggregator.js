@@ -63,6 +63,8 @@ module.exports = (function() {
 		var results = [];
 		var message;
 
+		// TODO Librarian sort: build query specifying the librarian here, pass that into find() below
+
 		try {
 			var cursor = classCollection.find( { "courseInfo.date": { $gte: new Date(queryData.fromDate), $lt: new Date(queryData.toDate) } } );  // fromDate inclusive
 	        cursor.each(function(err, item) {
@@ -71,15 +73,20 @@ module.exports = (function() {
 	        	}
 	        	else {
 
-	        		var studentsByYear = sortResultsByAllYear(results);
-	        		var studentsByMonth = sortResultsByAllMonth(results);
-	        		var studentsByQuarter = sortResultsByAllQuarter(results);
+	        		console.log("DDEEVV" + queryData.display);
 
-	        		resultSet['year'] = studentsByYear;
-	        		resultSet['month'] = studentsByMonth;
-	        		resultSet['quarter'] = studentsByQuarter;
-	        		console.log(resultSet);
+	        		if(queryData.display == "Department") {
+	        			resultSet['year'] = sortResultsByDepartmentYear(results);
+	        			// studentsByMonth = sortResultsByDepartmentMonth(results);
+	        			// studentsByQuarter = sortResultsByDepartmentQuarter(results);
+	        		}
+	        		else {
+	        			resultSet['year'] = sortResultsByAllYear(results);
+	        			resultSet['month'] = sortResultsByAllMonth(results);
+	        			resultSet['quarter'] = sortResultsByAllQuarter(results);
+	        		}
 
+	        		console.log(resultSet); // DEV
 	        		if(results.length == 0) {message = "No results found";} else {message = "Returning all data";}
 	        		callback({status: "ok", message: message, data: results});
 	        	}
@@ -163,6 +170,33 @@ module.exports = (function() {
 		}
 
 		return studentsByQuarter;
+	};
+
+	var sortResultsByDepartmentYear = function(resultArray) {
+
+		var courseObject;
+		var studentsByYear = {};
+
+		for(var index in resultArray) {
+			courseObject = resultArray[index];
+
+			// Init the object if it does not yet exist
+			if(typeof studentsByYear[courseObject.department] == "undefined") {
+				studentsByYear[courseObject.department] = {
+					undergraduates: 0,
+					graduates: 0,
+					faculty: 0,
+					other: 0
+				}
+			}
+
+			studentsByYear[courseObject.department].undergraduates += courseObject.enrollmentInfo.undergraduates;
+			studentsByYear[courseObject.department].graduates += courseObject.enrollmentInfo.graduates;
+			studentsByYear[courseObject.department].faculty += courseObject.enrollmentInfo.faculty;
+			studentsByYear[courseObject.department].other += courseObject.enrollmentInfo.other;
+		}
+
+		return studentsByYear;
 	};
 
 	return {
