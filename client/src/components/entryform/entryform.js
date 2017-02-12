@@ -139,7 +139,12 @@ export class EntryForm {
 
         // Form text fields
         formData['classDate'] =         this.classDate;
-        formData['quarter'] =           this.quarterSelect;
+
+        if(this.quarterSelect == "Fall") {formData['quarter'] = "1";}
+        else if(this.quarterSelect == "Winter") {formData['quarter'] = "2";}
+        else if(this.quarterSelect == "Spring") {formData['quarter'] = "3";}
+        else if(this.quarterSelect == "Summer") {formData['quarter'] = "4";}
+
         formData['className'] =         this.className;
         formData['courseNumber'] =      this.courseNumber;
         formData['instructorName'] =    this.instructorFName + " " + this.instructorLName;
@@ -156,11 +161,13 @@ export class EntryForm {
         // Get checkbox group data
         formData['classType'] = [];
         formData['acrlFrame'] = [];
+
         for(var key in this.selectedClassTypes) {
             if(this.selectedClassTypes[key] == true) {
                 formData['classType'].push(key);
             }
         }
+
         for(var key in this.selectedAcrlFrames) {
             if(this.selectedAcrlFrames[key] == true) {
                 formData['acrlFrame'].push(key);
@@ -168,7 +175,7 @@ export class EntryForm {
         }
 
         formData['commentText'] = this.commentText;
-
+        
         return formData;
     }
 

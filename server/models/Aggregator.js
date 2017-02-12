@@ -63,7 +63,7 @@ module.exports = (function() {
 		var results = [];
 		var message;
 		var courseObject;
-		var date, month;
+		var date, month, quarter;
 
 		var months = [];
 
@@ -75,6 +75,20 @@ module.exports = (function() {
 	        	}
 	        	else {
 
+	        		// Yearly totals 
+	        		var studentsByYear = {};
+	        		studentsByYear['undergraduates'] = 0;
+	        		studentsByYear['graduates'] = 0;
+	        		studentsByYear['faculty'] = 0;
+	        		studentsByYear['other'] = 0;
+	        		for(var index in results) {
+	        			courseObject = results[index];
+	        			studentsByYear.undergraduates += courseObject.enrollmentInfo.undergraduates;
+	        			studentsByYear.graduates += courseObject.enrollmentInfo.graduates;
+	        			studentsByYear.faculty += courseObject.enrollmentInfo.faculty;
+	        			studentsByYear.other += courseObject.enrollmentInfo.other;
+	        		}
+
 	        		// Monthly totals
 	        		var studentsByMonth = {};
 	        		for(var i=1; i<13; i++) {
@@ -84,7 +98,7 @@ module.exports = (function() {
 	        			studentsByMonth[i]['faculty'] = 0;
 	        			studentsByMonth[i]['other'] = 0;
 	        		}
-	        		for(var index in results) {
+	        		for(index in results) {
 	        			courseObject = results[index];
 	        			month = courseObject.courseInfo.date.getMonth() + 1; // getMonth months range 0-11
 
@@ -94,11 +108,31 @@ module.exports = (function() {
 	        			studentsByMonth[month].other += courseObject.enrollmentInfo.other;
 	        		}
 
-	        		console.log(studentsByMonth);
+	        		// Sort by quarter
+	        		var studentsByQuarter = {};
+	        		for(var i=1; i<5; i++) {
+	        			studentsByQuarter[i] = {};
+	        			studentsByQuarter[i]['undergraduates'] = 0;
+	        			studentsByQuarter[i]['graduates'] = 0;
+	        			studentsByQuarter[i]['faculty'] = 0;
+	        			studentsByQuarter[i]['other'] = 0;
+	        		}
+	        		for(index in results) {
+	        			courseObject = results[index];
+	        			quarter = courseObject.courseInfo.quarter;
 
-	        		// Totals for year (actual, fiscal, academic)
+	        			console.log("QUARTER: " + quarter);
 
-	        		// Totals by quarter ()
+	        			studentsByQuarter[quarter].undergraduates += courseObject.enrollmentInfo.undergraduates;
+	        			studentsByQuarter[quarter].graduates += courseObject.enrollmentInfo.graduates;
+	        			studentsByQuarter[quarter].faculty += courseObject.enrollmentInfo.faculty;
+	        			studentsByQuarter[quarter].other += courseObject.enrollmentInfo.other;
+	        		}
+
+	        		resultSet['year'] = studentsByYear;
+	        		resultSet['month'] = studentsByMonth;
+	        		resultSet['quarter'] = studentsByQuarter;
+	        		console.log(resultSet);
 
 	        		if(results.length == 0) {message = "No results found";} else {message = "Returning all data";}
 	        		callback({status: "ok", message: message, data: results});
