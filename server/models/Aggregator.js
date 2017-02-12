@@ -73,8 +73,6 @@ module.exports = (function() {
 	        	}
 	        	else {
 
-	        		console.log("DDEEVV" + queryData.display);
-
 	        		if(queryData.display == "Department") {
 	        			resultSet['year'] = sortResultsByDepartmentYear(results);
 	        			// studentsByMonth = sortResultsByDepartmentMonth(results);
