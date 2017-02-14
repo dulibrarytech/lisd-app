@@ -74,16 +74,29 @@ module.exports = (function() {
 	        	}
 	        	else {
 
+	        		// department, location, type
 	        		if(queryData.display == "Department") {
 
-	        			resultSet['year'] = subsortResultsByYear(results, 'department');
-	        			resultSet['month']  = subsortResultsByMonth(results, 'department');
-	        			resultSet['quarter']  = subsortResultsByQuarter(results, 'department');
+	        			resultSet['year'] = subsortStudentResultsByYear(results, 'department');
+	        			resultSet['month']  = subsortStudentResultsByMonth(results, 'department');
+	        			resultSet['quarter']  = subsortStudentResultsByQuarter(results, 'department');
+	        		}
+	        		else if(queryData.display == "Location") {
+
+	        			resultSet['year'] = subsortStudentResultsByYear(results, 'location');
+	        			resultSet['month']  = subsortStudentResultsByMonth(results, 'location');
+	        			resultSet['quarter']  = subsortStudentResultsByQuarter(results, 'location');
+	        		}
+	        		else if(queryData.display == "Type") {
+
+	        			resultSet['year'] = subsortStudentResultsByYear(results, 'type');
+	        			resultSet['month']  = subsortStudentResultsByMonth(results, 'type');
+	        			resultSet['quarter']  = subsortStudentResultsByQuarter(results, 'type');
 	        		}
 	        		else { // All
-	        			resultSet['year'] = sortResultsByAllYear(results);
-	        			resultSet['month'] = sortResultsByAllMonth(results);
-	        			resultSet['quarter'] = sortResultsByAllQuarter(results);
+	        			resultSet['year'] = sortStudentResultsByAllYear(results);
+	        			resultSet['month'] = sortStudentResultsByAllMonth(results);
+	        			resultSet['quarter'] = sortStudentResultsByAllQuarter(results);
 	        		}
 
 	        		console.log(resultSet); // DEV
@@ -99,10 +112,56 @@ module.exports = (function() {
 
 	// Has display options All, Department, Location, Type
 	var getClassTotals = function(queryData, callback) {
-		
+
+		var resultSet = {};
+		var results = [];
+		var message;
+
+		// TODO Librarian sort: build query specifying the librarian here, pass that into find() below
+
+		try {
+			var cursor = classCollection.find( { "courseInfo.date": { $gte: new Date(queryData.fromDate), $lt: new Date(queryData.toDate) } } );  // fromDate inclusive
+	        cursor.each(function(err, item) {
+	        	if(item != null) {
+	        		results.push(item);
+	        	}
+	        	else {
+
+	        		// department, location, type
+	        		if(queryData.display == "Department") {
+
+	        			resultSet['year'] = subsortClassResultsByYear(results, 'department');
+	        			resultSet['month']  = subsortClassResultsByMonth(results, 'department');
+	        			resultSet['quarter']  = subsortClassResultsByQuarter(results, 'department');
+	        		}
+	        		else if(queryData.display == "Location") {
+
+	        			resultSet['year'] = subsortClassResultsByYear(results, 'location');
+	        			resultSet['month']  = subsortClassResultsByMonth(results, 'location');
+	        			resultSet['quarter']  = subsortClassResultsByQuarter(results, 'location');
+	        		}
+	        		else if(queryData.display == "Type") {
+
+	        			resultSet['year'] = subsortClassResultsByYear(results, 'type');
+	        			resultSet['month']  = subsortClassResultsByMonth(results, 'type');
+	        			resultSet['quarter']  = subsortClassResultsByQuarter(results, 'type');
+	        		}
+	        		else { // All
+
+	        		}
+
+	        		console.log(resultSet); // DEV
+	        		if(results.length == 0) {message = "No results found";} else {message = "Returning all data";}
+	        		callback({status: "ok", message: message, data: results});
+	        	}
+	        });
+		}
+		catch (e) {
+			callback({status: "error", message: "Error: " + e});
+		}
 	};
 
-	var sortResultsByAllYear = function(resultArray) {
+	var sortStudentResultsByAllYear = function(resultArray) {
 
 		var courseObject;
 		var studentsByYear = {};
@@ -123,7 +182,7 @@ module.exports = (function() {
 		return studentsByYear;
 	}
 
-	var sortResultsByAllMonth = function(resultArray) {
+	var sortStudentResultsByAllMonth = function(resultArray) {
 
 		var courseObject, month;
 		var studentsByMonth = {};
@@ -149,7 +208,7 @@ module.exports = (function() {
 		return studentsByMonth;
 	};
 
-	var sortResultsByAllQuarter = function(resultArray) {
+	var sortStudentResultsByAllQuarter = function(resultArray) {
 
 		var courseObject, quarter;
 		var studentsByQuarter = {};
@@ -176,7 +235,7 @@ module.exports = (function() {
 
 	// subsortResultsByYear(resultArray, subsort field)
 	// Subsorts: 'department' 'location' 'type'
-	var subsortResultsByYear = function(resultArray, subsortField) {
+	var subsortStudentResultsByYear = function(resultArray, subsortField) {
 
 		var courseObject, subField;
 		var studentsByYear = {};
@@ -185,7 +244,7 @@ module.exports = (function() {
 			courseObject = resultArray[index];
 			subField = courseObject[subsortField];
 
-			// If courseObject[subsort]
+			// TODO If courseObject[subsort]
 
 			// Init the object if it does not yet exist
 			if(typeof studentsByYear[subField] == "undefined") {
@@ -206,7 +265,7 @@ module.exports = (function() {
 		return studentsByYear;
 	};
 
-	var subsortResultsByMonth = function(resultArray, subsortField) {
+	var subsortStudentResultsByMonth = function(resultArray, subsortField) {
 
 		var courseObject, month, subField;
 		var studentsByDepartmentMonth = {};
@@ -239,7 +298,7 @@ module.exports = (function() {
 		return studentsByDepartmentMonth;
 	};
 
-	var subsortResultsByQuarter = function(resultArray, subsortField) {
+	var subsortStudentResultsByQuarter = function(resultArray, subsortField) {
 
 		var courseObject, quarter, subField;
 		var studentsByDepartmentQuarter = {};
