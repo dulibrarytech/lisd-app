@@ -131,19 +131,19 @@ module.exports = (function() {
 	        		if(queryData.display == "Department") {
 
 	        			resultSet['year'] = subsortClassResultsByYear(results, 'department');
-	        			// resultSet['month']  = subsortClassResultsByMonth(results, 'department');
+	        			resultSet['month']  = subsortClassResultsByMonth(results, 'department');
 	        			// resultSet['quarter']  = subsortClassResultsByQuarter(results, 'department');
 	        		}
 	        		else if(queryData.display == "Location") {
 
-	        			// resultSet['year'] = subsortClassResultsByYear(results, 'location');
-	        			// resultSet['month']  = subsortClassResultsByMonth(results, 'location');
+	        			resultSet['year'] = subsortClassResultsByYear(results, 'location');
+	        			resultSet['month']  = subsortClassResultsByMonth(results, 'location');
 	        			// resultSet['quarter']  = subsortClassResultsByQuarter(results, 'location');
 	        		}
 	        		else if(queryData.display == "Type") {
 
-	        			// resultSet['year'] = subsortClassResultsByYear(results, 'type');
-	        			// resultSet['month']  = subsortClassResultsByMonth(results, 'type');
+	        			resultSet['year'] = subsortClassResultsByYear(results, 'type');
+	        			resultSet['month']  = subsortClassResultsByMonth(results, 'type');
 	        			// resultSet['quarter']  = subsortClassResultsByQuarter(results, 'type');
 	        		}
 	        		else { // All
@@ -402,11 +402,31 @@ module.exports = (function() {
 	};
 
 	var subsortClassResultsByMonth = function(resultArray, subsortField) {
+		var courseObject, subField, month;
+		var classesByMonth = {};
 
+		for(var i=1; i<13; i++) {
+			classesByMonth[i] = {};
+		}
+
+		for(var index in resultArray) {
+			courseObject = resultArray[index];
+			month = courseObject.courseInfo.date.getMonth() + 1; // getMonth months range 0-11
+			subField = courseObject[subsortField];
+
+			if(typeof classesByMonth[month][subField] == "undefined") {
+				classesByMonth[month][subField] = 1;
+			}
+			else {
+				classesByMonth[month][subField]++;
+			}
+		}
+
+		return classesByMonth;
 	};
 
 	var subsortClassResultsByQuarter = function(resultArray, subsortField) {
-
+		//
 	};
 
 	return {
