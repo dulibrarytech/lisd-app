@@ -135,13 +135,14 @@ var getDates = function(fromYear, toYear, timeframe, quarter) {
 	return dates;
 }
 
-module.exports.getDataSearchAllStatisticsStudent = function(req, res) {
+module.exports.getDataSearchAllStatistics = function(req, res) {
 	
 	// Required params
 	var fromYear 	= req.query.fromYear;
 	var toYear 		= req.query.toYear;
 	var display 	= req.query.display; // Can be either All or Department
 	var timeframe	= req.query.timeframe;
+	var statsType   = req.query.type;
 
 	// Set optional params
 	var librarian, quarter;
@@ -161,7 +162,14 @@ module.exports.getDataSearchAllStatisticsStudent = function(req, res) {
 		librarianID: librarian
 	};
 
-	Aggregator.getStudentTotals(data, function(responseData) {
-		res.send(responseData);
-	});
+	if(statsType == "Student") {
+		Aggregator.getStudentTotals(data, function(responseData) {
+			res.send(responseData);
+		});
+	}
+	else if(statsType == "Class") {
+		Aggregator.getClassTotals(data, function(responseData) {
+			res.send(responseData);
+		});
+	}
 }
