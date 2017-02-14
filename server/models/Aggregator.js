@@ -79,7 +79,7 @@ module.exports = (function() {
 
 	        			resultSet['year'] = sortResultsByDepartmentYear(results);
 	        			resultSet['month']  = sortResultsByDepartmentMonth(results);
-	        			// resultSet['quarter']  = sortResultsByDepartmentQuarter(results);
+	        			resultSet['quarter']  = sortResultsByDepartmentQuarter(results);
 	        		}
 	        		else { // All
 	        			resultSet['year'] = sortResultsByAllYear(results);
@@ -235,46 +235,39 @@ module.exports = (function() {
 			}
 		}
 
-
-			// Init the course subobject if not yet defined
-			// if(typeof studentsByDepartmentMonth[month][courseObject.department] == 'undefined') {
-			// 	studentsByDepartmentMonth[month][courseObject.department] = {};
-			// }
-
-			// // If not yet defined, init the count with the firse course's data.  If iut is, just append the data
-			// if(typeof studentsByDepartmentMonth[month][courseObject.department].undergraduates == 'undefined') {
-			// 	studentsByDepartmentMonth[month][courseObject.department]['undergraduates'] = courseObject.enrollmentInfo.undergraduates;
-			// }
-			// else {
-			// 	studentsByDepartmentMonth[month][courseObject.department].undergraduates += courseObject.enrollmentInfo.undergraduates;
-			// }
-			// // If not yet defined, init the count with the firse course's data.  If iut is, just append the data
-			// if(typeof studentsByDepartmentMonth[month][courseObject.department].graduates == 'undefined') {
-			// 	studentsByDepartmentMonth[month][courseObject.department]['graduates'] = courseObject.enrollmentInfo.graduates;
-			// }
-			// else {
-			// 	studentsByDepartmentMonth[month][courseObject.department].graduates += courseObject.enrollmentInfo.graduates;
-			// }
-			// // If not yet defined, init the count with the firse course's data.  If iut is, just append the data
-			// if(typeof studentsByDepartmentMonth[month][courseObject.department].faculty == 'undefined') {
-			// 	studentsByDepartmentMonth[month][courseObject.department]['faculty'] = courseObject.enrollmentInfo.faculty;
-			// }
-			// else {
-			// 	studentsByDepartmentMonth[month][courseObject.department].faculty += courseObject.enrollmentInfo.faculty;
-			// }
-			// // If not yet defined, init the count with the firse course's data.  If iut is, just append the data
-			// if(typeof studentsByDepartmentMonth[month][courseObject.department].other == 'undefined') {
-			// 	studentsByDepartmentMonth[month][courseObject.department]['other'] = courseObject.enrollmentInfo.other;
-			// }
-			// else {
-			// 	studentsByDepartmentMonth[month][courseObject.department].other += courseObject.enrollmentInfo.other;
-			// }
-		//}
 		return studentsByDepartmentMonth;
 	};
 
 	var sortResultsByDepartmentQuarter = function(resultArray) {
 
+		var courseObject, quarter;
+		var studentsByDepartmentQuarter = {};
+
+		for(var i=1; i<5; i++) {
+			studentsByDepartmentQuarter[i] = {};
+		}
+
+		for(var index in resultArray) {
+			courseObject = resultArray[index];
+			quarter = courseObject.courseInfo.quarter;
+
+			if(typeof studentsByDepartmentQuarter[quarter][courseObject.department] == 'undefined') {
+				studentsByDepartmentQuarter[quarter][courseObject.department] = {
+					undergraduates: courseObject.enrollmentInfo.undergraduates,
+					graduates: courseObject.enrollmentInfo.graduates,
+					faculty: courseObject.enrollmentInfo.faculty,
+					other: courseObject.enrollmentInfo.other
+				}
+			}
+			else {
+				studentsByDepartmentQuarter[quarter][courseObject.department].undergraduates += courseObject.enrollmentInfo.undergraduates;
+				studentsByDepartmentQuarter[quarter][courseObject.department].graduates += courseObject.enrollmentInfo.graduates;
+				studentsByDepartmentQuarter[quarter][courseObject.department].faculty += courseObject.enrollmentInfo.faculty;
+				studentsByDepartmentQuarter[quarter][courseObject.department].other += courseObject.enrollmentInfo.other;
+			}
+		}
+
+		return studentsByDepartmentQuarter;
 	};
 
 	return {
