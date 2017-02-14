@@ -75,11 +75,10 @@ module.exports = (function() {
 	        	else {
 
 	        		if(queryData.display == "Department") {
-	        			// resultSet['year'] = sortResultsByDepartmentYear(results, 'department');
 
-	        			resultSet['year'] = sortResultsByDepartmentYear(results);
-	        			resultSet['month']  = sortResultsByDepartmentMonth(results);
-	        			resultSet['quarter']  = sortResultsByDepartmentQuarter(results);
+	        			resultSet['year'] = subsortResultsByYear(results, 'department');
+	        			resultSet['month']  = subsortResultsByMonth(results, 'department');
+	        			resultSet['quarter']  = subsortResultsByQuarter(results, 'department');
 	        		}
 	        		else { // All
 	        			resultSet['year'] = sortResultsByAllYear(results);
@@ -177,19 +176,20 @@ module.exports = (function() {
 
 	// subsortResultsByYear(resultArray, subsort field)
 	// Subsorts: 'department' 'location' 'type'
-	var sortResultsByDepartmentYear = function(resultArray, subsortField) {
+	var subsortResultsByYear = function(resultArray, subsortField) {
 
-		var courseObject;
+		var courseObject, subField;
 		var studentsByYear = {};
 
 		for(var index in resultArray) {
 			courseObject = resultArray[index];
+			subField = courseObject[subsortField];
 
 			// If courseObject[subsort]
 
 			// Init the object if it does not yet exist
-			if(typeof studentsByYear[courseObject.department] == "undefined") {
-				studentsByYear[courseObject.department] = {
+			if(typeof studentsByYear[subField] == "undefined") {
+				studentsByYear[subField] = {
 					undergraduates: 0,
 					graduates: 0,
 					faculty: 0,
@@ -197,18 +197,18 @@ module.exports = (function() {
 				}
 			}
 
-			studentsByYear[courseObject.department].undergraduates += courseObject.enrollmentInfo.undergraduates;
-			studentsByYear[courseObject.department].graduates += courseObject.enrollmentInfo.graduates;
-			studentsByYear[courseObject.department].faculty += courseObject.enrollmentInfo.faculty;
-			studentsByYear[courseObject.department].other += courseObject.enrollmentInfo.other;
+			studentsByYear[subField].undergraduates += courseObject.enrollmentInfo.undergraduates;
+			studentsByYear[subField].graduates += courseObject.enrollmentInfo.graduates;
+			studentsByYear[subField].faculty += courseObject.enrollmentInfo.faculty;
+			studentsByYear[subField].other += courseObject.enrollmentInfo.other;
 		}
 
 		return studentsByYear;
 	};
 
-	var sortResultsByDepartmentMonth = function(resultArray) {
+	var subsortResultsByMonth = function(resultArray, subsortField) {
 
-		var courseObject, month;
+		var courseObject, month, subField;
 		var studentsByDepartmentMonth = {};
 
 		for(var i=1; i<13; i++) {
@@ -217,10 +217,11 @@ module.exports = (function() {
 
 		for(var index in resultArray) {
 			courseObject = resultArray[index];
+			subField = courseObject[subsortField];
 			month = courseObject.courseInfo.date.getMonth() + 1; // getMonth months range 0-11
 
-			if(typeof studentsByDepartmentMonth[month][courseObject.department] == 'undefined') {
-				studentsByDepartmentMonth[month][courseObject.department] = {
+			if(typeof studentsByDepartmentMonth[month][subField] == 'undefined') {
+				studentsByDepartmentMonth[month][subField] = {
 					undergraduates: courseObject.enrollmentInfo.undergraduates,
 					graduates: courseObject.enrollmentInfo.graduates,
 					faculty: courseObject.enrollmentInfo.faculty,
@@ -228,19 +229,19 @@ module.exports = (function() {
 				}
 			}
 			else {
-				studentsByDepartmentMonth[month][courseObject.department].undergraduates += courseObject.enrollmentInfo.undergraduates;
-				studentsByDepartmentMonth[month][courseObject.department].graduates += courseObject.enrollmentInfo.graduates;
-				studentsByDepartmentMonth[month][courseObject.department].faculty += courseObject.enrollmentInfo.faculty;
-				studentsByDepartmentMonth[month][courseObject.department].other += courseObject.enrollmentInfo.other;
+				studentsByDepartmentMonth[month][subField].undergraduates += courseObject.enrollmentInfo.undergraduates;
+				studentsByDepartmentMonth[month][subField].graduates += courseObject.enrollmentInfo.graduates;
+				studentsByDepartmentMonth[month][subField].faculty += courseObject.enrollmentInfo.faculty;
+				studentsByDepartmentMonth[month][subField].other += courseObject.enrollmentInfo.other;
 			}
 		}
 
 		return studentsByDepartmentMonth;
 	};
 
-	var sortResultsByDepartmentQuarter = function(resultArray) {
+	var subsortResultsByQuarter = function(resultArray, subsortField) {
 
-		var courseObject, quarter;
+		var courseObject, quarter, subField;
 		var studentsByDepartmentQuarter = {};
 
 		for(var i=1; i<5; i++) {
@@ -249,10 +250,11 @@ module.exports = (function() {
 
 		for(var index in resultArray) {
 			courseObject = resultArray[index];
+			subField = courseObject[subsortField];
 			quarter = courseObject.courseInfo.quarter;
 
-			if(typeof studentsByDepartmentQuarter[quarter][courseObject.department] == 'undefined') {
-				studentsByDepartmentQuarter[quarter][courseObject.department] = {
+			if(typeof studentsByDepartmentQuarter[quarter][subField] == 'undefined') {
+				studentsByDepartmentQuarter[quarter][subField] = {
 					undergraduates: courseObject.enrollmentInfo.undergraduates,
 					graduates: courseObject.enrollmentInfo.graduates,
 					faculty: courseObject.enrollmentInfo.faculty,
@@ -260,10 +262,10 @@ module.exports = (function() {
 				}
 			}
 			else {
-				studentsByDepartmentQuarter[quarter][courseObject.department].undergraduates += courseObject.enrollmentInfo.undergraduates;
-				studentsByDepartmentQuarter[quarter][courseObject.department].graduates += courseObject.enrollmentInfo.graduates;
-				studentsByDepartmentQuarter[quarter][courseObject.department].faculty += courseObject.enrollmentInfo.faculty;
-				studentsByDepartmentQuarter[quarter][courseObject.department].other += courseObject.enrollmentInfo.other;
+				studentsByDepartmentQuarter[quarter][subField].undergraduates += courseObject.enrollmentInfo.undergraduates;
+				studentsByDepartmentQuarter[quarter][subField].graduates += courseObject.enrollmentInfo.graduates;
+				studentsByDepartmentQuarter[quarter][subField].faculty += courseObject.enrollmentInfo.faculty;
+				studentsByDepartmentQuarter[quarter][subField].other += courseObject.enrollmentInfo.other;
 			}
 		}
 
