@@ -57,6 +57,7 @@ module.exports = (function() {
 		}
 	};
 
+	// Has display options All, Department
 	var getStudentTotals = function(queryData, callback) {
 
 		var resultSet = {};
@@ -74,11 +75,13 @@ module.exports = (function() {
 	        	else {
 
 	        		if(queryData.display == "Department") {
+	        			// resultSet['year'] = sortResultsByDepartmentYear(results, 'department');
+
 	        			resultSet['year'] = sortResultsByDepartmentYear(results);
-	        			// studentsByMonth = sortResultsByDepartmentMonth(results);
-	        			// studentsByQuarter = sortResultsByDepartmentQuarter(results);
+	        			resultSet['month']  = sortResultsByDepartmentMonth(results);
+	        			// resultSet['quarter']  = sortResultsByDepartmentQuarter(results);
 	        		}
-	        		else {
+	        		else { // All
 	        			resultSet['year'] = sortResultsByAllYear(results);
 	        			resultSet['month'] = sortResultsByAllMonth(results);
 	        			resultSet['quarter'] = sortResultsByAllQuarter(results);
@@ -95,6 +98,7 @@ module.exports = (function() {
 		}
 	};
 
+	// Has display options All, Department, Location, Type
 	var getClassTotals = function(queryData, callback) {
 		
 	};
@@ -124,6 +128,7 @@ module.exports = (function() {
 
 		var courseObject, month;
 		var studentsByMonth = {};
+
 		for(var i=1; i<13; i++) {
 
 			studentsByMonth[i] = {};
@@ -170,13 +175,17 @@ module.exports = (function() {
 		return studentsByQuarter;
 	};
 
-	var sortResultsByDepartmentYear = function(resultArray) {
+	// subsortResultsByYear(resultArray, subsort field)
+	// Subsorts: 'department' 'location' 'type'
+	var sortResultsByDepartmentYear = function(resultArray, subsortField) {
 
 		var courseObject;
 		var studentsByYear = {};
 
 		for(var index in resultArray) {
 			courseObject = resultArray[index];
+
+			// If courseObject[subsort]
 
 			// Init the object if it does not yet exist
 			if(typeof studentsByYear[courseObject.department] == "undefined") {
@@ -195,6 +204,77 @@ module.exports = (function() {
 		}
 
 		return studentsByYear;
+	};
+
+	var sortResultsByDepartmentMonth = function(resultArray) {
+
+		var courseObject, month;
+		var studentsByDepartmentMonth = {};
+
+		for(var i=1; i<13; i++) {
+			studentsByDepartmentMonth[i] = {};
+		}
+
+		for(var index in resultArray) {
+			courseObject = resultArray[index];
+			month = courseObject.courseInfo.date.getMonth() + 1; // getMonth months range 0-11
+
+			if(typeof studentsByDepartmentMonth[month][courseObject.department] == 'undefined') {
+				studentsByDepartmentMonth[month][courseObject.department] = {
+					undergraduates: courseObject.enrollmentInfo.undergraduates,
+					graduates: courseObject.enrollmentInfo.graduates,
+					faculty: courseObject.enrollmentInfo.faculty,
+					other: courseObject.enrollmentInfo.other
+				}
+			}
+			else {
+				studentsByDepartmentMonth[month][courseObject.department].undergraduates += courseObject.enrollmentInfo.undergraduates;
+				studentsByDepartmentMonth[month][courseObject.department].graduates += courseObject.enrollmentInfo.graduates;
+				studentsByDepartmentMonth[month][courseObject.department].faculty += courseObject.enrollmentInfo.faculty;
+				studentsByDepartmentMonth[month][courseObject.department].other += courseObject.enrollmentInfo.other;
+			}
+		}
+
+
+			// Init the course subobject if not yet defined
+			// if(typeof studentsByDepartmentMonth[month][courseObject.department] == 'undefined') {
+			// 	studentsByDepartmentMonth[month][courseObject.department] = {};
+			// }
+
+			// // If not yet defined, init the count with the firse course's data.  If iut is, just append the data
+			// if(typeof studentsByDepartmentMonth[month][courseObject.department].undergraduates == 'undefined') {
+			// 	studentsByDepartmentMonth[month][courseObject.department]['undergraduates'] = courseObject.enrollmentInfo.undergraduates;
+			// }
+			// else {
+			// 	studentsByDepartmentMonth[month][courseObject.department].undergraduates += courseObject.enrollmentInfo.undergraduates;
+			// }
+			// // If not yet defined, init the count with the firse course's data.  If iut is, just append the data
+			// if(typeof studentsByDepartmentMonth[month][courseObject.department].graduates == 'undefined') {
+			// 	studentsByDepartmentMonth[month][courseObject.department]['graduates'] = courseObject.enrollmentInfo.graduates;
+			// }
+			// else {
+			// 	studentsByDepartmentMonth[month][courseObject.department].graduates += courseObject.enrollmentInfo.graduates;
+			// }
+			// // If not yet defined, init the count with the firse course's data.  If iut is, just append the data
+			// if(typeof studentsByDepartmentMonth[month][courseObject.department].faculty == 'undefined') {
+			// 	studentsByDepartmentMonth[month][courseObject.department]['faculty'] = courseObject.enrollmentInfo.faculty;
+			// }
+			// else {
+			// 	studentsByDepartmentMonth[month][courseObject.department].faculty += courseObject.enrollmentInfo.faculty;
+			// }
+			// // If not yet defined, init the count with the firse course's data.  If iut is, just append the data
+			// if(typeof studentsByDepartmentMonth[month][courseObject.department].other == 'undefined') {
+			// 	studentsByDepartmentMonth[month][courseObject.department]['other'] = courseObject.enrollmentInfo.other;
+			// }
+			// else {
+			// 	studentsByDepartmentMonth[month][courseObject.department].other += courseObject.enrollmentInfo.other;
+			// }
+		//}
+		return studentsByDepartmentMonth;
+	};
+
+	var sortResultsByDepartmentQuarter = function(resultArray) {
+
 	};
 
 	return {
