@@ -132,19 +132,19 @@ module.exports = (function() {
 
 	        			resultSet['year'] = subsortClassResultsByYear(results, 'department');
 	        			resultSet['month']  = subsortClassResultsByMonth(results, 'department');
-	        			// resultSet['quarter']  = subsortClassResultsByQuarter(results, 'department');
+	        			resultSet['quarter']  = subsortClassResultsByQuarter(results, 'department');
 	        		}
 	        		else if(queryData.display == "Location") {
 
 	        			resultSet['year'] = subsortClassResultsByYear(results, 'location');
 	        			resultSet['month']  = subsortClassResultsByMonth(results, 'location');
-	        			// resultSet['quarter']  = subsortClassResultsByQuarter(results, 'location');
+	        			resultSet['quarter']  = subsortClassResultsByQuarter(results, 'location');
 	        		}
 	        		else if(queryData.display == "Type") {
 
 	        			resultSet['year'] = subsortClassResultsByYear(results, 'type');
 	        			resultSet['month']  = subsortClassResultsByMonth(results, 'type');
-	        			// resultSet['quarter']  = subsortClassResultsByQuarter(results, 'type');
+	        			resultSet['quarter']  = subsortClassResultsByQuarter(results, 'type');
 	        		}
 	        		else { // All
 	        			resultSet['year'] = sortClassResultsByAllYear(results);
@@ -426,7 +426,27 @@ module.exports = (function() {
 	};
 
 	var subsortClassResultsByQuarter = function(resultArray, subsortField) {
-		//
+		var courseObject, subField, quarter;
+		var classesByQuarter = {};
+
+		for(var i=1; i<5; i++) {
+			classesByQuarter[i] = {};
+		}
+
+		for(var index in resultArray) {
+			courseObject = resultArray[index];
+			quarter = courseObject.courseInfo.quarter;
+			subField = courseObject[subsortField];
+
+			if(typeof classesByQuarter[quarter][subField] == "undefined") {
+				classesByQuarter[quarter][subField] = 1;
+			}
+			else {
+				classesByQuarter[quarter][subField]++;
+			}
+		}
+
+		return classesByQuarter;
 	};
 
 	return {
