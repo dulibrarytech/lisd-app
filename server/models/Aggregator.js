@@ -106,7 +106,7 @@ module.exports = (function() {
 	        			resultSet['quarter'] = sortStudentResultsByAllQuarter(results);
 	        		}
 
-	        		console.log(resultSet); // DEV
+	        		console.log(resultSet.month); // DEV
 	        		if(results.length == 0) {message = "No results found";} else {message = "Returning all data";}
 	        		callback({status: "ok", message: message, data: results});
 	        	}
@@ -253,29 +253,32 @@ module.exports = (function() {
 	// Subsorts: 'department' 'location' 'type'
 	var subsortStudentResultsByYear = function(resultArray, subsortField) {
 
-		var courseObject, subField;
+		var courseObject, subField, subFieldArr;
 		var studentsByYear = {};
 
 		for(var index in resultArray) {
 			courseObject = resultArray[index];
-			subField = courseObject[subsortField];
+			subFieldArr = courseObject[subsortField]; // this will always be an array
 
-			// TODO If courseObject[subsort]
+			// If there are >1 subfields, add this courses student counts to the total for each field.  
+			for(var i in subFieldArr) {
+				subField = subFieldArr[i];
 
-			// Init the object if it does not yet exist
-			if(typeof studentsByYear[subField] == "undefined") {
-				studentsByYear[subField] = {
-					undergraduates: 0,
-					graduates: 0,
-					faculty: 0,
-					other: 0
+				// Init the object if it does not yet exist
+				if(typeof studentsByYear[subField] == "undefined") {
+					studentsByYear[subField] = {
+						undergraduates: 0,
+						graduates: 0,
+						faculty: 0,
+						other: 0
+					}
 				}
-			}
 
-			studentsByYear[subField].undergraduates += courseObject.enrollmentInfo.undergraduates;
-			studentsByYear[subField].graduates += courseObject.enrollmentInfo.graduates;
-			studentsByYear[subField].faculty += courseObject.enrollmentInfo.faculty;
-			studentsByYear[subField].other += courseObject.enrollmentInfo.other;
+				studentsByYear[subField].undergraduates += courseObject.enrollmentInfo.undergraduates;
+				studentsByYear[subField].graduates += courseObject.enrollmentInfo.graduates;
+				studentsByYear[subField].faculty += courseObject.enrollmentInfo.faculty;
+				studentsByYear[subField].other += courseObject.enrollmentInfo.other;
+			}
 		}
 
 		return studentsByYear;
@@ -283,7 +286,7 @@ module.exports = (function() {
 
 	var subsortStudentResultsByMonth = function(resultArray, subsortField) {
 
-		var courseObject, month, subField;
+		var courseObject, month, subField, subFieldArr;
 		var studentsByDepartmentMonth = {};
 
 		for(var i=1; i<13; i++) {
@@ -292,22 +295,26 @@ module.exports = (function() {
 
 		for(var index in resultArray) {
 			courseObject = resultArray[index];
-			subField = courseObject[subsortField];
+			subFieldArr = courseObject[subsortField];
 			month = courseObject.courseInfo.date.getMonth() + 1; // getMonth months range 0-11
 
-			if(typeof studentsByDepartmentMonth[month][subField] == 'undefined') {
-				studentsByDepartmentMonth[month][subField] = {
-					undergraduates: courseObject.enrollmentInfo.undergraduates,
-					graduates: courseObject.enrollmentInfo.graduates,
-					faculty: courseObject.enrollmentInfo.faculty,
-					other: courseObject.enrollmentInfo.other
+			for(var i in subFieldArr) {
+				subField = subFieldArr[i];
+
+				if(typeof studentsByDepartmentMonth[month][subField] == 'undefined') {
+					studentsByDepartmentMonth[month][subField] = {
+						undergraduates: courseObject.enrollmentInfo.undergraduates,
+						graduates: courseObject.enrollmentInfo.graduates,
+						faculty: courseObject.enrollmentInfo.faculty,
+						other: courseObject.enrollmentInfo.other
+					}
 				}
-			}
-			else {
-				studentsByDepartmentMonth[month][subField].undergraduates += courseObject.enrollmentInfo.undergraduates;
-				studentsByDepartmentMonth[month][subField].graduates += courseObject.enrollmentInfo.graduates;
-				studentsByDepartmentMonth[month][subField].faculty += courseObject.enrollmentInfo.faculty;
-				studentsByDepartmentMonth[month][subField].other += courseObject.enrollmentInfo.other;
+				else {
+					studentsByDepartmentMonth[month][subField].undergraduates += courseObject.enrollmentInfo.undergraduates;
+					studentsByDepartmentMonth[month][subField].graduates += courseObject.enrollmentInfo.graduates;
+					studentsByDepartmentMonth[month][subField].faculty += courseObject.enrollmentInfo.faculty;
+					studentsByDepartmentMonth[month][subField].other += courseObject.enrollmentInfo.other;
+				}
 			}
 		}
 
@@ -316,7 +323,7 @@ module.exports = (function() {
 
 	var subsortStudentResultsByQuarter = function(resultArray, subsortField) {
 
-		var courseObject, quarter, subField;
+		var courseObject, quarter, subField, subFieldArr;
 		var studentsByDepartmentQuarter = {};
 
 		for(var i=1; i<5; i++) {
@@ -325,22 +332,26 @@ module.exports = (function() {
 
 		for(var index in resultArray) {
 			courseObject = resultArray[index];
-			subField = courseObject[subsortField];
+			subFieldArr = courseObject[subsortField];
 			quarter = courseObject.courseInfo.quarter;
 
-			if(typeof studentsByDepartmentQuarter[quarter][subField] == 'undefined') {
-				studentsByDepartmentQuarter[quarter][subField] = {
-					undergraduates: courseObject.enrollmentInfo.undergraduates,
-					graduates: courseObject.enrollmentInfo.graduates,
-					faculty: courseObject.enrollmentInfo.faculty,
-					other: courseObject.enrollmentInfo.other
+			for(var i in subFieldArr) {
+				subField = subFieldArr[i];
+
+				if(typeof studentsByDepartmentQuarter[quarter][subField] == 'undefined') {
+					studentsByDepartmentQuarter[quarter][subField] = {
+						undergraduates: courseObject.enrollmentInfo.undergraduates,
+						graduates: courseObject.enrollmentInfo.graduates,
+						faculty: courseObject.enrollmentInfo.faculty,
+						other: courseObject.enrollmentInfo.other
+					}
 				}
-			}
-			else {
-				studentsByDepartmentQuarter[quarter][subField].undergraduates += courseObject.enrollmentInfo.undergraduates;
-				studentsByDepartmentQuarter[quarter][subField].graduates += courseObject.enrollmentInfo.graduates;
-				studentsByDepartmentQuarter[quarter][subField].faculty += courseObject.enrollmentInfo.faculty;
-				studentsByDepartmentQuarter[quarter][subField].other += courseObject.enrollmentInfo.other;
+				else {
+					studentsByDepartmentQuarter[quarter][subField].undergraduates += courseObject.enrollmentInfo.undergraduates;
+					studentsByDepartmentQuarter[quarter][subField].graduates += courseObject.enrollmentInfo.graduates;
+					studentsByDepartmentQuarter[quarter][subField].faculty += courseObject.enrollmentInfo.faculty;
+					studentsByDepartmentQuarter[quarter][subField].other += courseObject.enrollmentInfo.other;
+				}
 			}
 		}
 
@@ -397,18 +408,22 @@ module.exports = (function() {
 	}
 
 	var subsortClassResultsByYear = function(resultArray, subsortField) {
-		var courseObject, subField;
+		var courseObject, subField, subFieldArr;
 		var classesByYear = {};
 
 		for(var index in resultArray) {
 			courseObject = resultArray[index];
-			subField = courseObject[subsortField];
+			subFieldArr = courseObject[subsortField];
 
-			if(typeof classesByYear[subField] == "undefined") {
-				classesByYear[subField] = 1;
-			}
-			else {
-				classesByYear[subField]++;
+			for(var i in subFieldArr) {
+				subfield = subFieldArr[i];
+
+				if(typeof classesByYear[subField] == "undefined") {
+					classesByYear[subField] = 1;
+				}
+				else {
+					classesByYear[subField]++;
+				}
 			}
 		}
 
@@ -416,7 +431,7 @@ module.exports = (function() {
 	};
 
 	var subsortClassResultsByMonth = function(resultArray, subsortField) {
-		var courseObject, subField, month;
+		var courseObject, subField, month, subFieldArr;
 		var classesByMonth = {};
 
 		for(var i=1; i<13; i++) {
@@ -426,13 +441,17 @@ module.exports = (function() {
 		for(var index in resultArray) {
 			courseObject = resultArray[index];
 			month = courseObject.courseInfo.date.getMonth() + 1; // getMonth months range 0-11
-			subField = courseObject[subsortField];
+			subFieldArr = courseObject[subsortField];
 
-			if(typeof classesByMonth[month][subField] == "undefined") {
-				classesByMonth[month][subField] = 1;
-			}
-			else {
-				classesByMonth[month][subField]++;
+			for(var i in subFieldArr) {
+				subfield = subFieldArr[i];
+
+				if(typeof classesByMonth[month][subField] == "undefined") {
+					classesByMonth[month][subField] = 1;
+				}
+				else {
+					classesByMonth[month][subField]++;
+				}
 			}
 		}
 
@@ -440,7 +459,7 @@ module.exports = (function() {
 	};
 
 	var subsortClassResultsByQuarter = function(resultArray, subsortField) {
-		var courseObject, subField, quarter;
+		var courseObject, subField, quarter, subFieldArr;
 		var classesByQuarter = {};
 
 		for(var i=1; i<5; i++) {
@@ -450,13 +469,17 @@ module.exports = (function() {
 		for(var index in resultArray) {
 			courseObject = resultArray[index];
 			quarter = courseObject.courseInfo.quarter;
-			subField = courseObject[subsortField];
+			subFieldArr = courseObject[subsortField];
 
-			if(typeof classesByQuarter[quarter][subField] == "undefined") {
-				classesByQuarter[quarter][subField] = 1;
-			}
-			else {
-				classesByQuarter[quarter][subField]++;
+			for(var i in subFieldArr) {
+				subfield = subFieldArr[i];
+
+				if(typeof classesByQuarter[quarter][subField] == "undefined") {
+					classesByQuarter[quarter][subField] = 1;
+				}
+				else {
+					classesByQuarter[quarter][subField]++;
+				}
 			}
 		}
 
