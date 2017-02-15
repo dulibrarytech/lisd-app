@@ -74,7 +74,7 @@
        			<section id="class-type">
 		      		<div class="checkbox-group">
 				        <label>Select class type:</label>
-				      	<label class="checkbox-text" repeat.for="type of classTypes">${type}<input type="checkbox" checked.bind="selectedClassTypes[type]"></label>
+				      	<label class="checkbox-text" repeat.for="type of classTypes">${type}<input type="radio" value.bind="type"  checked.bind="selectedClassType"></label>
 				    </div>
 		      	</section>
        			<br style="clear:both;" />

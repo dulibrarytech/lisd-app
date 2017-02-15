@@ -17,12 +17,13 @@ export class EntryForm {
     departmentCount = 1;
     selectedDepartments = [];
 
-    selectedClassTypes = {};
+    selectedClassType = 'Undergraduate';
     selectedAcrlFrames = {};
 
     quarters = ['Fall', 'Winter', 'Spring', 'Summer'];
 
-    classTypes = ['Undergraduate', 'Graduate', 'Faculty/Staff', 'Other'];
+    // classTypes = ['Undergraduate', 'Graduate', 'Workshop', 'Orientation', 'Graduate-Undergraduate'];
+    classTypes = ['Undergraduate', 'Graduate', 'Faculty', 'Other'];
 
     acrlFrames = [
 
@@ -159,14 +160,14 @@ export class EntryForm {
         formData['department'] =    this.selectedDepartments;
 
         // Get checkbox group data
-        formData['classType'] = [];
+        formData['classType'] = this.selectedClassType;
         formData['acrlFrame'] = [];
 
-        for(var key in this.selectedClassTypes) {
-            if(this.selectedClassTypes[key] == true) {
-                formData['classType'].push(key);
-            }
-        }
+        // for(var key in this.selectedClassTypes) {
+        //     if(this.selectedClassTypes[key] == true) {
+        //         formData['classType'].push(key);
+        //     }
+        // }
 
         for(var key in this.selectedAcrlFrames) {
             if(this.selectedAcrlFrames[key] == true) {
