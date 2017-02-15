@@ -62,12 +62,19 @@ module.exports = (function() {
 
 		var resultSet = {};
 		var results = [];
+		var queryObj;
 		var message;
 
 		// TODO Librarian sort: build query specifying the librarian here, pass that into find() below
+		if(queryData.librarian != "") {
+
+		}
+		else {
+			queryObj = { "courseInfo.date": { $gte: new Date(queryData.fromDate), $lt: new Date(queryData.toDate) } };
+		}
 
 		try {
-			var cursor = classCollection.find( { "courseInfo.date": { $gte: new Date(queryData.fromDate), $lt: new Date(queryData.toDate) } } );  // fromDate inclusive
+			var cursor = classCollection.find(queryObj);  // fromDate inclusive
 	        cursor.each(function(err, item) {
 	        	if(item != null) {
 	        		results.push(item);
@@ -115,12 +122,19 @@ module.exports = (function() {
 
 		var resultSet = {};
 		var results = [];
+		var queryObj;
 		var message;
 
 		// TODO Librarian sort: build query specifying the librarian here, pass that into find() below
+		if(queryData.librarian != "") {
+			
+		}
+		else {
+			queryObj = { "courseInfo.date": { $gte: new Date(queryData.fromDate), $lt: new Date(queryData.toDate) } };
+		}
 
 		try {
-			var cursor = classCollection.find( { "courseInfo.date": { $gte: new Date(queryData.fromDate), $lt: new Date(queryData.toDate) } } );  // fromDate inclusive
+			var cursor = classCollection.find(queryObj);  // fromDate inclusive
 	        cursor.each(function(err, item) {
 	        	if(item != null) {
 	        		results.push(item);
