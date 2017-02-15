@@ -22,8 +22,7 @@ export class EntryForm {
 
     quarters = ['Fall', 'Winter', 'Spring', 'Summer'];
 
-    // classTypes = ['Undergraduate', 'Graduate', 'Workshop', 'Orientation', 'Graduate-Undergraduate'];
-    classTypes = ['Undergraduate', 'Graduate', 'Faculty', 'Other'];
+    classTypes = ['Undergraduate', 'Graduate', 'Graduate-Undergraduate', 'Workshop', 'Orientation'];
 
     acrlFrames = [
 
