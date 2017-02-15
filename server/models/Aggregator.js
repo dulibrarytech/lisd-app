@@ -65,15 +65,16 @@ module.exports = (function() {
 		var queryObj;
 		var message;
 
-		// TODO Librarian sort: build query specifying the librarian here, pass that into find() below
-		if(queryData.librarian != "") {
-
+		// If a librarian ID is present in the query, restrict results to those that contain that librarian ID
+		if(queryData.librarianID != "") {
+			queryObj = { "courseInfo.date": { $gte: new Date(queryData.fromDate), $lt: new Date(queryData.toDate) }, "associatedLibrarians":  { $in: [queryData.librarianID] } };
 		}
 		else {
 			queryObj = { "courseInfo.date": { $gte: new Date(queryData.fromDate), $lt: new Date(queryData.toDate) } };
 		}
 
 		try {
+			console.log(queryData.librarianID);
 			var cursor = classCollection.find(queryObj);  // fromDate inclusive
 	        cursor.each(function(err, item) {
 	        	if(item != null) {
@@ -125,9 +126,9 @@ module.exports = (function() {
 		var queryObj;
 		var message;
 
-		// TODO Librarian sort: build query specifying the librarian here, pass that into find() below
-		if(queryData.librarian != "") {
-			
+		// If a librarian ID is present in the query, restrict results to those that contain that librarian ID
+		if(queryData.librarianID != "") {
+			queryObj = { "courseInfo.date": { $gte: new Date(queryData.fromDate), $lt: new Date(queryData.toDate) }, "associatedLibrarians":  { $in: [queryData.librarianID] } };
 		}
 		else {
 			queryObj = { "courseInfo.date": { $gte: new Date(queryData.fromDate), $lt: new Date(queryData.toDate) } };
@@ -214,6 +215,7 @@ module.exports = (function() {
 		for(var index in resultArray) {
 			courseObject = resultArray[index];
 			month = courseObject.courseInfo.date.getMonth() + 1; // getMonth months range 0-11
+
 
 			studentsByMonth[month].undergraduates += courseObject.enrollmentInfo.undergraduates;
 			studentsByMonth[month].graduates += courseObject.enrollmentInfo.graduates;
