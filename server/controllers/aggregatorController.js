@@ -173,3 +173,29 @@ module.exports.getDataSearchAllStatistics = function(req, res) {
 		});
 	}
 }
+
+module.exports.getDataSearchClass = function(req, res) {
+	var fromYear 	= req.query.fromYear;
+	var toYear 		= req.query.toYear;
+	var timeframe	= req.query.timeframe;
+
+	// Set optional params
+	var librarian, quarter;
+	if(typeof req.query.librarian != 'undefined') { librarian = req.query.librarian; }
+	else { librarian = ""; }
+	if(typeof req.query.quarter != 'undefined') { quarter = req.query.quarter; }
+	else { quarter = ""; }
+
+	// Set the date for the time period requested
+	var dates = getDates(fromYear, toYear, timeframe, quarter);
+	
+	var data = {
+		fromDate: dates.from,
+		toDate: dates.to,
+		librarianID: librarian
+	};
+
+	Aggregator.getClassData(data, function(responseData) {
+		res.send(responseData);
+	});
+}
