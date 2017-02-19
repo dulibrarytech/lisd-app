@@ -9,28 +9,28 @@
             <form id="search-options" role="form">
 
                 <label>Search Type:</label>
-                <select class="form-control" value.bind="selectedVal">
+                <select class="form-control" value.bind="selectedSearchType" change.delegate="onChangeSearchType()">
                     <option repeat.for="option of searchType" name="searchType" value.bind="option">${option}</option>
                 </select>
 
                 <label>For:</label>
                 <div class="form-section">
                     <label class="radio-select" repeat.for="option of statisticsFor">
-                        <input type="radio" class="" value.bind="option" name="statisticsFor" checked.bind="$parent.selectedStatisticsFor">${option}
+                        <input type="radio" class="" value.bind="option" name="statisticsFor" checked.bind="$parent.selectedStatisticsFor" change.delegate="onChangeStatisticsFor()">${option}
                     </label>
                 </div>
 
                 <label>List by:</label>
                 <div class="form-section">
                     <label class="radio-select" repeat.for="option of listResultsBy">
-                        <input type="radio" class="" value.bind="option" name="listResultsBy" checked.bind="$parent.selectedListResultsBy">${option}
+                        <input type="checkbox" class="" value.bind="option" name="listResultsBy" checked.bind="$parent.selectedListResultsBy" change.delegate="onChangeListResultsBy()">${option}
                     </label>
                 </div>
 
                 <label>Display:</label>
                 <div class="form-section">
                     <label class="radio-select" repeat.for="option of displayStatistics">
-                        <input type="checkbox" class="" value.bind="option" name="displayStatistics" checked.bind="$parent.selectedDisplayStatistics">${option}
+                        <input type="radio" class="" value.bind="option" name="displayStatistics" checked.bind="$parent.selectedDisplayStatistics" change.delegate="onChangeDisplayStatistics()">${option}
                     </label>
                 </div>
             </form>
@@ -64,7 +64,7 @@
                                 <label>Search Time Period:</label>
                                 <div class="form-section">
                                     <label class="radio-select" repeat.for="option of searchTimeframe">
-                                        <input type="radio" class="" value.bind="option" name="searchTimeframe" checked.bind="$parent.selectedSearchTimeframe">${option}
+                                        <input type="radio" class="" value.bind="option" name="searchTimeframe" checked.bind="$parent.selectedSearchTimeframe" change.delegate="onChangeQuarterTimePeriod()">${option}
                                     </label>
                                 </div>
                                 <div id="date-range-select">
@@ -88,7 +88,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <button type="button" class="btn btn-default" click.delegate="submitForms()">Get Statistics</button>
                         </form>
                     </div>
                 </div>
