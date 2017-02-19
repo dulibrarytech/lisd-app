@@ -44,7 +44,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <form id="statistics-search" role="form">
-
+                        <button type="button" class="btn btn-default" click.delegate="newSearch()">New Search</button>
                             <div class="search-input-group">
                                   <label for="librarian-select">For Librarian:</label>
                                   <span id="librarian-add" class="click-span add-input" style="visibility: hidden; float: right;" click.delegate="addLibrarian()">+ Add another librarian</span>
@@ -90,6 +90,8 @@
                             </div>
                             <button type="button" class="btn btn-default" click.delegate="submitForms()">Get Statistics</button>
                         </form>
+
+                        <div id="search-results"></div>
                     </div>
                 </div>
             </div>

@@ -73,6 +73,10 @@ export class Statistics {
         console.log("Change display");
     }
 
+    newSearch() {
+        location.reload(false);
+    }
+
     // Retrieves the current list from the server and populates all select dropdowns
     getDropdownData() {
 
