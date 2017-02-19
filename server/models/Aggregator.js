@@ -107,9 +107,9 @@ module.exports = (function() {
 	        			resultSet['quarter'] = sortStudentResultsByAllQuarter(results);
 	        		}
 
-	        		console.log(resultSet.month); // DEV
+	        		//console.log(resultSet.month); // DEV
 	        		if(results.length == 0) {message = "No results found";} else {message = "Returning all data";}
-	        		callback({status: "ok", message: message, data: results});
+	        		callback({status: "ok", message: message, data: resultSet});
 	        	}
 	        });
 		}
@@ -167,8 +167,39 @@ module.exports = (function() {
 	        			resultSet['quarter'] = sortClassResultsByAllQuarter(results);
 	        		}
 
-	        		console.log(resultSet); // DEV
+	        		//console.log(resultSet); // DEV
 	        		if(results.length == 0) {message = "No results found";} else {message = "Returning all data";}
+	        		callback({status: "ok", message: message, data: resultSet});
+	        	}
+	        });
+		}
+		catch (e) {
+			callback({status: "error", message: "Error: " + e});
+		}
+	};
+
+	var getClassData = function(queryData, callback) {
+		var resultSet = [];
+		var results = [];
+		var queryObj;
+		var message;
+
+		// If a librarian ID is present in the query, restrict results to those that contain that librarian ID
+		if(queryData.librarianID != "") {
+			queryObj = { "courseInfo.date": { $gte: new Date(queryData.fromDate), $lt: new Date(queryData.toDate) }, "associatedLibrarians":  { $in: [queryData.librarianID] } };
+		}
+		else {
+			queryObj = { "courseInfo.date": { $gte: new Date(queryData.fromDate), $lt: new Date(queryData.toDate) } };
+		}
+
+		try {
+			var cursor = classCollection.find(queryObj);  // fromDate inclusive
+	        cursor.each(function(err, item) {
+	        	if(item != null) {
+	        		results.push(item);
+	        	}
+	        	else {
+	        		if(results.length == 0) {message = "No results found";} else {message = "Returning class data";}
 	        		callback({status: "ok", message: message, data: results});
 	        	}
 	        });
@@ -497,6 +528,9 @@ module.exports = (function() {
 		},
 		getClassTotals: function(queryData,callback) {
 			getClassTotals(queryData,callback);
+		},
+		getClassData: function(queryData, callback) {
+			getClassData(queryData, callback);
 		}
 	};
 })()

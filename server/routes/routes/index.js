@@ -64,20 +64,19 @@ router.get('/get/data/search/allStatistics', function(req, res) {
     }
 });
 
-// router.get('/get/data/search/allStatistics/class', function(req, res) {
-//   if(req.headers['user-agent'] == process.env.CLIENT_USER_AGENT ||
-//     process.env.ENABLE_BROWSER_TEST == 'true') { 
-//     res.statusCode = 403;
-//       //res.end();
-//       //res.send("TEST");
-//       aggregatorController.getDataSearchAllStatisticsClass(req,res);
-//   }
-//     else {
-//       res.statusCode = 403;
-//       //res.end();
-//       res.send();
-//     }
-// });
+router.get('/get/data/search/class', function(req, res) {
+  if(req.headers['user-agent'] == process.env.CLIENT_USER_AGENT ||
+    process.env.ENABLE_BROWSER_TEST == 'true') { 
+    res.statusCode = 403;
+
+      aggregatorController.getDataSearchClass(req,res);
+  }
+    else {
+      res.statusCode = 403;
+      //res.end();
+      res.send();
+    }
+});
 
 
 router.post('/insert/class', function(req, res) {
