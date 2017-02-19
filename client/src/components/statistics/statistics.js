@@ -23,10 +23,10 @@ export class Statistics {
     selectedStatisticsFor = "Class";
     statisticsFor = ["Class", "Student"];
 
-    selectedListResultsBy = "Year";
+    selectedListResultsBy = ["Year"];
     listResultsBy = ["Year", "Month", "Quarter"];
 
-    selectedDisplayStatistics = ["All"];
+    selectedDisplayStatistics = "All";
     displayStatistics = ["All", "Department", "Location", "Type"];
 
     selectedQuarter = "Fall";
@@ -38,6 +38,39 @@ export class Statistics {
 
         var dropdownData = this.getDropdownData();
         this.librarianList = dropdownData.librarians;
+    }
+
+    init() {
+
+    }
+
+    render() {
+
+    }
+
+    onChangeQuarterTimePeriod() {
+        if(this.selectedSearchTimeframe == "Quarter") {
+            console.log("Selected quarter time period");
+        }
+        else {
+            console.log("deselected quarter time period");
+        }
+    }
+
+    onChangeSearchType() {
+        console.log("Change search type");
+    }
+
+    onChangeStatisticsFor() {
+        console.log("Change stats for");
+    }
+
+    onChangeListResultsBy() {
+        console.log("Change list by");
+    }
+
+    onChangeDisplayStatistics() {
+        console.log("Change display");
     }
 
     // Retrieves the current list from the server and populates all select dropdowns
@@ -67,5 +100,20 @@ export class Statistics {
         });
 
         return data;
+    };
+
+    getFormData() {
+        var formData = {};
+
+        formData['searchType'] = this.selectedSearchType;
+
+        return formData;
+    }; 
+
+    submitForms() {
+
+        var data = this.getFormData();
+        console.log(data); // DEV
+
     };
 }
