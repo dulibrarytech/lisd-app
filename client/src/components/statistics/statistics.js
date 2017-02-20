@@ -63,6 +63,7 @@ export class Statistics {
             // Show search options, hide the search form
             document.getElementById('search-options').style.display = "block";
             document.getElementById('statistics-search').style.display = "none";
+            document.getElementById('new-search').style.display = "block";
 
             var dataTable = '<table id="data-table">';
 
@@ -98,19 +99,24 @@ export class Statistics {
         }
     }
 
+    // Search Options (only available after results are rendered)
     onChangeStatisticsType() {
         console.log("Change stats for");
+        //this.submitForms();
     }
 
     onChangeListResultsBy() {
         console.log("Change list by");
+        //this.submitForms();
     }
 
     onChangeDisplayStatistics() {
         console.log("Change display");
+        //this.submitForms();
     }
 
     newSearch() {
+        // DEV - TEMP TODO create function to reset form resetForm()
         location.reload(false);
     }
 
