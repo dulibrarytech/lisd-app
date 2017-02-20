@@ -51,11 +51,26 @@ export class Statistics {
         document.getElementById('year-quarter-select').style.display = "none";
     }
 
-    renderTable() {
-        //DEV
-        //document.getElementById("results-table").innerHTML = JSON.parse(data);
-        console.log("Rendering...");
-        document.getElementById("results-table").innerHTML = "TEST";
+    renderTable(data) {
+        console.log("Rendering..." + typeof data);
+        console.log(data);
+
+        // If a string is passed in, render as a message.  If an object is passed in, attempt to render its data
+        if(typeof data == "string") { 
+            document.getElementById("results-table").innerHTML = "<span id='view-message'>" + data + "</span>"; 
+        }
+        else if(typeof data == "object") { 
+            var dataTable = '<table id="data-table">';
+
+
+
+
+
+
+
+            dataTable =+ '</table>'
+            document.getElementById("results-table").innerHTML = data; 
+        }
     }
 
     onChangeQuarterTimePeriod() {
