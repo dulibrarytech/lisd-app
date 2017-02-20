@@ -67,16 +67,11 @@ export class SystemUtils {
         target.appendChild(this.spinner.el);
 
         // Run the request
-        this.http.fetch(url, options).then(response => response.json())
+        return this.http.fetch(url, options).then(response => response.json())
         .then(data => {
 
         	this.stopSpinner();
-        	if(data.status == "ok") {
-        		callback(data.data);
-        	}
-        	else {
-        		callback(data.message);
-        	}
+        	callback(data);
         });
 	}
 

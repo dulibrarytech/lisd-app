@@ -12,7 +12,7 @@ export class Statistics {
 
 	librarianList = [];
 	librarianCount = 1;
-    selectedLibrarian = "...";
+    selectedLibrarian = "";
 
     fromYear;
     toYear;
@@ -53,11 +53,13 @@ export class Statistics {
 
     renderTable(data) {
         console.log("Rendering..." + typeof data);
-        console.log(data);
+
+        var resultObj = data.data;
+         console.log(resultObj.year);
 
         // If a string is passed in, render as a message.  If an object is passed in, attempt to render its data
-        if(typeof data == "string") { 
-            document.getElementById("results-table").innerHTML = "<span id='view-message'>" + data + "</span>"; 
+        if(typeof data == null) { 
+            document.getElementById("results-table").innerHTML = "<span id='view-message'>" + data.message + "</span>"; 
         }
         else if(typeof data == "object") { 
             // Show search options, hide the search form
@@ -74,7 +76,10 @@ export class Statistics {
 
 
             dataTable =+ '</table>'
-            document.getElementById("results-table").innerHTML = data; 
+
+
+
+            document.getElementById("results-table").innerHTML = JSON.stringify(resultObj); 
         }
     }
 
@@ -95,6 +100,7 @@ export class Statistics {
             document.getElementById('librarian-select').style.display = "block";
         }
         else {
+            this.selectedLibrarian = "";
             document.getElementById('librarian-select').style.display = "none";
         }
     }
@@ -204,17 +210,19 @@ export class Statistics {
 
         var data = this.getFormData();
 
-        if(this.selectedSearchType == "Class Data") {
-            // class route
-            this.utils.doAjax('get/data/search/class', 'get', data, this.renderTable);
-        }
-        else if(this.selectedSearchType == "All Statistics" || this.selectedSearchType == "Librarian Statistics") {
-            // all statistics route
-            // Ajax
-            this.utils.doAjax('get/data/search/allStatistics', 'get', data, this.renderTable);
-        }
-        else {
-            console.log("Search type error");
-        }
+        console.log(data);
+
+        // if(this.selectedSearchType == "Class Data") {
+        //     // class route
+        //     this.utils.doAjax('get/data/search/class', 'get', data, this.renderTable);
+        // }
+        // else if(this.selectedSearchType == "All Statistics" || this.selectedSearchType == "Librarian Statistics") {
+        //     // all statistics route
+        //     // Ajax
+        //     this.utils.doAjax('get/data/search/allStatistics', 'get', data, this.renderTable);
+        // }
+        // else {
+        //     console.log("Search type error");
+        // }
     };
 }

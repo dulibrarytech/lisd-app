@@ -129,6 +129,8 @@ export class EntryForm {
             }
         });
 
+        console.log(data);
+
         return data;
     };
 
