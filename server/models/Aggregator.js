@@ -82,34 +82,37 @@ module.exports = (function() {
 	        	}
 	        	else {
 
-	        		// department, location, type
-	        		if(queryData.display == "Department") {
-
-	        			resultSet['year'] = subsortStudentResultsByYear(results, 'department');
-	        			resultSet['month']  = subsortStudentResultsByMonth(results, 'department');
-	        			resultSet['quarter']  = subsortStudentResultsByQuarter(results, 'department');
+	        		if(results.length == 0) {
+	        			callback({status: "ok", message: "No results found", data: resultSet});
 	        		}
-	        		else if(queryData.display == "Location") {
+	        		else {
+	        			// department, location, type
+		        		if(queryData.display == "Department") {
 
-	        			resultSet['year'] = subsortStudentResultsByYear(results, 'location');
-	        			resultSet['month']  = subsortStudentResultsByMonth(results, 'location');
-	        			resultSet['quarter']  = subsortStudentResultsByQuarter(results, 'location');
-	        		}
-	        		else if(queryData.display == "Type") {
+		        			resultSet['year'] = subsortStudentResultsByYear(results, 'department');
+		        			resultSet['month']  = subsortStudentResultsByMonth(results, 'department');
+		        			resultSet['quarter']  = subsortStudentResultsByQuarter(results, 'department');
+		        		}
+		        		else if(queryData.display == "Location") {
 
-	        			resultSet['year'] = subsortStudentResultsByYear(results, 'type');
-	        			resultSet['month']  = subsortStudentResultsByMonth(results, 'type');
-	        			resultSet['quarter']  = subsortStudentResultsByQuarter(results, 'type');
-	        		}
-	        		else { // All
-	        			resultSet['year'] = sortStudentResultsByAllYear(results);
-	        			resultSet['month'] = sortStudentResultsByAllMonth(results);
-	        			resultSet['quarter'] = sortStudentResultsByAllQuarter(results);
-	        		}
+		        			resultSet['year'] = subsortStudentResultsByYear(results, 'location');
+		        			resultSet['month']  = subsortStudentResultsByMonth(results, 'location');
+		        			resultSet['quarter']  = subsortStudentResultsByQuarter(results, 'location');
+		        		}
+		        		else if(queryData.display == "Type") {
 
-	        		//console.log(resultSet.month); // DEV
-	        		if(results.length == 0) {message = "No results found";} else {message = "Returning all data";}
-	        		callback({status: "ok", message: message, data: resultSet});
+		        			resultSet['year'] = subsortStudentResultsByYear(results, 'type');
+		        			resultSet['month']  = subsortStudentResultsByMonth(results, 'type');
+		        			resultSet['quarter']  = subsortStudentResultsByQuarter(results, 'type');
+		        		}
+		        		else { // All
+		        			resultSet['year'] = sortStudentResultsByAllYear(results);
+		        			resultSet['month'] = sortStudentResultsByAllMonth(results);
+		        			resultSet['quarter'] = sortStudentResultsByAllQuarter(results);
+		        		}
+
+		        		callback({status: "ok", message: "OK", data: resultSet});
+	        		}
 	        	}
 	        });
 		}
