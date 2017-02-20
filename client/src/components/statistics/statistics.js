@@ -45,7 +45,7 @@ export class Statistics {
     }
 
     attached() {
-        //document.getElementById('search-options').style.display = "none";
+        document.getElementById('search-options').style.display = "none";
         document.getElementById('new-search').style.display = "none";
         document.getElementById('librarian-select').style.display = "none";
         document.getElementById('year-quarter-select').style.display = "none";
@@ -60,6 +60,10 @@ export class Statistics {
             document.getElementById("results-table").innerHTML = "<span id='view-message'>" + data + "</span>"; 
         }
         else if(typeof data == "object") { 
+            // Show search options, hide the search form
+            document.getElementById('search-options').style.display = "block";
+            document.getElementById('statistics-search').style.display = "none";
+
             var dataTable = '<table id="data-table">';
 
 
@@ -196,14 +200,7 @@ export class Statistics {
 
         if(this.selectedSearchType == "Class Data") {
             // class route
-            this.utils.doAjax('get/data/search/class', 'get', data, function(responseObject) {
-                if(responseObject.status == "ok") {
-                    this.renderTable(responseObject.resultSet);
-                }
-                else {
-                    console.log(responseObject.message);
-                }
-            });
+            this.utils.doAjax('get/data/search/class', 'get', data, this.renderTable);
         }
         else if(this.selectedSearchType == "All Statistics" || this.selectedSearchType == "Librarian Statistics") {
             // all statistics route
