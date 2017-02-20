@@ -140,9 +140,10 @@ module.exports.getDataSearchAllStatistics = function(req, res) {
 	// Required params
 	var fromYear 	= req.query.fromYear;
 	var toYear 		= req.query.toYear;
-	var display 	= req.query.display; // Can be either All or Department
-	var timeframe	= req.query.timeframe;
-	var statsType   = req.query.type;
+	var academicYear;
+	var display 	= req.query.statsDisplay; // Can be either All or Department
+	var timeframe	= req.query.searchTimeframe;
+	var statsType   = req.query.statsType;
 
 	// Set optional params
 	var librarian, quarter;

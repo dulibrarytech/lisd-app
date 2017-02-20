@@ -12,7 +12,10 @@ export class Statistics {
 
 	librarianList = [];
 	librarianCount = 1;
-    selectedLibrarians = [];
+    selectedLibrarian = "...";
+
+    fromYear;
+    toYear;
 
     selectedSearchTimeframe = "Fiscal year";
     searchTimeframe = ["Fiscal year", "Academic year", "Quarter"];
@@ -20,8 +23,8 @@ export class Statistics {
     selectedSearchType = "All Statistics";
     searchType = ["All Statistics", "Librarian Statistics", 'Class Data'];
 
-    selectedStatisticsFor = "Class";
-    statisticsFor = ["Class", "Student"];
+    selectedStatisticsType = "Class";
+    statisticsType = ["Class", "Student"];
 
     selectedListResultsBy = "Year";
     listResultsBy = ["Year", "Month", "Quarter"];
@@ -38,10 +41,11 @@ export class Statistics {
 
         var dropdownData = this.getDropdownData();
         this.librarianList = dropdownData.librarians;
+        console.log(this.librarianList);
     }
 
     attached() {
-        document.getElementById('search-options').style.display = "none";
+        //document.getElementById('search-options').style.display = "none";
         document.getElementById('new-search').style.display = "none";
         document.getElementById('librarian-select').style.display = "none";
         document.getElementById('year-quarter-select').style.display = "none";
@@ -72,7 +76,7 @@ export class Statistics {
         }
     }
 
-    onChangeStatisticsFor() {
+    onChangeStatisticsType() {
         console.log("Change stats for");
     }
 
@@ -95,9 +99,11 @@ export class Statistics {
 
         // Select elements
         data["librarians"] = [];
+        data["locations"] = [];
+        data["departments"] = [];
 
         // Ajax
-        this.utils.doAjax('get/data/search/selectValues', 'get', null, function(responseObject) {
+        this.utils.doAjax('get/data/entry/selectValues', 'get', null, function(responseObject) {
 
             // Populate the select boxes with the name and database id of each item
             var currentData = {};
@@ -111,8 +117,29 @@ export class Statistics {
                         });
                     }
                 }
+                else if(key == 'location') {
+                    currentData = responseObject[key];
+                    for(var dataItem in currentData) {
+                        data["locations"].push({
+                            name: currentData[dataItem],
+                            id: dataItem
+                        });
+                    }
+                }
+                else if(key == 'department') {
+                    currentData = responseObject[key];
+                    for(var dataItem in currentData) {
+                        data["departments"].push({
+                            name: currentData[dataItem],
+                            id: dataItem
+                        });
+                    }
+                }
             }
         });
+
+        console.log("DEV:");
+        console.log(data);
 
         return data;
     };
@@ -120,7 +147,30 @@ export class Statistics {
     getFormData() {
         var formData = {};
 
-        formData['searchType'] = this.selectedSearchType;
+        //formData['searchType'] = this.selectedSearchType;
+
+        formData['statsType'] = this.selectedStatisticsType;
+        formData['statsBy'] = this.selectedListResultsBy;
+        formData['statsDisplay'] = this.selectedDisplayStatistics;
+        formData['searchTimeframe'] = this.selectedSearchTimeframe;
+
+        if(this.selectedSearchTimeframe == "Quarter") {
+            formData['fromYear'] = this.fromYear;
+            formData['toYear'] = "";
+            formData['quarter'] = this.selectedQuarter;
+        }
+        else {
+            formData['fromYear'] = this.fromYear;
+            formData['toYear'] = this.toYear;
+            formData['quarter'] = "";
+        }
+
+        if(this.selectedSearchType == "Librarian Statistics" || this.selectedSearchType == "Class Data") {
+            formData['librarian'] = this.selectedLibrarian;
+        }
+        else {
+            formData['librarian'] = "";
+        } 
 
         return formData;
     }; 
@@ -130,5 +180,18 @@ export class Statistics {
         var data = this.getFormData();
         console.log(data); // DEV
 
+        if(this.selectedSearchType == "Class Data") {
+            // class route
+            this.utils.doAjax('/get/data/search/class', 'post', data, function(responseObject) {
+
+            });
+        }
+        else {
+            // all statistics route
+            // Ajax
+            this.utils.doAjax('/get/data/search/allStatistics', 'post', data, function(responseObject) {
+
+            });
+        }
     };
 }
