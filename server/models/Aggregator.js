@@ -83,7 +83,7 @@ module.exports = (function() {
 	        	else {
 
 	        		if(results.length == 0) {
-	        			callback({status: "ok", message: "No results found", data: resultSet});
+	        			callback({status: "ok", message: "No results found", data: null});
 	        		}
 	        		else {
 	        			// department, location, type
