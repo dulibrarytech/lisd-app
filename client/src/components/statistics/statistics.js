@@ -17,8 +17,8 @@ export class Statistics {
     fromYear;
     toYear;
 
-    selectedSearchTimeframe = "Fiscal year";
-    searchTimeframe = ["Fiscal year", "Academic year", "Quarter"];
+    selectedSearchTimeframe = "Fiscal";
+    searchTimeframe = ["Fiscal", "Academic", "Quarter"];
 
     selectedSearchType = "All Statistics";
     searchType = ["All Statistics", "Librarian Statistics", 'Class Data'];
@@ -51,8 +51,11 @@ export class Statistics {
         document.getElementById('year-quarter-select').style.display = "none";
     }
 
-    render() {
-
+    renderTable() {
+        //DEV
+        //document.getElementById("results-table").innerHTML = JSON.parse(data);
+        console.log("Rendering...");
+        document.getElementById("results-table").innerHTML = "TEST";
     }
 
     onChangeQuarterTimePeriod() {
@@ -138,9 +141,6 @@ export class Statistics {
             }
         });
 
-        console.log("DEV:");
-        console.log(data);
-
         return data;
     };
 
@@ -178,20 +178,25 @@ export class Statistics {
     submitForms() {
 
         var data = this.getFormData();
-        console.log(data); // DEV
 
         if(this.selectedSearchType == "Class Data") {
             // class route
-            this.utils.doAjax('/get/data/search/class', 'post', data, function(responseObject) {
-
+            this.utils.doAjax('get/data/search/class', 'get', data, function(responseObject) {
+                if(responseObject.status == "ok") {
+                    this.renderTable(responseObject.resultSet);
+                }
+                else {
+                    console.log(responseObject.message);
+                }
             });
         }
-        else {
+        else if(this.selectedSearchType == "All Statistics" || this.selectedSearchType == "Librarian Statistics") {
             // all statistics route
             // Ajax
-            this.utils.doAjax('/get/data/search/allStatistics', 'post', data, function(responseObject) {
-
-            });
+            this.utils.doAjax('get/data/search/allStatistics', 'get', data, this.renderTable);
+        }
+        else {
+            console.log("Search type error");
         }
     };
 }

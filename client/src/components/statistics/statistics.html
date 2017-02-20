@@ -58,9 +58,9 @@
                                     <label>Select Date Range:</label>
                                     <div class="form-section" style="display: inline-flex">
                                         <label>From:</label>
-                                        <input datepicker class="form-control" id="from-date-select" type="text" value.bind="fromYear" placeholder = "">
+                                        <input class="form-control" id="from-date-select" type="text" value.bind="fromYear" placeholder = "">
                                         <label style="margin-left: 2em">To:</label>
-                                        <input datepicker class="form-control" id="to-date-select" type="text" value.bind="toYear" placeholder = "">
+                                        <input class="form-control" id="to-date-select" type="text" value.bind="toYear" placeholder = "">
                                     </div>
                                 </div>
 
@@ -111,7 +111,7 @@
                             <button type="button" class="btn btn-default" click.delegate="submitForms()">Get Statistics</button>
                         </form>
 
-                        <div id="search-results"></div>
+                        <div id="results-table"></div>
                     </div>
                 </div>
             </div>

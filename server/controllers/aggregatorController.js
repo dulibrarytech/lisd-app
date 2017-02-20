@@ -101,28 +101,28 @@ var getDates = function(fromYear, toYear, timeframe, quarter) {
 		to: ""
 	}
 
-	if(timeframe == "fiscal") {
+	if(timeframe == "Fiscal") {
 		dates.from = fromYear + '-' + settings.server.fiscalYearStart;
 		dates.to = toYear + '-' + settings.server.fiscalYearEnd;
 	}
-	else if(timeframe == "academic") {
+	else if(timeframe == "Academic") {
 		dates.from = fromYear + '-' + settings.server.academicYearStart;
 		dates.to = toYear + '-' + settings.server.academicYearEnd;
 	}
-	else if(timeframe == "quarter") {  // fromYear will == toYear
-		if(quarter == "fall") {
+	else if(timeframe == "Quarter") {  // fromYear will == toYear
+		if(quarter == "Fall") {
 			dates.from = fromYear + '-' + settings.server.quarter1Start;
 			dates.to = toYear + '-' + settings.server.quarter1End;
 		}
-		else if(quarter == "winter") {
+		else if(quarter == "Winter") {
 			dates.from = fromYear + '-' + settings.server.quarter2Start;
 			dates.to = toYear + '-' + settings.server.quarter2End;
 		}
-		else if(quarter == "spring") {
+		else if(quarter == "Spring") {
 			dates.from = fromYear + '-' + settings.server.quarter3Start;
 			dates.to = toYear + '-' + settings.server.quarter3End;
 		}
-		else if(quarter == "summer") {
+		else if(quarter == "Summer") {
 			dates.from = fromYear + '-' + settings.server.quarter4Start;
 			dates.to = toYear + '-' + settings.server.quarter4End;
 		}
@@ -140,7 +140,6 @@ module.exports.getDataSearchAllStatistics = function(req, res) {
 	// Required params
 	var fromYear 	= req.query.fromYear;
 	var toYear 		= req.query.toYear;
-	var academicYear;
 	var display 	= req.query.statsDisplay; // Can be either All or Department
 	var timeframe	= req.query.searchTimeframe;
 	var statsType   = req.query.statsType;

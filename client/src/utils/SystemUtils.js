@@ -51,6 +51,13 @@ export class SystemUtils {
         if(method == 'post' && data != null) {
         	options['body'] = json(data);
         }
+        else if(method == 'get' && data != null) {
+        	var qString = "?";
+	        for(var field in data) {
+	            qString += field + "=" + data[field] + "&";
+	        }
+	        url += qString.slice(0, -1);
+        }
 
         // TODO: Add headers
 
@@ -64,7 +71,12 @@ export class SystemUtils {
         .then(data => {
 
         	this.stopSpinner();
-            callback(data);
+        	if(data.status == "ok") {
+        		callback(data.data);
+        	}
+        	else {
+        		callback(data.message);
+        	}
         });
 	}
 
