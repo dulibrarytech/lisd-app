@@ -17,22 +17,22 @@
 
                 <label>For:</label>
                 <div class="form-section">
-                    <label class="radio-select" repeat.for="option of statisticsFor">
-                        <input type="radio" class="" value.bind="option" name="statisticsFor" checked.bind="$parent.selectedStatisticsFor" change.delegate="onChangeStatisticsFor()">${option}
+                    <label class="radio-select" repeat.for="option of statisticsType">
+                        <input type="radio" class="" value.bind="option" name="statsType" checked.bind="$parent.selectedStatisticsType" change.delegate="onChangeStatisticsType()">${option}
                     </label>
                 </div>
 
                 <label>List by:</label>
                 <div class="form-section">
                     <label class="radio-select" repeat.for="option of listResultsBy">
-                        <input type="radio" class="" value.bind="option" name="listResultsBy" checked.bind="$parent.selectedListResultsBy" change.delegate="onChangeListResultsBy()">${option}
+                        <input type="radio" class="" value.bind="option" name="statsBy" checked.bind="$parent.selectedListResultsBy" change.delegate="onChangeListResultsBy()">${option}
                     </label>
                 </div>
 
                 <label>Display:</label>
                 <div class="form-section">
                     <label class="radio-select" repeat.for="option of displayStatistics">
-                        <input type="radio" class="" value.bind="option" name="displayStatistics" checked.bind="$parent.selectedDisplayStatistics" change.delegate="onChangeDisplayStatistics()">${option}
+                        <input type="radio" class="" value.bind="option" name="statsDisplay" checked.bind="$parent.selectedDisplayStatistics" change.delegate="onChangeDisplayStatistics()">${option}
                     </label>
                 </div>
             </div>
@@ -58,38 +58,56 @@
                                     <label>Select Date Range:</label>
                                     <div class="form-section" style="display: inline-flex">
                                         <label>From:</label>
-                                        <input datepicker class="form-control" id="from-date-select" type="text" value.bind="fromDate" placeholder = "">
+                                        <input datepicker class="form-control" id="from-date-select" type="text" value.bind="fromYear" placeholder = "">
                                         <label style="margin-left: 2em">To:</label>
-                                        <input datepicker class="form-control" id="to-date-select" type="text" value.bind="toDate" placeholder = "">
+                                        <input datepicker class="form-control" id="to-date-select" type="text" value.bind="toYear" placeholder = "">
                                     </div>
                                 </div>
 
                                 <div id="year-quarter-select">
                                     <label>Select Quarter:</label>
-                                    <div class="form-section" id="year-quarter-select" style="display: inline-flex">
+                                    <div class="form-section" style="display: inline-flex">
                                         <label>Academic Year:</label>
-                                        <input class="form-control" id="academic-year-select" type="text" value.bind="academicYear" placeholder = "">
+                                        <input class="form-control" id="academic-year-select" type="text" value.bind="fromYear" placeholder = "">
                                         <label style="margin-left: 2em">Quarter:</label>
                                         <select class="form-control" value.bind="selectedQuarter">
                                             <option repeat.for="option of quarters" name="quarter" value.bind="option">${option}</option>
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="search-input-group" id="librarian-select">
-                                  <label for="librarian-select">For Librarian:</label>
-                                  <span id="librarian-add" class="click-span add-input" style="visibility: hidden; float: right;" click.delegate="addLibrarian()">+ Add another librarian</span>
 
-                                  <div repeat.for="i of librarianCount">
-                                      <select id="librarian-select-${i+1}" change.trigger="selectOption('librarian')" class="form-control" value.bind="selectedLibrarians[i]">
-                                        <option selected hidden>Select a Librarian:</option>
-                                        <option repeat.for="librarian of librarianList" value.bind="librarian.id"> ${librarian.name} </option>
-                                      </select>
-                                      <div if.one-time="i==0" class="click-span" style="">&nbsp</div>
-            <!--                          <div if.one-time="i>=1" class="click-span remove-button" click.trigger="removeLibrarian(i)">Remove</div> -->
-                                        <button if.one-time="i>=1" class="btn btn-danger remove-button" click.trigger="removeLibrarian(i)"><span>X</span></button>
-                                  </div>
+                                <div id="librarian-select">
+                                    <label>Select a Librarian:</label><br />
+                                    <div class="form-section" style="display: inline-flex; width: 100%">
+                                        <select class="form-control" value.bind="selectedLibrarian">
+                                            <option repeat.for="librarian of librarianList" value.bind="librarian.id">${librarian.name}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
                             </div>
+
+<!--                             <div id="librarian-select">
+                              <label for="librarian-select">Select a Librarian:</label>
+                              <div repeat.for="i of librarianCount">
+                                  <select id="librarian-select-${i+1}" class="form-control" value.bind="selectedLibrarian">
+                                    <option selected hidden>Select a Librarian:</option>
+                                    <option repeat.for="librarian of librarianList" value.bind="librarian.id"> ${librarian.name} </option>
+                                  </select>
+                              </div>
+
+                            </div> -->
+
+                            <!-- <div id="librarian-select">
+                                <label>Select a Librarian:</label>
+                                <div class="form-section" id="librarian-select" style="display: inline-flex">
+                                    <label>Search Type:</label> -->
+<!--                                     <select class="form-control" value.bind="selectedLibrarian">
+                                        <option repeat.for="librarian of librarianList" name="librarian" value.bind="librarian.id">${option}</option>
+                                    </select>
+                                </div>
+                            </div> --> 
+
                             <button type="button" class="btn btn-default" click.delegate="submitForms()">Get Statistics</button>
                         </form>
 
