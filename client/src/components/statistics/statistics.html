@@ -6,12 +6,14 @@
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
 
-            <form id="search-options" role="form">
-
+            <div id="search-type">
                 <label>Search Type:</label>
                 <select class="form-control" value.bind="selectedSearchType" change.delegate="onChangeSearchType()">
                     <option repeat.for="option of searchType" name="searchType" value.bind="option">${option}</option>
                 </select>
+            </div>
+
+            <div id="search-options">
 
                 <label>For:</label>
                 <div class="form-section">
@@ -23,7 +25,7 @@
                 <label>List by:</label>
                 <div class="form-section">
                     <label class="radio-select" repeat.for="option of listResultsBy">
-                        <input type="checkbox" class="" value.bind="option" name="listResultsBy" checked.bind="$parent.selectedListResultsBy" change.delegate="onChangeListResultsBy()">${option}
+                        <input type="radio" class="" value.bind="option" name="listResultsBy" checked.bind="$parent.selectedListResultsBy" change.delegate="onChangeListResultsBy()">${option}
                     </label>
                 </div>
 
@@ -33,7 +35,7 @@
                         <input type="radio" class="" value.bind="option" name="displayStatistics" checked.bind="$parent.selectedDisplayStatistics" change.delegate="onChangeDisplayStatistics()">${option}
                     </label>
                 </div>
-            </form>
+            </div>
         </div>
         <!-- /#sidebar-wrapper -->
 
@@ -43,9 +45,38 @@
                 <h2 class="view-header">Statistics</h2>
                 <div class="row">
                     <div class="col-lg-12">
+                        <button type="button" id="new-search" class="btn btn-default" click.delegate="newSearch()">New Search</button>
                         <form id="statistics-search" role="form">
-                        <button type="button" class="btn btn-default" click.delegate="newSearch()">New Search</button>
                             <div class="search-input-group">
+                                <label>Search Time Period:</label>
+                                <div class="form-section">
+                                    <label class="radio-select" repeat.for="option of searchTimeframe">
+                                        <input type="radio" class="" value.bind="option" name="searchTimeframe" checked.bind="$parent.selectedSearchTimeframe" change.delegate="onChangeQuarterTimePeriod()">${option}
+                                    </label>
+                                </div>
+                                <div id="year-date-select">
+                                    <label>Select Date Range:</label>
+                                    <div class="form-section" style="display: inline-flex">
+                                        <label>From:</label>
+                                        <input datepicker class="form-control" id="from-date-select" type="text" value.bind="fromDate" placeholder = "">
+                                        <label style="margin-left: 2em">To:</label>
+                                        <input datepicker class="form-control" id="to-date-select" type="text" value.bind="toDate" placeholder = "">
+                                    </div>
+                                </div>
+
+                                <div id="year-quarter-select">
+                                    <label>Select Quarter:</label>
+                                    <div class="form-section" id="year-quarter-select" style="display: inline-flex">
+                                        <label>Academic Year:</label>
+                                        <input class="form-control" id="academic-year-select" type="text" value.bind="academicYear" placeholder = "">
+                                        <label style="margin-left: 2em">Quarter:</label>
+                                        <select class="form-control" value.bind="selectedQuarter">
+                                            <option repeat.for="option of quarters" name="quarter" value.bind="option">${option}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="search-input-group" id="librarian-select">
                                   <label for="librarian-select">For Librarian:</label>
                                   <span id="librarian-add" class="click-span add-input" style="visibility: hidden; float: right;" click.delegate="addLibrarian()">+ Add another librarian</span>
 
@@ -58,35 +89,6 @@
             <!--                          <div if.one-time="i>=1" class="click-span remove-button" click.trigger="removeLibrarian(i)">Remove</div> -->
                                         <button if.one-time="i>=1" class="btn btn-danger remove-button" click.trigger="removeLibrarian(i)"><span>X</span></button>
                                   </div>
-                            </div><br />
-
-                            <div class="search-input-group">
-                                <label>Search Time Period:</label>
-                                <div class="form-section">
-                                    <label class="radio-select" repeat.for="option of searchTimeframe">
-                                        <input type="radio" class="" value.bind="option" name="searchTimeframe" checked.bind="$parent.selectedSearchTimeframe" change.delegate="onChangeQuarterTimePeriod()">${option}
-                                    </label>
-                                </div>
-                                <div id="date-range-select">
-                                    <label>Select Date Range:</label>
-                                    <div class="form-section" style="display: inline-flex">
-                                        <label>From:</label>
-                                        <input datepicker class="form-control" id="from-date-select" type="text" value.bind="fromDate" placeholder = "">
-                                        <label style="margin-left: 2em">To:</label>
-                                        <input datepicker class="form-control" id="to-date-select" type="text" value.bind="toDate" placeholder = "">
-                                    </div>
-                                </div>
-                                <div id="year-quarter-select">
-                                    <label>Select Quarter:</label>
-                                    <div class="form-section" style="display: inline-flex">
-                                        <label>Academic Year:</label>
-                                        <input class="form-control" id="academic-year-select" type="text" value.bind="academicYear" placeholder = "">
-                                        <label style="margin-left: 2em">Quarter:</label>
-                                        <select class="form-control" value.bind="selectedQuarter">
-                                            <option repeat.for="option of quarters" name="quarter" value.bind="option">${option}</option>
-                                        </select>
-                                    </div>
-                                </div>
                             </div>
                             <button type="button" class="btn btn-default" click.delegate="submitForms()">Get Statistics</button>
                         </form>
