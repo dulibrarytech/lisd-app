@@ -23,7 +23,7 @@ export class Statistics {
     selectedStatisticsFor = "Class";
     statisticsFor = ["Class", "Student"];
 
-    selectedListResultsBy = ["Year"];
+    selectedListResultsBy = "Year";
     listResultsBy = ["Year", "Month", "Quarter"];
 
     selectedDisplayStatistics = "All";
@@ -40,8 +40,11 @@ export class Statistics {
         this.librarianList = dropdownData.librarians;
     }
 
-    init() {
-
+    attached() {
+        document.getElementById('search-options').style.display = "none";
+        document.getElementById('new-search').style.display = "none";
+        document.getElementById('librarian-select').style.display = "none";
+        document.getElementById('year-quarter-select').style.display = "none";
     }
 
     render() {
@@ -50,15 +53,23 @@ export class Statistics {
 
     onChangeQuarterTimePeriod() {
         if(this.selectedSearchTimeframe == "Quarter") {
-            console.log("Selected quarter time period");
+            document.getElementById('year-quarter-select').style.display = "block";
+            document.getElementById('year-date-select').style.display = "none";
         }
         else {
-            console.log("deselected quarter time period");
+            document.getElementById('year-quarter-select').style.display = "none";
+            document.getElementById('year-date-select').style.display = "block";
         }
     }
 
     onChangeSearchType() {
         console.log("Change search type");
+        if(this.selectedSearchType == "Librarian Statistics" || this.selectedSearchType == "Class Data") {
+            document.getElementById('librarian-select').style.display = "block";
+        }
+        else {
+            document.getElementById('librarian-select').style.display = "none";
+        }
     }
 
     onChangeStatisticsFor() {
