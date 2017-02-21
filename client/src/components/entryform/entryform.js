@@ -161,7 +161,7 @@ export class EntryForm {
         formData['department'] =    this.selectedDepartments;
 
         // Get checkbox group data
-        formData['classType'] = this.selectedClassType;
+        formData['classType'] = [this.selectedClassType];
         formData['acrlFrame'] = [];
 
         // for(var key in this.selectedClassTypes) {

@@ -444,6 +444,7 @@ module.exports = (function() {
 	}
 
 	var subsortClassResultsByYear = function(resultArray, subsortField) {
+
 		var courseObject, subField, subFieldArr;
 		var classesByYear = {};
 
@@ -467,6 +468,7 @@ module.exports = (function() {
 	};
 
 	var subsortClassResultsByMonth = function(resultArray, subsortField) {
+
 		var courseObject, subField, month, subFieldArr;
 		var classesByMonth = {};
 
