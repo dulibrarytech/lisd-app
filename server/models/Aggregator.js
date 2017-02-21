@@ -452,7 +452,7 @@ module.exports = (function() {
 			subFieldArr = courseObject[subsortField];
 
 			for(var i in subFieldArr) {
-				subfield = subFieldArr[i];
+				subField = subFieldArr[i];
 
 				if(typeof classesByYear[subField] == "undefined") {
 					classesByYear[subField] = 1;
@@ -480,7 +480,7 @@ module.exports = (function() {
 			subFieldArr = courseObject[subsortField];
 
 			for(var i in subFieldArr) {
-				subfield = subFieldArr[i];
+				subField = subFieldArr[i];
 
 				if(typeof classesByMonth[month][subField] == "undefined") {
 					classesByMonth[month][subField] = 1;
@@ -508,7 +508,7 @@ module.exports = (function() {
 			subFieldArr = courseObject[subsortField];
 
 			for(var i in subFieldArr) {
-				subfield = subFieldArr[i];
+				subField = subFieldArr[i];
 
 				if(typeof classesByQuarter[quarter][subField] == "undefined") {
 					classesByQuarter[quarter][subField] = 1;
