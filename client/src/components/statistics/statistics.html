@@ -29,7 +29,7 @@
                     </label>
                 </div>
 
-                <label>Display:</label>
+                <label>Display Statistics For:</label>
                 <div class="form-section">
                     <label class="radio-select" repeat.for="option of displayStatistics">
                         <input type="radio" class="" value.bind="option" name="statsDisplay" checked.bind="$parent.selectedDisplayStatistics" change.delegate="onChangeDisplayStatistics()">${option}
@@ -42,7 +42,7 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
-                <h2 class="view-header">Statistics</h2>
+                <!-- <h2 class="view-header">Statistics</h2> -->
                 <div class="row">
                     <div class="col-lg-12">
                         <button type="button" id="new-search" class="btn btn-default" click.delegate="newSearch()">New Search</button>

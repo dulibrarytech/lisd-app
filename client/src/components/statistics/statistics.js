@@ -46,6 +46,7 @@ export class Statistics {
         console.log(this.librarianList);
 
         // Set for and to year arrays
+        //for(var i = 1990; i<)
     }
 
     attached() {
