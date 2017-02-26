@@ -50,7 +50,7 @@ export class Statistics {
     }
 
     attached() {
-        document.getElementById('search-options').style.display = "none";
+        document.getElementById('result-options').style.display = "none";
         document.getElementById('new-search').style.display = "none";
         document.getElementById('librarian-select').style.display = "none";
         document.getElementById('year-quarter-select').style.display = "none";
@@ -68,10 +68,10 @@ export class Statistics {
         }
         else if(typeof data == "object") { 
             // Show search options, hide the search form
-            document.getElementById('search-options').style.display = "block";
+            document.getElementById('result-options').style.display = "block";
             document.getElementById('statistics-search').style.display = "none";
             document.getElementById('new-search').style.display = "block";
-            document.getElementById('search-type').style.display = "none";
+            document.getElementById('search-options').style.display = "none";
 
             var dataTable = '<table id="data-table">';
 
