@@ -105,6 +105,12 @@ module.exports = (function() {
 		        			resultSet['month']  = subsortStudentResultsByMonth(results, 'type');
 		        			resultSet['quarter']  = subsortStudentResultsByQuarter(results, 'type');
 		        		}
+		        		else if(queryData.display == "ACRL Framework") {
+
+		        			resultSet['year'] = subsortStudentResultsByYear(results, 'acrlFrame');
+		        			resultSet['month']  = subsortStudentResultsByMonth(results, 'acrlFrame');
+		        			resultSet['quarter']  = subsortStudentResultsByQuarter(results, 'acrlFrame');
+		        		}
 		        		else { // All
 		        			resultSet['year'] = sortStudentResultsByAllYear(results);
 		        			resultSet['month'] = sortStudentResultsByAllMonth(results);
@@ -163,6 +169,12 @@ module.exports = (function() {
 	        			resultSet['year'] = subsortClassResultsByYear(results, 'type');
 	        			resultSet['month']  = subsortClassResultsByMonth(results, 'type');
 	        			resultSet['quarter']  = subsortClassResultsByQuarter(results, 'type');
+	        		}
+	        		else if(queryData.display == "ACRL Framework") {
+
+	        			resultSet['year'] = subsortClassResultsByYear(results, 'acrlFrame');
+	        			resultSet['month']  = subsortClassResultsByMonth(results, 'acrlFrame');
+	        			resultSet['quarter']  = subsortClassResultsByQuarter(results, 'acrlFrame');
 	        		}
 	        		else { // All
 	        			resultSet['year'] = sortClassResultsByAllYear(results);
