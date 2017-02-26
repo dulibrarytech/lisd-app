@@ -6,14 +6,25 @@
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
 
-            <div id="search-type">
-                <label>Search Type:</label>
-                <select class="form-control" value.bind="selectedSearchType" change.delegate="onChangeSearchType()">
-                    <option repeat.for="option of searchType" name="searchType" value.bind="option">${option}</option>
-                </select>
+            <div id="search-options">
+
+                <div id="search-type">
+                    <label>Search Type:</label>
+                    <select class="form-control" value.bind="selectedSearchType" change.delegate="onChangeSearchType()">
+                        <option repeat.for="option of searchType" name="searchType" value.bind="option">${option}</option>
+                    </select>
+                </div>
+
+                <label>Search Time Period:</label>
+                <div class="form-section">
+                    <label class="radio-select" repeat.for="option of searchTimeframe">
+                        <input type="radio" class="" value.bind="option" name="searchTimeframe" checked.bind="$parent.selectedSearchTimeframe" change.delegate="onChangeQuarterTimePeriod()">${option}
+                    </label>
+                </div>
+
             </div>
 
-            <div id="search-options">
+            <div id="result-options">
 
                 <label>For:</label>
                 <div class="form-section">
@@ -48,12 +59,12 @@
                         <button type="button" id="new-search" class="btn btn-default" click.delegate="newSearch()">New Search</button>
                         <form id="statistics-search" role="form">
                             <div class="search-input-group">
-                                <label>Search Time Period:</label>
+                                <!-- <label>Search Time Period:</label>
                                 <div class="form-section">
                                     <label class="radio-select" repeat.for="option of searchTimeframe">
                                         <input type="radio" class="" value.bind="option" name="searchTimeframe" checked.bind="$parent.selectedSearchTimeframe" change.delegate="onChangeQuarterTimePeriod()">${option}
                                     </label>
-                                </div>
+                                </div> -->
                                 <div id="year-date-select">
                                     <label>Select Date Range:</label>
                                     <div class="form-section" style="display: inline-flex">
