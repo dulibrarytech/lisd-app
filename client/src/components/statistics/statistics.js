@@ -32,7 +32,7 @@ export class Statistics {
     listResultsBy = ["Year", "Month", "Quarter"];
 
     selectedDisplayStatistics = "All";
-    displayStatistics = ["All", "Department", "Location", "Type"];
+    displayStatistics = ["All", "Department", "Location", "Type", "ACRL Framework"];
 
     selectedQuarter = "Fall";
     quarters = ["Fall", "Winter", "Spring", "Summer"];
