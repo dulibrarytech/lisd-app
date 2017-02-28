@@ -14,8 +14,8 @@ export class Statistics {
 	librarianCount = 1;
     selectedLibrarian = "";
 
-    fromYear;
-    toYear;
+    fromYear = "";
+    toYear = "";
     fromYears = [];
     toYears = [];
 
@@ -37,6 +37,10 @@ export class Statistics {
     selectedQuarter = "Fall";
     quarters = ["Fall", "Winter", "Spring", "Summer"];
 
+    resultData;
+    currentTable;
+    displayResults = false;
+
     constructor(systemUtils) {
 
         this.utils = systemUtils;
@@ -45,8 +49,8 @@ export class Statistics {
         this.librarianList = dropdownData.librarians;
         console.log(this.librarianList);
 
-        // Set for and to year arrays
-        //for(var i = 1990; i<)
+        this.fromYears = this.getYearList();
+        this.toYears = this.getYearList();
     }
 
     attached() {
@@ -54,13 +58,20 @@ export class Statistics {
         document.getElementById('new-search').style.display = "none";
         document.getElementById('librarian-select').style.display = "none";
         document.getElementById('year-quarter-select').style.display = "none";
+
+        // Default year select value
+        this.fromYear = this.fromYears[(this.fromYears.length-2)];      // Set to previous year
+        this.toYear = this.toYears[(this.toYears.length-1)];        // Set to current year
+        document.getElementById("toYearSelect").visibility = 'hidden';
+
+        this.currentTable = "";
     }
 
     renderTable(data) {
-        console.log("Rendering..." + typeof data);
+        console.log("Rendering table...");
+        console.log(data);
 
         var resultObj = data.data;
-         console.log(resultObj.year);
 
         // If a string is passed in, render as a message.  If an object is passed in, attempt to render its data
         if(typeof data == null) { 
@@ -73,19 +84,22 @@ export class Statistics {
             document.getElementById('new-search').style.display = "block";
             document.getElementById('search-options').style.display = "none";
 
-            var dataTable = '<table id="data-table">';
-
-
-
-
-
-
-
-            dataTable =+ '</table>'
-
-
-
-            document.getElementById("results-table").innerHTML = JSON.stringify(resultObj); 
+           if(this.selectedStatisticsType == "Class") {
+                if(this.selectedDisplayStatistics == "All") {
+                    this.currentTable = "class-single";
+                }
+                else {
+                    this.currentTable = "class-subsort";
+                }
+           }
+           else if(this.selectedStatisticsType == "Student") {
+                if(this.selectedDisplayStatistics == "All") {
+                    this.currentTable = "student-single";
+                }
+                else {
+                    this.currentTable = "student-subsort";
+                }
+           }
         }
     }
 
@@ -145,8 +159,8 @@ export class Statistics {
         data["departments"] = [];
 
         // Ajax
-        this.utils.doAjax('get/data/entry/selectValues', 'get', null, function(responseObject) {
-
+        this.utils.doAjax('get/data/entry/selectValues', 'get', null, null).then(responseObject => {
+            this.utils.stopSpinner();
             // Populate the select boxes with the name and database id of each item
             var currentData = {};
             for(var key in responseObject) {
@@ -183,6 +197,16 @@ export class Statistics {
         return data;
     };
 
+    getYearList() {
+        var years = [];
+        // Set for and to year arrays
+        var data = new Date();
+        for(var i = 1990; i <= new Date().getFullYear(); i++) {
+            years.push(i);
+        }
+        return years;
+    }
+
     getFormData() {
         var formData = {};
 
@@ -218,17 +242,22 @@ export class Statistics {
 
         var data = this.getFormData();
 
-        console.log(data);
-
-
         if(this.selectedSearchType == "Class Data") {
+
             // class route
-            this.utils.doAjax('get/data/search/class', 'get', data, this.renderTable);
+            this.utils.doAjax('get/data/search/class', 'get', data, null).then(data => {
+                this.utils.stopSpinner();
+                this.renderTable(data);
+            });
         }
         else if(this.selectedSearchType == "All Statistics" || this.selectedSearchType == "Librarian Statistics") {
+
             // all statistics route
-            // Ajax
-            this.utils.doAjax('get/data/search/allStatistics', 'get', data, this.renderTable);
+            this.utils.doAjax('get/data/search/allStatistics', 'get', data, null).then(data => {
+                this.utils.stopSpinner();
+                console.log(data);
+                this.renderTable(data);
+            });
         }
         else {
             console.log("Search type error");

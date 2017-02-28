@@ -66,12 +66,18 @@
                                     </label>
                                 </div> -->
                                 <div id="year-date-select">
-                                    <label>Select Date Range:</label>
+                                    <label>Select Date Range:</label><br />
                                     <div class="form-section" style="display: inline-flex">
                                         <label>From:</label>
-                                        <input class="form-control" id="from-date-select" type="text" value.bind="fromYear" placeholder = "">
+                                        <select value.bind="fromYear">
+                                            <option repeat.for="year of fromYears" value.bind="year">${year}</option>
+                                        </select>
+
                                         <label style="margin-left: 2em">To:</label>
-                                        <input class="form-control" id="to-date-select" type="text" value.bind="toYear" placeholder = "">
+                                        <!-- <input class="form-control" id="to-date-select" type="text" value.bind="toYear" placeholder = ""> -->
+                                        <select value.bind="toYear" id="toYearSelect">
+                                            <option repeat.for="year of toYears" value.bind="year">${year}</option>
+                                        </select>
                                     </div>
                                 </div>
 
@@ -102,6 +108,15 @@
                         </form>
 
                         <div id="results-table"></div>
+
+                        <!-- <template> -->
+                           <!--  <div repeat.for="widget of widgets"> -->
+                           <div>
+                                <compose if.bind="displayResults" view="./partials/${currentTable}-table.html"></compose>
+                            </div>
+                            <!-- </div> -->
+                      <!--   </template> -->
+
                     </div>
                 </div>
             </div>
