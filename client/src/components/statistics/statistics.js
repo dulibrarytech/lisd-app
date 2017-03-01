@@ -37,7 +37,7 @@ export class Statistics {
     selectedQuarter = "Fall";
     quarters = ["Fall", "Winter", "Spring", "Summer"];
 
-    resultData;
+    resultData = [];
     currentTable;
     displayResults = false;
 
@@ -76,10 +76,11 @@ export class Statistics {
     }
 
     renderTable(data) {
-        console.log("Rendering table...");
-        console.log(data);
 
+        console.log("Rendering table....");
         this.resultData = data;
+        this.resultData = [1,2,3];
+        console.log(this.resultData);
 
         // If a string is passed in, render as a message.  If an object is passed in, attempt to render its data
         if(typeof data == null) { 
@@ -102,6 +103,7 @@ export class Statistics {
                 // }
            }
            else if(this.selectedStatisticsType == "Student") {
+
                 if(this.selectedDisplayStatistics == "All") {
 
                     this.displayResults = true;
@@ -258,13 +260,13 @@ export class Statistics {
 
         var data = this.getFormData();
         this.displayResults = false;
-        
+
         if(this.selectedSearchType == "Class Data") {
 
             // class route
             this.utils.doAjax('get/data/search/class', 'get', data, null).then(data => {
                 this.utils.stopSpinner();
-                this.renderTable(data);
+                this.renderTable(data.data);
             });
         }
         else if(this.selectedSearchType == "All Statistics" || this.selectedSearchType == "Librarian Statistics") {
@@ -273,7 +275,7 @@ export class Statistics {
             this.utils.doAjax('get/data/search/allStatistics', 'get', data, null).then(data => {
                 this.utils.stopSpinner();
                 console.log(data);
-                this.renderTable(data);
+                this.renderTable(data.data);
             });
         }
         else {
