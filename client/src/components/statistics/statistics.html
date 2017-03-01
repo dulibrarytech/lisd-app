@@ -69,7 +69,7 @@
                                     <label>Select Date Range:</label><br />
                                     <div class="form-section" style="display: inline-flex">
                                         <label>From:</label>
-                                        <select value.bind="fromYear">
+                                        <select value.bind="fromYear" change.delegate="onChangeFromYear()">
                                             <option repeat.for="year of fromYears" value.bind="year">${year}</option>
                                         </select>
 
