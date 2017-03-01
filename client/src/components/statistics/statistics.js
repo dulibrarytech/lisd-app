@@ -79,6 +79,7 @@ export class Statistics {
 
         console.log("Rendering table....");
         this.resultData = data;
+        
         this.resultData = [1,2,3];
         console.log(this.resultData);
 
