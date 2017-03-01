@@ -43,27 +43,35 @@ export class Statistics {
 
     constructor(systemUtils) {
 
+        // Get the utils functions
         this.utils = systemUtils;
 
+        // Get the librarians from the database, populate the librarian select box
         var dropdownData = this.getDropdownData();
         this.librarianList = dropdownData.librarians;
         console.log(this.librarianList);
 
-        this.fromYears = this.getYearList();
-        this.toYears = this.getYearList();
+        // Get the year select lists
+        this.fromYears = this.getYearList(1990);
+        this.toYears = this.getYearList(1990);
     }
 
     attached() {
+
+        // Element vicibility
         document.getElementById('result-options').style.display = "none";
         document.getElementById('new-search').style.display = "none";
         document.getElementById('librarian-select').style.display = "none";
         document.getElementById('year-quarter-select').style.display = "none";
 
-        // Default year select value
-        this.fromYear = this.fromYears[(this.fromYears.length-2)];      // Set to previous year
-        this.toYear = this.toYears[(this.toYears.length-1)];        // Set to current year
+        // Default year settings:
+        // Set the fromYear to the previous year, set the toYear to current year
+        this.fromYear = this.fromYears[(this.fromYears.length-2)];     
+        var from = parseInt(this.fromYear) + 1;
+        this.toYears = this.getYearList(from);     
         document.getElementById("toYearSelect").visibility = 'hidden';
 
+        // Search results current table.  No table shown by default
         this.currentTable = "";
     }
 
@@ -101,6 +109,11 @@ export class Statistics {
                 }
            }
         }
+    }
+
+    onChangeFromYear() {
+        var from = parseInt(this.fromYear) + 1;
+        this.toYears = this.getYearList(from);
     }
 
     onChangeQuarterTimePeriod() {
@@ -197,11 +210,11 @@ export class Statistics {
         return data;
     };
 
-    getYearList() {
+    getYearList(startYear) {
         var years = [];
         // Set for and to year arrays
         var data = new Date();
-        for(var i = 1990; i <= new Date().getFullYear(); i++) {
+        for(var i = startYear; i <= new Date().getFullYear(); i++) {
             years.push(i);
         }
         return years;

@@ -94,8 +94,8 @@ export class EntryForm {
         data["departments"] = [];
 
         // Ajax
-        this.utils.doAjax('get/data/entry/selectValues', 'get', null, function(responseObject) {
-
+        this.utils.doAjax('get/data/entry/selectValues', 'get', null, null).then(responseObject => {
+            
             // Populate the select boxes with the name and database id of each item
             var currentData = {};
             for(var key in responseObject) {
@@ -190,7 +190,7 @@ export class EntryForm {
         var data = this.getFormData();
         console.log(data); // DEV
         
-        this.utils.doAjax('insert/class', 'post', data, function(responseObject) {
+        this.utils.doAjax('insert/class', 'post', data, null).then(responseObject => {
             console.log("Class insert: Server: " + responseObject.message);
             setTimeout(function() {
                 location.reload(false);
