@@ -79,7 +79,7 @@ export class Statistics {
         console.log("Rendering table...");
         console.log(data);
 
-        var resultObj = data.data;
+        this.resultData = data;
 
         // If a string is passed in, render as a message.  If an object is passed in, attempt to render its data
         if(typeof data == null) { 
@@ -93,20 +93,23 @@ export class Statistics {
             document.getElementById('search-options').style.display = "none";
 
            if(this.selectedStatisticsType == "Class") {
-                if(this.selectedDisplayStatistics == "All") {
-                    this.currentTable = "class-single";
-                }
-                else {
-                    this.currentTable = "class-subsort";
-                }
+                // if(this.selectedDisplayStatistics == "All") {
+
+                //     this.currentTable = "class-single";
+                // }
+                // else {
+                //     this.currentTable = "class-subsort";
+                // }
            }
            else if(this.selectedStatisticsType == "Student") {
                 if(this.selectedDisplayStatistics == "All") {
+
+                    this.displayResults = true;
                     this.currentTable = "student-single";
                 }
-                else {
-                    this.currentTable = "student-subsort";
-                }
+                // else {
+                //     this.currentTable = "student-subsort";
+                // }
            }
         }
     }
@@ -254,7 +257,8 @@ export class Statistics {
     submitForms() {
 
         var data = this.getFormData();
-
+        this.displayResults = false;
+        
         if(this.selectedSearchType == "Class Data") {
 
             // class route

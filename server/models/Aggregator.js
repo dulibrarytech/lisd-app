@@ -117,7 +117,8 @@ module.exports = (function() {
 		        			resultSet['quarter'] = sortStudentResultsByAllQuarter(results);
 		        		}
 
-		        		callback({status: "ok", message: "OK", data: resultSet});
+		        		if(results.length == 0) {message = "No results found";} else {message = "Returning all data";}
+	        			callback({status: "ok", message: message, data: resultSet});
 	        		}
 	        	}
 	        });
