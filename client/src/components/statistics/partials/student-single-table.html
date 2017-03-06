@@ -1,20 +1,33 @@
 <template>
-<require from="../../../utils/ObjectKeysValueConverter"></require>
-
-	<p>Student single Table View</p>
+	<require from="../../../utils/MonthStringValueConverter"></require>
+	<require from="../../../utils/ObjectKeysValueConverter"></require>
 
 	<div class="year-results">
 
-	<table class="table">
-
-		<th>HEADER</th><th>Totals</th>
-
-		<tr repeat.for="key of resultData">	
-<!-- 			<td>${key}</td><td>${resultData.year[key]}</td> -->
-			<td>td test</td>
-		</tr>
-
-	</table>
-
+		<h3>Year Totals:</h3>
+		<table class="table results-table">
+			<th>Student Type</th><th>Number of Students</th>
+			<tr repeat.for="key of resultData.year | objectKeys">	
+				<td>${key}</td><td>${resultData.year[key]}</td>
+			</tr>
+		</table>
 	</div>
+
+	<div class="month-results">
+
+		<h3>Month Totals:</h3>
+		<table class="table results-table">
+			<th></th><th repeat.for="key of resultData.year | objectKeys">${key}</th>
+			<tr repeat.for="key of resultData.month | monthString">
+				<td>${key}</td><td repeat.for="val of resultData.month[key] | objectKeys">${resultData.month[key][val]}</td>
+			</tr>
+		</table>
+	</div>
+
+
+<!-- 	<ul>
+		    <li repeat.for="prop of resultData.year | objectKeys">${prop}</li>
+
+		    <li repeat.for="prop of resultData.year | objectValues">${prop}</li>
+		</ul> -->
 </template>
