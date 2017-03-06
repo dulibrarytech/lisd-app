@@ -96,10 +96,11 @@ export class Statistics {
             document.getElementById('search-options').style.display = "none";
 
            if(this.selectedStatisticsType == "Class") {
-                // if(this.selectedDisplayStatistics == "All") {
-
-                //     this.currentTable = "class-single";
-                // }
+                if(this.selectedDisplayStatistics == "All") {
+                    
+                    this.displayResults = true;
+                    this.currentTable = "class-single";
+                }
                 // else {
                 //     this.currentTable = "class-subsort";
                 // }
