@@ -115,12 +115,49 @@ export class Statistics {
                 }
             }
         }
+        else if(this.selectedSearchTimeframe == "Quarter") {
 
-        console.log(monthsArr);
+            var fromMonth, toMonth;
+            switch(this.selectedQuarter) {
+                case "Fall":
+                    {
+                        fromMonth = 9;
+                        toMonth = 12;
+                    }
+                    break;
+                case "Winter":
+                    {
+                        fromMonth = 1;
+                        toMonth = 4;
+                    }
+                    break;
+                case "Spring":
+                    {
+                        fromMonth = 3;
+                        toMonth = 6;
+                    }
+                case "Summer":
+                    {
+                        fromMonth = 6;
+                        toMonth = 9;
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            for(var key in this.resultData.month) {
+                if(parseInt(key) >= fromMonth && parseInt(key) <= toMonth) {
+                    tempObj = {}
+                    tempObj[key] = this.resultData.month[key];
+                    monthsArr.push(tempObj);
+                }
+            }
+        }
         this.resultData.month = monthsArr;
         
-        console.log("Result data:");
-        console.log(this.resultData);
+            console.log("Result data:");
+            console.log(this.resultData);
 
         // If a string is passed in, render as a message.  If an object is passed in, attempt to render its data
         if(typeof data == null) { 
@@ -278,7 +315,7 @@ export class Statistics {
 
         if(this.selectedSearchTimeframe == "Quarter") {
             formData['fromYear'] = this.fromYear;
-            formData['toYear'] = "";
+            formData['toYear'] = this.fromYear;
             formData['quarter'] = this.selectedQuarter;
         }
         else {
