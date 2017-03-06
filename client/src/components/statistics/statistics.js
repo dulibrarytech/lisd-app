@@ -80,7 +80,8 @@ export class Statistics {
         console.log("Rendering table....");
         this.resultData = data;
         
-        this.resultData = [1,2,3];
+        //this.resultData = [1,2,3];
+        console.log("Result data:");
         console.log(this.resultData);
 
         // If a string is passed in, render as a message.  If an object is passed in, attempt to render its data
