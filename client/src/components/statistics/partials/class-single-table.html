@@ -1,0 +1,39 @@
+<template>
+	<require from="../../../utils/MonthStringValueConverter"></require>
+	<require from="../../../utils/QuarterStringValueConverter"></require>
+	<require from="../../../utils/ObjectKeysValueConverter"></require>
+
+	<div class="year-results">
+
+		<h3>Year Totals:</h3>
+		<table class="table results-table">
+			<!-- <th></th><th>Number of Classes</th> -->
+			<tr repeat.for="key of resultData.year | objectKeys">	
+				<td>Number of Classes</td><td>${resultData.year[key]}</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="month-results">
+
+		<h3>Month Totals:</h3>
+		<table class="table results-table">
+			<th>Month</th><th repeat.for="key of resultData.year | objectKeys">${key}</th>
+			<tr repeat.for="key of resultData.month | objectKeys">
+				<td>${key | monthString}</td><td>${resultData.month[key]}</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="quarter-results">
+
+		<h3>Quarter Totals:</h3>
+		<table class="table results-table">
+			<th>Quarter</th><th repeat.for="key of resultData.year | objectKeys">${key}</th>
+			<tr repeat.for="key of resultData.quarter | objectKeys">
+				<td>${key | quarterString}</td><td>${resultData.quarter[key]}</td>
+			</tr>
+		</table>
+	</div>
+
+</template>
