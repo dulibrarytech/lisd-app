@@ -2,6 +2,7 @@
 	<require from="../../../utils/MonthStringValueConverter"></require>
 	<require from="../../../utils/QuarterStringValueConverter"></require>
 	<require from="../../../utils/ObjectKeysValueConverter"></require>
+	<require from="../../../utils/ObjectValuesValueConverter"></require>
 
 	<div class="year-results">
 
@@ -19,8 +20,8 @@
 		<h3>Month Totals:</h3>
 		<table class="table results-table">
 			<th>Month</th><th repeat.for="key of resultData.year | objectKeys">${key}</th>
-			<tr repeat.for="key of resultData.month | objectKeys">
-				<td>${key | monthString}</td><td>${resultData.month[key]}</td>
+			<tr repeat.for="index of resultData.month">
+				<td>${index | monthString}</td><td>${index | objectValues}</td>
 			</tr>
 		</table>
 	</div>

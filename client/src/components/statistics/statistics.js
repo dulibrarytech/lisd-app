@@ -79,8 +79,46 @@ export class Statistics {
 
         console.log("Rendering table....");
         this.resultData = data;
+
+        // Reorder months in order of current year timeframe
+        var monthsArr = [];
+        var tempObj = {};
+        if(this.selectedSearchTimeframe == "Fiscal") {
+            for(var key in this.resultData.month) {
+                if(parseInt(key) >= 7) {
+                    tempObj = {}
+                    tempObj[key] = this.resultData.month[key];
+                    monthsArr.push(tempObj);
+                }
+            }
+            for(var key in this.resultData.month) {
+                if(parseInt(key) < 7) {
+                    tempObj = {}
+                    tempObj[key] = this.resultData.month[key];
+                    monthsArr.push(tempObj);
+                }
+            }
+        }
+        else if(this.selectedSearchTimeframe == "Academic") {
+            for(var key in this.resultData.month) {
+                if(parseInt(key) >= 9) {
+                    tempObj = {}
+                    tempObj[key] = this.resultData.month[key];
+                    monthsArr.push(tempObj);
+                }
+            }
+            for(var key in this.resultData.month) {
+                if(parseInt(key) < 9) {
+                    tempObj = {}
+                    tempObj[key] = this.resultData.month[key];
+                    monthsArr.push(tempObj);
+                }
+            }
+        }
+
+        console.log(monthsArr);
+        this.resultData.month = monthsArr;
         
-        //this.resultData = [1,2,3];
         console.log("Result data:");
         console.log(this.resultData);
 
@@ -97,7 +135,7 @@ export class Statistics {
 
            if(this.selectedStatisticsType == "Class") {
                 if(this.selectedDisplayStatistics == "All") {
-                    
+
                     this.displayResults = true;
                     this.currentTable = "class-single";
                 }
