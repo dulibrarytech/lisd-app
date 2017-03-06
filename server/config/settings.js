@@ -2,6 +2,7 @@
 
 var settings = {
 
+	// Dates must be in format "MM/DD"
 	server: {
 		fiscalYearStart: 		"07-01",
 		fiscalYearEnd: 			"06-30",
@@ -16,7 +17,7 @@ var settings = {
 		quarter3Start: 			"03-16",
 		quarter3End: 			"06-15",
 		quarter4Start: 			"06-16",
-		quarter4End: 			"8-30"
+		quarter4End: 			"08-30"
 	},
 
 	test: {
