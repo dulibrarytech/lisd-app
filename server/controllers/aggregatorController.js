@@ -110,6 +110,7 @@ var getDates = function(fromYear, toYear, timeframe, quarter) {
 		dates.to = toYear + '-' + settings.server.academicYearEnd;
 	}
 	else if(timeframe == "Quarter") {  // fromYear will == toYear
+
 		if(quarter == "Fall") {
 			dates.from = fromYear + '-' + settings.server.quarter1Start;
 			dates.to = toYear + '-' + settings.server.quarter1End;
