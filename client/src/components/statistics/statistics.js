@@ -37,6 +37,8 @@ export class Statistics {
     selectedQuarter = "Fall";
     quarters = ["Fall", "Winter", "Spring", "Summer"];
 
+    studentTypes = ["Undergraduate", "Graduate", "Faculty", "Other"];
+
     resultData = [];
     currentTable;
     displayResults;
@@ -88,6 +90,7 @@ export class Statistics {
     renderTable(data) {
 
         console.log("Rendering table....");
+        console.log(JSON.stringify(data));
         this.resultData = data;
 
         // Reorder months in order of current year timeframe
@@ -166,43 +169,42 @@ export class Statistics {
         }
         this.resultData.month = monthsArr;
         
-            console.log("Result data:");
-            console.log(this.resultData);
+            console.log("Monthsorted Result data:");
+            console.log(JSON.stringify(this.resultData));
 
-        // If a string is passed in, render as a message.  If an object is passed in, attempt to render its data
         if(typeof data == null) { 
+            // If a string is passed in, render as a message.  If an object is passed in, attempt to render its data
             document.getElementById("results-table").innerHTML = "<span id='view-message'>" + data.message + "</span>"; 
         }
         else if(typeof data == "object") { 
+
             // Show search options, hide the search form
             document.getElementById('result-options').style.display = "block";
             document.getElementById('statistics-search').style.display = "none";
             document.getElementById('new-search').style.display = "block";
             document.getElementById('search-options').style.display = "none";
 
-           if(this.selectedStatisticsType == "Class") {
-                if(this.selectedDisplayStatistics == "All") {
+            // Select display table based on search params
+            if(this.selectedStatisticsType == "Class") {
 
-                    this.displayResults = true;
+                if(this.selectedDisplayStatistics == "All") {
                     this.currentTable = "class-single";
-                    this.onChangeListResultsBy();
                 }
-                // else {
-                //     this.currentTable = "class-subsort";
-                // }
-           }
-           else if(this.selectedStatisticsType == "Student") {
+                else {
+                    this.currentTable = "class-subsort";
+                }
+            }
+            else if(this.selectedStatisticsType == "Student") {
 
                 if(this.selectedDisplayStatistics == "All") {
-
-                    this.displayResults = true;
                     this.currentTable = "student-single";
-                    this.onChangeListResultsBy();
                 }
-                // else {
-                //     this.currentTable = "student-subsort";
-                // }
-           }
+                else {
+                    this.currentTable = "student-subsort";
+                }
+            }
+            this.displayResults = true;
+            this.onChangeListResultsBy();   // Update table visibility for 'results by' setting
         }
     }
 
@@ -364,7 +366,6 @@ export class Statistics {
             // all statistics route
             this.utils.doAjax('get/data/search/allStatistics', 'get', data, null).then(data => {
                 this.utils.stopSpinner();
-                console.log(data);
                 this.renderTable(data.data);
             });
         }
