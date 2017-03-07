@@ -28,8 +28,8 @@ export class Statistics {
     selectedStatisticsType = "Class";
     statisticsType = ["Class", "Student"];
 
-    selectedListResultsBy = "Year";
-    listResultsBy = ["Year", "Month", "Quarter"];
+    selectedListResultsBy = "Total";
+    listResultsBy = ["Total", "Month", "Quarter"];
 
     selectedDisplayStatistics = "All";
     displayStatistics = ["All", "Department", "Location", "Type", "ACRL Framework"];
@@ -39,7 +39,10 @@ export class Statistics {
 
     resultData = [];
     currentTable;
-    displayResults = false;
+    displayResults;
+    displayYear;
+    displayMonth;
+    displayQuarter;
 
     constructor(systemUtils) {
 
@@ -54,9 +57,16 @@ export class Statistics {
         // Get the year select lists
         this.fromYears = this.getYearList(1990);
         this.toYears = this.getYearList(1990);
+
+        this.displayResults = false;
+        this.displayYear = true;
+        this.displayMonth = false;
+        this.displayQuarter = false;
     }
 
     attached() {
+
+        console.log("ATT");
 
         // Element vicibility
         document.getElementById('result-options').style.display = "none";
@@ -175,6 +185,7 @@ export class Statistics {
 
                     this.displayResults = true;
                     this.currentTable = "class-single";
+                    this.onChangeListResultsBy();
                 }
                 // else {
                 //     this.currentTable = "class-subsort";
@@ -186,6 +197,7 @@ export class Statistics {
 
                     this.displayResults = true;
                     this.currentTable = "student-single";
+                    this.onChangeListResultsBy();
                 }
                 // else {
                 //     this.currentTable = "student-subsort";
@@ -228,10 +240,10 @@ export class Statistics {
     }
 
     onChangeListResultsBy() {
-        console.log("Change list by");
-        // set visibility of year table
-        // set visibility of month table
-        // set visibility of quarter table
+
+        this.displayYear = this.selectedListResultsBy == "Total" ? true : false;
+        this.displayMonth = this.selectedListResultsBy == "Month" ? true : false;
+        this.displayQuarter = this.selectedListResultsBy == "Quarter" ? true : false;
     }
 
     onChangeDisplayStatistics() {

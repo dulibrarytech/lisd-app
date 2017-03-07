@@ -5,7 +5,7 @@
 	<require from="../../../utils/ObjectValuesValueConverter"></require>
 	<require from="../../../utils/SubObjectValuesValueConverter"></require>
 
-	<div class="year-results">
+	<div id="year-results" style="" if.bind="displayYear">
 
 		<h3>Totals:</h3>
 		<table class="table results-table">
@@ -16,7 +16,7 @@
 		</table>
 	</div>
 
-	<div class="month-results">
+	<div id="month-results" style="" if.bind="displayMonth">
 
 		<h3>Month Totals:</h3>
 		<table class="table results-table">
@@ -27,7 +27,7 @@
 		</table>
 	</div>
 
-	<div class="quarter-results">
+	<div id="quarter-results" style="" if.bind="displayQuarter">
 
 		<h3>Quarter Totals:</h3>
 		<table class="table results-table">
