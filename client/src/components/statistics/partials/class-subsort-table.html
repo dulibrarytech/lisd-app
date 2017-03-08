@@ -1,0 +1,48 @@
+<template>
+	<require from="../../../utils/MonthStringValueConverter"></require>
+	<require from="../../../utils/QuarterStringValueConverter"></require>
+	<require from="../../../utils/ObjectKeysValueConverter"></require>
+	<require from="../../../utils/ObjectValuesValueConverter"></require>
+	<require from="../../../utils/SubObjectKeysValueConverter"></require>
+	<require from="../../../utils/SubObjectValuesValueConverter"></require>
+<!-- 	<require from="../../../utils/SubObjectValueConverter"></require> -->
+
+	<div id="year-results" style="" if.bind="displayYear">
+
+		<h3>Totals:</h3>
+		<table class="table results-table">
+			<th>${selectedDisplayStatistics}</th><th>Number of Classes</th>
+			<tr repeat.for="key of resultData.year | objectKeys">	
+				<td>${key}</td><td>${resultData.year[key]}</td>
+			</tr>
+		</table>
+	</div>
+
+<!-- 	<div id="month-results" style="" if.bind="displayMonth">
+
+		<h3>Month Totals:</h3>
+		<table class="table results-table" repeat.for="index of resultData.month">
+			<th>${index | monthString}</th><th repeat.for="val of studentTypes">${val}</th>
+
+			<tr repeat.for="key of index | subObjectKeys">
+				<td>${key}</td><td repeat.for="val of index | subObjectValues:key">${val}</td>
+			</tr>
+		</table>
+
+	</div> -->
+
+<!-- 	<div id="quarter-results" style="" if.bind="displayQuarter">
+
+		<h3>Quarter Totals:</h3>
+
+
+		<table class="table results-table" repeat.for="index of resultData.quarter">
+			<th>${index | quarterString}</th><th repeat.for="val of studentTypes">${val}</th>
+
+			<tr repeat.for="key of index | subObjectKeys">
+				<td>${key}</td><td repeat.for="val of index | subObjectValues:key">${val}</td>
+			</tr>
+		</table>
+	</div> -->
+
+</template>
