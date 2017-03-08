@@ -172,6 +172,78 @@ export class Statistics {
             console.log("Monthsorted Result data:");
             console.log(JSON.stringify(this.resultData));
 
+
+        // Reorder quarters in order of current year timeframe
+        var quartersArr = [];
+        var tempObj = {};
+        if(this.selectedSearchTimeframe == "Fiscal") {
+            for(var key in this.resultData.quarter) {
+                if(parseInt(key) >= 4) {
+                    tempObj = {}
+                    tempObj[key] = this.resultData.quarter[key];
+                    quartersArr.push(tempObj);
+                }
+            }
+            for(var key in this.resultData.quarter) {
+                if(parseInt(key) < 4) {
+                    tempObj = {}
+                    tempObj[key] = this.resultData.quarter[key];
+                    quartersArr.push(tempObj);
+                }
+            }
+        }
+        // No reordering, just add the objects to the array in default order
+        else if(this.selectedSearchTimeframe == "Academic") {
+            for(var key in this.resultData.quarter) {
+                tempObj = {}
+                tempObj[key] = this.resultData.quarter[key];
+                quartersArr.push(tempObj);
+            }
+        }
+        else if(this.selectedSearchTimeframe == "Quarter") {
+
+            var fromMonth, toMonth;
+            switch(this.selectedQuarter) {
+                case "Fall":
+                    {
+                        fromMonth = 9;
+                        toMonth = 12;
+                    }
+                    break;
+                case "Winter":
+                    {
+                        fromMonth = 1;
+                        toMonth = 4;
+                    }
+                    break;
+                case "Spring":
+                    {
+                        fromMonth = 3;
+                        toMonth = 6;
+                    }
+                case "Summer":
+                    {
+                        fromMonth = 6;
+                        toMonth = 9;
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            for(var key in this.resultData.quarter) {
+                if(parseInt(key) >= fromMonth && parseInt(key) <= toMonth) {
+                    tempObj = {}
+                    tempObj[key] = this.resultData.quarter[key];
+                    quartersArr.push(tempObj);
+                }
+            }
+        }
+        this.resultData.quarter = quartersArr;
+
+            console.log("Quarter sorted Result data:");
+            console.log(JSON.stringify(this.resultData));
+
         if(typeof data == null) { 
             // If a string is passed in, render as a message.  If an object is passed in, attempt to render its data
             document.getElementById("results-table").innerHTML = "<span id='view-message'>" + data.message + "</span>"; 

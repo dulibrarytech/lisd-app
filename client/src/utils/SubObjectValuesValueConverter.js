@@ -1,6 +1,6 @@
 // A ValueConverter for iterating an Object's properties inside of a repeat.for in Aurelia
 export class SubObjectValuesValueConverter {
-    toView(obj) {
+    toView(obj, key) {
         // Create a temporary array to populate with object keys
         let temp = [];
         let subObj = {};
@@ -11,8 +11,15 @@ export class SubObjectValuesValueConverter {
             if (obj.hasOwnProperty(prop)) {
 
                 subObj = obj[prop];
-                for (let subprop in subObj) {
-                    temp.push(subObj[subprop]);
+                if(typeof key != 'undefined') {
+                    for (let subkey in subObj[key]) {
+                        temp.push(subObj[key][subkey]);
+                    }
+                }
+                else {
+                    for (let subprop in subObj) {
+                        temp.push(subObj[subprop]);
+                    }
                 }
             }
         }
