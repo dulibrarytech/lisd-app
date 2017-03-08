@@ -1,4 +1,4 @@
-// A ValueConverter for iterating an Object's properties inside of a repeat.for in Aurelia
+// 
 export class SubObjectValuesValueConverter {
     toView(obj, key) {
         // Create a temporary array to populate with object keys
