@@ -20,7 +20,7 @@
 
 		<h3>Month Totals:</h3>
 		<table class="table results-table">
-			<th>Month</th><th repeat.for="key of resultData.year | objectKeys">${key}</th>
+			<th>Month</th><th repeat.for="key of resultData.year | objectKeys">${key}</th>			<!-- USE model var -->
 			<tr repeat.for="index of resultData.month">
 				<td>${index | monthString}</td><td repeat.for="val of index | subObjectValues">${val}</td>
 			</tr>
@@ -30,10 +30,16 @@
 	<div id="quarter-results" style="" if.bind="displayQuarter">
 
 		<h3>Quarter Totals:</h3>
-		<table class="table results-table">
+		<!-- <table class="table results-table">
 			<th>Quarter</th><th repeat.for="key of resultData.year | objectKeys">${key}</th>
 			<tr repeat.for="key of resultData.quarter | objectKeys">
 				<td>${key | quarterString}</td><td repeat.for="val of resultData.quarter[key] | objectValues">${val}</td>
+			</tr>
+		</table> -->
+		<table class="table results-table">
+			<th>Quarter</th><th repeat.for="key of resultData.year | objectKeys">${key}</th>			<!-- USE model var -->
+			<tr repeat.for="index of resultData.quarter">
+				<td>${index | quarterString}</td><td repeat.for="val of index | subObjectValues">${val}</td>
 			</tr>
 		</table>
 	</div>
