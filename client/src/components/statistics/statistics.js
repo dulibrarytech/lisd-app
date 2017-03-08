@@ -13,6 +13,7 @@ export class Statistics {
 	librarianList = [];
 	librarianCount = 1;
     selectedLibrarian = "";
+    librarianName = "";
 
     fromYear = "";
     toYear = "";
@@ -89,20 +90,12 @@ export class Statistics {
 
     renderStatisticsTables(data) {
 
-        console.log("Rendering table....");
-        console.log(JSON.stringify(data));
+        // Set local object for table rendering
         this.resultData = data;
 
-       
-        this.resultData.month = sortResultMonthsByTimePeriod(data);
-        
-            console.log("Monthsorted Result data:");
-            console.log(JSON.stringify(this.resultData));
-
-        this.resultData.quarter = sortResultQuartersByTimePeriod(data);
-
-            console.log("Quarter sorted Result data:");
-            console.log(JSON.stringify(this.resultData));
+        // Sort result months / quarters based on selected time period.  (Ex: Fiscal period will list July and Summer quarter first in list)
+        this.resultData.month = this.sortResultMonthsByTimePeriod(data);
+        this.resultData.quarter = this.sortResultQuartersByTimePeriod(data);
 
         // If a string is passed in, render as a message.  If an object is passed in, attempt to render its data
         if(typeof data == null) { 
@@ -147,6 +140,32 @@ export class Statistics {
 
     renderClassDataTable(data) {
 
+        // Set local object for table rendering
+        this.resultData = data;
+        console.log(data);
+
+        // If a string is passed in, render as a message.  If an object is passed in, attempt to render its data
+        if(typeof data == null) { 
+            
+            document.getElementById("results-table").innerHTML = "<span id='view-message'>" + data.message + "</span>"; 
+        }
+        else if(typeof data == "object") { 
+
+            // Show search options, hide the search form
+            document.getElementById('result-options').style.display = "block";
+            document.getElementById('statistics-search').style.display = "none";
+            document.getElementById('new-search').style.display = "block";
+            document.getElementById('search-options').style.display = "none";
+            document.getElementById('result-options').style.display = "none";
+
+            this.currentTable = "class-data";
+
+            // Enable the table display
+            this.displayResults = true;
+
+            // Update table visibility for 'results by' setting
+            this.onChangeListResultsBy(); 
+        }
     }
 
     sortResultMonthsByTimePeriod(resultData) {
@@ -436,6 +455,9 @@ export class Statistics {
 
         var data = this.getFormData();
         this.displayResults = false;
+
+        var selIndex = document.getElementById('librarian-select-input').selectedIndex;
+        this.librarianName = document.getElementById('librarian-select-input')[selIndex].textContent;
 
         if(this.selectedSearchType == "Class Data") {
 
