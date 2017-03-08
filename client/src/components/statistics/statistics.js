@@ -87,7 +87,7 @@ export class Statistics {
         this.currentTable = "";
     }
 
-    renderTable(data) {
+    renderStatisticsTables(data) {
 
         console.log("Rendering table....");
         console.log(JSON.stringify(data));
@@ -146,7 +146,7 @@ export class Statistics {
     }
 
     renderClassDataTable(data) {
-        
+
     }
 
     sortResultMonthsByTimePeriod(resultData) {
@@ -442,7 +442,7 @@ export class Statistics {
             // class route
             this.utils.doAjax('get/data/search/class', 'get', data, null).then(data => {
                 this.utils.stopSpinner();
-                this.renderTable(data.data);
+                this.renderClassDataTable(data.data);
             });
         }
         else if(this.selectedSearchType == "All Statistics" || this.selectedSearchType == "Librarian Statistics") {
@@ -450,7 +450,7 @@ export class Statistics {
             // all statistics route
             this.utils.doAjax('get/data/search/allStatistics', 'get', data, null).then(data => {
                 this.utils.stopSpinner();
-                this.renderTable(data.data);
+                this.renderStatisticsTables(data.data);
             });
         }
         else {
