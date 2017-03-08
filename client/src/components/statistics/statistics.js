@@ -93,37 +93,94 @@ export class Statistics {
         console.log(JSON.stringify(data));
         this.resultData = data;
 
-        // Reorder months in order of current year timeframe
+       
+        this.resultData.month = sortResultMonthsByTimePeriod(data);
+        
+            console.log("Monthsorted Result data:");
+            console.log(JSON.stringify(this.resultData));
+
+        this.resultData.quarter = sortResultQuartersByTimePeriod(data);
+
+            console.log("Quarter sorted Result data:");
+            console.log(JSON.stringify(this.resultData));
+
+        // If a string is passed in, render as a message.  If an object is passed in, attempt to render its data
+        if(typeof data == null) { 
+            
+            document.getElementById("results-table").innerHTML = "<span id='view-message'>" + data.message + "</span>"; 
+        }
+        else if(typeof data == "object") { 
+
+            // Show search options, hide the search form
+            document.getElementById('result-options').style.display = "block";
+            document.getElementById('statistics-search').style.display = "none";
+            document.getElementById('new-search').style.display = "block";
+            document.getElementById('search-options').style.display = "none";
+
+            // Select display table based on search params
+            if(this.selectedStatisticsType == "Class") {
+
+                if(this.selectedDisplayStatistics == "All") {
+                    this.currentTable = "class-single";
+                }
+                else {
+                    this.currentTable = "class-subsort";
+                }
+            }
+            else if(this.selectedStatisticsType == "Student") {
+
+                if(this.selectedDisplayStatistics == "All") {
+                    this.currentTable = "student-single";
+                }
+                else {
+                    this.currentTable = "student-subsort";
+                }
+            }
+
+            // Enable the table display
+            this.displayResults = true;
+
+            // Update table visibility for 'results by' setting
+            this.onChangeListResultsBy(); 
+        }
+    }
+
+    renderClassDataTable(data) {
+        
+    }
+
+    sortResultMonthsByTimePeriod(resultData) {
+         // Reorder months in order of current year timeframe
         var monthsArr = [];
         var tempObj = {};
         if(this.selectedSearchTimeframe == "Fiscal") {
-            for(var key in this.resultData.month) {
+            for(var key in resultData.month) {
                 if(parseInt(key) >= 7) {
                     tempObj = {}
-                    tempObj[key] = this.resultData.month[key];
+                    tempObj[key] = resultData.month[key];
                     monthsArr.push(tempObj);
                 }
             }
-            for(var key in this.resultData.month) {
+            for(var key in resultData.month) {
                 if(parseInt(key) < 7) {
                     tempObj = {}
-                    tempObj[key] = this.resultData.month[key];
+                    tempObj[key] = resultData.month[key];
                     monthsArr.push(tempObj);
                 }
             }
         }
         else if(this.selectedSearchTimeframe == "Academic") {
-            for(var key in this.resultData.month) {
+            for(var key in resultData.month) {
                 if(parseInt(key) >= 9) {
                     tempObj = {}
-                    tempObj[key] = this.resultData.month[key];
+                    tempObj[key] = resultData.month[key];
                     monthsArr.push(tempObj);
                 }
             }
-            for(var key in this.resultData.month) {
+            for(var key in resultData.month) {
                 if(parseInt(key) < 9) {
                     tempObj = {}
-                    tempObj[key] = this.resultData.month[key];
+                    tempObj[key] = resultData.month[key];
                     monthsArr.push(tempObj);
                 }
             }
@@ -159,20 +216,18 @@ export class Statistics {
                     break;
             }
 
-            for(var key in this.resultData.month) {
+            for(var key in resultData.month) {
                 if(parseInt(key) >= fromMonth && parseInt(key) <= toMonth) {
                     tempObj = {}
-                    tempObj[key] = this.resultData.month[key];
+                    tempObj[key] = resultData.month[key];
                     monthsArr.push(tempObj);
                 }
             }
         }
-        this.resultData.month = monthsArr;
-        
-            console.log("Monthsorted Result data:");
-            console.log(JSON.stringify(this.resultData));
+        return monthsArr;
+    }
 
-
+    sortResultQuartersByTimePeriod(data) {
         // Reorder quarters in order of current year timeframe
         var quartersArr = [];
         var tempObj = {};
@@ -234,53 +289,7 @@ export class Statistics {
                     break;
             }
         }
-        this.resultData.quarter = quartersArr;
-
-            console.log("Quarter sorted Result data:");
-            console.log(JSON.stringify(this.resultData));
-
-        if(typeof data == null) { 
-            // If a string is passed in, render as a message.  If an object is passed in, attempt to render its data
-            document.getElementById("results-table").innerHTML = "<span id='view-message'>" + data.message + "</span>"; 
-        }
-        else if(typeof data == "object") { 
-
-            // Show search options, hide the search form
-            document.getElementById('result-options').style.display = "block";
-            document.getElementById('statistics-search').style.display = "none";
-            document.getElementById('new-search').style.display = "block";
-            document.getElementById('search-options').style.display = "none";
-
-            // Select display table based on search params
-            if(this.selectedStatisticsType == "Class") {
-
-                if(this.selectedDisplayStatistics == "All") {
-                    this.currentTable = "class-single";
-                }
-                else {
-                    this.currentTable = "class-subsort";
-                }
-            }
-            else if(this.selectedStatisticsType == "Student") {
-
-                if(this.selectedDisplayStatistics == "All") {
-                    this.currentTable = "student-single";
-                }
-                else {
-                    this.currentTable = "student-subsort";
-                }
-            }
-            this.displayResults = true;
-            this.onChangeListResultsBy();   // Update table visibility for 'results by' setting
-        }
-    }
-
-    sortResultMonthsByTimePeriod(data) {
-
-    }
-
-    sortResultQuartersByTimePeriod(data) {
-        
+        return quartersArr;
     }
 
     onChangeFromYear() {
