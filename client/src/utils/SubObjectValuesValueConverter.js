@@ -12,8 +12,13 @@ export class SubObjectValuesValueConverter {
 
                 subObj = obj[prop];
                 if(typeof key != 'undefined') {
-                    for (let subkey in subObj[key]) {
-                        temp.push(subObj[key][subkey]);
+                    if(typeof subObj[key] == 'object') {
+                        for (let subkey in subObj[key]) {
+                            temp.push(subObj[key][subkey]);
+                        }
+                    }
+                    else {
+                        temp.push(subObj[key]);
                     }
                 }
                 else {
