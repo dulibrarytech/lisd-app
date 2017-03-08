@@ -14,6 +14,7 @@ export class Statistics {
 	librarianCount = 1;
     selectedLibrarian = "";
     librarianName = "";
+    classCountLabel = "";
 
     fromYear = "";
     toYear = "";
@@ -159,6 +160,7 @@ export class Statistics {
             document.getElementById('result-options').style.display = "none";
 
             this.currentTable = "class-data";
+            this.classCountLabel = data.length > 1 ? "Classes" : "Class";
 
             // Enable the table display
             this.displayResults = true;
