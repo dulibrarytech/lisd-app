@@ -202,41 +202,36 @@ export class Statistics {
         }
         else if(this.selectedSearchTimeframe == "Quarter") {
 
-            var fromMonth, toMonth;
             switch(this.selectedQuarter) {
                 case "Fall":
                     {
-                        fromMonth = 9;
-                        toMonth = 12;
+                        tempObj = {};
+                        tempObj["1"] = this.resultData.quarter["1"];
+                        quartersArr.push(tempObj);
                     }
                     break;
                 case "Winter":
                     {
-                        fromMonth = 1;
-                        toMonth = 4;
+                        tempObj = {};
+                        tempObj["2"] = this.resultData.quarter["2"];
+                        quartersArr.push(tempObj);
                     }
                     break;
                 case "Spring":
                     {
-                        fromMonth = 3;
-                        toMonth = 6;
+                        tempObj = {};
+                        tempObj["3"] = this.resultData.quarter["3"];
+                        quartersArr.push(tempObj);
                     }
                 case "Summer":
                     {
-                        fromMonth = 6;
-                        toMonth = 9;
+                        tempObj = {};
+                        tempObj["4"] = this.resultData.quarter["4"];
+                        quartersArr.push(tempObj);
                     }
                     break;
                 default:
                     break;
-            }
-
-            for(var key in this.resultData.quarter) {
-                if(parseInt(key) >= fromMonth && parseInt(key) <= toMonth) {
-                    tempObj = {}
-                    tempObj[key] = this.resultData.quarter[key];
-                    quartersArr.push(tempObj);
-                }
             }
         }
         this.resultData.quarter = quartersArr;
@@ -278,6 +273,14 @@ export class Statistics {
             this.displayResults = true;
             this.onChangeListResultsBy();   // Update table visibility for 'results by' setting
         }
+    }
+
+    sortResultMonthsByTimePeriod(data) {
+
+    }
+
+    sortResultQuartersByTimePeriod(data) {
+        
     }
 
     onChangeFromYear() {

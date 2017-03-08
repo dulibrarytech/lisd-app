@@ -25,7 +25,6 @@
 			<h4>${index | monthString}</h4>
 			<table class="table results-table">
 				<th>${selectedDisplayStatistics}</th><th repeat.for="val of studentTypes">${val}</th>
-
 				<tr repeat.for="key of index | subObjectKeys">
 					<td>${key}</td><td repeat.for="val of index | subObjectValues:key">${val}</td>
 				</tr>
@@ -36,12 +35,10 @@
 	<div id="quarter-results" style="" if.bind="displayQuarter">
 
 		<h3>Quarter Totals:</h3>
-
 		<div repeat.for="index of resultData.quarter">
 			<h4>${index | quarterString}</h4>
 			<table class="table results-table">
 				<th>${selectedDisplayStatistics}</th><th repeat.for="val of studentTypes">${val}</th>
-
 				<tr repeat.for="key of index | subObjectKeys">
 					<td>${key}</td><td repeat.for="val of index | subObjectValues:key">${val}</td>
 				</tr>
