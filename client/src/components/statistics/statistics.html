@@ -108,15 +108,15 @@
                             <button type="button" class="btn btn-default" click.delegate="submitForms()">Get Statistics</button>
                         </form>
 
-                        <!-- <div id="results-table"></div>
- -->
-                        <!-- <template> -->
-                           <!--  <div repeat.for="widget of widgets"> -->
-                            <div>
-                                <compose if.bind="displayResults" view="./partials/${currentTable}-table.html"></compose>
-                            </div>
-                            <!-- </div> -->
-                      <!--   </template> -->
+                        <div id="table-section">
+                            <compose if.bind="displayResults" view="./partials/${currentTable}.html"></compose>
+                        </div>
+
+                        <div id="chart-section">
+                            <canvas id="year-results-chart" class="results-chart"></canvas>
+                            <canvas id="month-results-chart" class="results-chart"></canvas>
+                            <canvas id="quarter-results-chart" class="results-chart"></canvas>
+                        </div>
 
                     </div>
                 </div>

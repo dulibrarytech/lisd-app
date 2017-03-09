@@ -39,6 +39,9 @@ export class Statistics {
     selectedQuarter = "Fall";
     quarters = ["Fall", "Winter", "Spring", "Summer"];
 
+    displayFormat = "Chart";
+    displayFormats = ["Table", "Chart"];
+
     studentTypes = ["Undergraduate", "Graduate", "Faculty", "Other"];
 
     resultData = [];
@@ -48,7 +51,7 @@ export class Statistics {
     displayMonth;
     displayQuarter;
 
-    constructor(systemUtils) {
+    constructor(systemUtils, viewUtils) {
 
         // Get the utils functions
         this.utils = systemUtils;
@@ -70,8 +73,6 @@ export class Statistics {
 
     attached() {
 
-        console.log("ATT");
-
         // Element vicibility
         document.getElementById('result-options').style.display = "none";
         document.getElementById('new-search').style.display = "none";
@@ -92,7 +93,7 @@ export class Statistics {
     renderStatisticsTables(data) {
 
         // Set local object for table rendering
-        this.resultData = data;
+        //this.resultData = data;
 
         // Sort result months / quarters based on selected time period.  (Ex: Fiscal period will list July and Summer quarter first in list)
         this.resultData.month = this.sortResultMonthsByTimePeriod(data);
@@ -115,19 +116,20 @@ export class Statistics {
             if(this.selectedStatisticsType == "Class") {
 
                 if(this.selectedDisplayStatistics == "All") {
-                    this.currentTable = "class-single";
+                    this.currentTable = "class-single-table";
+                    //this.currentTable = "class-single-chart";                         // DEV uncomment above
                 }
                 else {
-                    this.currentTable = "class-subsort";
+                    this.currentTable = "class-subsort-table";
                 }
             }
             else if(this.selectedStatisticsType == "Student") {
 
                 if(this.selectedDisplayStatistics == "All") {
-                    this.currentTable = "student-single";
+                    this.currentTable = "student-single-table";
                 }
                 else {
-                    this.currentTable = "student-subsort";
+                    this.currentTable = "student-subsort-table";
                 }
             }
 
@@ -139,11 +141,99 @@ export class Statistics {
         }
     }
 
+    renderStatisticsCharts(data) {
+
+        //this.currentTable = "class-single-chart";                                                           // DEV 
+
+        // If a string is passed in, render as a message.  If an object is passed in, attempt to render its data
+        if(typeof data == null) { 
+            
+            document.getElementById("results-table").innerHTML = "<span id='view-message'>" + data.message + "</span>"; 
+        }
+        else if(typeof data == "object") {
+
+            var yconfig = {}, mconfig = {}, qconfig = {};
+
+            // Show search options, hide the search form
+            document.getElementById('result-options').style.display = "block";
+            document.getElementById('statistics-search').style.display = "none";
+            document.getElementById('new-search').style.display = "block";
+            document.getElementById('search-options').style.display = "none";
+
+             // Select display table based on search params
+            // if(this.selectedStatisticsType == "Class") {
+
+            //     if(this.selectedDisplayStatistics == "All") {
+            //         this.currentTable = "class-single-table";
+            //         //this.currentTable = "class-single-chart";                         // DEV uncomment above
+            //     }
+            //     else {
+            //         this.currentTable = "class-subsort-table";
+            //     }
+            // }
+            // else if(this.selectedStatisticsType == "Student") {
+
+            //     if(this.selectedDisplayStatistics == "All") {
+            //         this.currentTable = "student-single-table";
+            //     }
+            //     else {
+            //         this.currentTable = "student-subsort-table";
+            //     }
+            // }
+
+            // If class all
+            yconfig = {
+
+              type: 'bar',
+              data: {
+                labels: ['Classes by Year'],
+                datasets: [{
+                  label: 'Number of Classes',
+                  data: [12],
+                  backgroundColor: "rgba(153,255,51,0.4)"
+                }]
+              }
+            }
+            mconfig = {
+
+              type: 'bar',
+              data: {
+                labels: ['Classes by Month'],
+                datasets: [{
+                  label: 'Number of Classes',
+                  data: [12],
+                  backgroundColor: "rgba(153,255,51,0.4)"
+                }]
+              }
+            }
+            qconfig = {
+
+              type: 'bar',
+              data: {
+                labels: ['Classes by Quarter'],
+                datasets: [{
+                  label: 'Number of Classes',
+                  data: [12],
+                  backgroundColor: "rgba(153,255,51,0.4)"
+                }]
+              }
+            }
+
+            var yctx = document.getElementById('year-results-chart').getContext('2d');
+            var mctx = document.getElementById('month-results-chart').getContext('2d');
+            var qctx = document.getElementById('quarter-results-chart').getContext('2d');
+
+            var yearChart = new Chart(yctx, yconfig);
+            var monthChart = new Chart(mctx, mconfig);
+            var quarterChart = new Chart(qctx, qconfig);
+        }
+    }
+
     renderClassDataTable(data) {
 
         // Set local object for table rendering
-        this.resultData = data;
-        console.log(data);
+        //this.resultData = data;
+        //console.log(data);
 
         // If a string is passed in, render as a message.  If an object is passed in, attempt to render its data
         if(typeof data == null) { 
@@ -358,6 +448,15 @@ export class Statistics {
         this.submitForms();
     }
 
+    onChangeDisplayFormat() {
+        if(this.displayFormat == "Table") {
+            this.renderStatisticsTables(this.resultData);
+        }
+        else if(this.displayFormat == "Chart") {
+            this.renderStatisticsCharts(this.resultData);
+        }
+    }
+
     newSearch() {
         // DEV - TEMP TODO create function to reset form resetForm()
         location.reload(false);
@@ -466,7 +565,8 @@ export class Statistics {
             // class route
             this.utils.doAjax('get/data/search/class', 'get', data, null).then(data => {
                 this.utils.stopSpinner();
-                this.renderClassDataTable(data.data);
+                this.resultData = data.data;
+                this.renderClassDataTable(this.resultData);
             });
         }
         else if(this.selectedSearchType == "All Statistics" || this.selectedSearchType == "Librarian Statistics") {
@@ -474,7 +574,14 @@ export class Statistics {
             // all statistics route
             this.utils.doAjax('get/data/search/allStatistics', 'get', data, null).then(data => {
                 this.utils.stopSpinner();
-                this.renderStatisticsTables(data.data);
+                this.resultData = data.data;
+
+                if(this.displayFormat == "Table") {
+                    this.renderStatisticsTables(this.resultData);
+                }
+                else if(this.displayFormat == "Chart") {
+                    this.renderStatisticsCharts(this.resultData);
+                }
             });
         }
         else {
