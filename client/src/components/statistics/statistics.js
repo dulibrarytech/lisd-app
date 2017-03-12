@@ -2,9 +2,10 @@ import 'fetch';
 import { customElement, inject } from 'aurelia-framework';
 
 import {SystemUtils} from '../../utils/SystemUtils.js';
+import {ChartUtils} from '../../utils/ChartUtils.js';
 import $ from 'jquery'; // for datepicker
 
-@inject(SystemUtils)
+@inject(SystemUtils, ChartUtils)
 export class Statistics {
 
 	ajax;
@@ -56,6 +57,7 @@ export class Statistics {
 
         // Get the utils functions
         this.utils = systemUtils;
+        this.chartUtils = chartUtils;
 
         // Get the librarians from the database, populate the librarian select box
         var dropdownData = this.getDropdownData();
@@ -159,23 +161,6 @@ export class Statistics {
             // Hide the tables if visible
             this.displayResults = false;
 
-            // Chart configuration
-            var config = {};
-            var chartOptions = {
-
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        }
-                    }],
-                    yAxes: [{
-                        ticks: {
-                            fontSize: 30
-                        }
-                    }]
-                }
-            }
             // var chartOptions = this.chartUtils.getChartSettings();                               // TODO
 
             // Show search options, hide the search form
@@ -184,60 +169,25 @@ export class Statistics {
             document.getElementById('new-search').style.display = "block";
             document.getElementById('search-options').style.display = "none";
 
-            // config = this.chartUtils.getChartConfig()                                            // TODO
-
-            // Render the selected chart
-            if(this.displayYear) {
-
-                config = {
-
-                  type: 'bar',
-                  data: {
-                    labels: ['Classes by Year'],
-                    datasets: [{
-                      label: 'Number of Classes',
-                      data: [12],
-                      backgroundColor: "rgba(153,255,51,0.4)"
-                    }]
-                  },
-                  options: chartOptions
-                }
+            // Get chart configuration based on search settings
+            var config = {};
+            if(this.selectedDisplayStatistics == "All") {
+                config = this.chartUtils.getSingleChartConfig(this.selectedListResultsBy, this.selectedStatisticsType);
             }
-            else if(this.displayMonth) {
-
-                config = {
-
-                  type: 'bar',
-                  data: {
-                    labels: ['Classes by Month'],
-                    datasets: [{
-                      label: 'Number of Classes',
-                      data: [12],
-                      backgroundColor: "rgba(153,255,51,0.4)"
-                    }]
-                  },
-                  options: chartOptions
-                }
-            }
-            else if(this.displayQuarter) {
-                config = {
-
-                  type: 'bar',
-                  data: {
-                    labels: ['Classes by Quarter'],
-                    datasets: [{
-                      label: 'Number of Classes',
-                      data: [12],
-                      backgroundColor: "rgba(153,255,51,0.4)"
-                    }]
-                  },
-                  options: chartOptions
-                }
+            else {
+                //config = this.chartUtils.getSubsortChartConfig(this.selectedListResultsBy, this.selectedStatisticsType);
             }
 
-            // Get the chart
-            var ctx = document.getElementById('results-chart').getContext('2d');
-            var chart = new Chart(ctx, config);
+            // Handle null config object
+            var ctx, chart;
+            if(Object.keys(config).length === 0) {
+                console.log("Error: No chart configuration retrieved");
+            }
+            else {
+                // Get the chart
+                ctx = document.getElementById('results-chart').getContext('2d');
+                chart = new Chart(ctx, config);
+            }
         }
     }
 
