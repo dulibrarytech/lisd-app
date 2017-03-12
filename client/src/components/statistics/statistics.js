@@ -173,11 +173,17 @@ export class Statistics {
             var config = {};
             if(this.selectedDisplayStatistics == "All") {
                 config = this.chartUtils.getSingleChartConfig(this.selectedListResultsBy, this.selectedStatisticsType);
+
+                if(this.selectedListResultsBy == "Total") {
+                    this.chartUtils.renderSingleYearChartConfig(this.selectedListResultsBy, this.selectedStatisticsType);
+                }
+                this.chartUtils.renderSingleYearChartConfig(this.selectedListResultsBy, this.selectedStatisticsType);
             }
             else {
                 //config = this.chartUtils.getSubsortChartConfig(this.selectedListResultsBy, this.selectedStatisticsType);
             }
 
+            // TO move to inside chart class
             // Handle null config object
             var ctx, chart;
             if(Object.keys(config).length === 0) {

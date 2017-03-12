@@ -53,7 +53,7 @@ export class ChartUtils {
               options: this.chartOptions
             }
         }
-        else if(resultListType == "fdfd") {
+        else if(resultListType == "Quarter") {
             config = {
 
               type: 'bar',
