@@ -1,0 +1,30 @@
+<template>
+
+	<div id="class-data-search-info">
+		<div id="class-librarian"><h4>${librarianName}</h4></div>
+		<div id="class-year-range"><h4>${fromYear} - ${toYear}</h4></div>
+		<div id="class-total"><h4>${resultData.length} ${classCountLabel}</h4></div>
+	</div>
+
+	<div id="class-data-results">
+		<table class="table">
+			<th>Department</th><th>Name</th><th>Date</th><th>Number</th><th>Type</th><th>Instructor</th><th>U</th><th>G</th><th>F</th><th>O</th><th>Location</th>
+
+			<tr repeat.for="index of resultData">
+				<td>${index.department}</td>
+				<td>${index.courseInfo.name}</td>
+				<td>${index.courseInfo.date}</td>
+				<td>${index.courseInfo.number}</td>
+				<td>${index.type}</td>
+				<td>${index.courseInfo.instructor}</td>
+				<td>${index.enrollmentInfo.undergraduates}</td>
+				<td>${index.enrollmentInfo.graduates}</td>
+				<td>${index.enrollmentInfo.faculty}</td>
+				<td>${index.enrollmentInfo.other}</td>
+				<td>${index.location}</td>
+			</tr>
+		</table>
+	</div>
+
+
+</template>
