@@ -52,7 +52,7 @@ export class Statistics {
     displayMonth;
     displayQuarter;
 
-    constructor(systemUtils, viewUtils) {
+    constructor(systemUtils, chartUtils) {
 
         // Get the utils functions
         this.utils = systemUtils;
@@ -156,18 +156,37 @@ export class Statistics {
         }
         else if(typeof data == "object") {
 
-            // Enable the table display
-            //this.displayResults = true;
-            //this.currentTable = "class-single-chart";
+            // Hide the tables if visible
+            this.displayResults = false;
 
-            var yconfig = {}, mconfig = {}, qconfig = {};
+            // Chart configuration
             var config = {};
+            var chartOptions = {
+
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            fontSize: 30
+                        }
+                    }]
+                }
+            }
+            // var chartOptions = this.chartUtils.getChartSettings();                               // TODO
 
             // Show search options, hide the search form
             document.getElementById('result-options').style.display = "block";
             document.getElementById('statistics-search').style.display = "none";
             document.getElementById('new-search').style.display = "block";
             document.getElementById('search-options').style.display = "none";
+
+            // config = this.chartUtils.getChartConfig()                                            // TODO
+
+            // Render the selected chart
             if(this.displayYear) {
 
                 config = {
@@ -181,24 +200,10 @@ export class Statistics {
                       backgroundColor: "rgba(153,255,51,0.4)"
                     }]
                   },
-                  options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero:true
-                                }
-                            }],
-                            yAxes: [{
-                                ticks: {
-                                    fontSize: 40
-                                }
-                            }]
-                        }
-                    }
+                  options: chartOptions
                 }
             }
-
-            if(this.displayMonth) {
+            else if(this.displayMonth) {
 
                 config = {
 
@@ -210,10 +215,11 @@ export class Statistics {
                       data: [12],
                       backgroundColor: "rgba(153,255,51,0.4)"
                     }]
-                  }
+                  },
+                  options: chartOptions
                 }
             }
-            if(this.displayQuarter) {
+            else if(this.displayQuarter) {
                 config = {
 
                   type: 'bar',
@@ -224,10 +230,12 @@ export class Statistics {
                       data: [12],
                       backgroundColor: "rgba(153,255,51,0.4)"
                     }]
-                  }
+                  },
+                  options: chartOptions
                 }
             }
 
+            // Get the chart
             var ctx = document.getElementById('results-chart').getContext('2d');
             var chart = new Chart(ctx, config);
         }
