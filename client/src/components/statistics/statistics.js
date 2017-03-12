@@ -46,6 +46,7 @@ export class Statistics {
 
     resultData = [];
     currentTable;
+    currentChart;
     displayResults;
     displayYear;
     displayMonth;
@@ -86,8 +87,10 @@ export class Statistics {
         this.toYears = this.getYearList(from);     
         document.getElementById("toYearSelect").visibility = 'hidden';
 
-        // Search results current table.  No table shown by default
+        // Search results current table/chart.  No table/chart shown by default
         this.currentTable = "";
+        this.currentChart = "";
+        document.getElementById('chart-section').style.display = "none";
     }
 
     renderStatisticsTables(data) {
@@ -143,7 +146,8 @@ export class Statistics {
 
     renderStatisticsCharts(data) {
 
-        //this.currentTable = "class-single-chart";                                                           // DEV 
+        //this.currentTable = "class-single-chart";   
+        document.getElementById('chart-section').style.display = "block";                                                        // DEV 
 
         // If a string is passed in, render as a message.  If an object is passed in, attempt to render its data
         if(typeof data == null) { 
@@ -152,80 +156,80 @@ export class Statistics {
         }
         else if(typeof data == "object") {
 
+            // Enable the table display
+            //this.displayResults = true;
+            //this.currentTable = "class-single-chart";
+
             var yconfig = {}, mconfig = {}, qconfig = {};
+            var config = {};
 
             // Show search options, hide the search form
             document.getElementById('result-options').style.display = "block";
             document.getElementById('statistics-search').style.display = "none";
             document.getElementById('new-search').style.display = "block";
             document.getElementById('search-options').style.display = "none";
+            if(this.displayYear) {
 
-             // Select display table based on search params
-            // if(this.selectedStatisticsType == "Class") {
+                config = {
 
-            //     if(this.selectedDisplayStatistics == "All") {
-            //         this.currentTable = "class-single-table";
-            //         //this.currentTable = "class-single-chart";                         // DEV uncomment above
-            //     }
-            //     else {
-            //         this.currentTable = "class-subsort-table";
-            //     }
-            // }
-            // else if(this.selectedStatisticsType == "Student") {
-
-            //     if(this.selectedDisplayStatistics == "All") {
-            //         this.currentTable = "student-single-table";
-            //     }
-            //     else {
-            //         this.currentTable = "student-subsort-table";
-            //     }
-            // }
-
-            // If class all
-            yconfig = {
-
-              type: 'bar',
-              data: {
-                labels: ['Classes by Year'],
-                datasets: [{
-                  label: 'Number of Classes',
-                  data: [12],
-                  backgroundColor: "rgba(153,255,51,0.4)"
-                }]
-              }
-            }
-            mconfig = {
-
-              type: 'bar',
-              data: {
-                labels: ['Classes by Month'],
-                datasets: [{
-                  label: 'Number of Classes',
-                  data: [12],
-                  backgroundColor: "rgba(153,255,51,0.4)"
-                }]
-              }
-            }
-            qconfig = {
-
-              type: 'bar',
-              data: {
-                labels: ['Classes by Quarter'],
-                datasets: [{
-                  label: 'Number of Classes',
-                  data: [12],
-                  backgroundColor: "rgba(153,255,51,0.4)"
-                }]
-              }
+                  type: 'bar',
+                  data: {
+                    labels: ['Classes by Year'],
+                    datasets: [{
+                      label: 'Number of Classes',
+                      data: [12],
+                      backgroundColor: "rgba(153,255,51,0.4)"
+                    }]
+                  },
+                  options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero:true
+                                }
+                            }],
+                            yAxes: [{
+                                ticks: {
+                                    fontSize: 40
+                                }
+                            }]
+                        }
+                    }
+                }
             }
 
-            var yctx = document.getElementById('year-results-chart').getContext('2d');
-            var mctx = document.getElementById('month-results-chart').getContext('2d');
-            var qctx = document.getElementById('quarter-results-chart').getContext('2d');
+            if(this.displayMonth) {
 
-            var yearChart = new Chart(yctx, yconfig);
-            var monthChart = new Chart(mctx, mconfig);
-            var quarterChart = new Chart(qctx, qconfig);
+                config = {
+
+                  type: 'bar',
+                  data: {
+                    labels: ['Classes by Month'],
+                    datasets: [{
+                      label: 'Number of Classes',
+                      data: [12],
+                      backgroundColor: "rgba(153,255,51,0.4)"
+                    }]
+                  }
+                }
+            }
+            if(this.displayQuarter) {
+                config = {
+
+                  type: 'bar',
+                  data: {
+                    labels: ['Classes by Quarter'],
+                    datasets: [{
+                      label: 'Number of Classes',
+                      data: [12],
+                      backgroundColor: "rgba(153,255,51,0.4)"
+                    }]
+                  }
+                }
+            }
+
+            var ctx = document.getElementById('results-chart').getContext('2d');
+            var chart = new Chart(ctx, config);
         }
     }
 
@@ -441,6 +445,16 @@ export class Statistics {
         this.displayYear = this.selectedListResultsBy == "Total" ? true : false;
         this.displayMonth = this.selectedListResultsBy == "Month" ? true : false;
         this.displayQuarter = this.selectedListResultsBy == "Quarter" ? true : false;
+
+        // Render the charts again
+        if(1) {
+            // document.getElementById('year-results-chart').getContext('2d').display = this.displayYear ? "inline-block" : "none";
+            // document.getElementById('month-results-chart').getContext('2d').display = this.displayYear ? "inline-block" : "none";
+            // document.getElementById('quarter-results-chart').getContext('2d').display = this.displayYear ? "inline-block" : "none";
+
+            this.renderStatisticsCharts(this.resultData);
+
+        }
     }
 
     onChangeDisplayStatistics() {
