@@ -108,31 +108,18 @@
                             <button type="button" class="btn btn-default" click.delegate="submitForms()">Get Statistics</button>
                         </form>
 
-                        <div id="table-section">
+                        <div id="results-section">
                             <compose if.bind="displayResults" view="./partials/${currentTable}.html"></compose>
                         </div>
 
                         <div id="chart-section">
-                            <canvas id="year-results-chart" class="results-chart"></canvas>
-                            <canvas id="month-results-chart" class="results-chart"></canvas>
-                            <canvas id="quarter-results-chart" class="results-chart"></canvas>
+                            <compose view="./partials/chart.html"></compose>
                         </div>
 
                     </div>
                 </div>
             </div>
         </div>
-        <!-- /#page-content-wrapper -->
 
     </div>
-    <!-- /#wrapper -->
-
-    <!-- Menu Toggle Script -->
-<!--     <script>
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-    </script>
- -->
 </template>
