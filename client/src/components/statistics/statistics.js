@@ -109,8 +109,8 @@ export class Statistics {
         this.displayResults = true;
 
         // Sort result months / quarters based on selected time period.  (Ex: Fiscal period will list July and Summer quarter first in list)
-        this.resultData.month = this.sortResultMonthsByTimePeriod(data);
-        this.resultData.quarter = this.sortResultQuartersByTimePeriod(data);
+        // this.resultData.month = this.sortResultMonthsByTimePeriod(data);
+        // this.resultData.quarter = this.sortResultQuartersByTimePeriod(data);
 
         // If a string is passed in, render as a message.  If an object is passed in, attempt to render its data
         if(typeof data == null) { 
@@ -181,34 +181,34 @@ export class Statistics {
                     else if(this.displayMonth) {
 
                         // Sort months to display by current timeframe
-                        months = this.sortResultMonthsByTimePeriod(this.resultData);
+                        //months = this.sortResultMonthsByTimePeriod(this.resultData);
 
                         // Add month labels for columns
-                        for(var index in months) {
-                            labels.push(this.monthStringValueConverter.toView(months[index]));
+                        for(var index in this.resultData.month) {
+                            labels.push(this.monthStringValueConverter.toView(this.resultData.month[index]));
                         }
 
                         // Add column data
-                        for(var index in months) {
-                            for(var key in months[index]) {
-                                data.push(months[index][key]);
+                        for(var index in this.resultData.month) {
+                            for(var key in this.resultData.month[index]) {
+                                data.push(this.resultData.month[index][key]);
                             }
                         }
                     }
                     else if(this.displayQuarter) {
 
                         // Sort quarters to display by current timeframe
-                        quarters = this.sortResultQuartersByTimePeriod(this.resultData);
+                        //quarters = this.sortResultQuartersByTimePeriod(this.resultData);
 
                         // Add quarter labels for columns
-                        for(var index in quarters) {
-                            labels.push(this.quarterStringValueConverter.toView(quarters[index]));
+                        for(var index in this.resultData.quarter) {
+                            labels.push(this.quarterStringValueConverter.toView(this.resultData.quarter[index]));
                         }
 
                         // Add column data
-                        for(var index in quarters) {
-                            for(var key in quarters[index]) {
-                                data.push(quarters[index][key]);
+                        for(var index in this.resultData.quarter) {
+                            for(var key in this.resultData.quarter[index]) {
+                                data.push(this.resultData.quarter[index][key]);
                             }
                         }
                     }
@@ -475,11 +475,13 @@ export class Statistics {
 
         if(this.displayFormat == "Table") {
             document.getElementById('chart-section').style.display = "none";
-            this.renderStatisticsTables(this.resultData);
+            this.submitForms();
+            //this.renderStatisticsTables(this.resultData);
         }
         else if(this.displayFormat == "Chart") {
             document.getElementById('chart-section').style.display = "block";
-            this.renderStatisticsCharts(this.resultData);
+            this.submitForms();
+            //this.renderStatisticsCharts(this.resultData);
         }
     }
 
@@ -592,6 +594,8 @@ export class Statistics {
             this.utils.doAjax('get/data/search/class', 'get', data, null).then(data => {
                 this.utils.stopSpinner();
                 this.resultData = data.data;
+                this.resultData.month = this.sortResultMonthsByTimePeriod(this.resultData);
+                this.resultData.quarter = this.sortResultQuartersByTimePeriod(this.resultData);
 
                 // Show search options, hide the search form
                 document.getElementById('result-options').style.display = "block";                  // TODO move to function
@@ -608,6 +612,8 @@ export class Statistics {
             this.utils.doAjax('get/data/search/allStatistics', 'get', data, null).then(data => {
                 this.utils.stopSpinner();
                 this.resultData = data.data;
+                this.resultData.month = this.sortResultMonthsByTimePeriod(this.resultData);
+                this.resultData.quarter = this.sortResultQuartersByTimePeriod(this.resultData);
 
                 // Show search options, hide the search form
                 document.getElementById('result-options').style.display = "block";                   // TODO move to function
