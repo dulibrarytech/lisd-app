@@ -21,6 +21,7 @@ export class ChartUtils {
         }
 
         this.numOfStudentTypes = 4;	// settings
+        this.barColorScheme = ['#C1F3F9', '#B9DBA6', '#F2E4C7', '#DBAAAB', '#CAC1F9'];	// Kuler scheme
 	}
 
 	renderClassSingleChart(labelArray, dataArray) {	// This does not know about timeframes.  Sort external to this function?
@@ -60,7 +61,7 @@ export class ChartUtils {
 	renderStudentSingleChart(labelArray, dataArray) {
 
 		var colorIndex = 0;
-		var barColors = ['#C1F3F9', '#B9DBA6', '#F2E4C7', '#DBAAAB', '#CAC1F9'];	// Kuler scheme
+		var barColors = this.barColorScheme;
 
 		var dataSetArray = [], newArray = [];
 		var dataSet = {};
@@ -100,5 +101,13 @@ export class ChartUtils {
 		        })
 		    }
 		});
+	}
+
+	renderClassSubsortChart(labelArray, dataArray) {
+
+	}
+
+	renderStudentSubsortChart(labelArray, dataArray) {
+		
 	}
 }

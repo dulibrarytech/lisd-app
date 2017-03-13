@@ -206,7 +206,7 @@ export class Statistics {
                     this.chartUtils.renderClassSingleChart(labels, data);
                 }
 
-                // Student statustics
+                // Student statistics
                 else if(this.selectedStatisticsType == "Student") {
 
                     var tempData = [];
@@ -216,7 +216,7 @@ export class Statistics {
                     if(this.displayYear) {  // Year = total for time period (Totals)
 
                         // Show the total number of classes
-                        labels = ['Total Classes'];
+                        labels = ['Total Students'];
                         for(var index in this.resultData.year) {
                             tempData.push(this.resultData.year[index]);
                         }
@@ -224,15 +224,10 @@ export class Statistics {
                     }
                     else if(this.displayMonth) {
 
-                        console.log("DEV:");
-                        console.log(this.resultData.month);
-
                         //Add month labels for columns
                         for(var index in this.resultData.month) {
                             labels.push(this.monthStringValueConverter.toView(this.resultData.month[index]));
                         }
-
-                        console.log(labels);
 
                         // // Add column data
                         for(var index of this.resultData.month) {
@@ -247,8 +242,24 @@ export class Statistics {
 
                         //data.push(tempData);
                     }
+                    else if(this.displayQuarter) {
 
-                    console.log(data);
+                        // Add quarter labels for columns
+                        for(var index in this.resultData.quarter) {
+                            labels.push(this.quarterStringValueConverter.toView(this.resultData.quarter[index]));
+                        }
+
+                        // // Add column data
+                        for(var index of this.resultData.quarter) {
+                            for(var subindex in index) {
+                                tempData = [];
+                                for(var val in index[subindex]) {
+                                    tempData.push(index[subindex][val]);
+                                }
+                            }
+                            data.push(tempData);
+                        }
+                    }
 
                     this.chartUtils.renderStudentSingleChart(labels, data);
                 }
@@ -259,6 +270,9 @@ export class Statistics {
                 if(this.selectedStatisticsType == "Class") {
 
                     // Get label array, data array
+                    if(this.displayYear) {
+
+                    }
 
                     //this.chartUtils.renderClassSubsortChart(labels, data);
                 }
