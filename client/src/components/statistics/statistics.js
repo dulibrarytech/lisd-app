@@ -102,15 +102,8 @@ export class Statistics {
 
     renderStatisticsTables(data) {
 
-        // Set local object for table rendering
-        //this.resultData = data;
-        console.log("renderStatisticsTables");
         // Enable the table display
         this.displayResults = true;
-
-        // Sort result months / quarters based on selected time period.  (Ex: Fiscal period will list July and Summer quarter first in list)
-        // this.resultData.month = this.sortResultMonthsByTimePeriod(data);
-        // this.resultData.quarter = this.sortResultQuartersByTimePeriod(data);
 
         // If a string is passed in, render as a message.  If an object is passed in, attempt to render its data
         if(typeof data == null) { 
@@ -180,9 +173,6 @@ export class Statistics {
                     }
                     else if(this.displayMonth) {
 
-                        // Sort months to display by current timeframe
-                        //months = this.sortResultMonthsByTimePeriod(this.resultData);
-
                         // Add month labels for columns
                         for(var index in this.resultData.month) {
                             labels.push(this.monthStringValueConverter.toView(this.resultData.month[index]));
@@ -244,10 +234,6 @@ export class Statistics {
     }
 
     renderClassDataTable(data) {
-
-        // Set local object for table rendering
-        //this.resultData = data;
-        //console.log(data);
 
         // If a string is passed in, render as a message.  If an object is passed in, attempt to render its data
         if(typeof data == null) { 
@@ -444,16 +430,6 @@ export class Statistics {
         }
     }
 
-    // Search Options (only available after results are rendered)
-    // onChangeStatisticsType() {
-    //     console.log("Change stats for");
-    //     this.submitForms();
-    // }
-
-    // onChangeFormatType() {
-    //     this.submitForms();
-    // }
-
     onChangeListResultsBy() {
 
         this.displayYear = this.selectedListResultsBy == "Total" ? true : false;
@@ -465,11 +441,6 @@ export class Statistics {
             this.renderStatisticsCharts(this.resultData);
         }
     }
-
-    // onChangeDisplayStatistics() {
-    //     console.log("Change display");
-    //     this.submitForms();
-    // }
 
     onChangeDisplayFormat() {
 
