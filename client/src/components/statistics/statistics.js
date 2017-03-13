@@ -173,34 +173,51 @@ export class Statistics {
 
             // Get chart configuration based on search settings
             var config = {};
+            var labels = [], data = [];
             if(this.selectedDisplayStatistics == "All") {
                // config = this.chartUtils.getSingleChartConfig(this.selectedListResultsBy, this.selectedStatisticsType);
 
+                // Class statistics
                 if(this.selectedStatisticsType == "Class") {
-                    this.chartUtils.renderClassSingleChart(this.resultData, this.selectedListResultsBy, this.selectedSearchTimeframe);
+
+                    // Get label array, data array based on display type
+                    if(this.displayYear) {
+                        labels = ['Total Classes'];
+                        data = [this.resultData.year.total];
+                    }
+                    else if(this.displayMonth) {
+                        // labels = 
+                        // data = 
+                    }
+                    else if(this.displayQuarter) {
+                        // labels = 
+                        // data = 
+                    }
+
+                    this.chartUtils.renderClassSingleChart(labels, data);
                 }
-                else if(this.selectedListResultsBy == "Month") {
-                    this.chartUtils.renderSingleMonthChart(data);
-                }
-                else if(this.selectedListResultsBy == "Quarter") {
-                    this.chartUtils.renderSingleQuarterChart(data);
+                // Student statustics
+                else if(this.selectedStatisticsType == "Student") {
+
+                    // Get label array, data array
+
+                    //this.chartUtils.renderStudentSingleChart(labels, data);
                 }
             }
             else {
-                //config = this.chartUtils.getSubsortChartConfig(this.selectedListResultsBy, this.selectedStatisticsType);
-            }
+                if(this.selectedStatisticsType == "Class") {
 
-            // TO move to inside chart class
-            // Handle null config object
-            // var ctx, chart;
-            // if(Object.keys(config).length === 0) {
-            //     console.log("Error: No chart configuration retrieved");
-            // }
-            // else {
-            //     // Get the chart
-            //     ctx = document.getElementById('results-chart').getContext('2d');
-            //     chart = new Chart(ctx, config);
-            // }
+                    // Get label array, data array
+
+                    //this.chartUtils.renderClassSubsortChart(labels, data);
+                }
+                else if(this.selectedStatisticsType == "Student") {
+
+                    // Get label array, data array
+
+                    //this.chartUtils.renderStudentSubsortChart(labels, data);
+                }
+            }
         }
     }
 
@@ -417,14 +434,9 @@ export class Statistics {
         this.displayMonth = this.selectedListResultsBy == "Month" ? true : false;
         this.displayQuarter = this.selectedListResultsBy == "Quarter" ? true : false;
 
-        // Render the charts again
-        if(1) {
-            // document.getElementById('year-results-chart').getContext('2d').display = this.displayYear ? "inline-block" : "none";
-            // document.getElementById('month-results-chart').getContext('2d').display = this.displayYear ? "inline-block" : "none";
-            // document.getElementById('quarter-results-chart').getContext('2d').display = this.displayYear ? "inline-block" : "none";
-
+        // // Render the charts again
+        if(this.displayFormat = "Chart") {
             this.renderStatisticsCharts(this.resultData);
-
         }
     }
 
