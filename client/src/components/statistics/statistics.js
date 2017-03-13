@@ -3,9 +3,12 @@ import { customElement, inject } from 'aurelia-framework';
 
 import {SystemUtils} from '../../utils/SystemUtils.js';
 import {ChartUtils} from '../../utils/ChartUtils.js';
+import {MonthStringValueConverter} from '../../utils/MonthStringValueConverter.js';
+import {QuarterStringValueConverter} from '../../utils/QuarterStringValueConverter.js';
+
 import $ from 'jquery'; // for datepicker
 
-@inject(SystemUtils, ChartUtils)
+@inject(SystemUtils, ChartUtils, MonthStringValueConverter, QuarterStringValueConverter)
 export class Statistics {
 
 	ajax;
@@ -53,11 +56,13 @@ export class Statistics {
     displayMonth;
     displayQuarter;
 
-    constructor(systemUtils, chartUtils) {
+    constructor(systemUtils, chartUtils, monthConverter, quarterConverter) {
 
         // Get the utils functions
         this.utils = systemUtils;
         this.chartUtils = chartUtils;
+        this.monthStringValueConverter = monthConverter;
+        this.quarterStringValueConverter = quarterConverter;
 
         // Get the librarians from the database, populate the librarian select box
         var dropdownData = this.getDropdownData();
@@ -148,9 +153,6 @@ export class Statistics {
 
     renderStatisticsCharts() {
 
-        this.resultData.month = this.sortResultMonthsByTimePeriod(this.resultData);
-        this.resultData.quarter = this.sortResultQuartersByTimePeriod(this.resultData);
-
         //this.currentTable = "class-single-chart";   
         document.getElementById('chart-section').style.display = "block";                                                        // DEV 
 
@@ -186,12 +188,24 @@ export class Statistics {
                         data = [this.resultData.year.total];
                     }
                     else if(this.displayMonth) {
-                        // labels = 
-                        // data = 
+                        this.resultData.month = this.sortResultMonthsByTimePeriod(this.resultData);
+
+                        for(var index in this.resultData.month) {
+                            labels.push(this.monthStringValueConverter.toView(this.resultData.month[index]));
+                        }
+                        //labels = this.monthStringValueConverter.toView(this.resultData.month);
+                        data = ['30', '20', '65', '34', '12', '45', '39', '15', '25', '9', '42', '16'];
+                        // loop this.resData.month obj
+                        // get key, -1
+                        // that is the array index of data[] to use
                     }
                     else if(this.displayQuarter) {
+                        this.resultData.quarter = this.sortResultQuartersByTimePeriod(this.resultData);
+                        for(var index in this.resultData.quarter) {
+                            labels.push(this.quarterStringValueConverter.toView(this.resultData.quarter[index]));
+                        }
                         // labels = 
-                        // data = 
+                        data = ['100', '50', '33', '75'];
                     }
 
                     this.chartUtils.renderClassSingleChart(labels, data);
