@@ -44,7 +44,7 @@ export class Statistics {
     quarters = ["Fall", "Winter", "Spring", "Summer"];
 
     displayFormat = "Chart";
-    displayFormats = ["Table", "Chart"];
+    displayFormats = ["Chart", "Table"];
 
     studentTypes = ["Undergraduate", "Graduate", "Faculty", "Other"];
 
@@ -83,7 +83,7 @@ export class Statistics {
 
         // Element vicibility
         document.getElementById('result-options').style.display = "none";
-        document.getElementById('new-search').style.display = "none";
+        document.getElementById('post-search-options').style.display = "none";
         document.getElementById('librarian-select').style.display = "none";
         document.getElementById('year-quarter-select').style.display = "none";
 
@@ -104,6 +104,9 @@ export class Statistics {
 
         // Set local object for table rendering
         //this.resultData = data;
+        console.log("renderStatisticsTables");
+        // Enable the table display
+        this.displayResults = true;
 
         // Sort result months / quarters based on selected time period.  (Ex: Fiscal period will list July and Summer quarter first in list)
         this.resultData.month = this.sortResultMonthsByTimePeriod(data);
@@ -115,12 +118,6 @@ export class Statistics {
             document.getElementById("results-table").innerHTML = "<span id='view-message'>" + data.message + "</span>"; 
         }
         else if(typeof data == "object") { 
-
-            // Show search options, hide the search form
-            document.getElementById('result-options').style.display = "block";
-            document.getElementById('statistics-search').style.display = "none";
-            document.getElementById('new-search').style.display = "block";
-            document.getElementById('search-options').style.display = "none";
 
             // Select display table based on search params
             if(this.selectedStatisticsType == "Class") {
@@ -143,15 +140,14 @@ export class Statistics {
                 }
             }
 
-            // Enable the table display
-            this.displayResults = true;
-
             // Update table visibility for 'results by' setting
             this.onChangeListResultsBy(); 
         }
     }
 
     renderStatisticsCharts() {
+
+        console.log("renderStatisticsCharts");
 
         //this.currentTable = "class-single-chart";   
         document.getElementById('chart-section').style.display = "block";                                                        // DEV 
@@ -164,14 +160,6 @@ export class Statistics {
 
             // Hide the tables if visible
             this.displayResults = false;
-
-            // var chartOptions = this.chartUtils.getChartSettings();                               // TODO
-
-            // Show search options, hide the search form
-            document.getElementById('result-options').style.display = "block";
-            document.getElementById('statistics-search').style.display = "none";
-            document.getElementById('new-search').style.display = "block";
-            document.getElementById('search-options').style.display = "none";
 
             // Get chart configuration based on search settings
             var config = {};
@@ -457,10 +445,14 @@ export class Statistics {
     }
 
     // Search Options (only available after results are rendered)
-    onChangeStatisticsType() {
-        console.log("Change stats for");
-        this.submitForms();
-    }
+    // onChangeStatisticsType() {
+    //     console.log("Change stats for");
+    //     this.submitForms();
+    // }
+
+    // onChangeFormatType() {
+    //     this.submitForms();
+    // }
 
     onChangeListResultsBy() {
 
@@ -469,21 +461,24 @@ export class Statistics {
         this.displayQuarter = this.selectedListResultsBy == "Quarter" ? true : false;
 
         // // Render the charts again
-        if(this.displayFormat = "Chart") {
+        if(this.displayFormat == "Chart") {
             this.renderStatisticsCharts(this.resultData);
         }
     }
 
-    onChangeDisplayStatistics() {
-        console.log("Change display");
-        this.submitForms();
-    }
+    // onChangeDisplayStatistics() {
+    //     console.log("Change display");
+    //     this.submitForms();
+    // }
 
     onChangeDisplayFormat() {
+
         if(this.displayFormat == "Table") {
+            document.getElementById('chart-section').style.display = "none";
             this.renderStatisticsTables(this.resultData);
         }
         else if(this.displayFormat == "Chart") {
+            document.getElementById('chart-section').style.display = "block";
             this.renderStatisticsCharts(this.resultData);
         }
     }
@@ -597,6 +592,13 @@ export class Statistics {
             this.utils.doAjax('get/data/search/class', 'get', data, null).then(data => {
                 this.utils.stopSpinner();
                 this.resultData = data.data;
+
+                // Show search options, hide the search form
+                document.getElementById('result-options').style.display = "block";                  // TODO move to function
+                document.getElementById('statistics-search').style.display = "none";
+                document.getElementById('post-search-options').style.display = "block";
+                document.getElementById('search-options').style.display = "none";
+
                 this.renderClassDataTable(this.resultData);
             });
         }
@@ -607,16 +609,18 @@ export class Statistics {
                 this.utils.stopSpinner();
                 this.resultData = data.data;
 
-                // if(this.selectedSearchTimeframe == "Quarter") {
-                //     console.log("Hiding...");
-                //     document.getElementById('Quarter-option').display = "none";
-                //     console.log(document.getElementById('Quarter-option'));
-                // }
+                // Show search options, hide the search form
+                document.getElementById('result-options').style.display = "block";                   // TODO move to function
+                document.getElementById('statistics-search').style.display = "none";
+                document.getElementById('post-search-options').style.display = "block";
+                document.getElementById('search-options').style.display = "none";
 
                 if(this.displayFormat == "Table") {
+                    console.log("Rendering tables");
                     this.renderStatisticsTables(this.resultData);
                 }
                 else if(this.displayFormat == "Chart") {
+                    console.log("Rendering charts");
                     this.renderStatisticsCharts(this.resultData);
                 }
             });

@@ -30,7 +30,7 @@
                 <label>For:</label>
                 <div class="form-section">
                     <label class="radio-select" repeat.for="option of statisticsType">
-                        <input type="radio" class="" value.bind="option" name="statsType" checked.bind="$parent.selectedStatisticsType" change.delegate="onChangeStatisticsType()">${option}
+                        <input type="radio" class="" value.bind="option" name="statsType" checked.bind="$parent.selectedStatisticsType" change.delegate="submitForms()">${option}
                     </label>
                 </div>
 
@@ -44,7 +44,7 @@
                 <label>Display Statistics By:</label>
                 <div class="form-section">
                     <label class="radio-select" repeat.for="option of displayStatistics">
-                        <input type="radio" class="" value.bind="option" name="statsDisplay" checked.bind="$parent.selectedDisplayStatistics" change.delegate="onChangeDisplayStatistics()">${option}
+                        <input type="radio" class="" value.bind="option" name="statsDisplay" checked.bind="$parent.selectedDisplayStatistics" change.delegate="submitForms()">${option}
                     </label>
                 </div>
             </div>
@@ -57,7 +57,14 @@
                 <!-- <h2 class="view-header">Statistics</h2> -->
                 <div class="row">
                     <div class="col-lg-12">
-                        <button type="button" id="new-search" class="btn btn-default" click.delegate="newSearch()">New Search</button>
+
+                        <div id="post-search-options">
+                            <button type="button" id="new-search" class="btn btn-default" click.delegate="newSearch()">New Search</button>
+                            <label class="radio-select" repeat.for="format of displayFormats">
+                                <input type="radio" value.bind="format" name="displayFormat" checked.bind="$parent.displayFormat" change.delegate="onChangeDisplayFormat()">${format}
+                            </label>
+                        </div>
+                        
                         <form id="statistics-search" role="form">
                             <div class="search-input-group">
                                 <!-- <label>Search Time Period:</label>
