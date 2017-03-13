@@ -176,40 +176,58 @@ export class Statistics {
             // Get chart configuration based on search settings
             var config = {};
             var labels = [], data = [];
+            var months, quarters;
+
+            // Single sorting chart
             if(this.selectedDisplayStatistics == "All") {
-               // config = this.chartUtils.getSingleChartConfig(this.selectedListResultsBy, this.selectedStatisticsType);
 
                 // Class statistics
                 if(this.selectedStatisticsType == "Class") {
 
-                    // Get label array, data array based on display type
-                    if(this.displayYear) {
+                    if(this.displayYear) {  // Year = total for time period (Totals)
+
+                        // Show the total number of classes
                         labels = ['Total Classes'];
                         data = [this.resultData.year.total];
                     }
                     else if(this.displayMonth) {
-                        this.resultData.month = this.sortResultMonthsByTimePeriod(this.resultData);
 
-                        for(var index in this.resultData.month) {
-                            labels.push(this.monthStringValueConverter.toView(this.resultData.month[index]));
+                        // Sort months to display by current timeframe
+                        months = this.sortResultMonthsByTimePeriod(this.resultData);
+
+                        // Add month labels for columns
+                        for(var index in months) {
+                            labels.push(this.monthStringValueConverter.toView(months[index]));
                         }
-                        //labels = this.monthStringValueConverter.toView(this.resultData.month);
-                        data = ['30', '20', '65', '34', '12', '45', '39', '15', '25', '9', '42', '16'];
-                        // loop this.resData.month obj
-                        // get key, -1
-                        // that is the array index of data[] to use
+
+                        // Add column data
+                        for(var index in months) {
+                            for(var key in months[index]) {
+                                data.push(months[index][key]);
+                            }
+                        }
                     }
                     else if(this.displayQuarter) {
-                        this.resultData.quarter = this.sortResultQuartersByTimePeriod(this.resultData);
-                        for(var index in this.resultData.quarter) {
-                            labels.push(this.quarterStringValueConverter.toView(this.resultData.quarter[index]));
+
+                        // Sort quarters to display by current timeframe
+                        quarters = this.sortResultQuartersByTimePeriod(this.resultData);
+
+                        // Add quarter labels for columns
+                        for(var index in quarters) {
+                            labels.push(this.quarterStringValueConverter.toView(quarters[index]));
                         }
-                        // labels = 
-                        data = ['100', '50', '33', '75'];
+
+                        // Add column data
+                        for(var index in quarters) {
+                            for(var key in quarters[index]) {
+                                data.push(quarters[index][key]);
+                            }
+                        }
                     }
 
                     this.chartUtils.renderClassSingleChart(labels, data);
                 }
+
                 // Student statustics
                 else if(this.selectedStatisticsType == "Student") {
 
@@ -218,6 +236,8 @@ export class Statistics {
                     //this.chartUtils.renderStudentSingleChart(labels, data);
                 }
             }
+
+            // Subsorting chart
             else {
                 if(this.selectedStatisticsType == "Class") {
 
@@ -586,6 +606,12 @@ export class Statistics {
             this.utils.doAjax('get/data/search/allStatistics', 'get', data, null).then(data => {
                 this.utils.stopSpinner();
                 this.resultData = data.data;
+
+                // if(this.selectedSearchTimeframe == "Quarter") {
+                //     console.log("Hiding...");
+                //     document.getElementById('Quarter-option').display = "none";
+                //     console.log(document.getElementById('Quarter-option'));
+                // }
 
                 if(this.displayFormat == "Table") {
                     this.renderStatisticsTables(this.resultData);

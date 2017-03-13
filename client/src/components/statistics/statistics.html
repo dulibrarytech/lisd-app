@@ -36,7 +36,7 @@
 
                 <label>Show Results By:</label>
                 <div class="form-section">
-                    <label class="radio-select" repeat.for="option of listResultsBy">
+                    <label class="radio-select" repeat.for="option of listResultsBy" id="${option}-option">
                         <input type="radio" class="" value.bind="option" name="statsBy" checked.bind="$parent.selectedListResultsBy" change.delegate="onChangeListResultsBy()">${option}
                     </label>
                 </div>
