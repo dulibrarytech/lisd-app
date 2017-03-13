@@ -222,6 +222,33 @@ export class Statistics {
                         }
                         data.push(tempData);
                     }
+                    else if(this.displayMonth) {
+
+                        console.log("DEV:");
+                        console.log(this.resultData.month);
+
+                        //Add month labels for columns
+                        for(var index in this.resultData.month) {
+                            labels.push(this.monthStringValueConverter.toView(this.resultData.month[index]));
+                        }
+
+                        console.log(labels);
+
+                        // // Add column data
+                        for(var index of this.resultData.month) {
+                            for(var subindex in index) {
+                                tempData = [];
+                                for(var val in index[subindex]) {
+                                    tempData.push(index[subindex][val]);
+                                }
+                            }
+                            data.push(tempData);
+                        }
+
+                        //data.push(tempData);
+                    }
+
+                    console.log(data);
 
                     this.chartUtils.renderStudentSingleChart(labels, data);
                 }
