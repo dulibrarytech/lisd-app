@@ -175,7 +175,7 @@ export class Statistics {
 
                         // Add month labels for columns
                         for(var index in this.resultData.month) {
-                            labels.push(this.monthStringValueConverter.toView(this.resultData.month[index]));
+                            labels.push( this.monthStringValueConverter.toView( this.resultData.month[index] ).substring(0,3) );
                         }
 
                         // Add column data
@@ -226,7 +226,7 @@ export class Statistics {
 
                         //Add month labels for columns
                         for(var index in this.resultData.month) {
-                            labels.push(this.monthStringValueConverter.toView(this.resultData.month[index]));
+                            labels.push( this.monthStringValueConverter.toView( this.resultData.month[index] ).substring(0,3) );
                         }
 
                         // // Add column data
