@@ -297,6 +297,22 @@ div.form-section {
     padding: 15px 10px 10px 10px;
 }
 
+div#month-results div,
+div#quarter-results div {
+	border-style: solid;
+    border-color: #e5e3e1;
+    border-radius: 3px;
+    padding: 0.8em;
+    margin-top: 2em;
+    width: 50%;
+}
+
+div#chart-section,
+div#results-section {
+	margin-top: 5em;
+    margin-left: 3.5em;
+}
+
 .form-control {
 	margin-bottom: 2em;
 }
@@ -308,7 +324,7 @@ input#to-date-select {
 }
 
 table.results-table {
-	width: 50%;
+	width: 100%;
 	margin-top: 2em;
 	margin-left: 2em;
 }
@@ -317,6 +333,12 @@ canvas.results-chart {
 	width: 50% !important;
     height: auto !important;
 }
+
+
+
+
+
+
 
 
 @media only screen and (min-width: 1600px) {
