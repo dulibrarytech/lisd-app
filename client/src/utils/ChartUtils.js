@@ -19,57 +19,83 @@ export class ChartUtils {
         }
 	}
 
-	getSingleChartConfig(resultListType, statisticsType) {
+	renderClassSingleChart(resultData,  resultListType, timeframe) {	// This does not know about timeframes.  Sort external to this function?
+		
+		var months = [], data = [];
+		if(timeframe == "Fiscal") {
+			months = 
+		}
+
 		var config = {};
 		if(resultListType == "Total") {
 
             config = {
-
-              type: 'bar',
-              data: {
-                labels: ['Classes by Year'],
-                datasets: [{
-                  label: 'Number of Classes',
-                  data: [12],
-                  backgroundColor: "rgba(153,255,51,0.4)"
-                }]
-              },
-              options: this.chartOptions
-            }
+			    labels: ["Total Classes"],
+			    datasets: [
+			        {
+			            fillColor: "#79D1CF",
+			            strokeColor: "#79D1CF",
+			            data: [120]
+			        }
+			    ]
+			};
         }
         else if(resultListType == "Month") {
 
-            config = {
+        	if(timeframe == "Fiscal") {
+				months = ["July", "August", "September", "October", "November", "December", "January", "February", "March", "April", "May", "June"];
+			}
+			else if(timeframe == "Academic") {
+				months = ["September", "October", "November", "December", "January", "February", "March", "April", "May", "June", "July", "August"];
+			}
+			else {
+				months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+			}
 
-              type: 'bar',
-              data: {
-                labels: ['Classes by Month'],
-                datasets: [{
-                  label: 'Number of Classes',
-                  data: [12],
-                  backgroundColor: "rgba(153,255,51,0.4)"
-                }]
-              },
-              options: this.chartOptions
-            }
+            config = {
+			    labels: months,
+			    datasets: [
+			        {
+			            fillColor: "#79D1CF",
+			            strokeColor: "#79D1CF",
+			            data: [60, 80, 81, 56, 55, 40, 25, 33, 15, 70, 23, 12]
+			        }
+			    ]
+			};
         }
         else if(resultListType == "Quarter") {
-            config = {
 
-              type: 'bar',
-              data: {
-                labels: ['Classes by Quarter'],
-                datasets: [{
-                  label: 'Number of Classes',
-                  data: [12],
-                  backgroundColor: "rgba(153,255,51,0.4)"
-                }]
-              },
-              options: this.chartOptions
-            }
+            config = {
+			    labels: ["July", "August", "September", "October"],
+			    datasets: [
+			        {
+			        	label: "",
+			            fillColor: ["#79D1CF"],
+			            strokeColor: "#79D1CF",
+			            data: [60, 80, 81, 56]
+			        }
+			    ]
+			};
         }
 
-        return config;
+        var ctx = document.getElementById("results-chart").getContext("2d");
+		var myBar = new Chart(ctx).Bar(config, {
+		    showTooltips: false,
+		    onAnimationComplete: function () {
+
+		        var ctx = this.chart.ctx;
+		        ctx.font = this.scale.font;
+		        ctx.fillStyle = this.scale.textColor
+		        ctx.textAlign = "center";
+		        ctx.textBaseline = "bottom";
+
+		        this.datasets.forEach(function (dataset) {
+		            dataset.bars.forEach(function (bar) {
+		                ctx.fillText(bar.value, bar.x, bar.y - 5);
+		            });
+		        })
+		    }
+		});
 	}
 
 	getSubsortChartConfig(resultListType, statisticsType) {

@@ -146,17 +146,16 @@ export class Statistics {
         }
     }
 
-    renderStatisticsCharts(data) {
+    renderStatisticsCharts() {
 
         //this.currentTable = "class-single-chart";   
         document.getElementById('chart-section').style.display = "block";                                                        // DEV 
 
         // If a string is passed in, render as a message.  If an object is passed in, attempt to render its data
-        if(typeof data == null) { 
-            
-            document.getElementById("results-table").innerHTML = "<span id='view-message'>" + data.message + "</span>"; 
+        if(typeof this.resultData == null) { 
+            document.getElementById("results-chart").innerHTML = "<span id='view-message'>" + this.resultData.message + "</span>"; 
         }
-        else if(typeof data == "object") {
+        else if(typeof this.resultData == "object") {
 
             // Hide the tables if visible
             this.displayResults = false;
@@ -172,12 +171,17 @@ export class Statistics {
             // Get chart configuration based on search settings
             var config = {};
             if(this.selectedDisplayStatistics == "All") {
-                config = this.chartUtils.getSingleChartConfig(this.selectedListResultsBy, this.selectedStatisticsType);
+               // config = this.chartUtils.getSingleChartConfig(this.selectedListResultsBy, this.selectedStatisticsType);
 
-                if(this.selectedListResultsBy == "Total") {
-                    this.chartUtils.renderSingleYearChartConfig(this.selectedListResultsBy, this.selectedStatisticsType);
+                if(this.selectedStatisticsType == "Class") {
+                    this.chartUtils.renderClassSingleChart(this.resultData, this.selectedListResultsBy, this.selectedSearchTimeframe);
                 }
-                this.chartUtils.renderSingleYearChartConfig(this.selectedListResultsBy, this.selectedStatisticsType);
+                else if(this.selectedListResultsBy == "Month") {
+                    this.chartUtils.renderSingleMonthChart(data);
+                }
+                else if(this.selectedListResultsBy == "Quarter") {
+                    this.chartUtils.renderSingleQuarterChart(data);
+                }
             }
             else {
                 //config = this.chartUtils.getSubsortChartConfig(this.selectedListResultsBy, this.selectedStatisticsType);
@@ -185,15 +189,15 @@ export class Statistics {
 
             // TO move to inside chart class
             // Handle null config object
-            var ctx, chart;
-            if(Object.keys(config).length === 0) {
-                console.log("Error: No chart configuration retrieved");
-            }
-            else {
-                // Get the chart
-                ctx = document.getElementById('results-chart').getContext('2d');
-                chart = new Chart(ctx, config);
-            }
+            // var ctx, chart;
+            // if(Object.keys(config).length === 0) {
+            //     console.log("Error: No chart configuration retrieved");
+            // }
+            // else {
+            //     // Get the chart
+            //     ctx = document.getElementById('results-chart').getContext('2d');
+            //     chart = new Chart(ctx, config);
+            // }
         }
     }
 
