@@ -209,7 +209,19 @@ export class Statistics {
                 // Student statustics
                 else if(this.selectedStatisticsType == "Student") {
 
+                    var tempData = [];
+                    data = [];
+
                     // Get label array, data array
+                    if(this.displayYear) {  // Year = total for time period (Totals)
+
+                        // Show the total number of classes
+                        labels = ['Total Classes'];
+                        for(var index in this.resultData.year) {
+                            tempData.push(this.resultData.year[index]);
+                        }
+                        data.push(tempData);
+                    }
 
                     this.chartUtils.renderStudentSingleChart(labels, data);
                 }
