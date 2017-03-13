@@ -148,6 +148,9 @@ export class Statistics {
 
     renderStatisticsCharts() {
 
+        this.resultData.month = this.sortResultMonthsByTimePeriod(this.resultData);
+        this.resultData.quarter = this.sortResultQuartersByTimePeriod(this.resultData);
+
         //this.currentTable = "class-single-chart";   
         document.getElementById('chart-section').style.display = "block";                                                        // DEV 
 
