@@ -211,7 +211,7 @@ export class Statistics {
 
                     // Get label array, data array
 
-                    //this.chartUtils.renderStudentSingleChart(labels, data);
+                    this.chartUtils.renderStudentSingleChart(labels, data);
                 }
             }
 
