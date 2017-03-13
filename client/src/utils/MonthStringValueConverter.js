@@ -11,40 +11,40 @@ export class MonthStringValueConverter {
             if (monthObj.hasOwnProperty(prop)) {
                 switch(prop) {
                     case "1":
-                        mString = "January";
+                        mString = "Jan";
                         break;
                     case "2":
-                        mString = "February";
+                        mString = "Feb";
                         break;
                     case "3":
-                        mString = "March";
+                        mString = "Mar";
                         break;
                     case "4":
-                        mString = "April";
+                        mString = "Apr";
                         break;
                     case "5":
                         mString = "May";
                         break;
                     case "6":
-                        mString = "June";
+                        mString = "Jun";
                         break;
                     case "7":
-                        mString = "July";
+                        mString = "Jul";
                         break;
                     case "8":
-                        mString = "August";
+                        mString = "Aug";
                         break;
                     case "9":
-                        mString = "September";
+                        mString = "Sep";
                         break;
                     case "10":
-                        mString = "October";
+                        mString = "Oct";
                         break;
                     case "11":
-                        mString = "November";
+                        mString = "Nov";
                         break;
                     case "12":
-                        mString = "December";
+                        mString = "Dec";
                         break;
                     default:
                         // No conversion, use prop value as is
