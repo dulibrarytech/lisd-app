@@ -308,7 +308,12 @@ export class Statistics {
                         // Add column data
                         for(var index in this.resultData.quarter) {
                             for(var key in this.resultData.quarter[index]) {
-                                data.push(this.resultData.quarter[index][key]);
+                                if(typeof this.resultData.quarter[index][key][this.selectedSubsortValue] != 'undefined') {
+                                    data.push(this.resultData.quarter[index][key][this.selectedSubsortValue]);
+                                }
+                                else {
+                                    data.push(0);
+                                }
                             }
                         }
                     }
@@ -319,7 +324,7 @@ export class Statistics {
 
                     // Get label array, data array
 
-                    //this.chartUtils.renderStudentSubsortChart(labels, data);
+                    //this.chartUtils.renderClassSingleChart(labels, data);
                 }
             }
         }
