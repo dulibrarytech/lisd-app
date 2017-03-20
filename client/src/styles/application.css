@@ -338,7 +338,9 @@ canvas.results-chart {
     height: auto !important;
 }
 
-
+div#subsort-select {
+	width: 20%;
+}
 
 
 
