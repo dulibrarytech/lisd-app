@@ -103,11 +103,11 @@ export class ChartUtils {
 		});
 	}
 
-	renderClassSubsortChart(labelArray, dataArray) {
+	// renderClassSubsortChart(labelArray, dataArray) {
 
-	}
+	// }
 
-	renderStudentSubsortChart(labelArray, dataArray) {
+	// renderStudentSubsortChart(labelArray, dataArray) {
 		
-	}
+	// }
 }
