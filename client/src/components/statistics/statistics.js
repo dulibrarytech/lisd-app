@@ -105,6 +105,8 @@ export class Statistics {
         // Enable the table display
         this.displayResults = true;
 
+        for(var val in this.resultData.month)
+
         // If a string is passed in, render as a message.  If an object is passed in, attempt to render its data
         if(typeof data == null) { 
             

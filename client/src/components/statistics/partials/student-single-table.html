@@ -33,12 +33,6 @@
 	<div id="quarter-results" style="" if.bind="displayQuarter">
 
 		<h3>Quarter Totals:</h3>
-		<!-- <table class="table results-table">
-			<th>Quarter</th><th repeat.for="key of resultData.year | objectKeys">${key}</th>
-			<tr repeat.for="key of resultData.quarter | objectKeys">
-				<td>${key | quarterString}</td><td repeat.for="val of resultData.quarter[key] | objectValues">${val}</td>
-			</tr>
-		</table> -->
 		<table class="table results-table">
 			<th>Quarter</th><th repeat.for="key of resultData.year | objectKeys">${key}</th>			<!-- USE model var -->
 			<tr repeat.for="index of resultData.quarter">
