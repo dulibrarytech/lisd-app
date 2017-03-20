@@ -49,6 +49,9 @@ export class Statistics {
     studentTypes = ["Undergraduate", "Graduate", "Faculty", "Other"];
 
     resultData = [];
+    subsortValues = [];
+    selectedSubsortValue = "";
+
     currentTable;
     currentChart;
     displayResults;
@@ -189,9 +192,6 @@ export class Statistics {
                     }
                     else if(this.displayQuarter) {
 
-                        // Sort quarters to display by current timeframe
-                        //quarters = this.sortResultQuartersByTimePeriod(this.resultData);
-
                         // Add quarter labels for columns
                         for(var index in this.resultData.quarter) {
                             labels.push(this.quarterStringValueConverter.toView(this.resultData.quarter[index]));
@@ -269,14 +269,51 @@ export class Statistics {
 
             // Subsorting chart
             else {
+
+                //console.log(this.resultData.month[0]['7']['Biology']);
+
                 if(this.selectedStatisticsType == "Class") {
 
                     // Get label array, data array
                     if(this.displayYear) {
+                        labels = [this.selectedSubsortValue];
+                        data = [this.resultData.year[this.selectedSubsortValue]];
+                    }
+                    else if(this.displayMonth) {
 
+                        // Add month labels for columns
+                        for(var index in this.resultData.month) {
+                            labels.push( this.monthStringValueConverter.toView( this.resultData.month[index] ).substring(0,3) );
+                        }
+
+                        // Add column data
+                        for(var index in this.resultData.month) {
+                            for(var key in this.resultData.month[index]) {
+                                if(typeof this.resultData.month[index][key][this.selectedSubsortValue] != 'undefined') {
+                                    data.push(this.resultData.month[index][key][this.selectedSubsortValue]);
+                                }
+                                else {
+                                    data.push(0);
+                                }
+                            }
+                        }
+                    }
+                    else if(this.displayQuarter) {
+
+                        // Add quarter labels for columns
+                        for(var index in this.resultData.quarter) {
+                            labels.push(this.quarterStringValueConverter.toView(this.resultData.quarter[index]));
+                        }
+
+                        // Add column data
+                        for(var index in this.resultData.quarter) {
+                            for(var key in this.resultData.quarter[index]) {
+                                data.push(this.resultData.quarter[index][key]);
+                            }
+                        }
                     }
 
-                    //this.chartUtils.renderClassSubsortChart(labels, data);
+                    this.chartUtils.renderClassSingleChart(labels, data);
                 }
                 else if(this.selectedStatisticsType == "Student") {
 
@@ -511,6 +548,10 @@ export class Statistics {
         }
     }
 
+    onChangeSubsortSelect() {
+        this.renderStatisticsCharts(this.resultData);
+    }
+
     newSearch() {
         // DEV - TEMP TODO create function to reset form resetForm()
         location.reload(false);
@@ -623,12 +664,14 @@ export class Statistics {
                 this.resultData.month = this.sortResultMonthsByTimePeriod(this.resultData);
                 this.resultData.quarter = this.sortResultQuartersByTimePeriod(this.resultData);
 
+                // TODO: add FUNCTION: initResultView(data)
                 // Show search options, hide the search form
                 document.getElementById('result-options').style.display = "block";                  // TODO move to function
                 document.getElementById('statistics-search').style.display = "none";
                 document.getElementById('post-search-options').style.display = "block";
                 document.getElementById('search-options').style.display = "none";
 
+                // Render the view (no chart option)
                 this.renderClassDataTable(this.resultData);
             });
         }
@@ -641,18 +684,30 @@ export class Statistics {
                 this.resultData.month = this.sortResultMonthsByTimePeriod(this.resultData);
                 this.resultData.quarter = this.sortResultQuartersByTimePeriod(this.resultData);
 
+                // TODO: add FUNCTION: initResultView(data)
                 // Show search options, hide the search form
                 document.getElementById('result-options').style.display = "block";                   // TODO move to function
                 document.getElementById('statistics-search').style.display = "none";
                 document.getElementById('post-search-options').style.display = "block";
                 document.getElementById('search-options').style.display = "none";
 
+                // Render the view
                 if(this.displayFormat == "Table") {
                     console.log("Rendering tables");
                     this.renderStatisticsTables(this.resultData);
                 }
                 else if(this.displayFormat == "Chart") {
                     console.log("Rendering charts");
+
+                    // Populate group select box, if not single sort
+                    if(this.selectedDisplayStatistics != "All") {
+                        this.subsortValues = []; // Clear past search results
+                        for (var key in this.resultData.year) {
+                            this.subsortValues.push(key);
+                        }
+                        this.selectedSubsortValue = this.subsortValues[0];  // Defaults to first in list
+                    }
+
                     this.renderStatisticsCharts(this.resultData);
                 }
             });

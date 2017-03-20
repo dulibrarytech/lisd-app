@@ -4,5 +4,10 @@
 
 	<canvas id="results-chart" class="results-chart"></canvas>
 
-	
+	<div id="subsort-select" if.bind="selectedDisplayStatistics != 'All'">
+        <label>Select ${selectedDisplayStatistics}</label>
+        <select class="form-control" value.bind="selectedSubsortValue" change.delegate="onChangeSubsortSelect()">
+            <option repeat.for="option of subsortValues" name="subsortValue" value.bind="option">${option}</option>
+        </select>
+    </div>
 <template>
