@@ -262,7 +262,7 @@ export class Statistics {
                             data.push(tempData);
                         }
                     }
-
+                    
                     this.chartUtils.renderStudentSingleChart(labels, data);
                 }
             }
@@ -322,8 +322,6 @@ export class Statistics {
                 }
                 else if(this.selectedStatisticsType == "Student") {
 
-                    console.log(this.resultData);
-
                     var tempData = [];
                     data = [];
 
@@ -336,6 +334,33 @@ export class Statistics {
                             tempData.push(this.resultData.year[this.selectedSubsortValue][index]);
                         }
                         data.push(tempData);
+                    }
+                    else if(this.displayMonth) {
+
+                         //Add month labels for columns
+                        for(var index in this.resultData.month) {
+                            labels.push( this.monthStringValueConverter.toView( this.resultData.month[index] ).substring(0,3) );
+                        }
+
+                        // // Add column data
+                        for(var index of this.resultData.month) {
+                            tempData = [];
+                            for(var subindex in index) {
+
+                                if(typeof index[subindex][this.selectedSubsortValue] == 'undefined') {
+                                    for(var i in this.studentTypes) {
+                                        tempData.push(0);
+                                    }
+                                }
+
+                                for(var key in index[subindex][this.selectedSubsortValue]) {
+                                    if(typeof index[subindex][this.selectedSubsortValue][key] != 'undefined') {
+                                        tempData.push(index[subindex][this.selectedSubsortValue][key]);
+                                    }
+                                }
+                            }
+                            data.push(tempData);
+                        }
                     }
 
                     this.chartUtils.renderStudentSingleChart(labels, data);
