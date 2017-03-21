@@ -322,9 +322,23 @@ export class Statistics {
                 }
                 else if(this.selectedStatisticsType == "Student") {
 
-                    // Get label array, data array
+                    console.log(this.resultData);
 
-                    //this.chartUtils.renderClassSingleChart(labels, data);
+                    var tempData = [];
+                    data = [];
+
+                    // Get label array, data array
+                    if(this.displayYear) {  // Year = total for time period (Totals)
+
+                        // Show the total number of classes
+                        labels = ['Total Students'];
+                        for(var index in this.resultData.year[this.selectedSubsortValue]) {
+                            tempData.push(this.resultData.year[this.selectedSubsortValue][index]);
+                        }
+                        data.push(tempData);
+                    }
+
+                    this.chartUtils.renderStudentSingleChart(labels, data);
                 }
             }
         }
