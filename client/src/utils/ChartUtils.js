@@ -86,6 +86,7 @@ export class ChartUtils {
         var ctx = document.getElementById("results-chart").getContext("2d");
 		var myBar = new Chart(ctx).Bar(config, {
 		    showTooltips: false,
+		    // tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>kb",
 		    onAnimationComplete: function () {
 
 		        var ctx = this.chart.ctx;
@@ -101,6 +102,10 @@ export class ChartUtils {
 		        })
 		    }
 		});
+
+		// var legendHolder = document.createElement('div');
+		// legendHolder.innerHTML = myBar.generateLegend();
+		// document.getElementById('legend').appendChild(legendHolder.firstChild);
 	}
 
 	// renderClassSubsortChart(labelArray, dataArray) {

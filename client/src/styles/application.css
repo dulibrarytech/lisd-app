@@ -342,7 +342,9 @@ div#subsort-select {
 	width: 20%;
 }
 
-
+div#legend {
+	margin-top: 2em;
+}
 
 
 
