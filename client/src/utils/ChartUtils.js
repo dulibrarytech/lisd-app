@@ -25,7 +25,7 @@ export class ChartUtils {
 	}
 
 	renderClassSingleChart(labelArray, dataArray) {	// This does not know about timeframes.  Sort external to this function?
-
+		//console.log("H")
         var config = {
 
 		    labels: labelArray,
@@ -33,7 +33,15 @@ export class ChartUtils {
 		        {
 		            fillColor: "#79D1CF",
 		            strokeColor: "#79D1CF",
-		            data: dataArray
+		            data: dataArray,
+		            options: {
+				        legend: {
+				            display: true,
+				            labels: {
+				                fontColor: 'rgb(255, 99, 132)'
+				            }
+				        }
+					}
 		        }
 		    ]
 		};
@@ -102,7 +110,7 @@ export class ChartUtils {
 		        })
 		    }
 		});
-
+		console.log("LEGEND: " + myBar.generateLegend());
 		// var legendHolder = document.createElement('div');
 		// legendHolder.innerHTML = myBar.generateLegend();
 		// document.getElementById('legend').appendChild(legendHolder.firstChild);
