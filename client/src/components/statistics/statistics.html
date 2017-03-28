@@ -16,7 +16,7 @@
                     </select>
                 </div>
 
-                <label>Search Time Period:</label>
+                <label style="margin-top:2em">Search Time Period:</label>
                 <div class="form-section">
                     <label class="radio-select" repeat.for="option of searchTimeframe">
                         <input type="radio" class="" value.bind="option" name="searchTimeframe" checked.bind="$parent.selectedSearchTimeframe" change.delegate="onChangeQuarterTimePeriod()">${option}
@@ -60,9 +60,11 @@
 
                         <div id="post-search-options">
                             <button type="button" id="new-search" class="btn btn-default" click.delegate="newSearch()">New Search</button>
+                            <span style="margin-left: 8em">
                             <label class="radio-select" repeat.for="format of displayFormats">
                                 <input type="radio" value.bind="format" name="displayFormat" checked.bind="$parent.displayFormat" change.delegate="onChangeDisplayFormat()">${format}
                             </label>
+                            </span>
                         </div>
                         
                         <form id="statistics-search" role="form">
@@ -77,13 +79,13 @@
                                     <label>Select Date Range:</label><br />
                                     <div class="form-section" style="display: inline-flex">
                                         <label>From:</label>
-                                        <select value.bind="fromYear" change.delegate="onChangeFromYear()">
+                                        <select class="form-control" style="margin-left: 10px" value.bind="fromYear" change.delegate="onChangeFromYear()">
                                             <option repeat.for="year of fromYears" value.bind="year">${year}</option>
                                         </select>
 
                                         <label style="margin-left: 2em">To:</label>
                                         <!-- <input class="form-control" id="to-date-select" type="text" value.bind="toYear" placeholder = ""> -->
-                                        <select value.bind="toYear" id="toYearSelect">
+                                        <select class="form-control" style="margin-left: 10px" value.bind="toYear" id="toYearSelect">
                                             <option repeat.for="year of toYears" value.bind="year">${year}</option>
                                         </select>
                                     </div>

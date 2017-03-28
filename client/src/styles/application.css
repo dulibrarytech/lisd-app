@@ -15,6 +15,14 @@ input, label, select {
     display:block;
 }
 
+#wrapper {
+	background-color: #f8f8f8;
+}
+
+#page-content-wrapper {
+	background-color: white;
+}
+
 .view-header {
 	margin-bottom: 1.7em !important;
 }
@@ -291,7 +299,7 @@ div#sidebar-wrapper {
 }
 
 div#search-type {
-   /* margin-top: 7.3em;*/
+    margin-top: 2.5em;
 }
 
 label.radio-select {
@@ -322,10 +330,6 @@ div#results-section {
     margin-left: 3.5em;
 }
 
-.form-control {
-	margin-bottom: 2em;
-}
-
 input#from-date-select,
 input#to-date-select {
 	width: 30%;
@@ -333,7 +337,7 @@ input#to-date-select {
 }
 
 table.results-table {
-	width: 100%;
+	width: 65%;
 	margin-top: 2em;
 	margin-left: 2em;
 }
@@ -351,7 +355,24 @@ div#legend {
 	margin-top: 2em;
 }
 
+div#year-date-select,
+button#statistics-submit {
+	margin-top: 3em;
+	margin-left: 1.8em;
+}
 
+div#result-options > label {
+	margin-top: 2em;
+}
+
+div#post-search-options {
+	margin-top: 2em;
+	margin-left: 2em;
+}
+
+div#month-results div table {
+	width: 90%;
+}
 
 
 @media only screen and (min-width: 1600px) {

@@ -362,6 +362,33 @@ export class Statistics {
                             data.push(tempData);
                         }
                     }
+                    else if(this.displayQuarter) {
+
+                         //Add month labels for columns
+                        for(var index in this.resultData.quarter) {
+                            labels.push( this.quarterStringValueConverter.toView( this.resultData.quarter[index] ) );
+                        }
+
+                        // // Add column data
+                        for(var index of this.resultData.quarter) {
+                            tempData = [];
+                            for(var subindex in index) {
+
+                                if(typeof index[subindex][this.selectedSubsortValue] == 'undefined') {
+                                    for(var i in this.studentTypes) {
+                                        tempData.push(0);
+                                    }
+                                }
+
+                                for(var key in index[subindex][this.selectedSubsortValue]) {
+                                    if(typeof index[subindex][this.selectedSubsortValue][key] != 'undefined') {
+                                        tempData.push(index[subindex][this.selectedSubsortValue][key]);
+                                    }
+                                }
+                            }
+                            data.push(tempData);
+                        }
+                    }
 
                     this.chartUtils.renderStudentSingleChart(labels, data);
                 }
