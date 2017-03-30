@@ -25,43 +25,54 @@ export class ChartUtils {
 	}
 
 	renderClassSingleChart(labelArray, dataArray) {	// This does not know about timeframes.  Sort external to this function?
-		//console.log("H")
-        var config = {
+		
+		var barWidthPct = 0.8;
+		if(dataArray.length == 1) {
+			barWidthPct = 0.2
+		}
 
+		console.log("RCH");
+
+		var data = {
 		    labels: labelArray,
-		    datasets: [
-		        {
-		            fillColor: "#79D1CF",
-		            strokeColor: "#79D1CF",
-		            data: dataArray,
-		            options: {
-				        legend: {
-				            display: true,
-				            labels: {
-				                fontColor: 'rgb(255, 99, 132)'
-				            }
-				        }
-					}
-		        }
-		    ]
+		    datasets: [{
+		        label: null,
+		        backgroundColor: "#C1F3F9",
+		        borderColor: "rgba(75,192,192,1)",
+		        data: dataArray,
+		    }]
 		};
 
-        var ctx = document.getElementById("results-chart").getContext("2d");
-		var myBar = new Chart(ctx).Bar(config, {
-		    showTooltips: false,
-		    onAnimationComplete: function () {
+		console.log(data);
 
-		        var ctx = this.chart.ctx;
-		        ctx.font = this.scale.font;
-		        ctx.fillStyle = this.scale.textColor
-		        ctx.textAlign = "center";
-		        ctx.textBaseline = "bottom";
+		var ctx = document.getElementById("results-chart");
 
-		        this.datasets.forEach(function (dataset) {
-		            dataset.bars.forEach(function (bar) {
-		                ctx.fillText(bar.value, bar.x, bar.y - 5);
-		            });
-		        })
+		var myChart = new Chart(ctx, {
+		    type: 'bar',
+		    data: data,
+		    options: {
+		        scales: {
+		            yAxes: [{
+		                ticks: {
+		                    beginAtZero: true,
+		                    fontSize: 25,
+		                    stepSize : 1,
+		                }
+		            }],
+		            xAxes: [{
+		                // Change here
+		            	barPercentage: barWidthPct,
+		            	ticks: {
+		                    fontSize: 25
+		                }
+		            }]
+		        },
+	            legend: {
+	            	display: false
+	            },
+	            tooltips: {
+	            	enabled: false
+	            }
 		    }
 		});
 	}
@@ -80,10 +91,22 @@ export class ChartUtils {
 			for(var j in dataArray) {
 				newArray[j] = dataArray[j][i];
 			}
-			dataSet['fillColor'] = barColors[i];
-			dataSet['data'] = newArray;
+
+			// dataSet['fillColor'] = barColors[i];
+			// dataSet['data'] = newArray;
+
 			dataSetArray.push(dataSet);		
 		}
+
+
+
+
+
+
+
+
+
+
 
 		var config = {
 
@@ -110,17 +133,6 @@ export class ChartUtils {
 		        })
 		    }
 		});
-		console.log("LEGEND: " + myBar.generateLegend());
-		// var legendHolder = document.createElement('div');
-		// legendHolder.innerHTML = myBar.generateLegend();
-		// document.getElementById('legend').appendChild(legendHolder.firstChild);
+
 	}
-
-	// renderClassSubsortChart(labelArray, dataArray) {
-
-	// }
-
-	// renderStudentSubsortChart(labelArray, dataArray) {
-		
-	// }
 }

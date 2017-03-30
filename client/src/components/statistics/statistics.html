@@ -122,7 +122,17 @@
                         </div>
 
                         <div id="chart-section">
-                            <compose view="./partials/chart.html"></compose>
+                            <div id="daterange"><h4>${fromYear} - ${toYear} ${selectedSearchTimeframe}</h4></div>
+                            <br />
+
+                            <div id="subsort-select" if.bind="selectedDisplayStatistics != 'All'">
+                                <label>Select ${selectedDisplayStatistics}</label>
+                                <select class="form-control" style="margin-bottom: 3em" value.bind="selectedSubsortValue" change.delegate="onChangeSubsortSelect()">
+                                    <option repeat.for="option of subsortValues" name="subsortValue" value.bind="option">${option}</option>
+                                </select>
+                            </div>
+
+                            <canvas id="results-chart" class="results-chart"></canvas>
                         </div>
 
                     </div>
