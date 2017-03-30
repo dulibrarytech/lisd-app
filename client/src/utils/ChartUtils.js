@@ -37,8 +37,6 @@ export class ChartUtils {
 			barWidthPct = 0.2
 		}
 
-		console.log("RCH");
-
 		var data = {
 		    labels: labelArray,
 		    datasets: [{
@@ -57,7 +55,7 @@ export class ChartUtils {
 			}
 		}
 
-		// If odd number, make it even so no non-integers are displayed
+		// Get the tick increment, and max number of ticks, depending on maximum bar value.  Eliminate non integers by ensuring maxval is even
 		if(tickInc % 2 == 0 && maxVal >= 8) {
 			tickInc = Math.floor(maxVal / 8);
 		}
@@ -135,7 +133,7 @@ export class ChartUtils {
 		    labels: labelArray,
 		    datasets: dataSetArray
 		};
-		console.log(dataSetArray);
+
 		// Find largest value in array, to set Y ticks
 		var maxVal = 0, tickInc = 1, tickMax;
 		for(var i in dataSetArray) {
@@ -145,8 +143,8 @@ export class ChartUtils {
 				}
 			}
 		}
-		console.log("MAXVAL: " + maxVal);
-		// If odd number, make it even so no non-integers are displayed
+
+		// Get the tick increment, and max number of ticks, depending on maximum bar value.  Eliminate non integers by ensuring maxval is even
 		if(tickInc % 2 == 0) {
 			tickInc = Math.floor(maxVal / 8);
 		}
@@ -159,7 +157,6 @@ export class ChartUtils {
 		else {
 			tickMax = maxVal + tickInc;
 		}
-		console.log("TICKINC: " + tickInc);
 
 		var ctx = document.getElementById("results-chart");
 		var myChart = new Chart(ctx, {
