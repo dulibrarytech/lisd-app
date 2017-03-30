@@ -49,7 +49,27 @@ export class ChartUtils {
 		    }]
 		};
 
-		console.log(data);
+		// Find largest value in array, to set Y ticks
+		var maxVal = 0, tickInc = 1, tickMax;
+		for(var i in dataArray) {
+			if(dataArray[i] > maxVal) {
+				maxVal = dataArray[i];
+			}
+		}
+
+		// If odd number, make it even so no non-integers are displayed
+		if(tickInc % 2 == 0 && maxVal >= 8) {
+			tickInc = Math.floor(maxVal / 8);
+		}
+		else if(maxVal >= 8){
+			tickInc = Math.floor((maxVal+1) / 8);
+		}
+		else if(maxVal < 6) {
+			tickMax = Math.floor(maxVal * 2);
+		}
+		else {
+			tickMax = Math.floor(maxVal + tickInc);
+		}
 
 		var ctx = document.getElementById("results-chart");
 		var myChart = new Chart(ctx, {
@@ -61,7 +81,8 @@ export class ChartUtils {
 		                ticks: {
 		                    beginAtZero: true,
 		                    fontSize: 25,
-		                    stepSize : 1,
+		                    stepSize : tickInc,
+		                    max: tickMax
 		                }
 		            }],
 		            xAxes: [{
@@ -114,23 +135,31 @@ export class ChartUtils {
 		    labels: labelArray,
 		    datasets: dataSetArray
 		};
-
+		console.log(dataSetArray);
 		// Find largest value in array, to set Y ticks
-		var maxVal = 0, tickInc = 1;
+		var maxVal = 0, tickInc = 1, tickMax;
 		for(var i in dataSetArray) {
-			for(var j in dataArray[i]) {
-				if(dataArray[i][j] > maxVal) {
-					maxVal = dataArray[i][j];
+			for(var j in dataSetArray[i].data) {
+				if(dataSetArray[i].data[j] > maxVal) {
+					maxVal = dataSetArray[i].data[j];
 				}
 			}
 		}
+		console.log("MAXVAL: " + maxVal);
 		// If odd number, make it even so no non-integers are displayed
 		if(tickInc % 2 == 0) {
 			tickInc = Math.floor(maxVal / 8);
 		}
-		else {
+		else if(maxVal >= 8) {
 			tickInc = Math.floor((maxVal+1) / 8);
 		}
+		else if(maxVal < 6) {
+			tickMax = maxVal * 2;
+		}
+		else {
+			tickMax = maxVal + tickInc;
+		}
+		console.log("TICKINC: " + tickInc);
 
 		var ctx = document.getElementById("results-chart");
 		var myChart = new Chart(ctx, {
@@ -143,6 +172,7 @@ export class ChartUtils {
 		                    beginAtZero: true,
 		                    fontSize: 25,
 		                    stepSize : tickInc,
+		                    max: tickMax
 		                }
 		            }],
 		            xAxes: [{
@@ -162,7 +192,10 @@ export class ChartUtils {
 	            	}
 	            },
 	            tooltips: {
-	            	enabled: false
+	            	enabled: false,
+	            	footerFontSize: 30,
+	            	xPadding: 10,
+	            	yPadding: 10
 	            }
 		    }
 		});

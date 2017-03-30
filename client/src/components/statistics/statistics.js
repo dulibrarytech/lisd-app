@@ -145,8 +145,6 @@ export class Statistics {
 
     renderStatisticsCharts() {
 
-        console.log("renderStatisticsCharts");
-
         //this.currentTable = "class-single-chart";   
         document.getElementById('chart-section').style.display = "block";                                                        // DEV 
 
@@ -163,6 +161,13 @@ export class Statistics {
             var config = {};
             var labels = [], data = [];
             var months, quarters;
+
+            // Reset canvas 
+            var canvasElt = document.createElement('canvas');
+            canvasElt.setAttribute("id", "results-chart");
+            canvasElt.setAttribute("class", "results-chart");
+            document.getElementById('chart-section').removeChild(document.getElementById('results-chart'));
+            document.getElementById('chart-section').appendChild(canvasElt);
 
             // Single sorting chart
             if(this.selectedDisplayStatistics == "All") {
