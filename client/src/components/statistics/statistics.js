@@ -34,8 +34,8 @@ export class Statistics {
     selectedStatisticsType = "Class";
     statisticsType = ["Class", "Student"];
 
-    selectedListResultsBy = "Total";
-    listResultsBy = ["Total", "Month", "Quarter"];
+    selectedListResultsBy = "Month";
+    listResultsBy = ["Month", "Quarter", "Total"];
 
     selectedDisplayStatistics = "All";
     displayStatistics = ["All", "Department", "Location", "Type", "ACRL Framework"];
@@ -77,8 +77,8 @@ export class Statistics {
         this.toYears = this.getYearList(1990);
 
         this.displayResults = false;
-        this.displayYear = true;
-        this.displayMonth = false;
+        this.displayYear = false;
+        this.displayMonth = true;
         this.displayQuarter = false;
     }
 
@@ -163,11 +163,7 @@ export class Statistics {
             var months, quarters;
 
             // Reset canvas 
-            var canvasElt = document.createElement('canvas');
-            canvasElt.setAttribute("id", "results-chart");
-            canvasElt.setAttribute("class", "results-chart");
-            document.getElementById('chart-section').removeChild(document.getElementById('results-chart'));
-            document.getElementById('chart-section').appendChild(canvasElt);
+            this.resetCanvasElement();
 
             // Single sorting chart
             if(this.selectedDisplayStatistics == "All") {
@@ -631,6 +627,14 @@ export class Statistics {
     newSearch() {
         // DEV - TEMP TODO create function to reset form resetForm()
         location.reload(false);
+    }
+
+    resetCanvasElement() {
+        var canvasElt = document.createElement('canvas');
+        canvasElt.setAttribute("id", "results-chart");
+        canvasElt.setAttribute("class", "results-chart");
+        document.getElementById('chart-section').removeChild(document.getElementById('results-chart'));
+        document.getElementById('chart-section').appendChild(canvasElt);
     }
 
     // Retrieves the current list from the server and populates all select dropdowns
