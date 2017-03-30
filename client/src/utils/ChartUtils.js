@@ -126,12 +126,11 @@ export class ChartUtils {
 		}
 		// If odd number, make it even so no non-integers are displayed
 		if(tickInc % 2 == 0) {
-			tickInc = maxVal / 8;
+			tickInc = Math.floor(maxVal / 8);
 		}
 		else {
-			tickInc = (maxVal+1) / 8;
+			tickInc = Math.floor((maxVal+1) / 8);
 		}
-
 
 		var ctx = document.getElementById("results-chart");
 		var myChart = new Chart(ctx, {

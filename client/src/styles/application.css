@@ -348,7 +348,7 @@ table.results-table {
 
 canvas.results-chart {
 	width: 50% !important;
-    height: auto !important;
+    height: 350px !important;
 }
 
 div#subsort-select {
