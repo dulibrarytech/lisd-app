@@ -378,6 +378,15 @@ div#month-results div table {
 	width: 90%;
 }
 
+div#class-total {
+	margin-top: 3em;
+}
+
+div#librarian-select {
+	margin-left: 1.8em;
+    margin-top: 1em;
+}
+
 
 @media only screen and (min-width: 1600px) {
 	section#class-type {
@@ -429,6 +438,19 @@ div#month-results div table {
 		width: 70%;
 		padding-left: 4.6em;
 	}
+
+
+
+	div#month-results div,
+	div#quarter-results div {
+
+	    width: 72%;
+	}
+
+	canvas.results-chart {
+		width: 67% !important;
+	    height: 350px !important;
+	}
 }
 
 @media only screen and (min-width: 1200px) and (max-width: 1299px) { 
@@ -457,6 +479,18 @@ div#month-results div table {
 	section#class-type {
 		width: 68%;
 		padding-left: 3.2em;
+	}
+
+
+	div#month-results div,
+	div#quarter-results div {
+
+	    width: 72%;
+	}
+
+	canvas.results-chart {
+		width: 55% !important;
+	    height: 350px !important;
 	}
 }
 

@@ -60,7 +60,7 @@
 
                         <div id="post-search-options">
                             <button type="button" id="new-search" class="btn btn-default" click.delegate="newSearch()">New Search</button>
-                            <span style="margin-left: 8em">
+                            <span style="margin-left: 8em" id="disp-select">
                             <label class="radio-select" repeat.for="format of displayFormats">
                                 <input type="radio" value.bind="format" name="displayFormat" checked.bind="$parent.displayFormat" change.delegate="onChangeDisplayFormat()">${format}
                             </label>
