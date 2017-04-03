@@ -406,6 +406,13 @@ export class Statistics {
         }
         else if(typeof data == "object") { 
 
+            // this.displayFormat = "Chart";
+            // this.onChangeDisplayFormat();
+
+            console.log("Render CD table");
+            document.getElementById('chart-section').style.display = "none"; 
+            document.getElementById('results-section').style.display = "block"; 
+
             // Show search options, hide the search form
             document.getElementById('result-options').style.display = "block";
             document.getElementById('statistics-search').style.display = "none";
@@ -737,6 +744,8 @@ export class Statistics {
 
         if(this.selectedSearchType == "Class Data") {
 
+            console.log("PR");
+
             // class route
             this.utils.doAjax('get/data/search/class', 'get', data, null).then(data => {
                 this.utils.stopSpinner();
@@ -747,11 +756,15 @@ export class Statistics {
                 // TODO: add FUNCTION: initResultView(data)
                 // Show search options, hide the search form
                 document.getElementById('result-options').style.display = "block";                  // TODO move to function
+                // document.getElementById('chart-section').style.display = "none"; 
                 document.getElementById('statistics-search').style.display = "none";
                 document.getElementById('post-search-options').style.display = "block";
                 document.getElementById('search-options').style.display = "none";
 
+                document.getElementById('disp-select').style.visibility = "hidden";
+
                 // Render the view (no chart option)
+                this.displayFormat = "Table";
                 this.renderClassDataTable(this.resultData);
             });
         }
