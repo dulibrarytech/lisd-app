@@ -108,7 +108,7 @@ export class Statistics {
         // Enable the table display
         this.displayResults = true;
 
-        for(var val in this.resultData.month)
+        //for(var val in this.resultData.month)
 
         // If a string is passed in, render as a message.  If an object is passed in, attempt to render its data
         if(typeof data == null) { 
@@ -744,11 +744,15 @@ export class Statistics {
 
         if(this.selectedSearchType == "Class Data") {
 
-            console.log("PR");
-
             // class route
             this.utils.doAjax('get/data/search/class', 'get', data, null).then(data => {
                 this.utils.stopSpinner();
+
+                // Make dates pretty (temp?)
+                for(var index in data.data) {
+                   data.data[index].courseInfo.date = data.data[index].courseInfo.date.substring(0,10);
+                }
+
                 this.resultData = data.data;
                 this.resultData.month = this.sortResultMonthsByTimePeriod(this.resultData);
                 this.resultData.quarter = this.sortResultQuartersByTimePeriod(this.resultData);
