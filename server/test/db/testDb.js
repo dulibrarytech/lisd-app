@@ -46,6 +46,12 @@ var location3 = db.lisd_location.insertOne({
 	"isActive" : true
 });
 
+
+
+
+
+
+
 // Insert individual courses
 db.lisd_class.insertOne({
 	courseInfo: { 

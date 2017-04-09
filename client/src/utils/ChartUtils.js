@@ -103,8 +103,6 @@ export class ChartUtils {
 
 	renderStudentSingleChart(labelArray, dataArray) {
 
-		console.log("---RENDERING---");
-
 		var barWidthPct = 0.9;
 		// if(dataArray.length == 1) {
 		// 	barWidthPct = 0.2
