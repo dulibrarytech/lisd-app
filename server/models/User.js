@@ -10,6 +10,43 @@ database.connect(function(db) {
 	console.log("User model connected to db...");
 });
 
+var createUser = function() {
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
 * Validates a session token
 *
