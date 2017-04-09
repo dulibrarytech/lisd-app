@@ -76,10 +76,12 @@ export class SystemUtils {
 	}
 
 	startSpinner() {
+		console.log("start spinner");
 		this.spinner.spin();
 	}
 
 	stopSpinner() {
+		console.log("stop spinner");
 		this.spinner.stop();
 	}
 }

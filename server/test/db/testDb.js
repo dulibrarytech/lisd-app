@@ -1,3 +1,5 @@
+
+
 // Insert Librarians
 var librarian1 = db.lisd_librarian.insertOne({
 	"name" : "Jane Doe",
