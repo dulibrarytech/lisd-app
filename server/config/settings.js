@@ -18,16 +18,6 @@ var settings = {
 		quarter3End: 			"06-15",
 		quarter4Start: 			"06-16",
 		quarter4End: 			"08-30"
-	},
-
-	test: {
-		api: {
-			runGetGetDataAll: 		true,
-			runPostInsertClass: 	true
-		},
-		class: {
-			
-		}
 	}
 };
 

@@ -95,7 +95,7 @@ export class EntryForm {
 
         // Ajax
         this.utils.doAjax('get/data/entry/selectValues', 'get', null, null).then(responseObject => {
-            
+            this.utils.stopSpinner();
             // Populate the select boxes with the name and database id of each item
             var currentData = {};
             for(var key in responseObject) {
