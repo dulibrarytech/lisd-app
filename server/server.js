@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
+var expressSession = require('express-session');
 
 var app = express();
 
@@ -32,6 +33,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(allowCrossDomain);
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client')));
+
+// Passport
+app.use(expressSession({secret: 'mySecretKey'}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 //app.disable('x-powered-by');
 

@@ -5,12 +5,13 @@
 	<require from="../../../utils/ObjectValuesValueConverter"></require>
 	<require from="../../../utils/SubObjectValuesValueConverter"></require>
 
+	<div id="stats-type-label"><h4>${selectedStatisticsType} Statistics</h4></div>
 	<div id="daterange"><h4>${fromYear} - ${toYear} ${selectedSearchTimeframe}</h4></div>
 	<br />
 
 	<div id="year-results" style="" if.bind="displayYear">
 
-		<h3>Totals:</h3>
+		<!-- <h4>Totals:</h4> -->
 		<table class="table results-table">
 			<th>Student Type</th><th>Number of Students</th>
 			<tr repeat.for="key of resultData.year | objectKeys">	
@@ -21,7 +22,7 @@
 
 	<div id="month-results" style="" if.bind="displayMonth">
 
-		<h3>Month Totals:</h3>
+		<!-- <h4>Month Totals:</h4> -->
 		<table class="table results-table">
 			<th>Month</th><th repeat.for="key of resultData.year | objectKeys">${key}</th>			<!-- USE model var -->
 			<tr repeat.for="index of resultData.month">
@@ -32,7 +33,7 @@
 
 	<div id="quarter-results" style="" if.bind="displayQuarter">
 
-		<h3>Quarter Totals:</h3>
+		<!-- <h4>Quarter Totals:</h4> -->
 		<table class="table results-table">
 			<th>Quarter</th><th repeat.for="key of resultData.year | objectKeys">${key}</th>			<!-- USE model var -->
 			<tr repeat.for="index of resultData.quarter">

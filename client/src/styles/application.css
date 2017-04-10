@@ -285,7 +285,8 @@ button.remove-button {
 	padding-top: 0.6em;
 	color: red;*/
 	position: relative;
-	top: 25px;
+	top: 13px;
+    margin-top: 11px;
 }
 
 button#statistics-submit {
@@ -330,7 +331,7 @@ div#quarter-results div {
 
 div#chart-section,
 div#results-section {
-	margin-top: 5em;
+	margin-top: 3em;
     margin-left: 3.5em;
 }
 
@@ -349,6 +350,7 @@ table.results-table {
 canvas.results-chart {
 	width: 50% !important;
     height: 350px !important;
+    margin-top: 2em;
 }
 
 div#subsort-select {
