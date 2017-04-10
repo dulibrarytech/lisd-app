@@ -4,8 +4,8 @@
 	<require from="../../../utils/ObjectKeysValueConverter"></require>
 	<require from="../../../utils/ObjectValuesValueConverter"></require>
 
-	<div id="stats-type-label"><h4>${selectedStatisticsType} Statistics</h4></div>
 	<div id="daterange"><h4>${fromYear} - ${toYear} ${selectedSearchTimeframe}</h4></div>
+	<div id="stats-type-label"><h4>${selectedStatisticsType} Statistics</h4></div>
 	<br />
 
 	<div id="year-results" if.bind="displayYear">
@@ -26,6 +26,9 @@
 			<th>Month</th><th repeat.for="key of resultData.year | objectKeys">${key}</th>			<!-- USE model var -->
 			<tr repeat.for="index of resultData.month">
 				<td>${index | monthString}</td><td>${index | objectValues}</td>
+			</tr>
+			<tr>
+				<td></td><td></td>
 			</tr>
 		</table>
 	</div>
