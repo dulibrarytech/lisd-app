@@ -243,7 +243,10 @@ module.exports = (function() {
 			studentsByYear.other += courseObject.enrollmentInfo.other;
 		}
 
-		return studentsByYear;
+		return {
+			data: studentsByYear,
+			totals: null
+		}
 	}
 
 	var sortStudentResultsByAllMonth = function(resultArray) {
@@ -270,7 +273,10 @@ module.exports = (function() {
 			studentsByMonth[month].other += courseObject.enrollmentInfo.other;
 		}
 
-		return studentsByMonth;
+		return {
+			data: studentsByMonth,
+			totals: null
+		}
 	};
 
 	var sortStudentResultsByAllQuarter = function(resultArray) {
@@ -295,7 +301,10 @@ module.exports = (function() {
 			studentsByQuarter[quarter].other += courseObject.enrollmentInfo.other;
 		}
 
-		return studentsByQuarter;
+		return {
+			data: studentsByQuarter,
+			totals: null
+		}
 	};
 
 	// subsortResultsByYear(resultArray, subsort field)
@@ -330,7 +339,10 @@ module.exports = (function() {
 			}
 		}
 
-		return studentsByYear;
+		return {
+			data: studentsByYear,
+			totals: null
+		}
 	};
 
 	var subsortStudentResultsByMonth = function(resultArray, subsortField) {
@@ -367,7 +379,10 @@ module.exports = (function() {
 			}
 		}
 
-		return studentsByDepartmentMonth;
+		return {
+			data: studentsByDepartmentMonth,
+			totals: null
+		}
 	};
 
 	var subsortStudentResultsByQuarter = function(resultArray, subsortField) {
@@ -404,7 +419,10 @@ module.exports = (function() {
 			}
 		}
 
-		return studentsByDepartmentQuarter;
+		return {
+			data: studentsByDepartmentQuarter,
+			totals: null
+		}
 	};
 
 	var sortClassResultsByAllYear = function(resultArray) {
@@ -417,7 +435,10 @@ module.exports = (function() {
 			classesByYear.total++;
 		}
 
-		return classesByYear;
+		return {
+			data: classesByYear,
+			totals: null
+		}
 	}
 
 	var sortClassResultsByAllMonth = function(resultArray) {
@@ -435,7 +456,10 @@ module.exports = (function() {
 			classesByMonth[month]++;
 		}
 
-		return classesByMonth;
+		return {
+			data: classesByMonth,
+			totals: null
+		}
 	}
 
 	var sortClassResultsByAllQuarter = function(resultArray) {
@@ -453,7 +477,10 @@ module.exports = (function() {
 			classesByQuarter[quarter]++;
 		}
 
-		return classesByQuarter;
+		return {
+			data: classesByQuarter,
+			totals: null
+		}
 	}
 
 	var subsortClassResultsByYear = function(resultArray, subsortField) {
@@ -477,7 +504,10 @@ module.exports = (function() {
 			}
 		}
 
-		return classesByYear;
+		return {
+			data: classesByYear,
+			totals: null
+		}
 	};
 
 	var subsortClassResultsByMonth = function(resultArray, subsortField) {
@@ -506,7 +536,10 @@ module.exports = (function() {
 			}
 		}
 
-		return classesByMonth;
+		return {
+			data: classesByMonth,
+			totals: null
+		}
 	};
 
 	var subsortClassResultsByQuarter = function(resultArray, subsortField) {
@@ -534,7 +567,10 @@ module.exports = (function() {
 			}
 		}
 
-		return classesByQuarter;
+		return {
+			data: classesByQuarter,
+			totals: null
+		}
 	};
 
 	return {
