@@ -15,7 +15,10 @@
 		<table class="table results-table">
 			<th>Student Type</th><th>Number of Students</th>
 			<tr repeat.for="key of resultData.year | objectKeys">	
-				<td>${key}</td><td>${resultData.year[key]}</td>
+				<td>${key}</td><td>${resultData.year[key]}</td>			
+			</tr>
+			<tr style="font-weight: bold">
+				<td>Total</td><td>${resultData.yearTotals.studentTotals}</td>
 			</tr>
 		</table>
 	</div>
