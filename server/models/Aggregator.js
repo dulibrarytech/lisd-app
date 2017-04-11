@@ -117,6 +117,13 @@ module.exports = (function() {
 		        			resultSet['quarter'] = sortStudentResultsByAllQuarter(results);
 		        		}
 
+		        		resultSet['yearTotals'] = resultSet.year.totals;
+		        		resultSet['monthTotals'] = resultSet.month.totals;
+		        		resultSet['quarterTotals'] = resultSet.quarter.totals;
+
+		        		console.log("TEST:");
+		        		console.log(resultSet['yearTotals']);
+
 		        		if(results.length == 0) {message = "No results found";} else {message = "Returning all data";}
 	        			callback({status: "ok", message: message, data: resultSet});
 	        		}
@@ -187,6 +194,9 @@ module.exports = (function() {
 	        		resultSet['monthTotals'] = resultSet.month.totals;
 	        		resultSet['quarterTotals'] = resultSet.quarter.totals;
 
+	        		console.log("Class agg returning");
+	        		console.log(resultSet);
+
 	        		if(results.length == 0) {message = "No results found";} else {message = "Returning all data";}
 	        		callback({status: "ok", message: message, data: resultSet});
 	        	}
@@ -231,7 +241,7 @@ module.exports = (function() {
 	var sortStudentResultsByAllYear = function(resultArray) {
 
 		var courseObject;
-		var studentsByYear = {};
+		var studentsByYear = {}, totals=0;
 
 		studentsByYear['undergraduates'] = 0;
 		studentsByYear['graduates'] = 0;
@@ -244,6 +254,12 @@ module.exports = (function() {
 			studentsByYear.graduates += courseObject.enrollmentInfo.graduates;
 			studentsByYear.faculty += courseObject.enrollmentInfo.faculty;
 			studentsByYear.other += courseObject.enrollmentInfo.other;
+		}
+		totals = studentsByYear.undergraduates + studentsByYear.graduates + studentsByYear.faculty + studentsByYear.other;
+
+		studentsByYear['totals'] = {
+			allStudents: null,
+			studentTotals: totals
 		}
 
 		return studentsByYear;
