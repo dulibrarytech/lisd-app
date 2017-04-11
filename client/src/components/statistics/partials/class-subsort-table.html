@@ -36,8 +36,8 @@
 				<tr repeat.for="key of index | subObjectKeys">
 					<td>${key}</td><td repeat.for="val of index | subObjectValues:key">${val}</td>
 				</tr>
-				<tr>
-					<td style="font-weight: bold">Total</td><td>${resultData.monthTotals | subsortTotals:index}</td>  
+				<tr style="font-weight: bold">
+					<td>Total</td><td>${resultData.monthTotals | subsortTotals:index}</td>  
 				</tr>
 			</table>
 		</div>
@@ -53,8 +53,8 @@
 				<tr repeat.for="key of index | subObjectKeys">
 					<td>${key}</td><td repeat.for="val of index | subObjectValues:key">${val}</td>
 				</tr>
-				<tr>
-					<td style="font-weight: bold">Total</td><td>${resultData.quarterTotals | subsortTotals:index}</td>  
+				<tr style="font-weight: bold">
+					<td>Total</td><td>${resultData.quarterTotals | subsortTotals:index}</td>  
 				</tr>
 			</table>
 		</div>
