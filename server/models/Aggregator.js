@@ -268,7 +268,13 @@ module.exports = (function() {
 	var sortStudentResultsByAllMonth = function(resultArray) {
 
 		var courseObject, month;
-		var studentsByMonth = {};
+		var studentsByMonth = {}, totals={};
+		var typeTotals = {
+			undergraduates: 0,
+			graduates: 0,
+			faculty: 0, 
+			other: 0
+		}
 
 		for(var i=1; i<13; i++) {
 
@@ -277,16 +283,29 @@ module.exports = (function() {
 			studentsByMonth[i]['graduates'] = 0;
 			studentsByMonth[i]['faculty'] = 0;
 			studentsByMonth[i]['other'] = 0;
+
+			totals[i] = 0;
 		}
 		for(var index in resultArray) {
 			courseObject = resultArray[index];
 			month = courseObject.courseInfo.date.getMonth() + 1; // getMonth months range 0-11
 
-
 			studentsByMonth[month].undergraduates += courseObject.enrollmentInfo.undergraduates;
 			studentsByMonth[month].graduates += courseObject.enrollmentInfo.graduates;
 			studentsByMonth[month].faculty += courseObject.enrollmentInfo.faculty;
 			studentsByMonth[month].other += courseObject.enrollmentInfo.other;
+
+			totals[month] = courseObject.enrollmentInfo.undergraduates + courseObject.enrollmentInfo.graduates + courseObject.enrollmentInfo.faculty + courseObject.enrollmentInfo.other;
+
+			typeTotals['undergraduates'] += courseObject.enrollmentInfo.undergraduates;
+			typeTotals['graduates'] += courseObject.enrollmentInfo.graduates;
+			typeTotals['faculty'] += courseObject.enrollmentInfo.faculty;
+			typeTotals['other'] += courseObject.enrollmentInfo.other;
+		}
+
+		studentsByMonth['totals'] = {
+			allStudents: totals,
+			studentTotals: typeTotals
 		}
 
 		return studentsByMonth;
@@ -295,7 +314,13 @@ module.exports = (function() {
 	var sortStudentResultsByAllQuarter = function(resultArray) {
 
 		var courseObject, quarter;
-		var studentsByQuarter = {};
+		var studentsByQuarter = {}, totals={};
+		var typeTotals = {
+			undergraduates: 0,
+			graduates: 0,
+			faculty: 0, 
+			other: 0
+		}
 
 		for(var i=1; i<5; i++) {
 			studentsByQuarter[i] = {};
@@ -303,6 +328,8 @@ module.exports = (function() {
 			studentsByQuarter[i]['graduates'] = 0;
 			studentsByQuarter[i]['faculty'] = 0;
 			studentsByQuarter[i]['other'] = 0;
+
+			totals[i] = 0;
 		}
 		for(var index in resultArray) {
 			courseObject = resultArray[index];
@@ -312,7 +339,22 @@ module.exports = (function() {
 			studentsByQuarter[quarter].graduates += courseObject.enrollmentInfo.graduates;
 			studentsByQuarter[quarter].faculty += courseObject.enrollmentInfo.faculty;
 			studentsByQuarter[quarter].other += courseObject.enrollmentInfo.other;
+
+			totals[quarter] = courseObject.enrollmentInfo.undergraduates + courseObject.enrollmentInfo.graduates + courseObject.enrollmentInfo.faculty + courseObject.enrollmentInfo.other;
+
+			typeTotals['undergraduates'] += courseObject.enrollmentInfo.undergraduates;
+			typeTotals['graduates'] += courseObject.enrollmentInfo.graduates;
+			typeTotals['faculty'] += courseObject.enrollmentInfo.faculty;
+			typeTotals['other'] += courseObject.enrollmentInfo.other;
 		}
+
+		studentsByQuarter['totals'] = {
+			allStudents: totals,
+			studentTotals: typeTotals
+		}
+
+		console.log("TESTABC");
+		console.log(studentsByQuarter.totals);
 
 		return studentsByQuarter;
 	};

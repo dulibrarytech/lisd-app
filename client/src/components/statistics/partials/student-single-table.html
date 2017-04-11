@@ -31,6 +31,9 @@
 			<tr repeat.for="index of resultData.month">
 				<td>${index | monthString}</td><td repeat.for="val of index | subObjectValues">${val}</td>
 			</tr>
+			<tr style="font-weight: bold">
+				<td>Total</td><td>${resultData.yearTotals.studentTotals}</td>
+			</tr>
 		</table>
 	</div>
 
@@ -41,6 +44,9 @@
 			<th>Quarter</th><th repeat.for="key of resultData.year | objectKeys">${key}</th>			<!-- USE model var -->
 			<tr repeat.for="index of resultData.quarter">
 				<td>${index | quarterString}</td><td repeat.for="val of index | subObjectValues">${val}</td>
+			</tr>
+			<tr style="font-weight: bold">
+				<td>Total</td><td>${resultData.yearTotals.studentTotals}</td>
 			</tr>
 		</table>
 	</div>
