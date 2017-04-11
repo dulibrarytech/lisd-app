@@ -11,11 +11,11 @@ import $ from 'jquery'; // for datepicker
 @inject(SystemUtils, ChartUtils, MonthStringValueConverter, QuarterStringValueConverter)
 export class Statistics {
 
-	ajax;
-	utils;
+    ajax;
+    utils;
 
-	librarianList = [];
-	librarianCount = 1;
+    librarianList = [];
+    librarianCount = 1;
     selectedLibrarian = "";
     librarianName = "";
     classCountLabel = "";
@@ -175,7 +175,7 @@ export class Statistics {
 
                         // Show the total number of classes
                         labels = ['Total Classes'];
-                        data = [this.resultData.year.data.total];
+                        data = [this.resultData.year.total];
                     }
                     else if(this.displayMonth) {
 
@@ -220,8 +220,8 @@ export class Statistics {
 
                         // Show the total number of classes
                         labels = ['Total Students'];
-                        for(var index in this.resultData.year.data) {
-                            tempData.push(this.resultData.year.data[index]);
+                        for(var index in this.resultData.year) {
+                            tempData.push(this.resultData.year[index]);
                         }
                         data.push(tempData);
                     }
@@ -278,7 +278,7 @@ export class Statistics {
                     // Get label array, data array
                     if(this.displayYear) {
                         labels = [this.selectedSubsortValue];
-                        data = [this.resultData.year.data[this.selectedSubsortValue]];
+                        data = [this.resultData.year[this.selectedSubsortValue]];
                     }
                     else if(this.displayMonth) {
 
@@ -331,8 +331,8 @@ export class Statistics {
 
                         // Show the total number of classes
                         labels = ['Total Students'];
-                        for(var index in this.resultData.year.data[this.selectedSubsortValue]) {
-                            tempData.push(this.resultData.year.data[this.selectedSubsortValue][index]);
+                        for(var index in this.resultData.year[this.selectedSubsortValue]) {
+                            tempData.push(this.resultData.year[this.selectedSubsortValue][index]);
                         }
                         data.push(tempData);
                     }
@@ -436,33 +436,33 @@ export class Statistics {
         var monthsArr = [];
         var tempObj = {};
         if(this.selectedSearchTimeframe == "Fiscal") {
-            for(var key in resultData.month.data) {
+            for(var key in resultData.month) {
                 if(parseInt(key) >= 7) {
                     tempObj = {}
-                    tempObj[key] = resultData.month.data[key];
+                    tempObj[key] = resultData.month[key];
                     monthsArr.push(tempObj);
                 }
             }
-            for(var key in resultData.month.data) {
+            for(var key in resultData.month) {
                 if(parseInt(key) < 7) {
                     tempObj = {}
-                    tempObj[key] = resultData.month.data[key];
+                    tempObj[key] = resultData.month[key];
                     monthsArr.push(tempObj);
                 }
             }
         }
         else if(this.selectedSearchTimeframe == "Academic") {
-            for(var key in resultData.month.data) {
+            for(var key in resultData.month) {
                 if(parseInt(key) >= 9) {
                     tempObj = {}
-                    tempObj[key] = resultData.month.data[key];
+                    tempObj[key] = resultData.month[key];
                     monthsArr.push(tempObj);
                 }
             }
-            for(var key in resultData.month.data) {
+            for(var key in resultData.month) {
                 if(parseInt(key) < 9) {
                     tempObj = {}
-                    tempObj[key] = resultData.month.data[key];
+                    tempObj[key] = resultData.month[key];
                     monthsArr.push(tempObj);
                 }
             }
@@ -498,10 +498,10 @@ export class Statistics {
                     break;
             }
 
-            for(var key in resultData.month.data) {
+            for(var key in resultData.month) {
                 if(parseInt(key) >= fromMonth && parseInt(key) <= toMonth) {
                     tempObj = {}
-                    tempObj[key] = resultData.month.data[key];
+                    tempObj[key] = resultData.month[key];
                     monthsArr.push(tempObj);
                 }
             }
@@ -514,26 +514,26 @@ export class Statistics {
         var quartersArr = [];
         var tempObj = {};
         if(this.selectedSearchTimeframe == "Fiscal") {
-            for(var key in this.resultData.quarter.data) {
+            for(var key in this.resultData.quarter) {
                 if(parseInt(key) >= 4) {
                     tempObj = {}
-                    tempObj[key] = this.resultData.quarter.data[key];
+                    tempObj[key] = this.resultData.quarter[key];
                     quartersArr.push(tempObj);
                 }
             }
-            for(var key in this.resultData.quarter.data) {
+            for(var key in this.resultData.quarter) {
                 if(parseInt(key) < 4) {
                     tempObj = {}
-                    tempObj[key] = this.resultData.quarter.data[key];
+                    tempObj[key] = this.resultData.quarter[key];
                     quartersArr.push(tempObj);
                 }
             }
         }
         // No reordering, just add the objects to the array in default order
         else if(this.selectedSearchTimeframe == "Academic") {
-            for(var key in this.resultData.quarter.data) {
+            for(var key in this.resultData.quarter) {
                 tempObj = {}
-                tempObj[key] = this.resultData.quarter.data[key];
+                tempObj[key] = this.resultData.quarter[key];
                 quartersArr.push(tempObj);
             }
         }
@@ -543,27 +543,27 @@ export class Statistics {
                 case "Fall":
                     {
                         tempObj = {};
-                        tempObj["1"] = this.resultData.quarter.data["1"];
+                        tempObj["1"] = this.resultData.quarter["1"];
                         quartersArr.push(tempObj);
                     }
                     break;
                 case "Winter":
                     {
                         tempObj = {};
-                        tempObj["2"] = this.resultData.quarter.data["2"];
+                        tempObj["2"] = this.resultData.quarter["2"];
                         quartersArr.push(tempObj);
                     }
                     break;
                 case "Spring":
                     {
                         tempObj = {};
-                        tempObj["3"] = this.resultData.quarter.data["3"];
+                        tempObj["3"] = this.resultData.quarter["3"];
                         quartersArr.push(tempObj);
                     }
                 case "Summer":
                     {
                         tempObj = {};
-                        tempObj["4"] = this.resultData.quarter.data["4"];
+                        tempObj["4"] = this.resultData.quarter["4"];
                         quartersArr.push(tempObj);
                     }
                     break;
@@ -745,16 +745,15 @@ export class Statistics {
         if(this.selectedSearchType == "Class Data") {
 
             // class route
-            this.utils.doAjax('get/data/search/class', 'get', data, null).then(response => {
+            this.utils.doAjax('get/data/search/class', 'get', data, null).then(data => {
                 this.utils.stopSpinner();
 
                 // Make dates pretty (temp?)
-                for(var index in response.data) {
+                for(var index in data.data) {
                    data.data[index].courseInfo.date = data.data[index].courseInfo.date.substring(0,10);
                 }
 
-                this.resultData = response.data;
-                this.resultData.year = response.data.year.data;
+                this.resultData = data.data;
                 this.resultData.month = this.sortResultMonthsByTimePeriod(this.resultData);
                 this.resultData.quarter = this.sortResultQuartersByTimePeriod(this.resultData);
 
@@ -776,12 +775,13 @@ export class Statistics {
         else if(this.selectedSearchType == "All Statistics" || this.selectedSearchType == "Librarian Statistics") {
 
             // all statistics route
-            this.utils.doAjax('get/data/search/allStatistics', 'get', data, null).then(response => {
-                console.log("TEST");
-                console.log(response.data.year.totals);
+            this.utils.doAjax('get/data/search/allStatistics', 'get', data, null).then(data => {
+
                 this.utils.stopSpinner();
-                this.resultData = response.data;
-                this.resultData.year = response.data.year.data;
+                this.resultData = data.data;
+
+                // Prep the response for the view templates
+                delete this.resultData.year.totals;     // Do not display this in the view table
                 this.resultData.month = this.sortResultMonthsByTimePeriod(this.resultData);
                 this.resultData.quarter = this.sortResultQuartersByTimePeriod(this.resultData);
 
@@ -803,7 +803,7 @@ export class Statistics {
                     // Populate group select box, if not single sort
                     if(this.selectedDisplayStatistics != "All") {
                         this.subsortValues = []; // Clear past search results
-                        for (var key in this.resultData.year.data) {
+                        for (var key in this.resultData.year) {
                             this.subsortValues.push(key);
                         }
                         this.selectedSubsortValue = this.subsortValues[0];  // Defaults to first in list
