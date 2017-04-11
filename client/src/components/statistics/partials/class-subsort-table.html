@@ -5,6 +5,7 @@
 	<require from="../../../utils/ObjectValuesValueConverter"></require>
 	<require from="../../../utils/SubObjectKeysValueConverter"></require>
 	<require from="../../../utils/SubObjectValuesValueConverter"></require>
+	<require from="../../../utils/SubsortTotalsValueConverter"></require>
 <!-- 	<require from="../../../utils/SubObjectValueConverter"></require> -->
 
 	<div id="daterange"><h4>${fromYear} - ${toYear} ${selectedSearchTimeframe}</h4></div>
@@ -19,6 +20,9 @@
 			<tr repeat.for="key of resultData.year | objectKeys">	
 				<td>${key}</td><td>${resultData.year[key]}</td>
 			</tr>
+			<tr style="font-weight: bold">
+				<td>Total</td><td>${resultData.yearTotals}</td>
+			</tr>
 		</table>
 	</div>
 
@@ -32,9 +36,11 @@
 				<tr repeat.for="key of index | subObjectKeys">
 					<td>${key}</td><td repeat.for="val of index | subObjectValues:key">${val}</td>
 				</tr>
+				<tr>
+					<td style="font-weight: bold">Total</td><td>${resultData.monthTotals | subsortTotals:index}</td>  
+				</tr>
 			</table>
 		</div>
-
 	</div>
 
 	<div id="quarter-results" style="" if.bind="displayQuarter">
@@ -46,6 +52,9 @@
 				<th>${selectedDisplayStatistics}</th><th>Number of Classes</th>
 				<tr repeat.for="key of index | subObjectKeys">
 					<td>${key}</td><td repeat.for="val of index | subObjectValues:key">${val}</td>
+				</tr>
+				<tr>
+					<td style="font-weight: bold">Total</td><td>${resultData.quarterTotals | subsortTotals:index}</td>  
 				</tr>
 			</table>
 		</div>
