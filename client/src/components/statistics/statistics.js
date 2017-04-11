@@ -786,7 +786,7 @@ export class Statistics {
                 this.resultData.quarter = this.sortResultQuartersByTimePeriod(this.resultData);
 
                 console.log("TEST");
-                console.log(this.resultData.monthTotals);
+                console.log(this.resultData.monthTotals.studentTotals);
 
                 // TODO: add FUNCTION: initResultView(data)
                 // Show search options, hide the search form
