@@ -785,8 +785,8 @@ export class Statistics {
                 this.resultData.month = this.sortResultMonthsByTimePeriod(this.resultData);
                 this.resultData.quarter = this.sortResultQuartersByTimePeriod(this.resultData);
 
-                console.log("TEST");
-                console.log(this.resultData.yearTotals.allStudents);
+                console.log("TEST1");
+                console.log(this.resultData.monthTotals.studentTotals);
                 console.log(this.resultData.year);
 
                 // TODO: add FUNCTION: initResultView(data)

@@ -18,8 +18,8 @@
 			<tr repeat.for="key of resultData.year | objectKeys">	
 				<td>${key}</td><td>${resultData.year[key]}</td>			
 			</tr>
-			<tr style="font-weight: bold">
-				<td>Total</td><td>${resultData.yearTotals.studentTotals}</td>
+			<tr>
+				<td style="font-weight: bold">Total</td><td>${resultData.yearTotals.studentTotals}</td>
 			</tr>
 		</table>
 	</div>
@@ -30,10 +30,10 @@
 		<table class="table results-table">
 			<th>Month</th><th repeat.for="key of resultData.year | objectKeys">${key}</th><th>Total</th>			<!-- USE model var -->
 			<tr repeat.for="index of resultData.month">
-				<td>${index | monthString}</td><td repeat.for="val of index | subObjectValues">${val}</td><td style="font-weight: bold">${resultData.monthTotals.allStudents | subsortTotals:index}</td>
+				<td>${index | monthString}</td><td repeat.for="val of index | subObjectValues">${val}</td><td>${resultData.monthTotals.allStudents | subsortTotals:index}</td>
 			</tr>
-			<tr style="font-weight: bold">
-				<td>Total</td><td repeat.for="val of resultData.monthTotals.studentTotals | objectValues">${val}</td>
+			<tr>
+				<td style="font-weight: bold">Total</td><td repeat.for="val of resultData.monthTotals.studentTotals | objectValues">${val}</td>
 			</tr>
 		</table>
 	</div>
@@ -44,10 +44,10 @@
 		<table class="table results-table">
 			<th>Quarter</th><th repeat.for="key of resultData.year | objectKeys">${key}</th><th>Total</th>			<!-- USE model var -->
 			<tr repeat.for="index of resultData.quarter">
-				<td>${index | quarterString}</td><td repeat.for="val of index | subObjectValues">${val}</td><td style="font-weight: bold">${resultData.quarterTotals.allStudents | subsortTotals:index}</td>
+				<td>${index | quarterString}</td><td repeat.for="val of index | subObjectValues">${val}</td><td>${resultData.quarterTotals.allStudents | subsortTotals:index}</td>
 			</tr>
-			<tr style="font-weight: bold">
-				<td>Total</td><td repeat.for="val of resultData.quarterTotals.studentTotals | objectValues">${val}</td>
+			<tr>
+				<td style="font-weight: bold">Total</td><td repeat.for="val of resultData.quarterTotals.studentTotals | objectValues">${val}</td>
 			</tr>
 		</table>
 	</div>

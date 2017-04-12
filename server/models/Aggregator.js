@@ -292,7 +292,7 @@ module.exports = (function() {
 
 		studentsByMonth['totals'] = {
 			allStudents: totals,
-			studentTotals: typeTotals
+			studentTotals: typeTotals				
 		}
 
 		return studentsByMonth;
@@ -446,11 +446,10 @@ module.exports = (function() {
 				typeTotals[month]['faculty'] += courseObject.enrollmentInfo.faculty;
 				typeTotals[month]['other'] += courseObject.enrollmentInfo.other;
 			}
-
-			studentsByDepartmentMonth[month]['totals'] = {
-				allStudents: totals[month],
-				studentTotals: typeTotals[month]
-			}
+		}
+		studentsByDepartmentMonth['totals'] = {
+			allStudents: totals,
+			studentTotals: typeTotals
 		}
 
 		return studentsByDepartmentMonth;
@@ -459,10 +458,18 @@ module.exports = (function() {
 	var subsortStudentResultsByQuarter = function(resultArray, subsortField) {
 
 		var courseObject, quarter, subField, subFieldArr;
-		var studentsByDepartmentQuarter = {};
+		var studentsByDepartmentQuarter = {}, totals={};
+		var typeTotals = {};
 
 		for(var i=1; i<5; i++) {
 			studentsByDepartmentQuarter[i] = {};
+			typeTotals[i] = {
+				undergraduates: 0,
+				graduates: 0,
+				faculty: 0, 
+				other: 0
+			}
+			totals[i] = 0;
 		}
 
 		for(var index in resultArray) {
@@ -487,11 +494,60 @@ module.exports = (function() {
 					studentsByDepartmentQuarter[quarter][subField].faculty += courseObject.enrollmentInfo.faculty;
 					studentsByDepartmentQuarter[quarter][subField].other += courseObject.enrollmentInfo.other;
 				}
+
+				totals[quarter] = courseObject.enrollmentInfo.undergraduates + courseObject.enrollmentInfo.graduates + courseObject.enrollmentInfo.faculty + courseObject.enrollmentInfo.other;
+
+				typeTotals[quarter]['undergraduates'] += courseObject.enrollmentInfo.undergraduates;
+				typeTotals[quarter]['graduates'] += courseObject.enrollmentInfo.graduates;
+				typeTotals[quarter]['faculty'] += courseObject.enrollmentInfo.faculty;
+				typeTotals[quarter]['other'] += courseObject.enrollmentInfo.other;
+			}
+
+			studentsByDepartmentQuarter['totals'] = {
+				allStudents: totals,
+				studentTotals: typeTotals
 			}
 		}
 
 		return studentsByDepartmentQuarter;
 	};
+
+	// var subsortStudentResultsByQuarter = function(resultArray, subsortField) {
+
+	// 	var courseObject, quarter, subField, subFieldArr;
+	// 	var studentsByDepartmentQuarter = {};
+
+	// 	for(var i=1; i<5; i++) {
+	// 		studentsByDepartmentQuarter[i] = {};
+	// 	}
+
+	// 	for(var index in resultArray) {
+	// 		courseObject = resultArray[index];
+	// 		subFieldArr = courseObject[subsortField];
+	// 		quarter = courseObject.courseInfo.quarter;
+
+	// 		for(var i in subFieldArr) {
+	// 			subField = subFieldArr[i];
+
+	// 			if(typeof studentsByDepartmentQuarter[quarter][subField] == 'undefined') {
+	// 				studentsByDepartmentQuarter[quarter][subField] = {
+	// 					undergraduates: courseObject.enrollmentInfo.undergraduates,
+	// 					graduates: courseObject.enrollmentInfo.graduates,
+	// 					faculty: courseObject.enrollmentInfo.faculty,
+	// 					other: courseObject.enrollmentInfo.other
+	// 				}
+	// 			}
+	// 			else {
+	// 				studentsByDepartmentQuarter[quarter][subField].undergraduates += courseObject.enrollmentInfo.undergraduates;
+	// 				studentsByDepartmentQuarter[quarter][subField].graduates += courseObject.enrollmentInfo.graduates;
+	// 				studentsByDepartmentQuarter[quarter][subField].faculty += courseObject.enrollmentInfo.faculty;
+	// 				studentsByDepartmentQuarter[quarter][subField].other += courseObject.enrollmentInfo.other;
+	// 			}
+	// 		}
+	// 	}
+
+	// 	return studentsByDepartmentQuarter;
+	// };
 
 	var sortClassResultsByAllYear = function(resultArray) {
 		var classesByYear = {}, total=0;

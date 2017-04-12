@@ -4,6 +4,7 @@
 	<require from="../../../utils/ObjectKeysValueConverter"></require>
 	<require from="../../../utils/ObjectValuesValueConverter"></require>
 	<require from="../../../utils/SubObjectKeysValueConverter"></require>
+	<require from="../../../utils/SubObjectValueConverter"></require>
 	<require from="../../../utils/SubObjectValuesValueConverter"></require>
 	<require from="../../../utils/SubsortTotalsValueConverter"></require>
 
@@ -17,18 +18,13 @@
 		<table class="table results-table">
 			<th>${selectedDisplayStatistics}</th><th repeat.for="key of resultData.year | subObjectKeys">${key}</th><th>Total</th>
 			<tr repeat.for="key of resultData.year | objectKeys">	
-				<td>${key}</td><td repeat.for="subkey of resultData.year[key] | objectValues">${subkey}</td><td style="font-weight: bold">${resultData.yearTotals.allStudents[key]}</td>
+				<td>${key}</td><td repeat.for="subkey of resultData.year[key] | objectValues">${subkey}</td><td>${resultData.yearTotals.allStudents[key]}</td>
 			</tr>
-			<tr style="font-weight: bold">
-				<td>Total</td><td repeat.for="val of resultData.yearTotals.studentTotals | objectValues">${val}</td>
+			<tr>
+				<td style="font-weight: bold">Total</td><td repeat.for="val of resultData.yearTotals.studentTotals | objectValues">${val}</td>
 			</tr>
 		</table>
 	</div>
-
-
-
-
-
 
 	<div id="month-results" style="" if.bind="displayMonth">
 
@@ -36,9 +32,12 @@
 		<div repeat.for="index of resultData.month">
 			<h4>${index | monthString}</h4>
 			<table class="table results-table">
-				<th>${selectedDisplayStatistics}</th><th repeat.for="val of studentTypes">${val}</th>
+				<th>${selectedDisplayStatistics}</th><th repeat.for="val of studentTypes">${val}</th><th>Total</th>
 				<tr repeat.for="key of index | subObjectKeys">
-					<td>${key}</td><td repeat.for="val of index | subObjectValues:key">${val}</td>
+					<td>${key}</td><td repeat.for="val of index | subObjectValues:key">${val}</td><td>${resultData.monthTotals.allStudents | subsortTotals:index}</td>
+				</tr>
+				<tr>
+					<td style="font-weight: bold">Total</td><td repeat.for="val of resultData.monthTotals.studentTotals | subsortTotals:index | objectValues">${val}</td>
 				</tr>
 			</table>
 		</div>
@@ -50,9 +49,12 @@
 		<div repeat.for="index of resultData.quarter">
 			<h4>${index | quarterString}</h4>
 			<table class="table results-table">
-				<th>${selectedDisplayStatistics}</th><th repeat.for="val of studentTypes">${val}</th>
+				<th>${selectedDisplayStatistics}</th><th repeat.for="val of studentTypes">${val}</th><th>Total</th>
 				<tr repeat.for="key of index | subObjectKeys">
-					<td>${key}</td><td repeat.for="val of index | subObjectValues:key">${val}</td>
+					<td>${key}</td><td repeat.for="val of index | subObjectValues:key">${val}</td><td>${resultData.quarterTotals.allStudents | subsortTotals:index}</td>
+				</tr>
+				<tr>
+					<td style="font-weight: bold">Total</td><td repeat.for="val of resultData.quarterTotals.studentTotals | subsortTotals:index | objectValues">${val}</td>
 				</tr>
 			</table>
 		</div>

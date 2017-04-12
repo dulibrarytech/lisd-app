@@ -376,7 +376,8 @@ div#post-search-options {
 	margin-left: 2em;
 }
 
-div#month-results div table {
+div#month-results div table,
+div#quarter-results div table {
 	width: 90%;
 }
 
