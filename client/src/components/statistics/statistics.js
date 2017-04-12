@@ -70,7 +70,6 @@ export class Statistics {
         // Get the librarians from the database, populate the librarian select box
         var dropdownData = this.getDropdownData();
         this.librarianList = dropdownData.librarians;
-        console.log(this.librarianList);
 
         // Get the year select lists
         this.fromYears = this.getYearList(1990);
@@ -271,8 +270,6 @@ export class Statistics {
             // Subsorting chart
             else {
 
-                //console.log(this.resultData.month[0]['7']['Biology']);
-
                 if(this.selectedStatisticsType == "Class") {
 
                     // Get label array, data array
@@ -408,8 +405,6 @@ export class Statistics {
 
             // this.displayFormat = "Chart";
             // this.onChangeDisplayFormat();
-
-            console.log("Render CD table");
             document.getElementById('chart-section').style.display = "none"; 
             document.getElementById('results-section').style.display = "block"; 
 
@@ -591,7 +586,6 @@ export class Statistics {
     }
 
     onChangeSearchType() {
-        console.log("Change search type");
         if(this.selectedSearchType == "Librarian Statistics" || this.selectedSearchType == "Class Data") {
             document.getElementById('librarian-select').style.display = "block";
         }
@@ -785,10 +779,6 @@ export class Statistics {
                 this.resultData.month = this.sortResultMonthsByTimePeriod(this.resultData);
                 this.resultData.quarter = this.sortResultQuartersByTimePeriod(this.resultData);
 
-                console.log("TEST1");
-                console.log(this.resultData.monthTotals.studentTotals);
-                console.log(this.resultData.year);
-
                 // TODO: add FUNCTION: initResultView(data)
                 // Show search options, hide the search form
                 document.getElementById('result-options').style.display = "block";                   // TODO move to function
@@ -798,11 +788,9 @@ export class Statistics {
 
                 // Render the view
                 if(this.displayFormat == "Table") {
-                    console.log("Rendering tables");
                     this.renderStatisticsTables(this.resultData);
                 }
                 else if(this.displayFormat == "Chart") {
-                    console.log("Rendering charts");
 
                     // Populate group select box, if not single sort
                     if(this.selectedDisplayStatistics != "All") {
