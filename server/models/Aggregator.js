@@ -36,7 +36,6 @@ module.exports = (function() {
 			var cursor = classCollection.find( { "courseInfo.date": { $gte: new Date(queryData.fromDate), $lt: new Date(queryData.toDate) } } );  // fromDate inclusive
 	        cursor.each(function(err, item) {
 	        	if(item != null) {
-	        		console.log(item.courseInfo.date);
 	        		results.push(item);
 	        	}
 	        	else {
@@ -67,7 +66,6 @@ module.exports = (function() {
 		}
 
 		try {
-			console.log(queryData.librarianID);
 			var cursor = classCollection.find(queryObj);  // fromDate inclusive
 	        cursor.each(function(err, item) {
 	        	if(item != null) {

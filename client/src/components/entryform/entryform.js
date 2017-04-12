@@ -129,8 +129,6 @@ export class EntryForm {
             }
         });
 
-        console.log(data);
-
         return data;
     };
 
@@ -187,9 +185,7 @@ export class EntryForm {
 
     submit() {
 
-        var data = this.getFormData();
-        console.log(data); // DEV
-        
+        var data = this.getFormData();        
         this.utils.doAjax('insert/class', 'post', data, null).then(responseObject => {
             console.log("Class insert: Server: " + responseObject.message);
             setTimeout(function() {
