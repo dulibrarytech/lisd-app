@@ -364,8 +364,15 @@ module.exports = (function() {
 	var subsortStudentResultsByYear = function(resultArray, subsortField) {
 
 		var courseObject, subField, subFieldArr;
-		var studentsByYear = {};
+		var studentsByYear = {}, totals={};
+		var typeTotals = {
+			undergraduates: 0,
+			graduates: 0,
+			faculty: 0, 
+			other: 0
+		};
 
+		// Compile statistics
 		for(var index in resultArray) {
 			courseObject = resultArray[index];
 			subFieldArr = courseObject[subsortField]; // this will always be an array
@@ -384,11 +391,26 @@ module.exports = (function() {
 					}
 				}
 
+				// Total of each student type for each subsort field
 				studentsByYear[subField].undergraduates += courseObject.enrollmentInfo.undergraduates;
 				studentsByYear[subField].graduates += courseObject.enrollmentInfo.graduates;
 				studentsByYear[subField].faculty += courseObject.enrollmentInfo.faculty;
 				studentsByYear[subField].other += courseObject.enrollmentInfo.other;
+
+				// Total number of students for each subsort field (U,G,F,O)
+				totals[subField] = courseObject.enrollmentInfo.undergraduates + courseObject.enrollmentInfo.graduates + courseObject.enrollmentInfo.faculty + courseObject.enrollmentInfo.other;
+
+				// Total of each student type for year range
+				typeTotals.undergraduates += courseObject.enrollmentInfo.undergraduates;
+				typeTotals.graduates += courseObject.enrollmentInfo.graduates;
+				typeTotals.faculty += courseObject.enrollmentInfo.faculty;
+				typeTotals.other += courseObject.enrollmentInfo.other;
 			}
+		}
+
+		studentsByYear['totals'] = {
+			allStudents: totals,
+			studentTotals: typeTotals
 		}
 
 		return studentsByYear;

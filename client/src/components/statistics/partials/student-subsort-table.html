@@ -5,6 +5,7 @@
 	<require from="../../../utils/ObjectValuesValueConverter"></require>
 	<require from="../../../utils/SubObjectKeysValueConverter"></require>
 	<require from="../../../utils/SubObjectValuesValueConverter"></require>
+	<require from="../../../utils/SubsortTotalsValueConverter"></require>
 
 	<div id="daterange"><h4>${fromYear} - ${toYear} ${selectedSearchTimeframe}</h4></div>
 	<div id="stats-type-label"><h4>${selectedStatisticsType} Statistics</h4></div>
@@ -14,12 +15,20 @@
 
 		<!-- <h4>Totals:</h4> -->
 		<table class="table results-table">
-			<th>${selectedDisplayStatistics}</th><th repeat.for="key of resultData.year | subObjectKeys">${key}</th>
+			<th>${selectedDisplayStatistics}</th><th repeat.for="key of resultData.year | subObjectKeys">${key}</th><th>Total</th>
 			<tr repeat.for="key of resultData.year | objectKeys">	
-				<td>${key}</td><td repeat.for="subkey of resultData.year[key] | objectValues">${subkey}</td>
+				<td>${key}</td><td repeat.for="subkey of resultData.year[key] | objectValues">${subkey}</td><td style="font-weight: bold">${resultData.yearTotals.allStudents[key]}</td>
+			</tr>
+			<tr style="font-weight: bold">
+				<td>Total</td><td repeat.for="val of resultData.yearTotals.studentTotals | objectValues">${val}</td>
 			</tr>
 		</table>
 	</div>
+
+
+
+
+
 
 	<div id="month-results" style="" if.bind="displayMonth">
 
