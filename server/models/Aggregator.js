@@ -11,8 +11,6 @@ module.exports = (function() {
 	database.connect(function(db) {
 		//var db = database.connection();
 		classCollection = db.collection('lisd_class');
-		// DEV
-		//console.log("Department model connected to db...");
 	});
 
 	var monthlyTotals = {};
@@ -39,11 +37,6 @@ module.exports = (function() {
 	        cursor.each(function(err, item) {
 	        	if(item != null) {
 	        		console.log(item.courseInfo.date);
-
-
-
-
-
 	        		results.push(item);
 	        	}
 	        	else {
@@ -121,9 +114,6 @@ module.exports = (function() {
 		        		resultSet['monthTotals'] = resultSet.month.totals;
 		        		resultSet['quarterTotals'] = resultSet.quarter.totals;
 
-		        		console.log("TEST:");
-		        		console.log(resultSet['yearTotals']);
-
 		        		if(results.length == 0) {message = "No results found";} else {message = "Returning all data";}
 	        			callback({status: "ok", message: message, data: resultSet});
 	        		}
@@ -193,9 +183,6 @@ module.exports = (function() {
 	        		resultSet['yearTotals'] = resultSet.year.totals;
 	        		resultSet['monthTotals'] = resultSet.month.totals;
 	        		resultSet['quarterTotals'] = resultSet.quarter.totals;
-
-	        		console.log("Class agg returning");
-	        		console.log(resultSet);
 
 	        		if(results.length == 0) {message = "No results found";} else {message = "Returning all data";}
 	        		callback({status: "ok", message: message, data: resultSet});
@@ -353,9 +340,6 @@ module.exports = (function() {
 			studentTotals: typeTotals
 		}
 
-		console.log("TESTABC");
-		console.log(studentsByQuarter.totals);
-
 		return studentsByQuarter;
 	};
 
@@ -419,10 +403,18 @@ module.exports = (function() {
 	var subsortStudentResultsByMonth = function(resultArray, subsortField) {
 
 		var courseObject, month, subField, subFieldArr;
-		var studentsByDepartmentMonth = {};
+		var studentsByDepartmentMonth = {}, totals={};
+		var typeTotals = {};
 
 		for(var i=1; i<13; i++) {
 			studentsByDepartmentMonth[i] = {};
+			typeTotals[i] = {
+				undergraduates: 0,
+				graduates: 0,
+				faculty: 0, 
+				other: 0
+			}
+			totals[i] = 0;
 		}
 
 		for(var index in resultArray) {
@@ -447,6 +439,17 @@ module.exports = (function() {
 					studentsByDepartmentMonth[month][subField].faculty += courseObject.enrollmentInfo.faculty;
 					studentsByDepartmentMonth[month][subField].other += courseObject.enrollmentInfo.other;
 				}
+				totals[month] = courseObject.enrollmentInfo.undergraduates + courseObject.enrollmentInfo.graduates + courseObject.enrollmentInfo.faculty + courseObject.enrollmentInfo.other;
+
+				typeTotals[month]['undergraduates'] += courseObject.enrollmentInfo.undergraduates;
+				typeTotals[month]['graduates'] += courseObject.enrollmentInfo.graduates;
+				typeTotals[month]['faculty'] += courseObject.enrollmentInfo.faculty;
+				typeTotals[month]['other'] += courseObject.enrollmentInfo.other;
+			}
+
+			studentsByDepartmentMonth[month]['totals'] = {
+				allStudents: totals[month],
+				studentTotals: typeTotals[month]
 			}
 		}
 
