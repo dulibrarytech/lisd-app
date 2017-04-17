@@ -21,7 +21,8 @@ export class SystemUtils {
 	                .withBaseUrl('http://localhost:9004/')
 	                .withDefaults({
 	                    headers: {
-	                        'Accept': 'application/json'
+	                        'Accept': 'application/json',
+	                        'x-access-header': 'lisd-clien'
 	                    }
 	                });
 	        });
