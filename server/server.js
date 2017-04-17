@@ -4,10 +4,14 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var passport = require('passport');
 var expressSession = require('express-session');
 
+var passport = require('passport');
+var flash    = require('connect-flash');
+var session      = require('express-session');
+
 var app = express();
+var port     = process.env.PORT || 8080;
 
 var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -34,16 +38,16 @@ app.use(allowCrossDomain);
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client')));
 
-// Passport
-app.use(expressSession({secret: 'mySecretKey'}));
+app.use(session({ secret: 'lisdlisdlisdlisdlisdlisdlisd' })); // session secret
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
 
 //app.disable('x-powered-by');
 
 app.set('port', process.env.PORT || 9000);
 
-var router = require('./routes/index')(app);
+var router = require('./routes/index')(app, passport);
 
 // Dev server
 var server = app.listen(app.get('port'), function() {

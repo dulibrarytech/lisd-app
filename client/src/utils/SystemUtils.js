@@ -22,7 +22,7 @@ export class SystemUtils {
 	                .withDefaults({
 	                    headers: {
 	                        'Accept': 'application/json',
-	                        'x-access-header': 'lisd-clien'
+	                        'x-access-header': 'lisd-client'
 	                    }
 	                });
 	        });
