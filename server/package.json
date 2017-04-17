@@ -10,8 +10,10 @@
   "author": "Jeff Rynhart <jeff.rynhart@du.edu>",
   "license": "University of Denver",
   "dependencies": {
+    "bcrypt-nodejs" : "latest",
     "body-parser": "^1.15.0",
     "cookie-parser": "^1.4.1",
+    "connect-flash" : "~0.1.1",
     "ejs": "^2.4.1",
     "express": "^4.13.4",
     "express-session": "~1.7.6",
@@ -21,6 +23,7 @@
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
     "dotenv": "^2.0.0",
+    "method-override": "~1.0.0",
     "mongodb" : "^2.2.9",
     "ldapauth": "^2.2.4",
     "passport": "~0.2.0",
