@@ -52,29 +52,37 @@ module.exports = function (app, passport) {
 	    aggregatorController.getDataSearchClass(req,res);
 	});
 
-	app.post('class/add', function(req, res) { 
+	app.post('/class/add', function(req, res) { 
 	    classController.classAdd(req, res);
 	});
 
-	app.post('user/add', function(req, res) { 
-	    passport.authenticate('local-signup', function(response) {
-	    	console.log("PAuth local-signup response:");
-	    	console.log(response);
-	    });
+	// app.post('/user/add', function(req, res) { 
+	//     passport.authenticate('local-signup', function(response) {
+	//     	console.log("PAdd local-signup response:");
+	//     	console.log(response);
+	//     });
+	// });
+
+	// app.post('/user/login', function(req, res) { 
+	// 	console.log("login route");
+	//     passport.authenticate('local-login', function(response) {
+	//     	console.log("PAuth local-login response:");
+	//     	console.log(response);
+	//     });
+	// });
+
+	app.post('/user/login', 
+	  passport.authenticate('local-login'),
+	  function(req, res) {
+	    console.log("LL resp");
+	    console.log(res);
+	    console.log("LL session");
+	    console.log(req.session);
 	});
 
-	app.post('user/login', function(req, res) { 
-	    
-	});
 
 
 
-
-	// app.post('user/add', passport.authenticate('local-signup', {
- //        successRedirect : function, // redirect to the secure profile section
- //        failureRedirect : '/#/addUser', // redirect back to the signup page if there is an error
- //        failureFlash : true // allow flash messages
- //    }));
 
 	app.post('/admin/authenticate', function(req, res) {
 	    userController.authenticateUser(req,res);
