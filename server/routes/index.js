@@ -5,6 +5,12 @@ var userController = require("../controllers/userController.js");
 module.exports = function (app, passport) {
 
 	var checkHeader = function(req, res, next) {
+
+		console.log("checkHeader: session:");
+		console.log(req.session);
+		console.log("checkHeader: session.user:");
+		console.log(req.session.user);
+
 	  if(req.headers['x-access-header'] == 'lisd-client' || process.env.ENABLE_BROWSER_TEST == 'true') {
 	    next();
 	  }
@@ -15,7 +21,10 @@ module.exports = function (app, passport) {
 	};
 
 	app.get('/', function(req, res) {
-
+		console.log("Setting user");
+		req.session.user = "USER";
+		console.log("checkHeader: session.user:");
+		console.log(req.session.user);
 	    res.render('index.html');
 	});
 
@@ -35,6 +44,7 @@ module.exports = function (app, passport) {
 	});
 
 	app.get('/get/data/search/allStatistics', function(req, res) {
+		console.log(req.session.user);
 	    aggregatorController.getDataSearchAllStatistics(req,res);
 	});
 
@@ -42,9 +52,29 @@ module.exports = function (app, passport) {
 	    aggregatorController.getDataSearchClass(req,res);
 	});
 
-	app.post('/insert/class', function(req, res) { 
-	    classController.insertClass(req, res);
+	app.post('class/add', function(req, res) { 
+	    classController.classAdd(req, res);
 	});
+
+	app.post('user/add', function(req, res) { 
+	    passport.authenticate('local-signup', function(response) {
+	    	console.log("PAuth local-signup response:");
+	    	console.log(response);
+	    });
+	});
+
+	app.post('user/login', function(req, res) { 
+	    
+	});
+
+
+
+
+	// app.post('user/add', passport.authenticate('local-signup', {
+ //        successRedirect : function, // redirect to the secure profile section
+ //        failureRedirect : '/#/addUser', // redirect back to the signup page if there is an error
+ //        failureFlash : true // allow flash messages
+ //    }));
 
 	app.post('/admin/authenticate', function(req, res) {
 	    userController.authenticateUser(req,res);

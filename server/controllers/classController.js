@@ -5,7 +5,7 @@ var settings = require("../config/settings.js");
 var Class = require("../models/Class.js");
 var bodyParser = require('body-parser');
 
-module.exports.insertClass = function(req, res) {
+module.exports.classAdd = function(req, res) {
 
 	// TODO: Validate in middleware. If invalid, either place null or return 400 to client
 	var data = {
