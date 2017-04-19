@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 
 describe("Server API", function(){
     
-	if(true) {
+	if(false) {
 	    describe("#GET /get/data/all", function(){
 			it('should return status 200', function() {
 			  chai.request(process.env.BASE_URL)
@@ -40,7 +40,7 @@ describe("Server API", function(){
 	}
 
 	if(false) {
-		describe("#POST /insert/class", function(){
+		describe("#POST /class/add", function(){
 
 			// var data = {
 			// 	className: "MOCHA POST TEST - DELETE THIS RECORD",
@@ -93,7 +93,7 @@ describe("Server API", function(){
 				    commentText: "comment by commenter"
 				}
 		        chai.request(process.env.BASE_URL)
-		            .post('/insert/class')
+		            .post('/class/add')
 		            .send(data)
 		            .end((err, res) => {
 		                res.should.have.status(200);
@@ -116,6 +116,29 @@ describe("Server API", function(){
 				};
 				chai.request(process.env.BASE_URL)
 				    .post('/admin/authenticate')
+				    .send(data)
+				    .end(function(err, res){
+
+			      		expect(res).to.have.status(200);
+			      			console.log("received response:");
+			      			console.log(res.body);
+			   		done();
+			    });
+				//done();
+			});
+		});
+	}
+
+	if(true) {
+		describe("#POST /user/add", function(){
+			it('should return status 200', function(done) {
+
+				var data = {
+					username: "jrynhart",
+					password: "12345"
+				};
+				chai.request(process.env.BASE_URL)
+				    .post('/user/add')
 				    .send(data)
 				    .end(function(err, res){
 

@@ -186,7 +186,7 @@ export class EntryForm {
     submit() {
 
         var data = this.getFormData();        
-        this.utils.doAjax('insert/class', 'post', data, null).then(responseObject => {
+        this.utils.doAjax('class/add', 'post', data, null).then(responseObject => {
             console.log("Class insert: Server: " + responseObject.message);
             setTimeout(function() {
                 location.reload(false);

@@ -22,7 +22,8 @@ var allowCrossDomain = function(req, res, next) {
 };
 
 require('dotenv').config();
-require("./config/settings.js");
+require("./config/settings");
+require('./config/passport')(passport); // pass passport for configuration
 
 var database = require('./util/database.js');
 database.connect();
@@ -42,16 +43,14 @@ app.use(session({ secret: 'lisdlisdlisdlisdlisdlisdlisd' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
+require('./routes/index')(app, passport);
 
 //app.disable('x-powered-by');
 
+// Start server
 app.set('port', process.env.PORT || 9000);
-
-var router = require('./routes/index')(app, passport);
-
-// Dev server
 var server = app.listen(app.get('port'), function() {
-    console.log('Express server listening on port ' + server.address().port);
+    console.log('LISD service listening on port ' + server.address().port);
 });
 
 module.exports = app;

@@ -31,7 +31,7 @@ export class ChartUtils {
 	}
 
 	renderClassSingleChart(labelArray, dataArray) {	// This does not know about timeframes.  Sort external to this function?
-		
+
 		var barWidthPct = 0.8;
 		if(dataArray.length == 1) {
 			barWidthPct = 0.2

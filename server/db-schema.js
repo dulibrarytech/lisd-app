@@ -59,3 +59,19 @@ db.createCollection( "lisd_location",
    }
 );
 
+db.createCollection( "lisd_user",
+   {
+      validator: { $and:
+         [
+            { "username" : { $type: "string" } },
+            { "password" : { $type: "string" } },
+            { "firstname" : { $type: "string" } },
+            { "lastname" : { $type: "string" } },
+            { "role" : { $type: "number" } },
+            { "isActive" : { $type: "bool" } }
+         ]
+      },
+      validationAction: "error"
+   }
+);
+
