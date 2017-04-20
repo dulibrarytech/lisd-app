@@ -6,11 +6,6 @@ module.exports = function (app, passport) {
 
 	var checkHeader = function(req, res, next) {
 
-		console.log("checkHeader: session:");
-		console.log(req.session);
-		console.log("checkHeader: session.user:");
-		console.log(req.session.user);
-
 	  if(req.headers['x-access-header'] == 'lisd-client' || process.env.ENABLE_BROWSER_TEST == 'true') {
 	    next();
 	  }
@@ -21,14 +16,11 @@ module.exports = function (app, passport) {
 	};
 
 	app.get('/', function(req, res) {
-		console.log("Setting user");
-		req.session.user = "USER";
-		console.log("checkHeader: session.user:");
-		console.log(req.session.user);
 	    res.render('index.html');
 	});
 
 	app.use(checkHeader);
+	//app.use(checkToken);
 
 	// Data: integer fromYear, integer toYear
 	app.get('/get/data/all', function(req, res) {
@@ -56,11 +48,18 @@ module.exports = function (app, passport) {
 	    classController.classAdd(req, res);
 	});
 
-	app.post('/user/login', 
-	  passport.authenticate('local-login'),
-	  function(req, res) {
-	    res.status = 200;
-	    res.send(req.session);
+	// app.post('/user/login', 
+	//   passport.authenticate('local-login'),
+	//   function(req, res) {
+	//   	console.log("Login route response session:")
+	//   	console.log(req.session);
+	//     res.status = 200;
+	//     res.send(req.session);
+	// });
+
+	app.post('/user/login', function(req, res) { 
+	    
+	    userController.authenticateLogin(req.username, req.password);
 	});
 
 

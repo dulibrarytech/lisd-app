@@ -1,17 +1,21 @@
 import 'fetch';
 import { customElement, inject } from 'aurelia-framework';
+import {Configuration} from '../../../config/configuration';
 
 import {SystemUtils} from '../../utils/SystemUtils.js';
 
-@inject(SystemUtils)
+@inject(SystemUtils, Configuration)
 export class Users {
+
   heading = '';
+  config;
   userName;
   passWord;
 
 
-  constructor(systemUtils) {
+  constructor(systemUtils, config) {
       this.utils = systemUtils;
+      this.config = config;
   }
 
   login() {
@@ -22,9 +26,12 @@ export class Users {
     }
 
     this.utils.doAjax('user/login', 'post', data, null).then(responseObject => {
-        console.log("Login response");
+        //this.config.session = responseObject.passport;
+        //console.log("Login Stored session data");
+        //console.log(this.config.session);
+
+        console.log("login() response object:");
         console.log(responseObject);
-        
     });
   }
 }

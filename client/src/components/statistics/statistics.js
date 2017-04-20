@@ -5,12 +5,14 @@ import {SystemUtils} from '../../utils/SystemUtils.js';
 import {ChartUtils} from '../../utils/ChartUtils.js';
 import {MonthStringValueConverter} from '../../utils/MonthStringValueConverter.js';
 import {QuarterStringValueConverter} from '../../utils/QuarterStringValueConverter.js';
+import {Configuration} from '../../../config/configuration';
 
 import $ from 'jquery'; // for datepicker
 
-@inject(SystemUtils, ChartUtils, MonthStringValueConverter, QuarterStringValueConverter)
+@inject(SystemUtils, ChartUtils, MonthStringValueConverter, QuarterStringValueConverter, Configuration)
 export class Statistics {
 
+    config;
     ajax;
     utils;
 
@@ -59,7 +61,9 @@ export class Statistics {
     displayMonth;
     displayQuarter;
 
-    constructor(systemUtils, chartUtils, monthConverter, quarterConverter) {
+    constructor(systemUtils, chartUtils, monthConverter, quarterConverter, configuration) {
+
+        this.config = configuration;
 
         // Get the utils functions
         this.utils = systemUtils;
@@ -100,6 +104,9 @@ export class Statistics {
         this.currentTable = "";
         this.currentChart = "";
         document.getElementById('chart-section').style.display = "none";
+
+        console.log("Statistics Loaded session data:");
+        console.log(this.config.session);
     }
 
     renderStatisticsTables(data) {
