@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var auth = require("./config/auth.js")(); 
 //var expressSession = require('express-session');
 
 //var passport = require('passport');
@@ -38,11 +39,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(allowCrossDomain);
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client')));
+app.use(flash());
 
 // app.use(session({ secret: 'lisdlisdlisdlisdlisdlisdlisd' })); // session secret
 // app.use(passport.initialize());
 // app.use(passport.session()); // persistent login sessions
-app.use(flash()); // use connect-flash for flash messages stored in session
+app.use(auth.initialize());
 require('./routes/index')(app);
 
 //app.disable('x-powered-by');
