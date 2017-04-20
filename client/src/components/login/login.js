@@ -9,12 +9,12 @@ export class Users {
   userName;
   passWord;
 
+
   constructor(systemUtils) {
       this.utils = systemUtils;
   }
 
   login() {
-    console.log("U: " + this.userName + " P: " + this.passWord);
 
     var data = {
       username: this.userName,
@@ -22,7 +22,8 @@ export class Users {
     }
 
     this.utils.doAjax('user/login', 'post', data, null).then(responseObject => {
-        console.log("Login response: Server: " + responseObject.message);
+        console.log("Login response");
+        console.log(responseObject);
         
     });
   }
