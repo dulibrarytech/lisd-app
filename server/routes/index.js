@@ -56,28 +56,11 @@ module.exports = function (app, passport) {
 	    classController.classAdd(req, res);
 	});
 
-	// app.post('/user/add', function(req, res) { 
-	//     passport.authenticate('local-signup', function(response) {
-	//     	console.log("PAdd local-signup response:");
-	//     	console.log(response);
-	//     });
-	// });
-
-	// app.post('/user/login', function(req, res) { 
-	// 	console.log("login route");
-	//     passport.authenticate('local-login', function(response) {
-	//     	console.log("PAuth local-login response:");
-	//     	console.log(response);
-	//     });
-	// });
-
 	app.post('/user/login', 
 	  passport.authenticate('local-login'),
 	  function(req, res) {
-	    console.log("LL resp");
-	    console.log(res);
-	    console.log("LL session");
-	    console.log(req.session);
+	    res.status = 200;
+	    res.send(req.session);
 	});
 
 
