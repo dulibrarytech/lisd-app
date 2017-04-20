@@ -34,7 +34,7 @@ module.exports = function(passport) {
 
             console.log("VL response");
             console.log(response);
-            done(null, username);    // <--- calls 'serialize'
+            done(null, username);   
         });
         //done;
     }));

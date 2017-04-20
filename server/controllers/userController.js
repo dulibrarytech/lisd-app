@@ -4,6 +4,11 @@ require('dotenv').config();
 var settings = require("../config/settings.js");
 var User = require("../models/User");
 
+module.exports.authenticateLogin = function(username, password) {
+
+	
+};
+
 module.exports.authenticateUser = function(req,res) {
 	var name = req.body.username;
 	var pwd = req.body.password;
@@ -29,8 +34,9 @@ module.exports.authenticateUser = function(req,res) {
 			console.log(pmtest)
 		res.send(pmtest);
 	});
-}
+};
 
 var authenticateLDAP = function(username, password, callback) {
 	callback(true);
 };
+
