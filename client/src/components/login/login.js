@@ -24,14 +24,14 @@ export class Users {
       username: this.userName,
       password: this.passWord
     }
-
-    this.utils.doAjax('user/login', 'post', data, null).then(responseObject => {
+    console.log("PRE");
+    this.utils.doAjax('user/login', 'post', data, null).then(response => {
         //this.config.session = responseObject.passport;
         //console.log("Login Stored session data");
         //console.log(this.config.session);
 
-        console.log("login() response object:");
-        console.log(responseObject);
+        console.log("login() response:");
+        console.log(response);
     });
   }
 }

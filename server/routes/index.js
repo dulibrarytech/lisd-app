@@ -59,7 +59,7 @@ module.exports = function (app, passport) {
 
 	app.post('/user/login', function(req, res) { 
 	    
-	    userController.authenticateLogin(req.username, req.password);
+	    userController.authenticateLogin(req, res);
 	});
 
 
