@@ -83,6 +83,9 @@ export class Statistics {
         this.displayYear = false;
         this.displayMonth = true;
         this.displayQuarter = false;
+
+        console.log("statistics session:");
+        console.log(this.config.session);
     }
 
     attached() {
@@ -738,6 +741,11 @@ export class Statistics {
     submitForms() {
 
         var data = this.getFormData();
+
+        //  Test for undefined
+        data['token'] = this.config.session.token;
+
+
         this.displayResults = false;
 
         var selIndex = document.getElementById('librarian-select-input').selectedIndex;
@@ -773,6 +781,7 @@ export class Statistics {
                 this.renderClassDataTable(this.resultData);
             });
         }
+
         else if(this.selectedSearchType == "All Statistics" || this.selectedSearchType == "Librarian Statistics") {
 
             // all statistics route

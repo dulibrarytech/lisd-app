@@ -2,12 +2,14 @@ import 'fetch';
 import { customElement, inject } from 'aurelia-framework';
 
 import {SystemUtils} from '../../utils/SystemUtils.js';
+import {Configuration} from '../../../config/configuration';
 import $ from 'jquery'; // for datepicker
 
-@inject(SystemUtils)
+@inject(SystemUtils, Configuration)
 export class EntryForm {
 
     ajax;
+    config;
 
     // Form control variables
     librarianCount = 1;
@@ -34,7 +36,7 @@ export class EntryForm {
     	'Searching as Strategic Exploration'
     ];
 
-    constructor(systemUtils) {
+    constructor(systemUtils, configuration) {
 
         this.utils = systemUtils;
 
@@ -42,6 +44,10 @@ export class EntryForm {
         this.librarianList = dropdownData.librarians;
         this.locationList = dropdownData.locations;
         this.departmentList = dropdownData.departments;
+        this.config = configuration;
+        
+        console.log("entryform session:");
+        console.log(this.config.session);
     }
 
     // Add additional select input
