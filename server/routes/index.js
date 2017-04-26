@@ -1,6 +1,7 @@
 var aggregatorController = require("../controllers/aggregatorController.js");
 var classController = require("../controllers/classController.js");
 var userController = require("../controllers/userController.js");
+var auth = require("../config/auth.js")();
 
 module.exports = function (app, passport) {
 
@@ -35,10 +36,16 @@ module.exports = function (app, passport) {
 	    aggregatorController.getDataSearchSelectValues(req, res);
 	});
 
-	app.get('/get/data/search/allStatistics', function(req, res) {
-		console.log(req.session.user);
+	app.get('/get/data/search/allStatistics', auth.authenticate(), function(req, res) {
+		console.log("Session dev test passes authenticate:");
+		//console.log(req);
 	    aggregatorController.getDataSearchAllStatistics(req,res);
 	});
+
+	var testFunction = function(req, res, done) {
+		console.log("Test MWF");
+		done();
+	}
 
 	app.get('/get/data/search/class', function(req, res) {
 	    aggregatorController.getDataSearchClass(req,res);

@@ -33,18 +33,17 @@ module.exports.authenticateLogin = function(req, res) {
                 	role: 1
                 }
                 var token = userModel.createToken(data);
-	                console.log("Token:");
-	                console.log(token);
 
                 res.json({
-                	sessionData: data,
-                    token: token  // OK
+                	token: token,  // OK
+                	sessionData: data
                 });
             } else {
             		console.log("Auth Invalid");
 
             	res.json({
-                    token: null  // Invalid credentials
+                    token: null,  // Invalid credentials
+                    sessionData: {}
                 });
             }
         });
@@ -53,31 +52,3 @@ module.exports.authenticateLogin = function(req, res) {
         res.sendStatus(400);
     }
 };
-
-// module.exports.authenticateUser = function(req,res) {
-// 	var name = req.body.username;
-// 	var pwd = req.body.password;
-
-// 	// Validate credentials
-// 	// User.validateLogin(name, pwd, function(isValid) {
-
-// 	// 	if(isValid !== false) { // User is authenticated
-			
-// 	// 		// Validate LDAP binding
-// 	// 		authenticateLDAP(name, pwd, function(isLDAPValid) {
-// 	// 			var response = {
-// 	// 				message: "Invalid credentialsy",
-// 	// 				token: null
-// 	// 			};
-// 	// 			response.send(response);
-// 	// 		});
-// 	// 	}
-// 	// });
-
-// 	var pmtest = User.validateLogin(name, pwd).then(function(res) {
-// 			console.log("Controller receives:");
-// 			console.log(pmtest)
-// 		res.send(pmtest);
-// 	});
-// };
-

@@ -14,6 +14,7 @@ var params = {
 module.exports = function() {
     console.log("New strategy");
     var strategy = new Strategy(params, function(token, done) {
+        console.log("VALIDATING in strategy...");
         token = userModel.validateToken(token);
         if (token !== false) {
             return done(null, {
@@ -28,9 +29,11 @@ module.exports = function() {
     passport.use(strategy);
     return {
         initialize: function() {
+            console.log("Auth initializing...");
             return passport.initialize();
         },
         authenticate: function() {
+            console.log("VALIDATING in authenticate...");
             return passport.authenticate("jwt", cfg.jwtSession);
         }
     };
