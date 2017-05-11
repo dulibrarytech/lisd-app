@@ -1,3 +1,66 @@
+var settings = require("./config/settings");
+var jwt = require("jwt-simple"); 
+
+exports.createToken = function(userData) {
+
+    // return jwt.encode({
+    // 	userID: userData.id,
+    //     timestamp: Math.floor(Date.now() / 1000)
+    // }, cfg.jwtSecret);
+
+    return jwt.sign(userData, app.get('superSecret'), {
+      expiresIn: 10000 
+    });
+};
+
+exports.validateLdapBind = function(username, password) {
+
+	return new Promise(function(fulfill, reject) {
+		fulfill(true);
+	});
+};
+
+exports.validateToken = function(token) {
+
+  	return new Promise(function(fulfill, reject) {
+
+  		  // check header or url parameters or post parameters for token
+		  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+		  // decode token
+		  if (token) {
+
+		    // verifies secret and checks exp
+		    jwt.verify(token, settings.secret, function(err, decoded) {      
+		      if (err) {
+		        reject(false);
+		      } else {
+		        // if everything is good, save to request for use in other routes
+		        // req.decoded = decoded;    
+		        // next();
+
+		        // TODO Current timestamp
+
+		        fulfill(decoded); // Send updated token
+		      }
+		    });
+
+		  } else {
+
+		    // if there is no token
+		    // return an error
+		    // return res.status(403).send({ 
+		    //     success: false, 
+		    //     message: 'No token provided.' 
+		    // });
+		    reject(false);
+		  }
+
+
+		fulfill(true);
+	});
+};
+
 // // passport/login.js
 // passport.use('login', new LocalStrategy({
 //     passReqToCallback : true
