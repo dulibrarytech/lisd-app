@@ -9,25 +9,6 @@ database.connect(function(db) {
 	console.log("User model connected to db...");
 });
 
-// exports.isValidSession = function(session) {
-//   return validateSessionToken(session.token);
-// };
-
-// exports.validateLogin = function(username, password) {
-
-// 	// var isValid = false;
-
-// 	// // validate ldap bind here
-
-// 	// return validateLisdUser(username).then(isValid => {
-// 	// 	console.log("VL receives:");
-// 	// 	console.log(isValid);
-// 	// 	return isValid;
-// 	// });
-
-// 	//return test; // returning the PROMISE.  Controller runs .then on this.  Update above code to use .then()
-// };
-
 exports.validateLisdUser = function(username) {
 
 	return new Promise(function(fulfill, reject) {

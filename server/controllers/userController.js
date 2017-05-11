@@ -1,9 +1,6 @@
 require('dotenv').config();
 var settings = require("../config/settings.js");
 var jwt    = require('jsonwebtoken');
-//var authModule = require("../config/auth.js");
-//var jwt = require("jwt-simple"); 
-//var cfg = require("../config/config.js"); 
 var loginModel = require("../models/Login");
 var userModel = require("../models/User");
 
@@ -21,19 +18,8 @@ module.exports.authenticateLogin = function(req, res) {
                 userModel.validateLisdUser(username).then(response => {   // or use controller.authenticateLogin
 
                     if (response !== false) {
+
                         console.log("Local Auth valid"); // dev
-                        console.log("validateLisdUser response:");
-                        console.log(response);
-
-                        // TODO get user data from response (validateLisdUser returns data object)
-
-                        // DEV:
-                        // var data = {
-                        //  id: 1,
-                        //  firstname: "Jeff",
-                        //  lastname: "Rynhart",
-                        //  role: 1
-                        // }
 
                         var token = loginModel.createToken(response);
 

@@ -2,17 +2,18 @@
 
 import {inject} from 'aurelia-framework';
 import {HttpClient, json} from 'aurelia-fetch-client';
+import {Configuration} from '../../../config/configuration';
 //let httpClient = new HttpClient();
 
 
 
-@inject(HttpClient)
+@inject(HttpClient, Configuration)
 export class SystemUtils {
 
 	http;
 	spinner;
 
-	constructor(httpClient) {
+	constructor(httpClient, config) {
 
 		// HTTP
 		if(typeof httpClient != 'undefined') {
@@ -23,12 +24,13 @@ export class SystemUtils {
 	                    headers: {
 	                        'Accept': 'application/json',
 	                        'x-id-header': 'lisd-client'
-	                        // Add token as X-access-header
+	                        'x-access-token': this.config.token
 	                    }
 	                });
 	        });
 		}
         this.http = httpClient;
+        this.config = config;
 
         // Config spinner
         var opts = {
