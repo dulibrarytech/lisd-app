@@ -1,5 +1,5 @@
 var database = require('../util/database.js');
-var cfg = require("../config/config.js"); 
+var settings = require("../config/settings");
 var collection;
 
 database.connect(function(db) {

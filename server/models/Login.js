@@ -1,5 +1,5 @@
-var settings = require("./config/settings");
-var jwt = require("jwt-simple"); 
+var settings = require("../config/settings");
+var jwt = require("jsonwebtoken"); 
 
 exports.createToken = function(userData) {
 
@@ -8,7 +8,7 @@ exports.createToken = function(userData) {
     //     timestamp: Math.floor(Date.now() / 1000)
     // }, cfg.jwtSecret);
 
-    return jwt.sign(userData, app.get('superSecret'), {
+    return jwt.sign(userData, settings.secret, {
       expiresIn: 10000 
     });
 };
@@ -20,45 +20,50 @@ exports.validateLdapBind = function(username, password) {
 	});
 };
 
-exports.validateToken = function(token) {
+exports.validateToken = function(req, res, next) {
 
-  	return new Promise(function(fulfill, reject) {
+	console.log("VT middleware"); // DEV
 
-  		  // check header or url parameters or post parameters for token
-		  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+	// check header or url parameters or post parameters for token
+	var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
-		  // decode token
-		  if (token) {
+	// decode token
+	if (token) {
 
-		    // verifies secret and checks exp
-		    jwt.verify(token, settings.secret, function(err, decoded) {      
-		      if (err) {
-		        reject(false);
-		      } else {
-		        // if everything is good, save to request for use in other routes
-		        // req.decoded = decoded;    
-		        // next();
+		console.log("Token present"); // DEV
 
-		        // TODO Current timestamp
+		// verifies secret and checks exp
+		jwt.verify(token, settings.secret, function(err, decoded) {      
+			if (err) {
+				return res.json({ success: false, message: 'Failed to authenticate token.' });    
+			} else {
 
-		        fulfill(decoded); // Send updated token
-		      }
-		    });
+				console.log("Token created successfully"); // DEV
+				console.log(decoded);
 
-		  } else {
+				// if everything is good, save to request for use in other routes
+				req.decoded = decoded;    
+				next();
 
-		    // if there is no token
-		    // return an error
-		    // return res.status(403).send({ 
-		    //     success: false, 
-		    //     message: 'No token provided.' 
-		    // });
-		    reject(false);
-		  }
+				// TODO update token with current timestamp if valid
+				// req.updated = updated;    
+				// next();
+			}
+		});
 
+	} else {
 
-		fulfill(true);
-	});
+		console.log("No token present"); // DEV
+
+		// if there is no token
+		// return an error
+		return res.status(403).send({ 
+		    success: false, 
+		    message: 'No token provided.' 
+		});
+
+	}
+
 };
 
 // // passport/login.js

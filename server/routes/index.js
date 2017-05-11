@@ -1,13 +1,13 @@
 var aggregatorController = require("../controllers/aggregatorController.js");
 var classController = require("../controllers/classController.js");
 var userController = require("../controllers/userController.js");
-var auth = require("../config/auth.js")();
+//var auth = require("../config/auth.js")();
 
 module.exports = function (app, passport) {
 
 	var checkHeader = function(req, res, next) {
 
-	  if(req.headers['x-access-header'] == 'lisd-client' || process.env.ENABLE_BROWSER_TEST == 'true') {
+	  if(req.headers['x-id-header'] == 'lisd-client' || process.env.ENABLE_BROWSER_TEST == 'true') {
 	    next();
 	  }
 	  else {
@@ -36,9 +36,7 @@ module.exports = function (app, passport) {
 	    aggregatorController.getDataSearchSelectValues(req, res);
 	});
 
-	app.get('/get/data/search/allStatistics', auth.authenticate(), function(req, res) {
-		console.log("Session dev test passes authenticate:");
-		//console.log(req);
+	app.get('/get/data/search/allStatistics', function(req, res) {
 	    aggregatorController.getDataSearchAllStatistics(req,res);
 	});
 
@@ -55,9 +53,6 @@ module.exports = function (app, passport) {
 	    
 	    userController.authenticateLogin(req, res);
 	});
-
-	// TODO Token validation middleware
-	// Update token and return if valid
 
 	// TODO
 	// Add protected routes below

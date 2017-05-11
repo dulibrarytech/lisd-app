@@ -28,21 +28,21 @@ module.exports.authenticateLogin = function(req, res) {
                         // TODO get user data from response (validateLisdUser returns data object)
 
                         // DEV:
-                        var data = {
-                         id: 1,
-                         firstname: "Jeff",
-                         lastname: "Rynhart",
-                         role: 1
-                        }
+                        // var data = {
+                        //  id: 1,
+                        //  firstname: "Jeff",
+                        //  lastname: "Rynhart",
+                        //  role: 1
+                        // }
 
-                        var token = loginModel.createToken(data);
+                        var token = loginModel.createToken(response);
 
                         // return the information including token as JSON
                         console.log("Sending response with token");
                         console.log(token);
                         res.json({
                           token: token,
-                          sessionData: data
+                          sessionData: response
                         });
 
                     } else {

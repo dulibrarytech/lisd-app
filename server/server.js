@@ -38,7 +38,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(flash());
 
-app.use(auth.initialize());
+//app.use(auth.initialize());
 require('./routes/index')(app);
 
 //app.disable('x-powered-by');
