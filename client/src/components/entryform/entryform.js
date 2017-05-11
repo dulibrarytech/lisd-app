@@ -103,6 +103,11 @@ export class EntryForm {
         this.utils.doAjax('get/data/entry/selectValues', 'get', null, null).then(responseObject => {
             this.utils.stopSpinner();
             // Populate the select boxes with the name and database id of each item
+
+            // TODO
+            // Check if user logged in (verify token locally)
+            // If so, get name from local session, make first selected in box here
+
             var currentData = {};
             for(var key in responseObject) {
                 if(key == 'librarian') {
