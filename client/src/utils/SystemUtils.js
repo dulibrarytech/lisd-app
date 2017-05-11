@@ -22,7 +22,8 @@ export class SystemUtils {
 	                .withDefaults({
 	                    headers: {
 	                        'Accept': 'application/json',
-	                        'x-access-header': 'lisd-client'
+	                        'x-id-header': 'lisd-client'
+	                        // Add token as X-access-header
 	                    }
 	                });
 	        });
