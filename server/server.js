@@ -4,15 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var auth = require("./config/auth.js")(); 
-//var expressSession = require('express-session');
+var jwt    = require('jsonwebtoken');
 
-//var passport = require('passport');
 var flash    = require('connect-flash');
-//var session      = require('express-session');
 
 var app = express();
-//var port     = process.env.PORT || 8080;
+var port     = process.env.PORT || 8080;
 
 var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -23,12 +20,13 @@ var allowCrossDomain = function(req, res, next) {
 };
 
 require('dotenv').config();
-require("./config/settings");
+var settings = require("./config/settings");
 //require('./config/passport')(passport); // pass passport for configuration
 
 var database = require('./util/database.js');
 database.connect();
 
+app.set('superSecret', settings.secret); // secret variable
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
@@ -41,9 +39,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(flash());
 
-// app.use(session({ secret: 'lisdlisdlisdlisdlisdlisdlisd' })); // session secret
-// app.use(passport.initialize());
-// app.use(passport.session()); // persistent login sessions
 app.use(auth.initialize());
 require('./routes/index')(app);
 

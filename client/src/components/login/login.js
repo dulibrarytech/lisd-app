@@ -26,7 +26,7 @@ export class Users {
       username: this.userName,
       password: this.passWord
     }
-    console.log("PRE");
+  
     this.utils.doAjax('user/login', 'post', data, null).then(response => {
         //this.config.session = responseObject.passport;
         //console.log("Login Stored session data");
