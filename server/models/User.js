@@ -1,7 +1,4 @@
-'use strict'
-
 var database = require('../util/database.js');
-var jwt = require("jwt-simple"); 
 var cfg = require("../config/config.js"); 
 var collection;
 
@@ -12,35 +9,26 @@ database.connect(function(db) {
 	console.log("User model connected to db...");
 });
 
-exports.isValidSession = function(session) {
-  return validateSessionToken(session.token);
-};
+// exports.isValidSession = function(session) {
+//   return validateSessionToken(session.token);
+// };
 
-exports.validateLogin = function(username, password) {
+// exports.validateLogin = function(username, password) {
 
-	// var isValid = false;
+// 	// var isValid = false;
 
-	// // validate ldap bind here
+// 	// // validate ldap bind here
 
-	// return validateLisdUser(username).then(isValid => {
-	// 	console.log("VL receives:");
-	// 	console.log(isValid);
-	// 	return isValid;
-	// });
+// 	// return validateLisdUser(username).then(isValid => {
+// 	// 	console.log("VL receives:");
+// 	// 	console.log(isValid);
+// 	// 	return isValid;
+// 	// });
 
-	//return test; // returning the PROMISE.  Controller runs .then on this.  Update above code to use .then()
-};
+// 	//return test; // returning the PROMISE.  Controller runs .then on this.  Update above code to use .then()
+// };
 
-exports.validateLdapBind = function(username, password) {
-
-	// return new Promise(function(fulfill, reject) {
-		
-	// });
-
-	// return true;
-};
-
-var validateLisdUser = function(username) {
+exports.validateLisdUser = function(username) {
 
 	return new Promise(function(fulfill, reject) {
 		try {
@@ -52,15 +40,15 @@ var validateLisdUser = function(username) {
 
 		        		console.log("each");
 		        		console.log(item);
-		        		//???????????
-		        		// if not found, how to send false
+		        		
+
 
 		        		// console.log(item.userName == );
-		        		fulfill(true);
+		        		fulfill(item);
 		        	}
 	        	}
 	        	else {
-	        		fulfill(false);
+	        		reject(false);
 	        	}
 	        });
 		}
@@ -71,17 +59,4 @@ var validateLisdUser = function(username) {
 	});
 
 	//return true;
-};
-
-exports.createToken = function(userData) {
-
-    return jwt.encode({
-    	userID: userData.id,
-        timestamp: Math.floor(Date.now() / 1000)
-    }, cfg.jwtSecret);
-};
-
-var validateToken = function(token) {
-
-  	return token == "12345";
 };

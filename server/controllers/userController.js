@@ -4,6 +4,7 @@ var jwt    = require('jsonwebtoken');
 //var authModule = require("../config/auth.js");
 //var jwt = require("jwt-simple"); 
 //var cfg = require("../config/config.js"); 
+var loginModel = require("../models/Login");
 var userModel = require("../models/User");
 
 module.exports.authenticateLogin = function(req, res) {
@@ -13,15 +14,20 @@ module.exports.authenticateLogin = function(req, res) {
         var password = req.body.password;
 
         // TODO validate LDAP first. Local validation occurs .then()
-        userModel.validateLdapBind(username, password).then(response => {
+        loginModel.validateLdapBind(username, password).then(response => {
 
             if(response === true) {
                 console.log("LDAP valid"); // dev
                 userModel.validateLisdUser(username).then(response => {   // or use controller.authenticateLogin
 
-                    if (response === true) {
+                    if (response !== false) {
                         console.log("Local Auth valid"); // dev
+                        console.log("validateLisdUser response:");
+                        console.log(response);
 
+                        // TODO get user data from response (validateLisdUser returns data object)
+
+                        // DEV:
                         var data = {
                          id: 1,
                          firstname: "Jeff",
@@ -29,11 +35,11 @@ module.exports.authenticateLogin = function(req, res) {
                          role: 1
                         }
 
-                        var token = jwt.sign(user, app.get('superSecret'), {
-                          expiresIn: 10000 
-                        });
+                        var token = loginModel.createToken(data);
 
                         // return the information including token as JSON
+                        console.log("Sending response with token");
+                        console.log(token);
                         res.json({
                           token: token,
                           sessionData: data
