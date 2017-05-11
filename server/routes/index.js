@@ -1,6 +1,7 @@
 var aggregatorController = require("../controllers/aggregatorController.js");
 var classController = require("../controllers/classController.js");
 var userController = require("../controllers/userController.js");
+var loginModel = require("../models/Login");
 //var auth = require("../config/auth.js")();
 
 module.exports = function (app, passport) {
@@ -54,9 +55,15 @@ module.exports = function (app, passport) {
 	    userController.authenticateLogin(req, res);
 	});
 
-	// TODO
-	// Add protected routes below
-	// all /admin routes (user crud)
+	// Protected routes
+	app.use(loginModel.validateToken);
+
+	app.get('/admin/allUsers', function(req, res) { 
+	    
+	    //userController.adminAllUsers(req, res);
+	    res.status(200);
+	    res.send({test: "ok"});
+	});
 
 	// app.post('/admin/authenticate', function(req, res) {
 	//     userController.authenticateUser(req,res);
