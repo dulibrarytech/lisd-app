@@ -1,5 +1,6 @@
 require('dotenv').config();
 var settings = require("../config/settings.js");
+var jwt    = require('jsonwebtoken');
 //var authModule = require("../config/auth.js");
 //var jwt = require("jwt-simple"); 
 //var cfg = require("../config/config.js"); 
@@ -12,33 +13,53 @@ module.exports.authenticateLogin = function(req, res) {
         var password = req.body.password;
 
         // TODO validate LDAP first. Local validation occurs .then()
+        userModel.validateLdapBind(username, password).then(response => {
 
-        
-        userModel.validateLogin(username, password).then(response => {   // or use controller.authenticateLogin
+            if(response === true) {
+                console.log("LDAP valid"); // dev
+                userModel.validateLisdUser(username).then(response => {   // or use controller.authenticateLogin
 
-            if (response === true) {
-            	console.log("Local auth valid");
+                    if (response === true) {
+                        console.log("Local Auth valid"); // dev
 
-                var data = {
-                	id: 1,
-                	firstname: "Jeff",
-                	lastname: "Rynhart",
-                	role: 1
-                }
-                var token = userModel.createToken(data);
+                        var data = {
+                         id: 1,
+                         firstname: "Jeff",
+                         lastname: "Rynhart",
+                         role: 1
+                        }
 
-                res.json({
-                	token: token,  // OK
-                	sessionData: data
+                        var token = jwt.sign(user, app.get('superSecret'), {
+                          expiresIn: 10000 
+                        });
+
+                        // return the information including token as JSON
+                        res.json({
+                          token: token,
+                          sessionData: data
+                        });
+
+                    } else {
+
+                        console.log("Local Auth Invalid"); // dev
+                        res.status(402);
+                        res.json({
+                            token: null,  // Invalid credentials
+                            sessionData: {}
+                        });
+                    }
                 });
-            } else {
-            		console.log("Auth Invalid");
+            }
+            else {
 
-            	res.json({
+                console.log("Auth Invalid"); // dev
+                res.status(402);
+                res.json({
                     token: null,  // Invalid credentials
                     sessionData: {}
                 });
             }
+            
         });
 
     } else {
