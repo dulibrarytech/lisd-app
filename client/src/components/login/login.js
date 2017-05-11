@@ -28,11 +28,7 @@ export class Users {
     }
   
     this.utils.doAjax('user/login', 'post', data, null).then(response => {
-        //this.config.session = responseObject.passport;
-        //console.log("Login Stored session data");
-        //console.log(this.config.session);
 
-        console.log("login() response:");
         console.log(response);
         if(response.token == null) {
           // send message
@@ -42,8 +38,6 @@ export class Users {
         else {
           this.config.session = response.sessionData;
           this.config.session['token'] = response.token;
-          console.log("Session:");
-          console.log(this.config);
           this.router.navigate("/");
         }
     });

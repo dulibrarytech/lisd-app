@@ -18,15 +18,15 @@ exports.isValidSession = function(session) {
 
 exports.validateLogin = function(username, password) {
 
-	var isValid = false;
+	// var isValid = false;
 
-	// validate ldap bind here
+	// // validate ldap bind here
 
-	return validateLisdUser(username).then(isValid => {
-		console.log("VL receives:");
-		console.log(isValid);
-		return isValid;
-	});
+	// return validateLisdUser(username).then(isValid => {
+	// 	console.log("VL receives:");
+	// 	console.log(isValid);
+	// 	return isValid;
+	// });
 
 	//return test; // returning the PROMISE.  Controller runs .then on this.  Update above code to use .then()
 };
