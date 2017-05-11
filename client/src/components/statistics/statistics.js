@@ -658,6 +658,10 @@ export class Statistics {
         data["locations"] = [];
         data["departments"] = [];
 
+        // TODO
+        // Check if user logged in (verify token locally)
+        // If so, get name from local session, make first selected in box her
+
         // Ajax
         this.utils.doAjax('get/data/entry/selectValues', 'get', null, null).then(responseObject => {
             this.utils.stopSpinner();

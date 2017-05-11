@@ -42,11 +42,6 @@ module.exports = function (app, passport) {
 	    aggregatorController.getDataSearchAllStatistics(req,res);
 	});
 
-	var testFunction = function(req, res, done) {
-		console.log("Test MWF");
-		done();
-	}
-
 	app.get('/get/data/search/class', function(req, res) {
 	    aggregatorController.getDataSearchClass(req,res);
 	});
@@ -55,25 +50,20 @@ module.exports = function (app, passport) {
 	    classController.classAdd(req, res);
 	});
 
-	// app.post('/user/login', 
-	//   passport.authenticate('local-login'),
-	//   function(req, res) {
-	//   	console.log("Login route response session:")
-	//   	console.log(req.session);
-	//     res.status = 200;
-	//     res.send(req.session);
-	// });
-
+	// Get token if valid
 	app.post('/user/login', function(req, res) { 
 	    
 	    userController.authenticateLogin(req, res);
 	});
 
+	// TODO Token validation middleware
+	// Update token and return if valid
 
+	// TODO
+	// Add protected routes below
+	// all /admin routes (user crud)
 
-
-
-	app.post('/admin/authenticate', function(req, res) {
-	    userController.authenticateUser(req,res);
-	});
+	// app.post('/admin/authenticate', function(req, res) {
+	//     userController.authenticateUser(req,res);
+	// });
 };
