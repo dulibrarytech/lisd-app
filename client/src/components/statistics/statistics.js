@@ -658,6 +658,9 @@ export class Statistics {
         data["locations"] = [];
         data["departments"] = [];
 
+        console.log("GDD test");
+            console.log(this);
+
         // TODO
         // Check if user logged in (verify token locally)
         // If so, get name from local session, make first selected in box her
