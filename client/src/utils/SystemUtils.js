@@ -23,8 +23,8 @@ export class SystemUtils {
 	                .withDefaults({
 	                    headers: {
 	                        'Accept': 'application/json',
-	                        'x-id-header': 'lisd-client'
-	                        'x-access-token': this.config.token
+	                        'x-id-header': 'lisd-client',
+	                        'x-access-token': config.token
 	                    }
 	                });
 	        });

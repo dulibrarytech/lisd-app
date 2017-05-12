@@ -36,6 +36,7 @@ export class Users {
           // clear login form
         }
         else {
+          console.log(response.sessionData.username + " logged in successfully");
           this.config.session = response.sessionData;
           this.config.session['token'] = response.token;
           this.router.navigate("/");

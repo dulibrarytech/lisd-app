@@ -16,6 +16,8 @@ exports.validateLisdUser = function(username) {
 			//var foundUser = false;
 			var cursor = collection.find();
 	        cursor.each(function(err, item) {
+	        	console.log("VLU test");
+	        	console.log(item);
 	        	if(item != null) {
 	        		if(item.username == username) {
 
@@ -27,15 +29,20 @@ exports.validateLisdUser = function(username) {
 		        		// console.log(item.userName == );
 		        		fulfill(item);
 		        	}
+		        	else {
+		        		console.log("username no match");
+		        		fulfill(false);
+		        	}
 	        	}
 	        	else {
-	        		reject(false);
+	        		console.log("No item");
+	        		fulfill(false);
 	        	}
 	        });
 		}
 		catch (e) {
 			console.log("Error: " + e);
-			reject(false);
+			fulfill(false);
 		}
 	});
 
