@@ -37,8 +37,8 @@ export class Users {
         }
         else {
           console.log(response.sessionData.username + " logged in successfully");
-          this.config.session = response.sessionData;
-          this.config.session['token'] = response.token;
+          this.config.session.data = response.sessionData;
+          this.config.session.token = response.token;
           this.router.navigate("/");
         }
     });

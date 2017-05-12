@@ -34,7 +34,7 @@ module.exports.authenticateLogin = function(req, res) {
                     } else {
 
                         console.log("Local Auth Invalid"); // dev
-                        res.status(402);
+                        res.status(403);
                         res.json({
                             token: null,  // Invalid credentials
                             sessionData: {}
@@ -45,7 +45,7 @@ module.exports.authenticateLogin = function(req, res) {
             else {
 
                 console.log("Auth Invalid"); // dev
-                res.status(402);
+                res.status(403);
                 res.json({
                     token: null,  // Invalid credentials
                     sessionData: {}

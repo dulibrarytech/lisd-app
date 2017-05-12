@@ -10,7 +10,7 @@ database.connect(function(db) {
 });
 
 exports.validateLisdUser = function(username) {
-
+	console.log("Something called VLU");
 	return new Promise(function(fulfill, reject) {
 		try {
 			//var foundUser = false;
@@ -31,7 +31,7 @@ exports.validateLisdUser = function(username) {
 		        	}
 		        	else {
 		        		console.log("username no match");
-		        		fulfill(false);
+		        		//fulfill(false);
 		        	}
 	        	}
 	        	else {
