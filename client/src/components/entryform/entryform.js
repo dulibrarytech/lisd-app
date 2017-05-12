@@ -40,19 +40,49 @@ export class EntryForm {
 
         this.utils = systemUtils;
         this.config = configuration;
+
+        this.librarianList = [];
+        this.locationList = [];
+        this.departmentList = [];
+
+        this.loadDropdownData();
+        // console.log("DDTEST:");
+        // console.log(dropdownData.librarians[1]);
+        // this.librarianList = dropdownData.librarians;
+        // this.locationList = dropdownData.locations;
+        // this.departmentList = dropdownData.departments;
+
+        this.librarianList.push({"id": "123", "name": "TTT"});
+
+        // console.log("entryform session:");
+        // console.log(this.config.session.data);
+        // console.log("List:");
+        // console.log(this.librarianList);
+        // console.log("List 0:");
+        // console.log(this.librarianList[1]);
+        // if(this.config.session.data) {  // if(this.config.session.data)
+        //     console.log("Have session");
+        // }
     }
 
     attached() {
-        var dropdownData = this.getDropdownData();
-        this.librarianList = dropdownData.librarians;
-        this.locationList = dropdownData.locations;
-        this.departmentList = dropdownData.departments;
+        // var dropdownData = this.getDropdownData();
+        // this.librarianList = dropdownData.librarians;
+        // this.locationList = dropdownData.locations;
+        // this.departmentList = dropdownData.departments;
         
-        console.log("entryform session:");
-        console.log(this.config.session);
-        if(true) {  // if(this.config.session.data)
+        // console.log("entryform session:");
+        // console.log(this.config.session);
+        // if(true) {  // if(this.config.session.data)
 
-        }
+        // }
+        // if(this.config.session.data) {  // if(this.config.session.data)
+        //     console.log("Have session");
+        //     this.setActiveLibrarian();
+        // }
+        // else {
+        //     console.log("No session");
+        // }
     }
 
     // Add additional select input
@@ -95,58 +125,84 @@ export class EntryForm {
     }
 
     // Retrieves the current list from the server and populates all select dropdowns
-    getDropdownData() {
+    loadDropdownData() {
 
-        var data = {};
+        // var data = {};
 
-        // Select elements
-        data["librarians"] = [];
-        data["locations"] = [];
-        data["departments"] = [];
+        // // Select elements
+        // data["librarians"] = [];
+        // data["locations"] = [];
+        // data["departments"] = [];
+
+        // console.log("GDD test");
+        //     console.log(this);
+
+        console.log("Loading dropdown data");
 
         // Ajax
         this.utils.doAjax('get/data/entry/selectValues', 'get', null, null).then(responseObject => {
+
             this.utils.stopSpinner();
-            // Populate the select boxes with the name and database id of each item
+            console.log("GDD test");
+            console.log(this);
+            this.setSelectOptions(responseObject);
+            console.log('Length');
+            console.log(this.librarianList.length);
 
-            // TODO
-            // Check if user logged in (verify token locally)
-            // If so, get name from local session, make first selected in box here
-
-            var currentData = {};
-            for(var key in responseObject) {
-                if(key == 'librarian') {
-                    currentData = responseObject[key];
-                    for(var dataItem in currentData) {
-                        data["librarians"].push({
-                            name: currentData[dataItem],
-                            id: dataItem
-                        });
-                    }
-                }
-                else if(key == 'location') {
-                    currentData = responseObject[key];
-                    for(var dataItem in currentData) {
-                        data["locations"].push({
-                            name: currentData[dataItem],
-                            id: dataItem
-                        });
-                    }
-                }
-                else if(key == 'department') {
-                    currentData = responseObject[key];
-                    for(var dataItem in currentData) {
-                        data["departments"].push({
-                            name: currentData[dataItem],
-                            id: dataItem
-                        });
-                    }
-                }
+            if(this.config.session.data) {  // if(this.config.session.data)
+                console.log("Have session");
+                this.setActiveLibrarian();
+            }
+            else {
+                console.log("No session");
             }
         });
 
-        return data;
+        // return data;
     };
+
+    setSelectOptions(options) {
+        var currentData = {};
+        for(var key in options) {
+            if(key == 'librarian') {
+                currentData = options[key];
+                for(var dataItem in currentData) {
+                    this.librarianList.push({
+                        name: currentData[dataItem],
+                        id: dataItem
+                    });
+                }
+            }
+            else if(key == 'location') {
+                currentData = options[key];
+                for(var dataItem in currentData) {
+                    this.locationList.push({
+                        name: currentData[dataItem],
+                        id: dataItem
+                    });
+                }
+            }
+            else if(key == 'department') {
+                currentData = options[key];
+                for(var dataItem in currentData) {
+                    this.departmentList.push({
+                        name: currentData[dataItem],
+                        id: dataItem
+                    });
+                }
+            }
+        }
+        console.log("SO length");
+        console.log(this.librarianList.length);
+    }
+
+    setActiveLibrarian() {
+        // Get session user id
+        // loop liblist ids to find active librarian
+        console.log("SAL test");
+        console.log(this.config.session.data._id);
+        console.log(this.librarianList[1]);
+    }
 
     // Return an object of all form data
     getFormData() {
