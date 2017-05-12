@@ -39,15 +39,20 @@ export class EntryForm {
     constructor(systemUtils, configuration) {
 
         this.utils = systemUtils;
+        this.config = configuration;
+    }
 
+    attached() {
         var dropdownData = this.getDropdownData();
         this.librarianList = dropdownData.librarians;
         this.locationList = dropdownData.locations;
         this.departmentList = dropdownData.departments;
-        this.config = configuration;
         
         console.log("entryform session:");
         console.log(this.config.session);
+        if(true) {  // if(this.config.session.data)
+
+        }
     }
 
     // Add additional select input
