@@ -1,4 +1,4 @@
-'use strict'
+
 
 module.exports = (function() {
 
@@ -37,12 +37,40 @@ module.exports = (function() {
 		}
 	};
 
+	var findByUserID = function(userID, callback) {
+		var librarianID = 0;
+		console.log("FindUserByID");
+		try {
+			var cursor = collection.find({"userID" : userID}, {"_id": 1});
+		    cursor.each(function(err, item) {
+		    	if(err) {
+		    		console.log("Error: " + err);
+		    		callback(librarianID);
+		    	}
+		    	if(item != null) {
+		    		console.log("Found librarian for user, libID: " + item._id);
+		    		librarianID = item._id;
+		    	}
+		    	else {
+		    		callback(librarianID);
+		    	}
+		    });
+		}
+		catch (e) {
+			console.log("Error: " + e);
+			callback(librarianID);
+		}
+	}
+
 	return {
 		addDocument: function(doc,callback) {
 			addDocument(doc,callback);
 		},
 		getList: function(callback) {
 			getList(callback);
+		},
+		findByUserID: function(userID, callback) {
+			findByUserID(userID, callback);
 		}
 	};
 })()

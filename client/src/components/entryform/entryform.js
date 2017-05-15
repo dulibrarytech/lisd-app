@@ -52,7 +52,7 @@ export class EntryForm {
         // this.locationList = dropdownData.locations;
         // this.departmentList = dropdownData.departments;
 
-        this.librarianList.push({"id": "123", "name": "TTT"});
+        //this.librarianList.push({"id": "123", "name": "TTT"});
 
         // console.log("entryform session:");
         // console.log(this.config.session.data);
@@ -192,16 +192,19 @@ export class EntryForm {
                 }
             }
         }
-        console.log("SO length");
-        console.log(this.librarianList.length);
     }
 
     setActiveLibrarian() {
         // Get session user id
         // loop liblist ids to find active librarian
         console.log("SAL test");
-        console.log(this.config.session.data._id);
-        console.log(this.librarianList[1]);
+        console.log(this.config.session.data);
+        console.log(this.librarianList);
+        for(var index in this.librarianList) {
+            if(this.librarianList[index].userID == this.config.session.data._id) {
+                console.log("Match for " + this.librarianList[index].name);
+            }
+        }
     }
 
     // Return an object of all form data
