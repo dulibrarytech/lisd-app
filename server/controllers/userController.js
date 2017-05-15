@@ -25,7 +25,7 @@ module.exports.authenticateLogin = function(req, res) {
                         librarianModel.findByUserID(response.userID, function(librarianID) {
 
                             console.log("LIBID: " + librarianID);
-                            response['librarianID'] = librarianID;
+                            response['librarianID'] = "5919cebb1ca4786fe844ee13";
 
                             var token = loginModel.createToken(response);
 

@@ -38,7 +38,7 @@ module.exports = (function() {
 	};
 
 	var findByUserID = function(userID, callback) {
-		var librarianID = 0;
+		var librarianID = "";
 		console.log("FindUserByID");
 		try {
 			var cursor = collection.find({"userID" : userID}, {"_id": 1});
