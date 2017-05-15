@@ -27,6 +27,7 @@ db.createCollection( "lisd_librarian",
    {
       validator: { $and:
          [
+            { "userID" : { $type: "string" } },
             { "name" : { $type: "string" } },
             { "isActive" : { $type: "bool" } }
          ]
