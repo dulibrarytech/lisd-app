@@ -1,5 +1,6 @@
 var database = require('../util/database.js');
 var settings = require("../config/settings");
+var Librarian = require("./Librarian");
 var collection;
 
 database.connect(function(db) {
@@ -23,11 +24,15 @@ exports.validateLisdUser = function(username) {
 
 		        		console.log("each");
 		        		console.log(item);
-		        		
 
-
-		        		// console.log(item.userName == );
-		        		fulfill(item);
+		        		var userObject = {
+		        			userID: item._id,
+		        			fname: item.firstname,
+		        			lname: item.lastname,
+		        			role: item.role,
+		        			username: item.username
+		        		};
+		        		fulfill(userObject);
 		        	}
 		        	else {
 		        		console.log("username no match");
