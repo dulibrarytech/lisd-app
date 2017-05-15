@@ -14,6 +14,7 @@ export class EntryForm {
     // Form control variables
     librarianCount = 1;
     selectedLibrarians = [];
+    activeLibrarian = "";
     locationCount = 1;
     selectedLocations = [];
     departmentCount = 1;
@@ -46,43 +47,14 @@ export class EntryForm {
         this.departmentList = [];
 
         this.loadDropdownData();
-        // console.log("DDTEST:");
-        // console.log(dropdownData.librarians[1]);
-        // this.librarianList = dropdownData.librarians;
-        // this.locationList = dropdownData.locations;
-        // this.departmentList = dropdownData.departments;
-
-        //this.librarianList.push({"id": "123", "name": "TTT"});
-
-        // console.log("entryform session:");
-        // console.log(this.config.session.data);
-        // console.log("List:");
-        // console.log(this.librarianList);
-        // console.log("List 0:");
-        // console.log(this.librarianList[1]);
-        // if(this.config.session.data) {  // if(this.config.session.data)
-        //     console.log("Have session");
-        // }
     }
 
     attached() {
-        // var dropdownData = this.getDropdownData();
-        // this.librarianList = dropdownData.librarians;
-        // this.locationList = dropdownData.locations;
-        // this.departmentList = dropdownData.departments;
-        
-        // console.log("entryform session:");
-        // console.log(this.config.session);
-        // if(true) {  // if(this.config.session.data)
 
-        // }
-        // if(this.config.session.data) {  // if(this.config.session.data)
-        //     console.log("Have session");
-        //     this.setActiveLibrarian();
-        // }
-        // else {
-        //     console.log("No session");
-        // }
+        if(this.config.session.data && this.config.session.data.librarianID !== "") {
+            this.setActiveLibrarian(this.config.session.data.librarianID);
+            this.selectOption('librarian');
+        }
     }
 
     // Add additional select input
@@ -127,38 +99,14 @@ export class EntryForm {
     // Retrieves the current list from the server and populates all select dropdowns
     loadDropdownData() {
 
-        // var data = {};
-
-        // // Select elements
-        // data["librarians"] = [];
-        // data["locations"] = [];
-        // data["departments"] = [];
-
-        // console.log("GDD test");
-        //     console.log(this);
-
         console.log("Loading dropdown data");
 
         // Ajax
         this.utils.doAjax('get/data/entry/selectValues', 'get', null, null).then(responseObject => {
 
             this.utils.stopSpinner();
-            console.log("GDD test");
-            console.log(this);
             this.setSelectOptions(responseObject);
-            console.log('Length');
-            console.log(this.librarianList.length);
-
-            if(this.config.session.data) {  // if(this.config.session.data)
-                console.log("Have session");
-                this.setActiveLibrarian();
-            }
-            else {
-                console.log("No session");
-            }
         });
-
-        // return data;
     };
 
     setSelectOptions(options) {
@@ -194,17 +142,12 @@ export class EntryForm {
         }
     }
 
-    setActiveLibrarian() {
-        // Get session user id
-        // loop liblist ids to find active librarian
-        console.log("SAL test");
-        console.log(this.config.session.data);
-        console.log(this.librarianList);
-        for(var index in this.librarianList) {
-            if(this.librarianList[index].userID == this.config.session.data._id) {
-                console.log("Match for " + this.librarianList[index].name);
-            }
-        }
+    setActiveLibrarian(librarianID) {
+
+        this.activeLibrarian = librarianID;
+
+        // Add to property selection array
+        this.selectedLibrarians = [this.activeLibrarian];
     }
 
     // Return an object of all form data
