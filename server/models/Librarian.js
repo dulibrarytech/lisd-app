@@ -2,6 +2,7 @@
 
 module.exports = (function() {
 
+	var mongo = require('mongodb');
 	var database = require('../util/database.js');
 	var collection;
 
@@ -39,21 +40,21 @@ module.exports = (function() {
 
 	var findByUserID = function(userID, callback) {
 		var librarianID = "";
-		console.log("FindUserByID");
+		var query = {};
+		query["userID"] = userID.toString();
 		try {
-			var cursor = collection.find({"userID" : userID}, {"_id": 1});
-		    cursor.each(function(err, item) {
+			var cursor = collection.findOne(query, function(err, item) {
 		    	if(err) {
 		    		console.log("Error: " + err);
 		    		callback(librarianID);
 		    	}
 		    	if(item != null) {
-		    		console.log("Found librarian for user, libID: " + item._id);
 		    		librarianID = item._id;
 		    	}
 		    	else {
-		    		callback(librarianID);
+		    		console.log("Librarian found");
 		    	}
+		    	callback(librarianID)
 		    });
 		}
 		catch (e) {

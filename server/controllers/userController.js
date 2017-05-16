@@ -17,15 +17,17 @@ module.exports.authenticateLogin = function(req, res) {
             if(response === true) {
                 console.log("LDAP valid"); // dev
                 userModel.validateLisdUser(username).then(response => {   // or use controller.authenticateLogin
-                    console.log("Fulfilled have response");
+
                     if (response !== false) {
 
                         console.log("Local Auth valid"); // dev
+                        console.log("UserID from response: " + response.userID);
                         // Check if user is a librarian
                         librarianModel.findByUserID(response.userID, function(librarianID) {
 
                             console.log("LIBID: " + librarianID);
-                            response['librarianID'] = "5919cebb1ca4786fe844ee13";
+                            console.log("LIBIDt: " + typeof librarianID);
+                            response['librarianID'] = "5919cebb1ca4786fe844ee13"; // TEMP
 
                             var token = loginModel.createToken(response);
 
@@ -39,8 +41,6 @@ module.exports.authenticateLogin = function(req, res) {
                         });
 
                     } else {
-
-                        console.log("Local Auth Invalid"); // dev
                         res.status(403);
                         res.json({
                             token: null,  // Invalid credentials
@@ -50,8 +50,6 @@ module.exports.authenticateLogin = function(req, res) {
                 });
             }
             else {
-
-                console.log("Auth Invalid"); // dev
                 res.status(403);
                 res.json({
                     token: null,  // Invalid credentials

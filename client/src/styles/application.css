@@ -220,9 +220,15 @@ div#course-enrollment-group label {
 	margin-top: 0.4em;
 }
 
+form#login-form {
+	margin-top: 3em;
+    margin-left: 3em;
+    width: 40%;
+}
+
 div.form-group {
 	background-color: #f8f8f8;
-	padding: 3em 0;
+	padding: 3em;
 }
 
 div.form-group > button {

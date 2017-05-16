@@ -11,19 +11,15 @@ database.connect(function(db) {
 });
 
 exports.validateLisdUser = function(username) {
-	console.log("Something called VLU");
+
 	return new Promise(function(fulfill, reject) {
 		try {
 			//var foundUser = false;
 			var cursor = collection.find();
 	        cursor.each(function(err, item) {
-	        	console.log("VLU test");
-	        	console.log(item);
+
 	        	if(item != null) {
 	        		if(item.username == username) {
-
-		        		console.log("each");
-		        		console.log(item);
 
 		        		var userObject = {
 		        			userID: item._id,

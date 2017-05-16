@@ -3,9 +3,10 @@ import { customElement, inject } from 'aurelia-framework';
 
 import {SystemUtils} from '../../utils/SystemUtils.js';
 import {Configuration} from '../../../config/configuration';
+import {Router} from 'aurelia-router';
 import $ from 'jquery'; // for datepicker
 
-@inject(SystemUtils, Configuration)
+@inject(SystemUtils, Configuration, Router)
 export class EntryForm {
 
     ajax;
@@ -23,6 +24,8 @@ export class EntryForm {
     selectedClassType = 'Undergraduate';
     selectedAcrlFrames = {};
 
+    activeSession;
+
     quarters = ['Fall', 'Winter', 'Spring', 'Summer'];
 
     classTypes = ['Undergraduate', 'Graduate', 'Graduate-Undergraduate', 'Workshop', 'Orientation'];
@@ -37,14 +40,22 @@ export class EntryForm {
     	'Searching as Strategic Exploration'
     ];
 
-    constructor(systemUtils, configuration) {
+    constructor(systemUtils, configuration, router) {
 
         this.utils = systemUtils;
         this.config = configuration;
+        this.router = router;
 
         this.librarianList = [];
         this.locationList = [];
         this.departmentList = [];
+
+        this.activeSession = false;
+        if(this.config.session.data) {
+            this.activeSession = true;
+            console.log(this.config.session.data);
+            this.username = this.config.session.data.fname + " " + this.config.session.data.lname;
+        }
 
         this.loadDropdownData();
     }
@@ -98,8 +109,6 @@ export class EntryForm {
 
     // Retrieves the current list from the server and populates all select dropdowns
     loadDropdownData() {
-
-        console.log("Loading dropdown data");
 
         // Ajax
         this.utils.doAjax('get/data/entry/selectValues', 'get', null, null).then(responseObject => {
@@ -210,6 +219,14 @@ export class EntryForm {
                 location.reload(false);
             }, 3000);
         });
+    }
+
+    logout() {
+        console.log("LOGOUT");
+        this.config.session.data = {};
+        this.config.session.token = "";
+        //this.router.reload();
+        document.location.reload()
     }
 }
 
