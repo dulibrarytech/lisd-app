@@ -37,9 +37,16 @@ export class Users {
         }
         else {
           console.log(response.sessionData.username + " logged in successfully");
-          console.log(response.sessionData);
           this.config.session.data = response.sessionData;
           this.config.session.token = response.token;
+
+        var elements = document.getElementsByClassName('au-target');
+        for(var i=0; i<elements.length; i++) {
+          if(elements[i].text == "Login") {
+              elements[i].style.visibility = "hidden";
+          }
+        }
+
           this.router.navigate("/");
         }
     });

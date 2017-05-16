@@ -1,7 +1,7 @@
 <template>
   <section class="au-animate">
     <h2>${heading}</h2>
-    <form role="form" submit.delegate="login()">
+    <form role="form" submit.delegate="login()" id="login-form">
       <div class="form-group">
         <label>User ID</label>
         <input type="text" value.bind="userName" class="form-control" placeholder="Username">
