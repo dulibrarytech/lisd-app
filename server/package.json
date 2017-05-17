@@ -16,6 +16,8 @@
     "chai-http": "^3.0.0",
     "connect-flash": "~0.1.1",
     "cookie-parser": "^1.4.1",
+    "curl": "^0.1.4",
+    "curlrequest": "^1.0.1",
     "dotenv": "^2.0.0",
     "ejs": "^2.4.1",
     "express": "^4.15.2",
