@@ -37,11 +37,7 @@ exports.validateLdapBind = function(username, password) {
 					fulfill(false);
 				}
 				else {
-			    	console.log("Body:");
-			    	console.log(body);
 			    	var response = JSON.parse(body);
-			    	console.log("Auth");
-			    	console.log(response.auth);
 			    	fulfill(response.auth);
 				}
 			});

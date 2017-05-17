@@ -12,51 +12,48 @@ module.exports.authenticateLogin = function(req, res) {
         var password = req.body.password;
 
         userModel.findDUID(username).then(duid => {
+            console.log("DUID returned: " + duid);
+            // TODO validate LDAP first. Local validation occurs .then()
+            loginModel.validateLdapBind(duid, password).then(ldapAuth => {
 
-        });
+                if(ldapAuth === true) {
 
-        var duid = "872895198";
+                    userModel.validateLisdUser(username).then(response => {   // or use controller.authenticateLogin
 
-        // TODO validate LDAP first. Local validation occurs .then()
-        loginModel.validateLdapBind(duid, password).then(ldapAuth => {
+                        if (response !== false) {
 
-            if(ldapAuth === true) {
+                            // Check if user is a librarian
+                            librarianModel.findByUserID(response.userID, function(librarianID) {
 
-                userModel.validateLisdUser(username).then(response => {   // or use controller.authenticateLogin
+                                response['librarianID'] = librarianID; // TEMP
+                                var token = loginModel.createToken(response);
 
-                    if (response !== false) {
-
-                        // Check if user is a librarian
-                        librarianModel.findByUserID(response.userID, function(librarianID) {
-
-                            response['librarianID'] = librarianID; // TEMP
-                            var token = loginModel.createToken(response);
-
-                            // return the information including token as JSON
-                            console.log(token);
-                            res.json({
-                              token: token,
-                              sessionData: response
+                                // return the information including token as JSON
+                                console.log(token);
+                                res.json({
+                                  token: token,
+                                  sessionData: response
+                                });
                             });
-                        });
 
-                    } else {
-                        res.status(403);
-                        res.json({
-                            token: null,  // Invalid credentials
-                            sessionData: {}
-                        });
-                    }
-                });
-            }
-            else {
-                res.status(403);
-                res.json({
-                    token: null,  // Invalid credentials
-                    sessionData: {}
-                });
-            }
-            
+                        } else {
+                            res.status(403);
+                            res.json({
+                                token: null,  // Invalid credentials
+                                sessionData: {}
+                            });
+                        }
+                    });
+                }
+                else {
+                    res.status(403);
+                    res.json({
+                        token: null,  // Invalid credentials
+                        sessionData: {}
+                    });
+                }
+                
+            });
         });
 
     } else {
