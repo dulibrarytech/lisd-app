@@ -11,28 +11,28 @@ module.exports.authenticateLogin = function(req, res) {
         var username = req.body.username;
         var password = req.body.password;
 
-        // TODO validate LDAP first. Local validation occurs .then()
-        loginModel.validateLdapBind(username, password).then(response => {
+        userModel.findDUID(username).then(duid => {
 
-            if(response === true) {
-                console.log("LDAP valid"); // dev
+        });
+
+        var duid = "872895198";
+
+        // TODO validate LDAP first. Local validation occurs .then()
+        loginModel.validateLdapBind(duid, password).then(ldapAuth => {
+
+            if(ldapAuth === true) {
+
                 userModel.validateLisdUser(username).then(response => {   // or use controller.authenticateLogin
 
                     if (response !== false) {
 
-                        console.log("Local Auth valid"); // dev
-                        console.log("UserID from response: " + response.userID);
                         // Check if user is a librarian
                         librarianModel.findByUserID(response.userID, function(librarianID) {
 
-                            console.log("LIBID: " + librarianID);
-                            console.log("LIBIDt: " + typeof librarianID);
-                            response['librarianID'] = "5919cebb1ca4786fe844ee13"; // TEMP
-
+                            response['librarianID'] = librarianID; // TEMP
                             var token = loginModel.createToken(response);
 
                             // return the information including token as JSON
-                            console.log("Sending response with token");
                             console.log(token);
                             res.json({
                               token: token,

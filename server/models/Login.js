@@ -1,5 +1,6 @@
 var settings = require("../config/settings");
 var jwt = require("jsonwebtoken"); 
+var request = require("request");
 
 exports.createToken = function(userData) {
 
@@ -11,7 +12,44 @@ exports.createToken = function(userData) {
 exports.validateLdapBind = function(username, password) {
 
 	return new Promise(function(fulfill, reject) {
-		fulfill(true);
+
+		try { 
+
+			// Validate LDAP via auth-service api
+			var url = "https://lib-moon.du.edu/auth-service/index.php/api/v1/authenticate";
+
+			var form = {
+				"username": username,
+				"password": password
+			};
+			var data = {
+				"method": "POST", 
+		        "rejectUnauthorized": false, 
+		        "url": url,
+		        "headers" : {"Content-Type": "application/json"},
+		        "form": form
+		    }; 
+
+			request(data, function(err,httpResponse,body) {
+    
+				if(err) {
+					console.log(err);
+					fulfill(false);
+				}
+				else {
+			    	console.log("Body:");
+			    	console.log(body);
+			    	var response = JSON.parse(body);
+			    	console.log("Auth");
+			    	console.log(response.auth);
+			    	fulfill(response.auth);
+				}
+			});
+		}
+		catch (err) {
+			console.log(err);
+			fulfill(false);
+		}
 	});
 };
 
