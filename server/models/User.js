@@ -6,8 +6,6 @@ var collection;
 database.connect(function(db) {
 	//var db = database.connection();
 	collection = db.collection('lisd_user');
-	// DEV
-	console.log("User model connected to db...");
 });
 
 exports.validateLisdUser = function(username) {
@@ -49,3 +47,29 @@ exports.validateLisdUser = function(username) {
 
 	//return true;
 };
+
+exports.findDUID = function(username) {
+
+	return new Promise(function(fulfill, reject) {
+
+		try {
+			var cursor = collection.find({"username": username});
+	        cursor.each(function(err, item) {
+
+	        	if(item != null) {
+	        		console.log("Found user");
+	        		console.log("DUID: " + item.duid);
+	        		fulfill(item.duid);
+	        	}
+	        	else {
+	        		console.log("No item found");
+	        		fulfill(false);
+	        	}
+	        });
+		}
+		catch (e) {
+			console.log("Error: " + e);
+			fulfill(false);
+		}
+	});
+}

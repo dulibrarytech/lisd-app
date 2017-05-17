@@ -64,6 +64,7 @@ db.createCollection( "lisd_user",
    {
       validator: { $and:
          [
+            { "duid" : { $type: "string" } },
             { "username" : { $type: "string" } },
             { "password" : { $type: "string" } },
             { "firstname" : { $type: "string" } },
