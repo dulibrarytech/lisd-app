@@ -3,6 +3,7 @@
 var settings = {
 
 	"secret": "lisdS3cr3tlisdKeY",
+	"cryptKey": "lisd$ecr3tlisdCryP+K3y",
 	// Dates must be in format "MM/DD"
 	"server": {
 

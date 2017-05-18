@@ -1,5 +1,6 @@
 var database = require('../util/database.js');
 var settings = require("../config/settings");
+var encryptor = require('simple-encryptor')(settings.cryptKey);
 var Librarian = require("./Librarian");
 var collection;
 
@@ -59,6 +60,9 @@ exports.findDUID = function(username) {
 	        	if(item != null) {
 	        		console.log("Found user");
 	        		console.log("DUID: " + item.duid);
+	        		// var decrypted = encryptor.decrypt(item.duid);
+	        		// fulfill(decrypted);
+	        		// console.log("Decripted:");
 	        		fulfill(item.duid);
 	        	}
 	        	else {
