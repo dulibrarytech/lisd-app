@@ -58,11 +58,6 @@ exports.findDUID = function(username) {
 	        cursor.each(function(err, item) {
 
 	        	if(item != null) {
-	        		console.log("Found user");
-	        		console.log("DUID: " + item.duid);
-	        		// var decrypted = encryptor.decrypt(item.duid);
-	        		// fulfill(decrypted);
-	        		// console.log("Decripted:");
 	        		fulfill(item.duid);
 	        	}
 	        	else {
