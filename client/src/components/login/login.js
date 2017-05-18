@@ -17,7 +17,6 @@ export class Users {
       this.utils = systemUtils;
       this.config = config;
       this.router = router;
-      
   }
 
   login() {
@@ -40,16 +39,20 @@ export class Users {
           this.config.session.data = response.sessionData;
           this.config.session.token = response.token;
 
-        var elements = document.getElementsByClassName('au-target');
-        for(var i=0; i<elements.length; i++) {
-          if(elements[i].text == "Login") {
-              elements[i].style.visibility = "hidden";
-          }
-        }
-
+          this.displayLoginButton(false);
           this.router.navigate("/");
         }
     });
+  }
+
+  displayLoginButton(display) {
+
+    var elements = document.getElementsByClassName('au-target');
+    for(var i=0; i<elements.length; i++) {
+      if(elements[i].text == "Login") {
+          elements[i].style.display = display == false ? "none" : "block";
+      }
+    }
   }
 }
 
