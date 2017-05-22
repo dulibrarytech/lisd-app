@@ -13,6 +13,7 @@ module.exports = function (app, passport) {
 	    next();
 	  }
 	  else {
+	  	console.log("Receive request from unidentified client");
 	    res.statusCode = 403;
 	    res.send();
 	  }

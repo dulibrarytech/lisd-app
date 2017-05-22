@@ -64,14 +64,16 @@ module.exports.authenticateLogin = function(req, res) {
 
 module.exports.userAll = function(req, res) {
     userModel.getAllUsers().then(users => {
-        if(users !== false) {
+
+        if(users === false) {
             res.status(500);
         }
         else {
             res.status(200);
         }
         res.json({
-            data: users
+            data: users,
+            token: req.headers['x-access-token']
         });
     });
 };
