@@ -27,6 +27,8 @@ export class Statistics {
     fromYears = [];
     toYears = [];
 
+    activeSession;
+
     selectedSearchTimeframe = "Fiscal";
     searchTimeframe = ["Fiscal", "Academic", "Quarter"];
 
@@ -84,8 +86,13 @@ export class Statistics {
         this.displayMonth = true;
         this.displayQuarter = false;
 
-        console.log("statistics session:");
-        console.log(this.config.session);
+        console.log("Statistics session", this.config.session.data);
+
+        this.activeSession = false;
+        if(this.config.session.data) {
+            this.activeSession = true;
+            this.username = this.config.session.data.fname + " " + this.config.session.data.lname;
+        }
     }
 
     attached() {
@@ -108,8 +115,9 @@ export class Statistics {
         this.currentChart = "";
         document.getElementById('chart-section').style.display = "none";
 
-        console.log("Statistics Loaded session data:");
-        console.log(this.config.session);
+        if(this.config.session.token == null) {
+            document.getElementById('menulink-104').style.display = "none";
+        }
     }
 
     renderStatisticsTables(data) {
@@ -831,5 +839,12 @@ export class Statistics {
         else {
             console.log("Search type error");
         }
+    };
+
+    logout() {
+        this.config.session.data = {};
+        this.config.session.token = "";
+        //this.router.reload();
+        document.location.reload()
     };
 }
