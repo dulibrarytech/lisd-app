@@ -55,19 +55,13 @@ export class Users {
     var elements = document.getElementsByClassName('au-target');
     for(var i=0; i<elements.length; i++) {
       if(elements[i].text == "Login") {
-          elements[i].style.display = display == false ? "none" : "block";
+          elements[i].style.display = display == false ? "none" : "inline";
       }
     }
   }
 
   displayAdminLink(display) {
-
-    var elements = document.getElementsByClassName('au-target');
-    for(var i=0; i<elements.length; i++) {
-      if(elements[i].text == "Admin") {
-          elements[i].style.display = display == false ? "none" : "block";
-      }
-    }
+    document.getElementById('menulink-104').style.display = display == true ? "inline" : "none";
   }
 }
 

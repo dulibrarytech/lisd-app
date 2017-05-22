@@ -13,5 +13,7 @@ export function configure(aurelia) {
   //               let configInstance = aurelia.container.get(Configure);
   //               let apiEndpoint = configInstance.get('api.endpoint');
 
+
+
   aurelia.start().then(() => aurelia.setRoot());
 }

@@ -53,7 +53,6 @@ export class EntryForm {
         this.activeSession = false;
         if(this.config.session.data) {
             this.activeSession = true;
-            console.log(this.config.session.data);
             this.username = this.config.session.data.fname + " " + this.config.session.data.lname;
         }
 
@@ -65,6 +64,10 @@ export class EntryForm {
         if(this.config.session.data && this.config.session.data.librarianID !== "") {
             this.setActiveLibrarian(this.config.session.data.librarianID);
             this.selectOption('librarian');
+        }
+
+        if(this.config.session.token == null) {
+            document.getElementById('menulink-104').style.display = "none";
         }
     }
 
@@ -222,7 +225,6 @@ export class EntryForm {
     }
 
     logout() {
-        console.log("LOGOUT");
         this.config.session.data = {};
         this.config.session.token = "";
         //this.router.reload();
