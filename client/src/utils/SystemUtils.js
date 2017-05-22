@@ -86,5 +86,14 @@ export class SystemUtils {
 	stopSpinner() {
 		this.spinner.stop();
 	}
+
+	logout() {
+        this.config.session.data = {};
+        this.config.session.token = "";
+        //this.router.reload();
+        document.location.reload()
+    }
 }
+
+
 

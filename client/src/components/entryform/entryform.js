@@ -223,12 +223,5 @@ export class EntryForm {
             }, 3000);
         });
     }
-
-    logout() {
-        this.config.session.data = {};
-        this.config.session.token = "";
-        //this.router.reload();
-        document.location.reload()
-    }
 }
 
