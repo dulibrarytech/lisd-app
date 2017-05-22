@@ -18,7 +18,7 @@ exports.validateLisdUser = function(username) {
 	        cursor.each(function(err, item) {
 
 	        	if(item != null) {
-	        		if(item.username == username) {
+	        		if(item.username == username || item.duid == username) {
 
 		        		var userObject = {
 		        			userID: item._id,
@@ -53,12 +53,40 @@ exports.findDUID = function(username) {
 
 	return new Promise(function(fulfill, reject) {
 
+		// If numeric is used as username, assume it is DUID and use that
+		if(isNaN(username) === false) {
+			fulfill(username);
+		}
+
 		try {
 			var cursor = collection.find({"username": username});
 	        cursor.each(function(err, item) {
 
 	        	if(item != null) {
 	        		fulfill(item.duid);
+	        	}
+	        	else {
+	        		fulfill(false);
+	        	}
+	        });
+		}
+		catch (e) {
+			console.log("Error: " + e);
+			fulfill(false);
+		}
+	});
+};
+
+exports.getAllUsers = function() {
+
+	return new Promise(function(fulfill, reject) {
+
+		try {
+			var cursor = collection.find({});
+	        cursor.each(function(err, item) {
+
+	        	if(item != null) {
+	        		console.log("User item found:", item);
 	        	}
 	        	else {
 	        		console.log("No item found");
