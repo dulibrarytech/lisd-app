@@ -840,11 +840,4 @@ export class Statistics {
             console.log("Search type error");
         }
     };
-
-    logout() {
-        this.config.session.data = {};
-        this.config.session.token = "";
-        //this.router.reload();
-        document.location.reload()
-    };
 }
