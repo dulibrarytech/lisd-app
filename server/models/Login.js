@@ -61,11 +61,19 @@ exports.validateToken = function(req, res, next) {
 		jwt.verify(token, settings.secret, function(err, decoded) {      
 			if (err) {
 				
-				return res.json({ success: false, message: 'Failed to authenticate token.' });    
+				//return res.json({ success: false, message: 'Failed to authenticate token.' });    
+				console.log("Invalid token");
+				return res.status(403).send();
 			} else {
 
 				// if everything is good, save to request for use in other routes
 				req.decoded = decoded;    
+
+				// TODO refresh token, then re-store in header:
+				// delete decoded.iat;
+				// delete decoded.exp;
+				//req.headers['x-access-token'] = createToken(decoded);
+
 				next();
 			}
 		});

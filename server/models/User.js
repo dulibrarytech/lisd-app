@@ -81,16 +81,19 @@ exports.getAllUsers = function() {
 
 	return new Promise(function(fulfill, reject) {
 
+		var users = [];
+
 		try {
 			var cursor = collection.find({});
 	        cursor.each(function(err, item) {
 
 	        	if(item != null) {
 	        		console.log("User item found:", item);
+	        		users.push(item);
 	        	}
 	        	else {
 	        		console.log("No item found");
-	        		fulfill(false);
+	        		fulfill(users);
 	        	}
 	        });
 		}
