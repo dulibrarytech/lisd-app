@@ -1,6 +1,7 @@
 var aggregatorController = require("../controllers/aggregatorController.js");
 var classController = require("../controllers/classController.js");
 var userController = require("../controllers/userController.js");
+var librarianController = require("../controllers/librarianController.js");
 var loginModel = require("../models/Login");
 //var auth = require("../config/auth.js")();
 
@@ -24,8 +25,8 @@ module.exports = function (app, passport) {
 	app.use(checkHeader);
 	//app.use(checkToken);
 
-	// Data: integer fromYear, integer toYear
-	app.get('/get/data/all', function(req, res) {
+	// Data: AGG functions
+	app.get('/get/data/all', function(req, res) {			// TODO remove /get from route
 		saggregatorController.getDataAll(req, res);
 	});
 
@@ -45,11 +46,13 @@ module.exports = function (app, passport) {
 	    aggregatorController.getDataSearchClass(req,res);
 	});
 
+
+	// Class model
 	app.post('/class/add', function(req, res) { 
 	    classController.classAdd(req, res);
 	});
 
-	// Get token if valid
+	// User model
 	app.post('/user/login', function(req, res) { 
 	    
 	    userController.authenticateLogin(req, res);
@@ -58,14 +61,11 @@ module.exports = function (app, passport) {
 	// Protected routes
 	app.use(loginModel.validateToken);
 
-	app.get('/admin/allUsers', function(req, res) { 
-	    
-	    //userController.adminAllUsers(req, res);
-	    res.status(200);
-	    res.send({test: "ok"});
+	app.get('/user/all', function(req, res) { 
+	    userController.userAll(req, res);
 	});
 
-	// app.post('/admin/authenticate', function(req, res) {
-	//     userController.authenticateUser(req,res);
-	// });
+	app.get('/librarian/all', function(req, res) { 
+	    librarianController.librarianAll(req, res);
+	});
 };

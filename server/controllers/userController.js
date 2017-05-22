@@ -12,12 +12,12 @@ module.exports.authenticateLogin = function(req, res) {
         var password = req.body.password;
 
         userModel.findDUID(username).then(duid => {
-            console.log("DUID returned: " + duid);
+            
             // TODO validate LDAP first. Local validation occurs .then()
             loginModel.validateLdapBind(duid, password).then(ldapAuth => {
 
                 if(ldapAuth === true) {
-
+                    console.log("Ldap true");
                     userModel.validateLisdUser(username).then(response => {   // or use controller.authenticateLogin
 
                         if (response !== false) {
@@ -46,6 +46,7 @@ module.exports.authenticateLogin = function(req, res) {
                     });
                 }
                 else {
+                    console.log("Ldap false");
                     res.status(403);
                     res.json({
                         token: null,  // Invalid credentials
@@ -59,4 +60,18 @@ module.exports.authenticateLogin = function(req, res) {
     } else {
         res.sendStatus(400);
     }
+};
+
+module.exports.userAll = function(req, res) {
+    userModel.getAllUsers().then(users => {
+        if(users !== false) {
+            res.status(500);
+        }
+        else {
+            res.status(200);
+        }
+        res.json({
+            data: users
+        });
+    });
 };

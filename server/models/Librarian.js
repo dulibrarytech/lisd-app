@@ -61,7 +61,25 @@ module.exports = (function() {
 			console.log("Error: " + e);
 			callback(librarianID);
 		}
-	}
+	};
+
+	var getAllLibrarians = function(callback) {
+		try {
+			var cursor = collection.find({}, {"_id": 1, "name": 1});
+	        cursor.each(function(err, item) {
+	        	if(item != null) {
+	        		// results.librarian[item._id] = item.name;
+	        		console.log("Found librarian item: ", item);
+	        	}
+	        	else {
+	        		callback({status: "ok", message: "Ok", data: results});
+	        	}
+	        });
+		}
+		catch (e) {
+			callback({status: "error", message: "Error: " + e});
+		}
+	};
 
 	return {
 		addDocument: function(doc,callback) {
