@@ -29,6 +29,7 @@ export class Statistics {
 
     activeSession;
     userName;
+    activeLibrarian;
 
     selectedSearchTimeframe = "Fiscal";
     searchTimeframe = ["Fiscal", "Academic", "Quarter"];
@@ -117,6 +118,19 @@ export class Statistics {
         if(this.config.session.token == null) {
             document.getElementById('menulink-104').style.display = "none";
         }
+
+        if(this.config.session.data && this.config.session.data.librarianID !== "") {
+            //this.setActiveLibrarian(this.config.session.data.librarianID);
+            //this.selectOption('librarian');
+        }
+    }
+
+    setActiveLibrarian(librarianID) {
+
+       // this.activeLibrarian = librarianID;
+
+        // Add to property selection array
+        //this.selectedLibrarians = [this.activeLibrarian];
     }
 
     renderStatisticsTables(data) {
