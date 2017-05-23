@@ -116,7 +116,8 @@ export class EntryForm {
         // Ajax
         this.utils.doAjax('get/data/entry/selectValues', 'get', null, null).then(responseObject => {
 
-            this.utils.stopSpinner();
+            //this.utils.stopSpinner();
+            console.log("POST");
             this.setSelectOptions(responseObject);
         });
     };
