@@ -7,3 +7,8 @@ The client-side aspect aka Aurelia application is in the ``client`` folder. This
 
 By default the server ships with Express and is set to serve your Aurelia application from the ``client`` directory.
 
+Release Notes
+
+0.1.0	5-23-17		Data entry/data visualization functionality.  Librarian user session functionality.
+
+
