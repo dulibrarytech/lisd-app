@@ -28,7 +28,8 @@ db.createCollection( "lisd_librarian",
       validator: { $and:
          [
             { "userID" : { $type: "string" } },
-            { "name" : { $type: "string" } },
+            { "firstname" : { $type: "string" } },
+            { "lastname" : { $type: "string" } },
             { "isActive" : { $type: "bool" } }
          ]
       },
@@ -66,11 +67,10 @@ db.createCollection( "lisd_user",
          [
             { "duid" : { $type: "string" } },
             { "username" : { $type: "string" } },
-            { "password" : { $type: "string" } },
             { "firstname" : { $type: "string" } },
             { "lastname" : { $type: "string" } },
             { "role" : { $type: "number" } },
-            { "isActive" : { $type: "bool" } }
+            { "isLibrarian" : { $type: "bool" } }
          ]
       },
       validationAction: "error"
