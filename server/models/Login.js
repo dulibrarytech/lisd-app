@@ -15,7 +15,7 @@ exports.validateLdapBind = function(username, password) {
 
 		try { 
 			// Validate LDAP via auth-service api
-			var url = "https://lib-moon.du.edu/auth-service/index.php/api/v1/authenticate";
+			var url = settings.LDAPAuthService;
 
 			var form = {
 				"username": username,
