@@ -353,6 +353,29 @@ table.results-table {
 	margin-left: 2em;
 }
 
+div.data-table {
+	width: 70%;
+    margin-left: 14%;
+    margin-top: 6em;
+    border-style: solid;
+    border-width: 2px;
+    max-height: 300px;
+    overflow: scroll;
+    float: left;
+    padding: 1em;
+}
+
+div.data-table > h4 {
+	margin-left: 0.35em;
+	display: inline-block;
+}
+
+div.data-table > button {
+	float: right;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+}
+
 canvas.results-chart {
 	width: 50% !important;
     height: 350px !important;
