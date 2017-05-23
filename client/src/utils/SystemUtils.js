@@ -14,9 +14,9 @@ export class SystemUtils {
 	spinner;
 
 	constructor(httpClient, config) {
-
 		// HTTP
 		if(typeof httpClient != 'undefined') {
+			var token = config.session.token;
 			httpClient.configure(config => {
 	            config
 	                .withBaseUrl('http://localhost:9004/')
@@ -24,7 +24,7 @@ export class SystemUtils {
 	                    headers: {
 	                        'Accept': 'application/json',
 	                        'x-id-header': 'lisd-client',
-	                        'x-access-token': config.token
+	                        'x-access-token': null
 	                    }
 	                });
 	        });
@@ -63,7 +63,8 @@ export class SystemUtils {
 	        url += qString.slice(0, -1);
         }
 
-        // TODO: Add headers
+        // Add headers
+        this.http.defaults.headers['x-access-token'] = this.config.session.token;
 
         // Start spinner
         var target = document.getElementById('content');
@@ -72,8 +73,9 @@ export class SystemUtils {
 
         // Run the request
         return this.http.fetch(url, options).then(response => response.json())
-        .then(data => {
+        .then(response => {
         	this.stopSpinner();
+        	return response;
         });
 	}
 

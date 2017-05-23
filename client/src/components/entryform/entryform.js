@@ -113,11 +113,7 @@ export class EntryForm {
     // Retrieves the current list from the server and populates all select dropdowns
     loadDropdownData() {
 
-        // Ajax
         this.utils.doAjax('get/data/entry/selectValues', 'get', null, null).then(responseObject => {
-
-            //this.utils.stopSpinner();
-            console.log("POST");
             this.setSelectOptions(responseObject);
         });
     };
@@ -218,7 +214,6 @@ export class EntryForm {
 
         var data = this.getFormData();        
         this.utils.doAjax('class/add', 'post', data, null).then(responseObject => {
-            console.log("Class insert: Server: " + responseObject.message);
             setTimeout(function() {
                 location.reload(false);
             }, 3000);

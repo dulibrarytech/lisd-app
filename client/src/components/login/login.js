@@ -27,9 +27,12 @@ export class Users {
     }
   
     this.utils.doAjax('user/login', 'post', data, null).then(response => {
+      this.utils.stopSpinner();
 
-        console.log(response);
-        if(response.token == null) {
+        if(typeof response == 'undefined' || typeof response.token == 'undefined') {
+          console.log("Server authentication error");
+        }
+        else if(response.token == null) {
           // send message
           console.log("Invalid username or password");
           // clear login form

@@ -5,6 +5,7 @@ var settings = {
 	"secret": "lisdS3cr3tlisdKeY",
 	"cryptKey": "lisd$ecr3tlisdCryP+K3y",
 	// Dates must be in format "MM/DD"
+	"LDAPAuthService": "https://lib-moon.du.edu/auth-service/index.php/api/v1/authenticate",
 	"server": {
 
 		"fiscalYearStart": 		"07-01",

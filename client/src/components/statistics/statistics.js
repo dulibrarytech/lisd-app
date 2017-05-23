@@ -665,16 +665,9 @@ export class Statistics {
         data["locations"] = [];
         data["departments"] = [];
 
-        console.log("GDD test");
-            console.log(this);
-
-        // TODO
-        // Check if user logged in (verify token locally)
-        // If so, get name from local session, make first selected in box her
-
         // Ajax
         this.utils.doAjax('get/data/entry/selectValues', 'get', null, null).then(responseObject => {
-            this.utils.stopSpinner();
+            //this.utils.stopSpinner();
             // Populate the select boxes with the name and database id of each item
             var currentData = {};
             for(var key in responseObject) {
@@ -769,7 +762,7 @@ export class Statistics {
 
             // class route
             this.utils.doAjax('get/data/search/class', 'get', data, null).then(data => {
-                this.utils.stopSpinner();
+                //this.utils.stopSpinner();
 
                 // Make dates pretty (temp?)
                 for(var index in data.data) {
@@ -801,7 +794,7 @@ export class Statistics {
             // all statistics route
             this.utils.doAjax('get/data/search/allStatistics', 'get', data, null).then(data => {
 
-                this.utils.stopSpinner();
+                //this.utils.stopSpinner();
                 this.resultData = data.data;
 
                 // Prep the response for the view templates
