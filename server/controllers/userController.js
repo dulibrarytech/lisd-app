@@ -17,7 +17,7 @@ module.exports.authenticateLogin = function(req, res) {
             loginModel.validateLdapBind(duid, password).then(ldapAuth => {
 
                 if(ldapAuth === true) {
-                    console.log("Ldap true");
+
                     userModel.validateLisdUser(username).then(response => {   // or use controller.authenticateLogin
 
                         if (response !== false) {
@@ -28,8 +28,6 @@ module.exports.authenticateLogin = function(req, res) {
                                 response['librarianID'] = librarianID; // TEMP
                                 var token = loginModel.createToken(response);
 
-                                // return the information including token as JSON
-                                console.log(token);
                                 res.json({
                                   token: token,
                                   sessionData: response
@@ -46,7 +44,7 @@ module.exports.authenticateLogin = function(req, res) {
                     });
                 }
                 else {
-                    console.log("Ldap false");
+
                     res.status(403);
                     res.json({
                         token: null,  // Invalid credentials
