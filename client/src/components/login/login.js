@@ -44,7 +44,7 @@ export class Users {
 
           if(this.config.session.data.role == '1') {
             // Show admin link (to dashboard route)
-            this.displayAdminLink(true);
+            //this.displayAdminLink(true);
           }
 
           this.displayLoginButton(false);
