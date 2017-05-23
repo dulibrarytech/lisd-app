@@ -28,6 +28,7 @@ export class Statistics {
     toYears = [];
 
     activeSession;
+    userName;
 
     selectedSearchTimeframe = "Fiscal";
     searchTimeframe = ["Fiscal", "Academic", "Quarter"];
@@ -85,8 +86,6 @@ export class Statistics {
         this.displayYear = false;
         this.displayMonth = true;
         this.displayQuarter = false;
-
-        console.log("Statistics session", this.config.session.data);
 
         this.activeSession = false;
         if(this.config.session.data) {
