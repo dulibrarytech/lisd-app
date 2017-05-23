@@ -23,10 +23,11 @@ module.exports = (function() {
 		};
 		
 		try {
-			var cursor = collection.find({}, {"_id": 1, "name": 1});
+			var cursor = collection.find({}, {"_id": 1, "firstname": 1, "lastname": 1});
 	        cursor.each(function(err, item) {
 	        	if(item != null) {
-	        		results.librarian[item._id] = item.name;
+	        		var nameStr = item.firstname + " " + item.lastname;
+	        		results.librarian[item._id] = nameStr;
 	        	}
 	        	else {
 	        		callback({status: "ok", message: "Ok", data: results});
