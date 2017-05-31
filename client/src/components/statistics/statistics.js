@@ -93,6 +93,11 @@ export class Statistics {
             this.activeSession = true;
             this.username = this.config.session.data.fname + " " + this.config.session.data.lname;
         }
+
+        if(this.config.session.data && this.config.session.data.librarianID !== "") {
+            this.activeLibrarian = this.config.session.data.librarianID;
+            this.selectedLibrarian = [this.activeLibrarian];
+        }
     }
 
     attached() {
@@ -120,17 +125,8 @@ export class Statistics {
         }
 
         if(this.config.session.data && this.config.session.data.librarianID !== "") {
-            //this.setActiveLibrarian(this.config.session.data.librarianID);
-            //this.selectOption('librarian');
+            document.getElementById('librarian-select').style.display = "block";
         }
-    }
-
-    setActiveLibrarian(librarianID) {
-
-       // this.activeLibrarian = librarianID;
-
-        // Add to property selection array
-        //this.selectedLibrarians = [this.activeLibrarian];
     }
 
     renderStatisticsTables(data) {

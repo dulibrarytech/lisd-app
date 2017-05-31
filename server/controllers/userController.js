@@ -16,7 +16,7 @@ module.exports.authenticateLogin = function(req, res) {
             // TODO validate LDAP first. Local validation occurs .then()
             loginModel.validateLdapBind(duid, password).then(ldapAuth => {
 
-                if(ldapAuth === true) {
+                if(ldapAuth === true || process.env.LISD_ENV == 'dev') {
 
                     userModel.validateLisdUser(username).then(response => {   // or use controller.authenticateLogin
 

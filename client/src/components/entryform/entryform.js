@@ -62,7 +62,9 @@ export class EntryForm {
     attached() {
 
         if(this.config.session.data && this.config.session.data.librarianID !== "") {
-            this.setActiveLibrarian(this.config.session.data.librarianID);
+            this.activeLibrarian = this.config.session.data.librarianID;
+         // Add to property selection array
+            this.selectedLibrarians = [this.activeLibrarian];
             this.selectOption('librarian');
         }
 
@@ -151,13 +153,13 @@ export class EntryForm {
         }
     }
 
-    setActiveLibrarian(librarianID) {
+    // setActiveLibrarian(librarianID) {
 
-        this.activeLibrarian = librarianID;
+    //     this.activeLibrarian = librarianID;
 
-        // Add to property selection array
-        this.selectedLibrarians = [this.activeLibrarian];
-    }
+    //     // Add to property selection array
+    //     this.selectedLibrarians = [this.activeLibrarian];
+    // }
 
     // Return an object of all form data
     getFormData() {
