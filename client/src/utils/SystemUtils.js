@@ -87,6 +87,13 @@ export class SystemUtils {
 		this.spinner.stop();
 	}
 
+	sendMessage(message) {
+		document.getElementById('message').innerHTML = message;
+		setTimeout(function() { 
+			document.getElementById('message').innerHTML = "";
+		}, 4500);
+	}
+
 	logout() {
         this.config.session.data = {};
         this.config.session.token = "";

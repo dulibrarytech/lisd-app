@@ -40,6 +40,9 @@ export class Users {
           // send message
           console.log("Invalid username or password");
           // clear login form
+          document.getElementById('username-input').value = "";
+          document.getElementById('password-input').value = "";
+          this.utils.sendMessage("Invalid DUID or password");
         }
         else {
           console.log(response.sessionData.username + " logged in successfully");
