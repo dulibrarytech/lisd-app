@@ -221,8 +221,10 @@ div#course-enrollment-group label {
 }
 
 form#login-form {
-	margin-top: 3em;
-    margin-left: 3em;
+/*	margin-top: 3em;
+    margin-left: 3em;*/
+    margin: auto;
+    margin-top: 5%;
     width: 40%;
 }
 
