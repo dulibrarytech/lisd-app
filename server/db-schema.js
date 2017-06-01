@@ -69,8 +69,7 @@ db.createCollection( "lisd_user",
             { "username" : { $type: "string" } },
             { "firstname" : { $type: "string" } },
             { "lastname" : { $type: "string" } },
-            { "role" : { $type: "number" } },
-            { "isLibrarian" : { $type: "bool" } }
+            { "role" : { $type: "number" } }
          ]
       },
       validationAction: "error"
