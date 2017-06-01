@@ -17,6 +17,10 @@ export class Users {
       this.utils = systemUtils;
       this.config = config;
       this.router = router;
+
+      if(this.config.session.token == null) {
+          document.getElementById('menulink-104').style.display = "none";
+      }
   }
 
   login() {
@@ -44,7 +48,7 @@ export class Users {
 
           if(this.config.session.data.role == '1') {
             // Show admin link (to dashboard route)
-            //this.displayAdminLink(true);
+            this.displayAdminLink(true);
           }
 
           this.displayLoginButton(false);

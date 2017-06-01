@@ -97,6 +97,7 @@ export class Statistics {
         if(this.config.session.data && this.config.session.data.librarianID !== "") {
             this.activeLibrarian = this.config.session.data.librarianID;
             this.selectedLibrarian = [this.activeLibrarian];
+            this.selectedSearchType = "Librarian Statistics";
         }
     }
 
@@ -613,6 +614,13 @@ export class Statistics {
     }
 
     onChangeSearchType() {
+
+        // Auto select active librarian in dropdown
+        if(this.activeLibrarian != "" && this.selectedSearchType == "Librarian Statistics") {
+            this.selectedLibrarian = [this.activeLibrarian];
+        }
+
+        // Show librarian select if class data or librarian statistics, hide it if general statistics
         if(this.selectedSearchType == "Librarian Statistics" || this.selectedSearchType == "Class Data") {
             document.getElementById('librarian-select').style.display = "block";
         }
