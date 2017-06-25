@@ -1,0 +1,33 @@
+<template>
+  <section class="au-animate">
+
+    <div if.bind="activeSession" style="float: right; margin-bottom: 0.7em; margin-top: 0.8em; margin-right: 5%">
+        <span id="user-string">Welcome, ${username}</span><span><a click.delegate="utils.logout()" style="cursor: pointer; margin-left: 0.3em">Logout</a></span>
+    </div>
+
+    <div class="data-table">
+    	<h4>Users</h4><button class="button" style="float: right">Add User</button>
+	    <table class="table" id="user-data-table">
+			<tr>
+				<th>Username</th><th>First Name</th><th>Last Name</th><th>Role</th><th>DUID</th><th></th><th></th>
+			</tr>
+			<tr class="" id="" repeat.for="user of users">
+				<td>${user.username}</td><td>${user.firstname}</td><td>${user.lastname}</td><td>${user.role}</td><td>${user.duid}</td><td><button class="button">Update</button></td><td><button>Remove</button></td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="data-table">
+    	<h4>Librarians</h4><button class="button" style="float: right">Add Librarian</button>
+	    <table class="table" id="user-data-table">
+			<tr>
+				<th>First Name</th><th>Last Name</th><th>Is Active</th><th>Is User</th><th></th><th></th>
+			</tr>
+			<tr class="" id="" repeat.for="user of users">
+				<td>FNAME</td><td>LNAME</td><td>Yes</td><td>Yes</td><td><button class="button">Update</button></td><td><button>Remove</button></td>
+			</tr>
+		</table>
+	</div>
+
+  </section>
+</template>
