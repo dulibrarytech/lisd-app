@@ -13,13 +13,16 @@ export class SystemUtils {
 	http;
 	spinner;
 
+	this.http = httpClient;
+    this.config = config;
+
 	constructor(httpClient, config) {
 		// HTTP
 		if(typeof httpClient != 'undefined') {
 			var token = config.session.token;
 			httpClient.configure(config => {
 	            config
-	                .withBaseUrl('http://localhost:9004/')
+	                .withBaseUrl(this.config.baseUrl)
 	                .withDefaults({
 	                    headers: {
 	                        'Accept': 'application/json',
@@ -29,8 +32,6 @@ export class SystemUtils {
 	                });
 	        });
 		}
-        this.http = httpClient;
-        this.config = config;
 
         // Config spinner
         var opts = {
