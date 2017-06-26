@@ -5,6 +5,25 @@
 ## Structure
 The client-side aspect aka Aurelia application is in the ``client`` folder. This is where you author your Aurelia classes, etc. The server-side aspect is in the ``server`` folder which contains Node.js files, etc. 
 
+# Configuration settings:
+Client: config/configuration.js
+Server: Create a file named '.env':
+
+####################################
+PORT=[port #]
+BASE_URL=[Base url of server app]
+
+LISD_ENV=[dev|prod]
+
+LISD_SECRET=lisdS3cr3tlisdKeY
+LISD_CRYPTKEY=lisd&ecr3tlisdCryPtK3y
+LDAP_SERVICE=[ldap service url]
+
+DB_HOST=
+DB_PORT=
+DB_NAME=
+####################################
+
 By default the server ships with Express and is set to serve your Aurelia application from the ``client`` directory.
 
 Release Notes
