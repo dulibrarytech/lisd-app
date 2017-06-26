@@ -28,6 +28,11 @@ By default the server ships with Express and is set to serve your Aurelia applic
 
 Release Notes
 
-0.1.0	5-23-17		Data entry/data visualization functionality.  Librarian user session functionality.
+0.1.0	5-23-17		Data entry/data visualization functionality.  
+					Librarian user session functionality: Display authenticated librarian in select boxes by default
+
+0.1.1	6-26-17		Remove inactive librarians from select box
+					Add feedback message display to login form
+					Add global settings class to client for client app settings
 
 
