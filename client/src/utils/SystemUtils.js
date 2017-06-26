@@ -13,11 +13,11 @@ export class SystemUtils {
 	http;
 	spinner;
 
-	this.http = httpClient;
-    this.config = config;
-
 	constructor(httpClient, config) {
-		// HTTP
+
+		this.http = httpClient;
+    	this.config = config;
+
 		if(typeof httpClient != 'undefined') {
 			var token = config.session.token;
 			httpClient.configure(config => {
