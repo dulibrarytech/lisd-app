@@ -35,7 +35,7 @@ module.exports.authenticateLogin = function(req, res) {
                             });
 
                         } else {
-                            res.status(403);
+                            res.status(200);
                             res.json({
                                 token: null,  // Invalid credentials
                                 sessionData: {}
@@ -45,7 +45,7 @@ module.exports.authenticateLogin = function(req, res) {
                 }
                 else {
 
-                    res.status(403);
+                    res.status(200);
                     res.json({
                         token: null,  // Invalid credentials
                         sessionData: {}
