@@ -22,6 +22,8 @@ LDAP_SERVICE=[ldap service url]
 DB_HOST=
 DB_PORT=
 DB_NAME=
+
+ENABLE_BROWSER_TEST=[true to enable browser test on server api routes]
 ####################################
 
 By default the server ships with Express and is set to serve your Aurelia application from the ``client`` directory.
@@ -34,5 +36,8 @@ Release Notes
 0.1.1	6-26-17		Remove inactive librarians from select box
 					Add feedback message display to login form
 					Add global settings class to client for client app settings
+
+0.1.2	7-10-17		Fixed issue with redirect to 403 page upon invalid login credentials
+					Temporarily disable Admin link and functionality for agile development
 
 
