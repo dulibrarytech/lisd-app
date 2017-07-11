@@ -112,6 +112,7 @@
                                     <label>Select a Librarian:</label><br />
                                     <div class="form-section" style="display: inline-flex; width: 100%">
                                         <select class="form-control" value.bind="selectedLibrarian" id="librarian-select-input">
+                                            <option selected hidden id="librarian-placeholder">Select a Librarian:</option>
                                             <option repeat.for="librarian of librarianList" class="librarian-option" value.bind="librarian.id">${librarian.name}</option>
                                         </select>
                                     </div>
