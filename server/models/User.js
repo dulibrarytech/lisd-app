@@ -30,12 +30,10 @@ exports.validateLisdUser = function(username) {
 		        		fulfill(userObject);
 		        	}
 		        	else {
-		        		console.log("username no match");
 		        		//fulfill(false);
 		        	}
 	        	}
 	        	else {
-	        		console.log("No item");
 	        		fulfill(false);
 	        	}
 	        });

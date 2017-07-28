@@ -1,7 +1,7 @@
 <template>
   <section class="au-animate">
     <h2>${heading}</h2>
-    <form role="form" submit.delegate="login()" id="login-form">
+    <form role="form" submit.delegate="login()" id="login-form" class="login">
       <div class="form-group">
         <label>DUID</label>
         <input type="text" value.bind="userName" class="form-control" placeholder="Username" style="margin-bottom: 1.5em" id="username-input">
@@ -12,7 +12,7 @@
       <span id="message" style="margin-left: 3em"></span>
     </form>
 
-    <form role="form" submit.delegate="verifyLastname()" id="lname-verify-form" style="display:none">
+    <form role="form" submit.delegate="verifyLastname()" id="lname-verify-form" class="login" style="display:none">
       <div class="form-group">
         <h4>First time login: Please enter your last name for verification</h4>
         <label>Last Name</label>

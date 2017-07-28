@@ -82,7 +82,7 @@ export class Users {
       DUID: this.DUID,
       lastName: this.lastName
     }
-    console.log("Posting data:", data);
+
     this.utils.doAjax('user/add/DUID', 'post', data, null).then(response => {
       this.utils.stopSpinner();
 
@@ -90,19 +90,24 @@ export class Users {
           console.log("Server authentication error");
         }
         else  {
-          console.log("RX", response);
 
-          console.log(response.sessionData.username + " logged in successfully");
-          this.config.session.data = response.sessionData;
-          this.config.session.token = response.token;
-
-          if(this.config.session.data.role == '1') {
-            // Show admin link (to dashboard route)
-            //this.displayAdminLink(true);  // TEMP
+          if(response.sessionData == null) {
+            console.log("Invalid lastname");
+            this.utils.sendMessage("Last name not found");
           }
+          else {
+            console.log(response.sessionData.username + " logged in successfully");
+            this.config.session.data = response.sessionData;
+            this.config.session.token = response.token;
 
-          this.displayLoginButton(false);
-          this.router.navigate("/");
+            if(this.config.session.data.role == '1') {
+              // Show admin link (to dashboard route)
+              //this.displayAdminLink(true);  // TEMP
+            }
+
+            this.displayLoginButton(false);
+            this.router.navigate("/");
+          }
         }
 
     });
