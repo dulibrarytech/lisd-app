@@ -59,6 +59,10 @@ module.exports = function (app, passport) {
 	    userController.authenticateLogin(req, res);
 	});
 
+	app.post('/user/add/DUID', function(req, res) { 
+	    userController.userAddDUID(req, res);
+	});
+
 	// Protected routes
 	app.use(loginModel.validateToken);
 

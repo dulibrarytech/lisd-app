@@ -102,4 +102,29 @@ exports.getAllUsers = function() {
 			fulfill(false);
 		}
 	});
-}
+};
+
+exports.insertDuid = function(duid, lastName) {
+
+	return new Promise(function(fulfill, reject) {
+
+		try {
+			// Insert the document
+		    collection.updateOne({lastname:lastName}, {$set: {duid:duid}}, function(err, result) {
+			    if(err) {
+			    	console.log("Error: " + err);
+			    	reject(false);
+			    }
+			    else {
+			    	console.log("DUID Insert OK");
+			    	fulfill(duid)
+			    }
+			    // db.close();
+			});
+		} catch (e) {
+			console.log("Error: " + e);
+			fulfill(false);
+		};
+	});
+};
+

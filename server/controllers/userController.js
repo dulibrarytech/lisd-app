@@ -37,8 +37,10 @@ module.exports.authenticateLogin = function(req, res) {
                         } else {
                             res.status(200);
                             res.json({
-                                token: null,  // Invalid credentials
-                                sessionData: {}
+                                token: null,  // Invalid local credentials. Return duid
+                                sessionData: {
+                                    duid: duid
+                                }
                             });
                         }
                     });
@@ -47,7 +49,7 @@ module.exports.authenticateLogin = function(req, res) {
 
                     res.status(200);
                     res.json({
-                        token: null,  // Invalid credentials
+                        token: null,  // Invalid ldap credentials 
                         sessionData: {}
                     });
                 }
@@ -75,3 +77,45 @@ module.exports.userAll = function(req, res) {
         });
     });
 };
+
+module.exports.userAddDUID = function(req, res) {
+    userModel.insertDuid(req.body.DUID, req.body.lastName).then(response => {
+
+        if(response === false) {
+            res.sendStatus(500);
+        }
+        else {
+
+            userModel.validateLisdUser(req.body.DUID).then(response => {   // or use controller.authenticateLogin
+
+                if (response !== false) {
+
+                    // Check if user is a librarian
+                    librarianModel.findByUserID(response.userID, function(librarianID) {
+
+                        response['librarianID'] = librarianID; // TEMP
+                        var token = loginModel.createToken(response);
+
+                        res.json({
+                          token: token,
+                          sessionData: response
+                        });
+                    });
+
+                } else {
+                    
+                    // res.json({
+                    //     token: null,  // Invalid local credentials. Return duid
+                    //     sessionData: {
+                    //         duid: duid
+                    //     }
+                    // });
+                    console.log("Error: No local auth after successful DUID insert!");
+                    res.sendStatus(500);
+                }
+            });            
+        }
+    });
+};
+
+
