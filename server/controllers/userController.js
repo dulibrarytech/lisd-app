@@ -111,7 +111,11 @@ module.exports.userAddDUID = function(req, res) {
                     //     }
                     // });
                     console.log("Error: No local auth after successful DUID insert!");
-                    res.sendStatus(500);
+                    res.status(200);
+                    res.json({
+                        sessionData: null,
+                        token: null
+                    });
                 }
             });            
         }

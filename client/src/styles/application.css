@@ -220,7 +220,7 @@ div#course-enrollment-group label {
 	margin-top: 0.4em;
 }
 
-form#login-form {
+form.login {
 /*	margin-top: 3em;
     margin-left: 3em;*/
     margin: auto;
