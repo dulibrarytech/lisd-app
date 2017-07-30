@@ -9,7 +9,7 @@
         <input type="password" value.bind="passWord" class="form-control" placeholder="Password" id="password-input">
       </div>
       <button type="submit" class="btn btn-default">Login</button>
-      <span id="message" style="margin-left: 3em"></span>
+      <span class="message" style="margin-left: 3em"></span>
     </form>
 
     <form role="form" submit.delegate="verifyLastname()" id="lname-verify-form" class="login" style="display:none">
@@ -19,7 +19,7 @@
         <input type="text" value.bind="lastName" class="form-control" placeholder="Last Name" style="margin-bottom: 1.5em" id="lname-input">
       </div>
       <button type="submit" class="btn btn-default">Submit</button>
-      <span id="message" style="margin-left: 3em"></span>
+      <span class="message" style="margin-left: 3em"></span>
     </form>
   </section>
 </template>

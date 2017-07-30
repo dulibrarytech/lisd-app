@@ -421,9 +421,9 @@ div#librarian-select {
     margin-top: 1em;
 }
 
-span#message {
+span.message {
 	/*float: right;*/
-	color: #8b2332;
+	color: green;
 }
 
 

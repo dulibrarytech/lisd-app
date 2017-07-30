@@ -89,10 +89,22 @@ export class SystemUtils {
 	}
 
 	sendMessage(message) {
-		document.getElementById('message').innerHTML = message;
+		// ID message spans
+		// document.getElementById('message').innerHTML = message;
+		// setTimeout(function() { 
+		// 	document.getElementById('message').innerHTML = "";
+		// }, 4500);
+
+		// Class message spans
+		var elts = document.getElementsByClassName('message');
+		for(var i=0; i<elts.length; i++) {
+			elts[i].innerHTML = message;
+		}
 		setTimeout(function() { 
-			document.getElementById('message').innerHTML = "";
-		}, 4500);
+			for(var i=0; i<elts.length; i++) {
+				elts[i].innerHTML = "";
+			}
+		}, 3000);
 	}
 
 	logout() {
