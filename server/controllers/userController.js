@@ -16,8 +16,8 @@ module.exports.authenticateLogin = function(req, res) {
             // TODO validate LDAP first. Local validation occurs .then()
             loginModel.validateLdapBind(duid, password).then(ldapAuth => {
 
-                if(ldapAuth === true || process.env.LISD_ENV == 'dev') {
-
+                if(ldapAuth === true) {
+                    console.log("LDAP succeeds");
                     userModel.validateLisdUser(username).then(response => {   // or use controller.authenticateLogin
 
                         if (response !== false) {
@@ -46,11 +46,13 @@ module.exports.authenticateLogin = function(req, res) {
                     });
                 }
                 else {
-
+                    console.log("LDAP fail");
                     res.status(200);
                     res.json({
                         token: null,  // Invalid ldap credentials 
-                        sessionData: {}
+                        sessionData: {
+                            duid: null
+                        }
                     });
                 }
                 

@@ -41,7 +41,8 @@ export class Users {
         else if(response.token == null) {
 
           // DUID valid, request to verify as LISD user via last name
-          if(response.sessionData.duid != 'undefined') {
+          if(response.sessionData.duid) {
+            console.log("AUTH resp duid:", response.sessionData.duid);
             console.log("DUID resp:", response);
             document.getElementById('login-form').style.display = "none";
             document.getElementById('lname-verify-form').style.display = "block";
