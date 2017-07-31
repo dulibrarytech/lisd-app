@@ -22,7 +22,7 @@ module.exports = (function() {
 		};
 
 		try {
-			var cursor = collection.find({}, {"_id": 1, "name": 1});
+			var cursor = collection.find({}, {"_id": 1, "name": 1}).sort({name:1});
 	        cursor.each(function(err, item) {
 	        	if(item != null) {
 	        		results.location[item._id] = item.name;
