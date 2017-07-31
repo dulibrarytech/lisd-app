@@ -23,10 +23,10 @@ module.exports = (function() {
 		};
 		
 		try {
-			var cursor = collection.find({ "isActive": true }, {"_id": 1, "firstname": 1, "lastname": 1});
+			var cursor = collection.find({ "isActive": true }, {"_id": 1, "firstname": 1, "lastname": 1}).sort({ lastname: 1 });
 	        cursor.each(function(err, item) {
 	        	if(item != null) {
-	        		var nameStr = item.firstname + " " + item.lastname;
+	        		var nameStr = item.lastname + ", " + item.firstname;
 	        		results.librarian[item._id] = nameStr;
 	        	}
 	        	else {
