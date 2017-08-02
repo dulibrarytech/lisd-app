@@ -816,6 +816,7 @@ export class Statistics {
                 this.resultData = data.data;
 
                 // Prep the response for the view templates
+                this.resultData.year['total'] = this.resultData.year.totals;
                 delete this.resultData.year.totals;     // Do not display this in the view table
                 this.resultData.month = this.sortResultMonthsByTimePeriod(this.resultData);
                 this.resultData.quarter = this.sortResultQuartersByTimePeriod(this.resultData);
