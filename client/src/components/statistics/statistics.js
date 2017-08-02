@@ -726,7 +726,7 @@ export class Statistics {
         var years = [];
         // Set for and to year arrays
         var data = new Date();
-        for(var i = startYear; i <= new Date().getFullYear(); i++) {
+        for(var i = startYear; i <= new Date().getFullYear()+1; i++) {
             years.push(i);
         }
         return years;
