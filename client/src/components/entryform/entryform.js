@@ -216,10 +216,17 @@ export class EntryForm {
 
         var data = this.getFormData();        
         this.utils.doAjax('class/add', 'post', data, null).then(responseObject => {
-            setTimeout(function() {
-                location.reload(false);
-            }, 3000);
+            if(responseObject.status == "ok") {
+                this.utils.sendMessage("Course added.");
+                setTimeout(function() {
+                    location.reload(false);
+                }, 3000);
+            }
+            else {
+                this.utils.sendMessage("Error adding course, please contact Systems support.");
+                console.log("Error: " + responseObject.message);
+            }
         });
     }
 }
-
+ 
