@@ -30,6 +30,8 @@ By default the server ships with Express and is set to serve your Aurelia applic
 
 Release Notes
 
+0.x.x 				(Pre-Admin functionality)
+
 0.1.0	5-23-17		Data entry/data visualization functionality.  
 					Librarian user session functionality: Display authenticated librarian in select boxes by default
 
