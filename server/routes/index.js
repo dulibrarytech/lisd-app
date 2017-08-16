@@ -70,7 +70,23 @@ module.exports = function (app, passport) {
 	    userController.userAll(req, res);
 	});
 
-	app.get('/librarian/all', function(req, res) { 
-	    librarianController.librarianAll(req, res);
+	app.post('/user/add', function(req, res) { 
+	    userController.userAdd(req, res);
 	});
+
+	app.get('/user/get', function(req, res) { 
+	    userController.userGet(req, res);
+	});
+
+	app.put('/user/update', function(req, res) { 
+	    userController.userUpdate(req, res);
+	});
+
+	app.delete('/user/remove', function(req, res) { 
+	    userController.userRemove(req, res);
+	});
+
+	// app.get('/librarian/all', function(req, res) { 
+	//     librarianController.librarianAll(req, res);
+	// });
 };

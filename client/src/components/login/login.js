@@ -42,8 +42,6 @@ export class Users {
 
           // DUID valid, request to verify as LISD user via last name
           if(response.sessionData.duid) {
-            console.log("AUTH resp duid:", response.sessionData.duid);
-            console.log("DUID resp:", response);
             document.getElementById('login-form').style.display = "none";
             document.getElementById('lname-verify-form').style.display = "block";
             this.DUID = response.sessionData.duid;
@@ -65,7 +63,7 @@ export class Users {
 
           if(this.config.session.data.role == '1') {
             // Show admin link (to dashboard route)
-            //this.displayAdminLink(true);  // TEMP
+            this.displayAdminLink(true);  // TEMP
           }
 
           this.displayLoginButton(false);
