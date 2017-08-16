@@ -17,7 +17,6 @@ module.exports.authenticateLogin = function(req, res) {
             loginModel.validateLdapBind(duid, password).then(ldapAuth => {
 
                 if(ldapAuth === true) {
-                    console.log("LDAP succeeds");
                     userModel.validateLisdUser(username).then(response => {   // or use controller.authenticateLogin
 
                         if (response !== false) {
@@ -46,7 +45,6 @@ module.exports.authenticateLogin = function(req, res) {
                     });
                 }
                 else {
-                    console.log("LDAP fail");
                     res.status(200);
                     res.json({
                         token: null,  // Invalid ldap credentials 
@@ -122,6 +120,22 @@ module.exports.userAddDUID = function(req, res) {
             });            
         }
     });
+};
+
+module.exports.userAdd = function(req, res) {
+
+};
+
+module.exports.userGet = function(req, res) {
+
+};
+
+module.exports.userUpdate = function(req, res) {
+
+};
+
+module.exports.userRemove = function(req, res) {
+
 };
 
 
