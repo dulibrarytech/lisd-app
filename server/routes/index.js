@@ -3,13 +3,13 @@ var classController = require("../controllers/classController.js");
 var userController = require("../controllers/userController.js");
 var librarianController = require("../controllers/librarianController.js");
 var loginModel = require("../models/Login");
-//var auth = require("../config/auth.js")();
+var settings = require('../config/settings');
 
 module.exports = function (app, passport) {
 
 	var checkHeader = function(req, res, next) {
 
-	  if(req.headers['x-id-header'] == 'lisd-client' || process.env.ENABLE_BROWSER_TEST == 'true') {
+	  if(req.headers['client-id-header'] == settings.lisdClientHeader || process.env.ENABLE_BROWSER_TEST == 'true') {
 	    next();
 	  }
 	  else {

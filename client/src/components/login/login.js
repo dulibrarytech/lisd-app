@@ -60,6 +60,7 @@ export class Users {
           console.log(response.sessionData.username + " logged in successfully");
           this.config.session.data = response.sessionData;
           this.config.session.token = response.token;
+            console.log("Token: ", this.config.session.token);
 
           if(this.config.session.data.role == '1') {
             // Show admin link (to dashboard route)

@@ -2,8 +2,9 @@ var database = require('../util/database.js');
 var settings = require("../config/settings");
 var encryptor = require('simple-encryptor')(settings.cryptKey);
 var Librarian = require("./Librarian");
-var collection;
 
+var ObjectId = require('mongodb').ObjectID;
+var collection;
 database.connect(function(db) {
 	//var db = database.connection();
 	collection = db.collection('lisd_user');
@@ -105,7 +106,6 @@ exports.getAllUsers = function() {
 exports.insertDuid = function(duid, lastName) {
 
 	return new Promise(function(fulfill, reject) {
-
 		try {
 			// Insert the document
 		    collection.updateOne({lastname:lastName}, {$set: {duid:duid}}, function(err, result) {
@@ -125,4 +125,30 @@ exports.insertDuid = function(duid, lastName) {
 		};
 	});
 };
+
+exports.getUserData = function(userID) {
+
+	return new Promise(function(fulfill, reject) {
+
+		var userData = {};
+		try {
+			var cursor = collection.find({ "_id": ObjectId(userID) });
+	        cursor.each(function(err, item) {
+	        	console.log("Item:", item);
+	        	if(item != null) {
+	        		userData = item;
+	        	}
+	        	else {
+	        		fulfill(userData);
+	        	}
+	        });
+		}
+		catch (e) {
+			console.log("Error: " + e);
+			fulfill(false);
+		}
+	});
+};
+
+
 
