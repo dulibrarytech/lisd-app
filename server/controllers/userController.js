@@ -127,7 +127,12 @@ module.exports.userAdd = function(req, res) {
 };
 
 module.exports.userGet = function(req, res) {
-
+    userModel.getUserData(req.query.userID).then(response => {
+        res.status(200);
+        res.json({
+            userData: response
+        });
+    });
 };
 
 module.exports.userUpdate = function(req, res) {
