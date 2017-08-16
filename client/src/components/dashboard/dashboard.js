@@ -51,6 +51,10 @@ export class Users {
 
 	}
 
+	editUser() {
+
+	}
+
 	updateUser() {
 
 	}
@@ -60,18 +64,6 @@ export class Users {
 	}
 
 	getLibrarianList() {
-
-	}
-
-	addLibrarian() {
-
-	}
-
-	updateLibrarian() {
-
-	}
-
-	removeLibrarian() {
 
 	}
 }
