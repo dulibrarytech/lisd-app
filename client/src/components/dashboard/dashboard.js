@@ -14,6 +14,8 @@ export class Users {
 	activeSession;
 
 	users = [];
+	userData={};
+	roles=[];
 	librarians;
 
 	constructor(systemUtils, config, router) {
@@ -22,6 +24,10 @@ export class Users {
 	  	this.router = router;
 
 	  	this.activeSession = false;
+	  	this.resetUserDataForm();
+	  	this.showAddUserForm(false);
+
+	  	this.roles = ["Admin", "Librarian"];
 
 	  	if(this.config.session.token == null) {
 	  		this.router.navigate("/");
@@ -34,21 +40,58 @@ export class Users {
 
 	attached() {
 		this.getUserList();
-		this.getLibrarianList();
+	}
 
-
+	resetUserDataForm() {
+		this.userData = {
+	  		duid: "",
+	  		firstname: "",
+	  		lastname: "",
+	  		role: ""
+	  	};
 	}
 
 	getUserList() {
 		this.utils.doAjax('user/all', 'get', null, null).then(responseObject => {
             //this.initUserDisplay(responseObject);
-            console.log("Client receives: ", responseObject);
+            console.log("User list: ", responseObject);
             this.users = responseObject.data;
         });
 	}
 
+	showAddUserForm(show) {
+		// Show user data form
+		document.getElementById('user-data-form').style.display = show == true ? "block" : "none";
+	}
+
 	addUser() {
 
+		switch(this.userData.role) {
+			case "Admin":
+				this.userData.role = 1;
+				break;
+			case "Librarian":
+				this.userData.role = 2;
+				break;
+			default:
+				this.userData.role = 2;
+				break;
+		}
+
+		this.utils.doAjax('user/add', 'get', this.userData, null).then(response => {
+            //this.initUserDisplay(responseObject);
+            if(response.status == "error") {
+            	this.utils.sendMessage("Server error: Could not add user");
+            	console.log("Error: ", response.message);
+            }
+            else {
+            	this.utils.sendMessage("User added");
+            	console.log("User added");
+            	this.users.push(this.userData);
+            	this.resetUserDataForm();
+            	this.showAddUserForm(false);
+            }
+        });
 	}
 
 	editUser() {
@@ -60,10 +103,6 @@ export class Users {
 	}
 
 	removeUser() {
-
-	}
-
-	getLibrarianList() {
 
 	}
 }

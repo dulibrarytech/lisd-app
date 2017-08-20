@@ -135,7 +135,9 @@ module.exports.userAdd = function(req, res) {
         if(exists) {
             res.status(200);
             res.json({
-                status: "User exists"
+                status: "error",
+                message: "User exists",
+                data: null
             });
         }
         else {
@@ -154,14 +156,16 @@ module.exports.userAdd = function(req, res) {
                     librarianModel.addLibrarian(librarianData, function(response) {
                         res.status(200);
                         res.json({
-                            status: response
+                            status: "ok",
+                            data: response
                         });
                     });
                 }
                 else {
                     res.status(200);
                     res.json({
-                        status: response
+                        status: "ok",
+                        data: response
                     });
                 }
                 
