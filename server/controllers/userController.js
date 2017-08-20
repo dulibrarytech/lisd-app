@@ -130,11 +130,22 @@ module.exports.userAdd = function(req, res) {
         data['lastname'] = req.body.lastname,
         data['role'] = parseInt(req.body.role);
 
-    userModel.addUserData(userID, data).then(response => {
-        res.status(200);
-        res.json({
-            status: response
-        });
+    // Check for existing user
+    userModel.findUserByName(data.firstname, data.lastname).then(exists => {
+        if(exists) {
+            res.status(200);
+            res.json({
+                status: "User exists"
+            });
+        }
+        else {
+            userModel.addUserData(userID, data).then(response => {
+                res.status(200);
+                res.json({
+                    status: response
+                });
+            });
+        }
     });
 };
 
