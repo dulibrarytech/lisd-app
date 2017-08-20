@@ -1,7 +1,6 @@
 var database = require('../util/database.js');
 var settings = require("../config/settings");
 var encryptor = require('simple-encryptor')(settings.cryptKey);
-var Librarian = require("./Librarian");
 
 var ObjectId = require('mongodb').ObjectID;
 var collection;
@@ -181,25 +180,8 @@ exports.addUserData = function(userID, userData) {
 			    	fulfill(false);
 			    }
 			    else {
-			    	
 			    	console.log("Added user " + result.ops[0]._id);
-
-			    	// Insert librarian recors
-			    	var librarianData = {
-			    		userID: result.ops[0]._id.toString(),
-			    		firstname: userData.firstname,
-			    		lastname: userData.lastname,
-			    		isActive: true
-			    	}
-
-			    	Librarian.addLibrarian(librarianData, function(response) {
-			    		if(response) {
-			    			fulfill(true);
-			    		}
-			    		else {
-			    			fulfill(false);
-			    		}
-			    	});
+			    	fulfill(result.ops[0]._id.toString());
 			    }
 			});
 		} catch (e) {
@@ -216,10 +198,12 @@ exports.findUserByName = function(firstName, lastName) {
 			var cursor = collection.find({ "firstname" : firstName, "lastname" : lastName });
 	        cursor.each(function(err, item) {
 	        	if(item != null) {
+	        		console.log("User exists");
 	        		fulfill(true);
 	        		return false;
 	        	}
 	        	else {
+	        		console.log("User does not exist");
 	        		fulfill(false);
 	        	}
 	        });
