@@ -7,7 +7,24 @@ var librarianModel = require("../models/Librarian");
 
 module.exports.authenticateLogin = function(req, res) {
 
-	if (req.body.username && req.body.password) {
+    if(settings.runtime_env == "dev") {
+        var devSession = {
+            userID: "1",
+            fname: "Dev",
+            lname: "Session",
+            role: 1,
+            username: "Dev Session"
+        };
+            console.log("Dev session login");
+        var token = loginModel.createToken(devSession);
+
+        res.json({
+          token: token,
+          sessionData: devSession
+        });
+    }
+
+	else if (req.body.username && req.body.password) {
         var username = req.body.username;
         var password = req.body.password;
 
@@ -179,7 +196,8 @@ module.exports.userGet = function(req, res) {
     userModel.getUserData(userID).then(response => {
         res.status(200);
         res.json({
-            userData: response
+            status: "ok",
+            data: response
         });
     });
 };
