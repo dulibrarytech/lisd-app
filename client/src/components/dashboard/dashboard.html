@@ -6,13 +6,13 @@
     </div>
 
     <div class="data-table">
-    	<h4>Users</h4><button class="button" style="float: right">Add User</button>
+    	<h4>Users</h4><button class="button" click.delegate="showAddUserForm(true)" style="float: right">Add User</button>
 	    <table class="table" id="user-data-table">
 			<tr>
 				<th>Username</th><th>First Name</th><th>Last Name</th><th>Role</th><th>DUID</th><th></th><th></th>
 			</tr>
 			<tr class="" id="" repeat.for="user of users">
-				<td>${user.username}</td><td>${user.firstname}</td><td>${user.lastname}</td><td>${user.role}</td><td>${user.duid}</td><td><button class="button">Update</button></td><td><button>Remove</button></td>
+				<!-- <td>${user.username}</td> --><td>${user.firstname}</td><td>${user.lastname}</td><td>${user.role}</td><td>${user.duid}</td><td><button class="button">Update</button></td><td><button>Remove</button></td>
 			</tr>
 		</table>
 	</div>
@@ -28,6 +28,20 @@
 			</tr>
 		</table>
 	</div> -->
+	<div id="user-data-form">
+		<form class="">
+			<label>First Name:</label>
+  			<input class="form-control" type="text" value.bind="userData.firstname" placeholder="First Name">
+  			<label>Last Name:</label>
+  			<input class="form-control" type="text" value.bind="userData.lastname" placeholder="Last Name">
+  			<label>Role:</label>
+  			<select class="form-control" value.bind="userData.role" placeholder="Role">
+  				<option repeat.for="role in roles">${role}</option>
+  			<label>DUID:</label>
+  			<input class="form-control" type="text" value.bind="userData.lastname" placeholder="DUID">
+  			<button class="btn" click.delegate="addUser()">Submit</button><span class="message" style="margin-left: 3em"></span>
+		</form>
+	</div>
 
   </section>
 </template>
