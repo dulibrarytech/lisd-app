@@ -170,5 +170,48 @@ exports.updateUserData = function(userID, userData) {
 	});
 };
 
+exports.addUserData = function(userID, userData) {
+
+	return new Promise(function(fulfill, reject) {
+		try {
+
+			// Check for existing user (get lastname, firstname, compare to req data)
+
+
+			// Insert the document
+		    collection.insertOne(userData, function(err, result) {
+			    if(err) {
+			    	console.log("Error: " + err);
+			    	fulfill(false);
+			    }
+			    else {
+			    	
+			    	console.log("Added user " + result.ops[0]._id);
+
+			    	// Insert librarian recors
+			    	var librarianData = {
+			    		userID: result.ops[0]._id.toString(),
+			    		firstname: userData.firstname,
+			    		lastname: userData.lastname,
+			    		isActive: true
+			    	}
+
+			    	Librarian.addLibrarian(librarianData, function(response) {
+			    		if(response) {
+			    			fulfill(true);
+			    		}
+			    		else {
+			    			fulfill(false);
+			    		}
+			    	});
+			    }
+			});
+		} catch (e) {
+			console.log("Error: " + e);
+			fulfill(false);
+		};
+	});
+};
+
 
 

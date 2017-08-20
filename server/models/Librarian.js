@@ -13,8 +13,24 @@ module.exports = (function() {
 		//console.log("Librarian model connected to db...");
 	});
 	
-	var addDocument = function(data, callback) {
+	var addLibrarian = function(data, callback) {
 
+		try {
+			// Insert the document
+		    collection.insertOne(data, function(err, result) {
+			    if(err) {
+			    	console.log("Error: " + err);
+			    	callback(false);
+			    }
+			    else {
+			    	console.log("Added librarian ", result.ops[0]._id);
+			    	callback(true);
+			    }
+			});
+		} catch (e) {
+			console.log("Error: " + e);
+			callback(false);
+		};
 	};
 
 	var getList = function(callback) {
@@ -83,8 +99,8 @@ module.exports = (function() {
 	};
 
 	return {
-		addDocument: function(doc,callback) {
-			addDocument(doc,callback);
+		addLibrarian: function(data, callback) {
+			addLibrarian(data, callback);
 		},
 		getList: function(callback) {
 			getList(callback);
