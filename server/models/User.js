@@ -174,10 +174,6 @@ exports.addUserData = function(userID, userData) {
 
 	return new Promise(function(fulfill, reject) {
 		try {
-
-			// Check for existing user (get lastname, firstname, compare to req data)
-
-
 			// Insert the document
 		    collection.insertOne(userData, function(err, result) {
 			    if(err) {
@@ -210,6 +206,28 @@ exports.addUserData = function(userID, userData) {
 			console.log("Error: " + e);
 			fulfill(false);
 		};
+	});
+};
+
+exports.findUserByName = function(firstName, lastName) {
+	return new Promise(function(fulfill, reject) {
+
+		try {
+			var cursor = collection.find({ "firstname" : firstName, "lastname" : lastName });
+	        cursor.each(function(err, item) {
+	        	if(item != null) {
+	        		fulfill(true);
+	        		return false;
+	        	}
+	        	else {
+	        		fulfill(false);
+	        	}
+	        });
+		}
+		catch (e) {
+			console.log("Error: " + e);
+			fulfill(false);
+		}
 	});
 };
 
