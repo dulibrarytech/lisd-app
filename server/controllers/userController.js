@@ -139,11 +139,32 @@ module.exports.userAdd = function(req, res) {
             });
         }
         else {
+            // Add the user, and add the corresponding librarian record
             userModel.addUserData(userID, data).then(response => {
-                res.status(200);
-                res.json({
-                    status: response
-                });
+
+                if(response != false) {
+                    // Insert librarian recors
+                    var librarianData = {
+                        userID: response,
+                        firstname: data.firstname,
+                        lastname: data.lastname,
+                        isActive: true
+                    }
+
+                    librarianModel.addLibrarian(librarianData, function(response) {
+                        res.status(200);
+                        res.json({
+                            status: response
+                        });
+                    });
+                }
+                else {
+                    res.status(200);
+                    res.json({
+                        status: response
+                    });
+                }
+                
             });
         }
     });
