@@ -4,6 +4,7 @@ module.exports = (function() {
 
 	var mongo = require('mongodb');
 	var database = require('../util/database.js');
+	var ObjectId = require('mongodb').ObjectID;
 	var collection;
 
 	database.connect(function(db) {
@@ -98,9 +99,34 @@ module.exports = (function() {
 		}
 	};
 
+	var setLibrarianInactive = function(userID, callback) {
+		try {
+			var librarianData = {
+				"userID": "",
+				"isActive": false
+			}
+			// Insert the document
+		    collection.updateOne({"userID": userID}, {$set: librarianData}, function(err, result) {
+			    if(err) {
+			    	console.log("Error: " + err);
+			    	callback(false);
+			    }
+			    else {
+			    	callback(true)
+			    }
+			});
+		} catch (e) {
+			console.log("Error: " + e);
+			callback(false);
+		};
+	};
+
 	return {
 		addLibrarian: function(data, callback) {
 			addLibrarian(data, callback);
+		},
+		setLibrarianInactive: function(userID, callback) {
+			setLibrarianInactive(userID, callback);
 		},
 		getList: function(callback) {
 			getList(callback);

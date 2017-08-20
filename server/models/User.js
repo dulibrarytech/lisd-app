@@ -191,6 +191,28 @@ exports.addUserData = function(userID, userData) {
 	});
 };
 
+exports.removeUserData = function(userID) {
+
+	return new Promise(function(fulfill, reject) {
+		try {
+			// Insert the document
+		    collection.deleteOne({ "_id": ObjectId(userID)}, function(err, result) {
+			    if(err) {
+			    	console.log("Error: " + err);
+			    	fulfill(false);
+			    }
+			    else {
+			    	console.log("User removed " + result);
+			    	fulfill(true);
+			    }
+			});
+		} catch (e) {
+			console.log("Error: " + e);
+			fulfill(false);
+		};
+	});
+};
+
 exports.findUserByName = function(firstName, lastName) {
 	return new Promise(function(fulfill, reject) {
 

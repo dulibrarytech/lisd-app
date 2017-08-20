@@ -1,4 +1,4 @@
-db.createCollection( "lisd_class",
+adb.createCollection( "lisd_class",
    {
       validator: { $and:
          [

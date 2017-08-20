@@ -197,7 +197,16 @@ module.exports.userUpdate = function(req, res) {
 };
 
 module.exports.userRemove = function(req, res) {
-
+    var userID = req.body.userID;
+    userModel.removeUserData(userID).then(response => {
+        console.log("Here");
+        librarianModel.setLibrarianInactive(userID, function(response) {
+            res.status(200);
+            res.json({
+                status: response
+            });
+        });
+    });
 };
 
 
