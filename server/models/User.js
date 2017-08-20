@@ -114,7 +114,6 @@ exports.insertDuid = function(duid, lastName) {
 			    	reject(false);
 			    }
 			    else {
-			    	console.log("DUID Insert OK");
 			    	fulfill(duid)
 			    }
 			    // db.close();
@@ -134,7 +133,6 @@ exports.getUserData = function(userID) {
 		try {
 			var cursor = collection.find({ "_id": ObjectId(userID) });
 	        cursor.each(function(err, item) {
-	        	console.log("Item:", item);
 	        	if(item != null) {
 	        		userData = item;
 	        	}
@@ -147,6 +145,28 @@ exports.getUserData = function(userID) {
 			console.log("Error: " + e);
 			fulfill(false);
 		}
+	});
+};
+
+exports.updateUserData = function(userID, userData) {
+
+	return new Promise(function(fulfill, reject) {
+		try {
+			// Insert the document
+		    collection.updateOne({"_id": ObjectId(userID)}, {$set: userData}, function(err, result) {
+			    if(err) {
+			    	console.log("Error: " + err);
+			    	fulfill(false);
+			    }
+			    else {
+			    	console.log("User " + userID + " updated");
+			    	fulfill(true)
+			    }
+			});
+		} catch (e) {
+			console.log("Error: " + e);
+			fulfill(false);
+		};
 	});
 };
 

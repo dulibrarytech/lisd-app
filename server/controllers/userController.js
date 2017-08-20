@@ -127,7 +127,8 @@ module.exports.userAdd = function(req, res) {
 };
 
 module.exports.userGet = function(req, res) {
-    userModel.getUserData(req.query.userID).then(response => {
+    var userID = req.query.userID;
+    userModel.getUserData(userID).then(response => {
         res.status(200);
         res.json({
             userData: response
@@ -136,11 +137,24 @@ module.exports.userGet = function(req, res) {
 };
 
 module.exports.userUpdate = function(req, res) {
+    var userID = req.body.userID, data = {};
+        data['duid'] = req.body.duid,
+        data['username'] = req.body.username,
+        data['firstname'] = req.body.firstname,
+        data['lastname'] = req.body.lastname,
+        data['role'] = parseInt(req.body.role);
 
+    userModel.updateUserData(userID, data).then(response => {
+        res.status(200);
+        res.json({
+            status: response
+        });
+    });
 };
 
 module.exports.userRemove = function(req, res) {
 
 };
+
 
 
