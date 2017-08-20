@@ -12,7 +12,7 @@
 				<th>Username</th><th>First Name</th><th>Last Name</th><th>Role</th><th>DUID</th><th></th><th></th>
 			</tr>
 			<tr class="" id="" repeat.for="user of users">
-				<!-- <td>${user.username}</td> --><td>${user.firstname}</td><td>${user.lastname}</td><td>${user.role}</td><td>${user.duid}</td><td><button class="button">Update</button></td><td><button>Remove</button></td>
+				<!-- <td>${user.username}</td> --><td>${user.firstname}</td><td>${user.lastname}</td><td>${user.role}</td><td>${user.duid}</td><td><button class="button" click.delegate="editUser(user._id)">Edit</button></td><td><button>Remove</button></td>
 			</tr>
 		</table>
 	</div>
@@ -36,9 +36,10 @@
   			<input class="form-control" type="text" value.bind="userData.lastname" placeholder="Last Name">
   			<label>Role:</label>
   			<select class="form-control" value.bind="userData.role" placeholder="Role">
-  				<option repeat.for="role in roles">${role}</option>
+  				<option repeat.for="role of roles">${role}</option>
+  			</select>
   			<label>DUID:</label>
-  			<input class="form-control" type="text" value.bind="userData.lastname" placeholder="DUID">
+  			<input class="form-control" type="text" value.bind="userData.duid" placeholder="DUID">
   			<button class="btn" click.delegate="addUser()">Submit</button><span class="message" style="margin-left: 3em"></span>
 		</form>
 	</div>

@@ -86,11 +86,10 @@ exports.getAllUsers = function() {
 	        cursor.each(function(err, item) {
 
 	        	if(item != null) {
-	        		console.log("User item found:", item);
 	        		users.push(item);
 	        	}
 	        	else {
-	        		console.log("No item found");
+	        		console.log("No users found");
 	        		fulfill(users);
 	        	}
 	        });
@@ -133,6 +132,7 @@ exports.getUserData = function(userID) {
 			var cursor = collection.find({ "_id": ObjectId(userID) });
 	        cursor.each(function(err, item) {
 	        	if(item != null) {
+	        		console.log("User found: ", item);
 	        		userData = item;
 	        	}
 	        	else {

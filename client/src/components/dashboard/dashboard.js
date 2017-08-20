@@ -24,9 +24,6 @@ export class Users {
 	  	this.router = router;
 
 	  	this.activeSession = false;
-	  	this.resetUserDataForm();
-	  	this.showAddUserForm(false);
-
 	  	this.roles = ["Admin", "Librarian"];
 
 	  	if(this.config.session.token == null) {
@@ -39,11 +36,16 @@ export class Users {
 	}
 
 	attached() {
-		this.getUserList();
+		if(this.config.session.token) {
+			this.getUserList();
+			this.resetUserDataForm();
+		  	this.showUserDataForm(false);
+		}
 	}
 
 	resetUserDataForm() {
 		this.userData = {
+			userID: "",
 	  		duid: "",
 	  		firstname: "",
 	  		lastname: "",
@@ -59,7 +61,7 @@ export class Users {
         });
 	}
 
-	showAddUserForm(show) {
+	showUserDataForm(show) {
 		// Show user data form
 		document.getElementById('user-data-form').style.display = show == true ? "block" : "none";
 	}
@@ -89,16 +91,43 @@ export class Users {
             	console.log("User added");
             	this.users.push(this.userData);
             	this.resetUserDataForm();
-            	this.showAddUserForm(false);
+            	this.showUserDataForm(false);
             }
         });
 	}
 
-	editUser() {
-
+	// Get the selected user data and populate the user data form 
+	editUser(userID) {
+		console.log("Edit user ", userID);
+		this.utils.doAjax('user/get', 'get', {userID: userID}, null).then(response => {
+			if(response.status == "error") {
+            	this.utils.sendMessage("Server error: Could not add user");
+            	console.log("Error: ", response.message);
+            }
+            else {
+            	this.userData.userID = response.data._id;
+            	this.userData.duid = response.data.duid;
+            	this.userData.firstname = response.data.firstname;
+            	this.userData.lastname = response.data.lastname;
+            	this.userData.role = this.roles[response.data.role-1];
+            	this.showUserDataForm(true);
+            }
+        });
 	}
 
 	updateUser() {
+		switch(this.userData.role) {
+			case "Admin":
+				this.userData.role = 1;
+				break;
+			case "Librarian":
+				this.userData.role = 2;
+				break;
+			default:
+				this.userData.role = 2;
+				break;
+		}
+
 
 	}
 

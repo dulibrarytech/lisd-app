@@ -1,4 +1,5 @@
 'use strict';
+require('dotenv').config();
 
 var settings = {
 
@@ -7,6 +8,8 @@ var settings = {
 	// Dates must be in format "MM/DD"
 	"LDAPAuthService": "https://lib-moon.du.edu/auth-service/index.php/api/v1/authenticate",
 	"lisdClientHeader": "lisd-client",
+
+	"runtime_env": process.env.LISD_ENV,
 
 	"server": {
 
