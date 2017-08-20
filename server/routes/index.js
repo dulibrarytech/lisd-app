@@ -85,8 +85,4 @@ module.exports = function (app, passport) {
 	app.delete('/user/remove', function(req, res) { 
 	    userController.userRemove(req, res);
 	});
-
-	// app.get('/librarian/all', function(req, res) { 
-	//     librarianController.librarianAll(req, res);
-	// });
 };
