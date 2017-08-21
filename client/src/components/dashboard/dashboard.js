@@ -115,6 +115,7 @@ export class Users {
         });
 	}
 
+	// Updates "active" user (Selected from users list)
 	updateUser() {
 
 		this.userData.role = this.roles.indexOf(this.userData.role)+1;
@@ -125,8 +126,9 @@ export class Users {
             	console.log("Error: ", response.message);
             }
             else {
-
             	this.utils.sendMessage("User updated");
+
+            	// Update the users list
             	for(var index of this.users) {
 
             		// Update the local user list
@@ -142,7 +144,31 @@ export class Users {
         });
 	}
 
-	removeUser() {
+	removeUser(userID) {
+		this.utils.doAjax('user/remove', 'delete', {userID: userID}, null).then(response => {
+            if(response.status == "error") {
+            	this.utils.sendMessage("Server error: Could not remove user");
+            	console.log("Error: ", response.message);
+            }
+            else {
+            	this.utils.sendMessage("User removed");
 
+            	// Update the users list
+            	// for(var index of this.users) {
+
+            	// 	//console.log("DREMTEST1: userID:", userID);
+
+            	// 	// Update the local user list
+            	// 	if(index._id == userID) {
+            	// 		index.duid = this.userData.duid;
+            	// 		index.username = this.userData.username;
+            	// 		index.firstname = this.userData.firstname;
+            	// 		index.lastname = this.userData.lastname;
+            	// 		index.role = this.userData.role;
+            	// 	}
+            	// }
+            	this.getUserList();
+            }
+        });
 	}
 }
