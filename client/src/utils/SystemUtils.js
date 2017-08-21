@@ -53,15 +53,15 @@ export class SystemUtils {
         	method: method
         }
 
-        if(method == 'post' && data != null) {
-        	options['body'] = json(data);
-        }
-        else if(method == 'get' && data != null) {
+        if(method == 'get' && data != null) {
         	var qString = "?";
 	        for(var field in data) {
 	            qString += field + "=" + data[field] + "&";
 	        }
 	        url += qString.slice(0, -1);
+        }
+        else if(method != 'get') {
+        	options['body'] = json(data);
         }
 
         // Add headers

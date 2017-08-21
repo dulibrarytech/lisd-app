@@ -41,11 +41,14 @@ export class Users {
 			this.resetUserDataForm();
 		  	this.showUserDataForm(false);
 		}
+		else {
+-			this.router.navigate("/");
+ 		}
 	}
 
 	resetUserDataForm() {
 		this.userData = {
-			userID: "",
+			userID: null,
 	  		duid: "",
 	  		firstname: "",
 	  		lastname: "",
@@ -55,7 +58,6 @@ export class Users {
 
 	getUserList() {
 		this.utils.doAjax('user/all', 'get', null, null).then(responseObject => {
-            //this.initUserDisplay(responseObject);
             console.log("User list: ", responseObject);
             this.users = responseObject.data;
         });
@@ -68,17 +70,7 @@ export class Users {
 
 	addUser() {
 
-		switch(this.userData.role) {
-			case "Admin":
-				this.userData.role = 1;
-				break;
-			case "Librarian":
-				this.userData.role = 2;
-				break;
-			default:
-				this.userData.role = 2;
-				break;
-		}
+		this.userData.role = this.roles.indexOf(this.userData.role)+1;
 
 		this.utils.doAjax('user/add', 'get', this.userData, null).then(response => {
             //this.initUserDisplay(responseObject);
@@ -88,7 +80,6 @@ export class Users {
             }
             else {
             	this.utils.sendMessage("User added");
-            	console.log("User added");
             	this.users.push(this.userData);
             	this.resetUserDataForm();
             	this.showUserDataForm(false);
@@ -96,16 +87,25 @@ export class Users {
         });
 	}
 
+	submitUserData() {
+		if(this.userData.userID) {
+			this.updateUser();
+		}
+		else {
+			this.addUser();
+		}
+	}
+
 	// Get the selected user data and populate the user data form 
 	editUser(userID) {
-		console.log("Edit user ", userID);
+
 		this.utils.doAjax('user/get', 'get', {userID: userID}, null).then(response => {
 			if(response.status == "error") {
             	this.utils.sendMessage("Server error: Could not add user");
             	console.log("Error: ", response.message);
             }
             else {
-            	this.userData.userID = response.data._id;
+            	this.userData.userID = userID;
             	this.userData.duid = response.data.duid;
             	this.userData.firstname = response.data.firstname;
             	this.userData.lastname = response.data.lastname;
@@ -116,19 +116,31 @@ export class Users {
 	}
 
 	updateUser() {
-		switch(this.userData.role) {
-			case "Admin":
-				this.userData.role = 1;
-				break;
-			case "Librarian":
-				this.userData.role = 2;
-				break;
-			default:
-				this.userData.role = 2;
-				break;
-		}
 
+		this.userData.role = this.roles.indexOf(this.userData.role)+1;
 
+		this.utils.doAjax('user/update', 'put', this.userData, null).then(response => {
+			if(response.status == "error") {
+            	this.utils.sendMessage("Server error: Could not add user");
+            	console.log("Error: ", response.message);
+            }
+            else {
+            	// CHECK STATUS
+
+            	this.utils.sendMessage("User updated");
+            	for(var index of this.users) {
+
+            		// Update the local user list
+            		if(index._id == this.userData.userID) {
+            			index.duid = this.userData.duid;
+            			index.username = this.userData.username;
+            			index.firstname = this.userData.firstname;
+            			index.lastname = this.userData.lastname;
+            			index.role = this.userData.role;
+            		}
+            	}
+            }
+        });
 	}
 
 	removeUser() {

@@ -89,7 +89,6 @@ exports.getAllUsers = function() {
 	        		users.push(item);
 	        	}
 	        	else {
-	        		console.log("No users found");
 	        		fulfill(users);
 	        	}
 	        });
