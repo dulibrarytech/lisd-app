@@ -131,7 +131,6 @@ exports.getUserData = function(userID) {
 			var cursor = collection.find({ "_id": ObjectId(userID) });
 	        cursor.each(function(err, item) {
 	        	if(item != null) {
-	        		console.log("User found: ", item);
 	        		userData = item;
 	        	}
 	        	else {
@@ -168,7 +167,9 @@ exports.updateUserData = function(userID, userData) {
 	});
 };
 
-exports.addUserData = function(userID, userData) {
+exports.addUserData = function(userData) {
+
+	console.log("Add data object:", userData);
 
 	return new Promise(function(fulfill, reject) {
 		try {
@@ -201,7 +202,7 @@ exports.removeUserData = function(userID) {
 			    	fulfill(false);
 			    }
 			    else {
-			    	console.log("User removed " + result);
+			    	console.log("User " + userID + " removed " + result);
 			    	fulfill(true);
 			    }
 			});

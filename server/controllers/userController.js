@@ -139,7 +139,7 @@ module.exports.userAddDUID = function(req, res) {
 module.exports.userAdd = function(req, res) {
     var userID = req.body.userID, data = {};
         data['duid'] = req.body.duid,
-        data['username'] = req.body.username,
+        data['username'] = req.body.username || "",
         data['firstname'] = req.body.firstname,
         data['lastname'] = req.body.lastname,
         data['role'] = parseInt(req.body.role);
@@ -156,7 +156,7 @@ module.exports.userAdd = function(req, res) {
         }
         else {
             // Add the user, and add the corresponding librarian record
-            userModel.addUserData(userID, data).then(response => {
+            userModel.addUserData(data).then(response => {
 
                 if(response != false) {
                     // Insert librarian recors
@@ -178,8 +178,8 @@ module.exports.userAdd = function(req, res) {
                 else {
                     res.status(200);
                     res.json({
-                        status: "ok",
-                        data: response
+                        status: "error",
+                        message: "Could not add user data"
                     });
                 }
                 
@@ -226,6 +226,7 @@ module.exports.userUpdate = function(req, res) {
 
 module.exports.userRemove = function(req, res) {
     var userID = req.body.userID;
+        console.log("Remuser id:", userID);
     userModel.removeUserData(userID).then(response => {
         librarianModel.setLibrarianInactive(userID, function(response) {
             res.status(200);
