@@ -81,7 +81,6 @@ module.exports.authenticateLogin = function(req, res) {
 
 module.exports.userAll = function(req, res) {
     userModel.getAllUsers().then(users => {
-
         if(users === false) {
             res.status(500);
         }
@@ -102,9 +101,7 @@ module.exports.userAddDUID = function(req, res) {
             res.sendStatus(500);
         }
         else {
-
             userModel.validateLisdUser(req.body.DUID).then(response => {   // or use controller.authenticateLogin
-
                 if (response !== false) {
 
                     // Check if user is a librarian
@@ -212,9 +209,18 @@ module.exports.userUpdate = function(req, res) {
 
     userModel.updateUserData(userID, data).then(response => {
         res.status(200);
-        res.json({
-            status: response
-        });
+        if(response) {
+            res.json({
+                status: "ok",
+                data: response
+            });
+        }
+        else {
+            res.json({
+                status: "error",
+                message: "Could not update user data"
+            });
+        }
     });
 };
 
