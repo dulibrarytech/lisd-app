@@ -5,7 +5,7 @@
         <span id="user-string">Welcome, ${username}</span><span><a click.delegate="utils.logout()" style="cursor: pointer; margin-left: 0.3em">Logout</a></span>
     </div>
 
-    <div class="data-table">
+    <div id="user-data-table" class="view-section">
     	<h4>Users</h4><button class="button" click.delegate="addUser()" style="float: right">Add User</button>
 	    <table class="table" id="user-data-table">
 			<tr>
@@ -17,25 +17,15 @@
 		</table>
 	</div>
 
-<!-- 	<div class="data-table">
-    	<h4>Librarians</h4><button class="button" style="float: right">Add Librarian</button>
-	    <table class="table" id="user-data-table">
-			<tr>
-				<th>First Name</th><th>Last Name</th><th>Is Active</th><th>Is User</th><th></th><th></th>
-			</tr>
-			<tr class="" id="" repeat.for="user of users">
-				<td>FNAME</td><td>LNAME</td><td>Yes</td><td>Yes</td><td><button class="button">Update</button></td><td><button>Remove</button></td>
-			</tr>
-		</table>
-	</div> -->
-	<div id="user-data-form">
+
+	<div id="user-data-form" class="view-section">
 		<form class="">
 			<label>First Name:</label>
   			<input class="form-control" type="text" value.bind="userData.firstname" placeholder="First Name">
   			<label>Last Name:</label>
   			<input class="form-control" type="text" value.bind="userData.lastname" placeholder="Last Name">
   			<label>Role:</label>
-  			<select class="form-control" value.bind="userData.role" placeholder="Role">
+  			<select class="form-control" style="width: 70%" value.bind="userData.role" placeholder="Role">
   				<option repeat.for="role of roles">${role}</option>
   			</select>
   			<label>DUID:</label>

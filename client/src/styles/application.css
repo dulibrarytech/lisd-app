@@ -355,24 +355,28 @@ table.results-table {
 	margin-left: 2em;
 }
 
-div.data-table {
-	width: 70%;
+div#user-data-table {
+	width: 63%;
     margin-left: 14%;
     margin-top: 6em;
-    border-style: solid;
-    border-width: 2px;
     max-height: 300px;
-    overflow: scroll;
     float: left;
-    padding: 1em;
 }
 
-div.data-table > h4 {
+div.view-section  {
+	border-style: solid;
+    border-width: 2px;padding: 1em;
+    border-radius: 5px;
+    border-color: #858381;
+    overflow: scroll;
+}
+
+div.view-section > h4 {
 	margin-left: 0.35em;
 	display: inline-block;
 }
 
-div.data-table > button {
+div.view-section > button {
 	float: right;
     margin-top: 0.5em;
     margin-right: 0.5em;
@@ -427,8 +431,10 @@ span.message {
 }
 
 div#user-data-form {
-	width: 50%;
-    margin-left: 14%
+	width: 12%;
+    margin-left: 14%;
+    margin-top: 3em;
+    float: left;
 }
 
 @media only screen and (min-width: 1600px) {
