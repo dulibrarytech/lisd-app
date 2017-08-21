@@ -52,7 +52,7 @@ export class Users {
 	  		duid: "",
 	  		firstname: "",
 	  		lastname: "",
-	  		role: ""
+	  		role: "Librarian"
 	  	};
 	}
 
@@ -69,10 +69,15 @@ export class Users {
 	}
 
 	addUser() {
+		this.resetUserDataForm();
+		this.showUserDataForm(true);
+	}
+
+	submitNewUserData() {
 
 		this.userData.role = this.roles.indexOf(this.userData.role)+1;
 
-		this.utils.doAjax('user/add', 'get', this.userData, null).then(response => {
+		this.utils.doAjax('user/add', 'post', this.userData, null).then(response => {
             //this.initUserDisplay(responseObject);
             if(response.status == "error") {
             	this.utils.sendMessage("Server error: Could not add user");
@@ -92,7 +97,7 @@ export class Users {
 			this.updateUser();
 		}
 		else {
-			this.addUser();
+			this.submitNewUserData();
 		}
 	}
 
@@ -101,7 +106,7 @@ export class Users {
 
 		this.utils.doAjax('user/get', 'get', {userID: userID}, null).then(response => {
 			if(response.status == "error") {
-            	this.utils.sendMessage("Server error: Could not add user");
+            	this.utils.sendMessage("Server error: Could not get user");
             	console.log("Error: ", response.message);
             }
             else {
@@ -122,7 +127,7 @@ export class Users {
 
 		this.utils.doAjax('user/update', 'put', this.userData, null).then(response => {
 			if(response.status == "error") {
-            	this.utils.sendMessage("Server error: Could not add user");
+            	this.utils.sendMessage("Server error: Could not update user");
             	console.log("Error: ", response.message);
             }
             else {
