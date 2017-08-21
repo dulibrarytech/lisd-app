@@ -125,7 +125,6 @@ export class Users {
             	console.log("Error: ", response.message);
             }
             else {
-            	// CHECK STATUS
 
             	this.utils.sendMessage("User updated");
             	for(var index of this.users) {
