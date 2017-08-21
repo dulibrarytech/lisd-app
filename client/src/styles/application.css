@@ -356,10 +356,17 @@ table.results-table {
 }
 
 div#user-data-table {
-	width: 63%;
-    margin-left: 14%;
-    margin-top: 6em;
+	width: 75%;
+    margin-left: 5%;
+    margin-top: 2em;
     max-height: 300px;
+    float: left;
+}
+
+div#user-data-form {
+	width: 18%;
+    margin-left: 5%;
+    margin-top: 3em;
     float: left;
 }
 
@@ -428,13 +435,6 @@ div#librarian-select {
 span.message {
 	/*float: right;*/
 	color: green;
-}
-
-div#user-data-form {
-	width: 12%;
-    margin-left: 14%;
-    margin-top: 3em;
-    float: left;
 }
 
 @media only screen and (min-width: 1600px) {

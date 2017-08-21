@@ -1,38 +1,57 @@
 <template>
-  <section class="au-animate">
 
-    <div if.bind="activeSession" style="float: right; margin-bottom: 0.7em; margin-top: 0.8em; margin-right: 5%">
-        <span id="user-string">Welcome, ${username}</span><span><a click.delegate="utils.logout()" style="cursor: pointer; margin-left: 0.3em">Logout</a></span>
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <div if.bind="activeSession" style="float: right; margin-bottom: 0.7em; margin-top: 0.8em; margin-right: 5%">
+                <span id="user-string">Welcome, ${username}</span><span><a click.delegate="utils.logout()" style="cursor: pointer; margin-left: 0.3em">Logout</a></span>
+            </div>
+
+            <div class="container-fluid">
+                <!-- <h2 class="view-header">Statistics</h2> -->
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <div id="user-data-table" class="view-section">
+                            <h4>Users</h4><button class="button" click.delegate="addUser()" style="float: right">Add User</button>
+                            <table class="table" id="user-data-table">
+                                <tr>
+                                    <th>Username</th><th>First Name</th><th>Last Name</th><th>Role</th><th>DUID</th><th></th><th></th>
+                                </tr>
+                                <tr class="" id="" repeat.for="user of users">
+                                    <!-- <td>${user.username}</td> --><td>${user.firstname}</td><td>${user.lastname}</td><td>${user.role}</td><td>${user.duid}</td><td><button class="button" click.delegate="editUser(user._id)">Edit</button></td><td><button class="button" click.delegate="removeUser(user._id)">Remove</button></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div id="user-data-form" class="view-section">
+                            <form class="">
+                                <label>First Name:</label>
+                                <input class="form-control" type="text" value.bind="userData.firstname" placeholder="First Name">
+                                <label>Last Name:</label>
+                                <input class="form-control" type="text" value.bind="userData.lastname" placeholder="Last Name">
+                                <label>Role:</label>
+                                <select class="form-control" style="width: 70%" value.bind="userData.role" placeholder="Role">
+                                    <option repeat.for="role of roles">${role}</option>
+                                </select>
+                                <label>DUID:</label>
+                                <input class="form-control" type="text" value.bind="userData.duid" placeholder="DUID">
+                                <button class="btn" click.delegate="submitUserData()">Submit</button><span class="message" style="margin-left: 3em; margin-top: 1em"></span>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-
-    <div id="user-data-table" class="view-section">
-    	<h4>Users</h4><button class="button" click.delegate="addUser()" style="float: right">Add User</button>
-	    <table class="table" id="user-data-table">
-			<tr>
-				<th>Username</th><th>First Name</th><th>Last Name</th><th>Role</th><th>DUID</th><th></th><th></th>
-			</tr>
-			<tr class="" id="" repeat.for="user of users">
-				<!-- <td>${user.username}</td> --><td>${user.firstname}</td><td>${user.lastname}</td><td>${user.role}</td><td>${user.duid}</td><td><button class="button" click.delegate="editUser(user._id)">Edit</button></td><td><button class="button" click.delegate="removeUser(user._id)">Remove</button></td>
-			</tr>
-		</table>
-	</div>
-
-
-	<div id="user-data-form" class="view-section">
-		<form class="">
-			<label>First Name:</label>
-  			<input class="form-control" type="text" value.bind="userData.firstname" placeholder="First Name">
-  			<label>Last Name:</label>
-  			<input class="form-control" type="text" value.bind="userData.lastname" placeholder="Last Name">
-  			<label>Role:</label>
-  			<select class="form-control" style="width: 70%" value.bind="userData.role" placeholder="Role">
-  				<option repeat.for="role of roles">${role}</option>
-  			</select>
-  			<label>DUID:</label>
-  			<input class="form-control" type="text" value.bind="userData.duid" placeholder="DUID">
-  			<button class="btn" click.delegate="submitUserData()">Submit</button><span class="message" style="margin-left: 3em"></span>
-		</form>
-	</div>
-
-  </section>
 </template>
