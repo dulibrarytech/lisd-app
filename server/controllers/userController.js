@@ -205,7 +205,7 @@ module.exports.userGet = function(req, res) {
 module.exports.userUpdate = function(req, res) {
     var userID = req.body.userID, data = {};
         data['duid'] = req.body.duid,
-        data['username'] = req.body.username,
+        data['username'] = req.body.username || "",
         data['firstname'] = req.body.firstname,
         data['lastname'] = req.body.lastname,
         data['role'] = parseInt(req.body.role);
@@ -221,7 +221,7 @@ module.exports.userUpdate = function(req, res) {
 module.exports.userRemove = function(req, res) {
     var userID = req.body.userID;
     userModel.removeUserData(userID).then(response => {
-        console.log("Here");
+
         librarianModel.setLibrarianInactive(userID, function(response) {
             res.status(200);
             res.json({
