@@ -220,6 +220,10 @@ div#course-enrollment-group label {
 	margin-top: 0.4em;
 }
 
+button.list-btn {
+	border-style: double;
+}
+
 form.login {
 /*	margin-top: 3em;
     margin-left: 3em;*/
@@ -368,6 +372,11 @@ div#user-data-form {
     margin-left: 5%;
     margin-top: 3em;
     float: left;
+}
+
+div#user-data-form input,
+div#user-data-form select {
+	margin-bottom: 0.8em;
 }
 
 div.view-section  {
