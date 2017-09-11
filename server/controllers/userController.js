@@ -7,7 +7,7 @@ var librarianModel = require("../models/Librarian");
 
 module.exports.authenticateLogin = function(req, res) {
 
-    if(settings.runtime_env == "dev") {
+    if(settings.runtime_env == "development") {
         var devSession = {
             userID: "1",
             fname: "Dev",
@@ -15,7 +15,7 @@ module.exports.authenticateLogin = function(req, res) {
             role: 1,
             username: "Dev Session"
         };
-            console.log("Dev session login");
+            console.log("Dev session login at ", new Date());
         var token = loginModel.createToken(devSession);
 
         res.json({
@@ -25,6 +25,7 @@ module.exports.authenticateLogin = function(req, res) {
     }
 
 	else if (req.body.username && req.body.password) {
+
         var username = req.body.username;
         var password = req.body.password;
 

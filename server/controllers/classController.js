@@ -27,7 +27,7 @@ module.exports.classAdd = function(req, res) {
 	    comments: []
 	}
 	data["comments"].push({
-		name: "Commenter",	// DEV: Not implemented, this is a placeholder
+		name: "Commenter",	// TODO: DEV: Not implemented, this is a placeholder
 		text: req.body.commentText
 	})
 
