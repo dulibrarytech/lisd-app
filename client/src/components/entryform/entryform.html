@@ -56,28 +56,28 @@
 		     
 		      	<section id="student-count">
 		      		<div class="inline-group">
-	       			  <label class="form-label" for="numUndergraduates">Number of Undergraduates:</label>
+	       			  <label class="" for="numUndergraduates">Number of Undergraduates:</label>
 	       			  <input class="form-control" type="text" value.bind="numUndergraduates" placeholder = "">
 	       			</div>
 		      	
 			      	<div class="inline-group">
-			      	  <label class="form-label" for="numGraduates">Number of Graduates:</label>
+			      	  <label class="" for="numGraduates">Number of Graduates:</label>
 	       			  <input class="form-control" type="text" value.bind="numGraduates" placeholder = "">
 	       			</div>
 
 	       			<div class="inline-group">
-	       			  <label class="form-label" for="numFacultyStaff">Number of Faculty/Staff:</label>
+	       			  <label class="" for="numFacultyStaff">Number of Faculty/Staff:</label>
 	       			  <input class="form-control" type="text" value.bind="numFacultyStaff" placeholder = "">
 	       			</div>
 
 	       			<div class="inline-group">
-	       			  <label class="form-label" for="numOther">Number of "Other":</label>
+	       			  <label class="" for="numOther">Number of "Other":</label>
 	       			  <input class="form-control" type="text" value.bind="numOther" placeholder = "">
 	       			</div>
        			</section>
        			<section id="class-type">
 		      		<div class="checkbox-group">
-				        <label>Select class type:</label>
+				        <label class="form-label">Select class type:</label>
 				      	<label class="checkbox-text" repeat.for="type of classTypes">${type}<input type="radio" value.bind="type"  checked.bind="selectedClassType"></label>
 				    </div>
 		      	</section>
@@ -86,7 +86,7 @@
 
 		      <div class="form-group select-group" id="properties-select-group">
 			      <div class="input-group dynamic-select">
-			      	  <label for="librarian-select">Librarian:</label>
+			      	  <label class="form-label" for="librarian-select">Librarian:</label>
 			      	 <!--  <span id="librarian-add" class="click-span add-input" style="visibility: hidden; float: right;" click.delegate="addLibrarian()">+ Add another librarian</span> -->
 
 				      <div repeat.for="i of librarianCount">
@@ -102,7 +102,7 @@
 				  </div>
 
 			      <div class="input-group dynamic-select">
-			        <label for="location-select">Location:</label>
+			        <label class="form-label" for="location-select">Location:</label>
 			      	<!-- <span id="location-add" class="click-span add-input" style="visibility: hidden; float: right;" click.delegate="addLocation()">+ Add another location</span> -->
 
 			      	<div repeat.for="i of locationCount">
@@ -118,7 +118,7 @@
 				  </div>
 
 			      <div class="input-group dynamic-select">
-			        <label for="department-select">Department:</label>
+			        <label class="form-label" for="department-select">Department:</label>
 			      	<!-- <span id="department-add" class="click-span add-input" style="visibility: hidden; float: right;" click.delegate="addDepartment()">+ Add another department</span> -->
 
 					<div repeat.for="i of departmentCount">
@@ -143,7 +143,7 @@
 		      </div> -->
 
 		      <div class="form-group checkbox-group">
-		        <label>Select ACRL framework(s):</label>
+		        <label class="form-label">Select ACRL framework(s):</label>
 		      	<label class="checkbox-text" repeat.for="frame of acrlFrames">${frame}<input type="checkbox" checked.bind="selectedAcrlFrames[frame]"></label>
 		      </div>
 
