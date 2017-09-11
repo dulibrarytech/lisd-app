@@ -179,6 +179,10 @@ div.inline-group input {
 	display: inline;
 }
 
+label.form-label {
+	margin-bottom: 1.3em;
+}
+
 div.form-group.checkbox-group {
 	padding-left: 2.5em;
 }
