@@ -91,7 +91,7 @@
 
 				      <div repeat.for="i of librarianCount">
 					      <select id="librarian-select-${i+1}" change.trigger="selectOption('librarian')" class="form-control single-dropdown" value.bind="selectedLibrarians[i]">
-					        <option selected id="librarian-placeholder">Select a Librarian:</option>
+					        <option selected id="librarian-placeholder">${librarianPlaceholder}</option>
 					        <option repeat.for="librarian of librarianList" value.bind="librarian.id" class="librarian-option"> ${librarian.name} </option>
 					      </select>
 					      <div if.one-time="i==0" class="click-span" style="">&nbsp</div>
@@ -107,7 +107,7 @@
 
 			      	<div repeat.for="i of locationCount">
 				      	<select id="location-select-${i+1}" change.trigger="selectOption('location')" class="form-control single-dropdown" value.bind="selectedLocations[i]">
-				      	  <option selected>Select a Location:</option>
+				      	  <option selected>${locationPlaceholder}</option>
 					      <option repeat.for="location of locationList" value.bind="location.name"> ${location.name} </option>
 					    </select>
 					    <div if.one-time="i==0" class="click-span" style="">&nbsp</div>
@@ -123,7 +123,7 @@
 
 					<div repeat.for="i of departmentCount">
 				      	<select id="department-select-${i+1}" change.trigger="selectOption('department')" class="form-control single-dropdown" value.bind="selectedDepartments[i]">
-				      	  <option selected>Select a Department:</option>
+				      	  <option selected>${departmentPlaceholder}</option>
 					      <option repeat.for="department of departmentList" value.bind="department.name"> ${department.name} </option>
 					    </select>
 					    <div if.one-time="i==0" class="click-span" style="">&nbsp</div>
