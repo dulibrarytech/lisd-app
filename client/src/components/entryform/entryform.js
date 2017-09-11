@@ -200,7 +200,7 @@ export class EntryForm {
         formData['className'] =         this.className;
         formData['courseNumber'] =      this.courseNumber;
         formData['instructorName'] =    instructorName;
-        formData['graduates'] =         this.numGraduates;
+        formData['graduates'] =         this.numGraduates || 0;
         formData['undergraduates'] =    this.numUndergraduates || 0;
         formData['facultyStaff'] =      this.numFacultyStaff || 0;
         formData['other'] =             this.numOther || 0;
