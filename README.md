@@ -30,7 +30,7 @@ By default the server ships with Express and is set to serve your Aurelia applic
 
 Release Notes
 
-0.x.x 				(Pre-Admin functionality)
+0.1.x 				(Pre-Admin functionality)
 
 0.1.0	5-23-17		Data entry/data visualization functionality.  
 					Librarian user session functionality: Display authenticated librarian in select boxes by default
@@ -41,5 +41,10 @@ Release Notes
 
 0.1.2	7-10-17		Fixed issue with redirect to 403 page upon invalid login credentials
 					Temporarily disable Admin link and functionality for agile development
+
+0.1.3	9-11-17		Added "None" option to ACRL framework fields
+					Add form validation on course data fields
+					Use default value if a property dropdown placeholder is selected
+					Automatically submit a 0 for student count value if a field is submitted empty (ease of use)
 
 
