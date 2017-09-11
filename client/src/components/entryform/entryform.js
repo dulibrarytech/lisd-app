@@ -37,7 +37,8 @@ export class EntryForm {
     	'Information Has Value',
     	'Research as Inquiry',
     	'Scholarship as Conversation',
-    	'Searching as Strategic Exploration'
+    	'Searching as Strategic Exploration',
+        'None'
     ];
 
     constructor(systemUtils, configuration, router) {
@@ -177,10 +178,10 @@ export class EntryForm {
         formData['className'] =         this.className;
         formData['courseNumber'] =      this.courseNumber;
         formData['instructorName'] =    this.instructorFName + " " + this.instructorLName;
-        formData['graduates'] =         this.numGraduates;
-        formData['undergraduates'] =    this.numUndergraduates;
-        formData['facultyStaff'] =      this.numFacultyStaff;
-        formData['other'] =             this.numOther;
+        formData['graduates'] =         this.numGraduates || 0;
+        formData['undergraduates'] =    this.numUndergraduates || 0;
+        formData['facultyStaff'] =      this.numFacultyStaff || 0;
+        formData['other'] =             this.numOther || 0;
 
         // Get dropdown select data
         formData['librarian'] =     this.selectedLibrarians;
@@ -190,12 +191,6 @@ export class EntryForm {
         // Get checkbox group data
         formData['classType'] = [this.selectedClassType];
         formData['acrlFrame'] = [];
-
-        // for(var key in this.selectedClassTypes) {
-        //     if(this.selectedClassTypes[key] == true) {
-        //         formData['classType'].push(key);
-        //     }
-        // }
 
         for(var key in this.selectedAcrlFrames) {
             if(this.selectedAcrlFrames[key] == true) {
@@ -214,19 +209,29 @@ export class EntryForm {
 
     submit() {
 
-        var data = this.getFormData();        
-        this.utils.doAjax('class/add', 'post', data, null).then(responseObject => {
-            if(responseObject.status == "ok") {
-                this.utils.sendMessage("Course added.");
-                setTimeout(function() {
-                    location.reload(false);
-                }, 3000);
-            }
-            else {
-                this.utils.sendMessage("Error adding course, please contact Systems support.");
-                console.log("Error: " + responseObject.message);
-            }
-        });
+        var formValid = true;
+        var data = this.getFormData();    
+
+        // Validate fields
+        if(data.acrlFrame.length == 0) {
+            formValid = false;
+            this.utils.sendMessage("Please select an ACRL framework option");
+        }
+
+        if(formValid) {
+            this.utils.doAjax('class/add', 'post', data, null).then(responseObject => {
+                if(responseObject.status == "ok") {
+                    this.utils.sendMessage("Course added.");
+                    setTimeout(function() {
+                        location.reload(false);
+                    }, 3000);
+                }
+                else {
+                    this.utils.sendMessage("Error adding course, please contact Systems support.");
+                    console.log("Error: " + responseObject.message);
+                }
+            });
+        }
     }
 }
  
