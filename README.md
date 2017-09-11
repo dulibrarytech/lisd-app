@@ -13,7 +13,7 @@ Server: Create a file named '.env':
 PORT=[port #]
 BASE_URL=[Base url of server app]
 
-LISD_ENV=[dev|prod]
+LISD_ENV=[development|production]
 
 LISD_SECRET=lisdS3cr3tlisdKeY
 LISD_CRYPTKEY=lisd&ecr3tlisdCryPtK3y
