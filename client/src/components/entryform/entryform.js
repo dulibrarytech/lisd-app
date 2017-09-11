@@ -200,7 +200,7 @@ export class EntryForm {
         formData['className'] =         this.className;
         formData['courseNumber'] =      this.courseNumber;
         formData['instructorName'] =    instructorName;
-        formData['graduates'] =         this.numGraduates || 0;
+        formData['graduates'] =         this.numGraduates;
         formData['undergraduates'] =    this.numUndergraduates || 0;
         formData['facultyStaff'] =      this.numFacultyStaff || 0;
         formData['other'] =             this.numOther || 0;
@@ -230,7 +230,7 @@ export class EntryForm {
     }
 
     validateForm(formData) {
-            console.log("Val:", formData.instructorName);
+
         var formValid = true;
 
         // Validate fields
@@ -255,8 +255,6 @@ export class EntryForm {
         }
 
         else if(formData.acrlFrame.length == 0) {
-
-            console.log("INAME", formData.instructorName);
             formValid = false;
             this.utils.sendMessage("Please select an ACRL framework option");
         }
