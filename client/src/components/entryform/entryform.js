@@ -44,6 +44,12 @@ export class EntryForm {
         this.locationList = [];
         this.departmentList = [];
 
+        this.className = "";
+        this.courseNumber = "";
+        this.classDate = "";
+        this.instructorFName = "";
+        this.instructorLName = "";
+
         this.librarianPlaceholder = "Select a Librarian:";
         this.locationPlaceholder = "Select a Location:";
         this.departmentPlaceholder = "Select a Department:";
@@ -186,9 +192,14 @@ export class EntryForm {
         else if(this.quarterSelect == "Spring") {formData['quarter'] = "3";}
         else if(this.quarterSelect == "Summer") {formData['quarter'] = "4";}
 
+        var instructorName = "";
+        if(this.instructorFName != "" && this.instructorLName != "") {
+            instructorName = this.instructorFName + " " + this.instructorLName;
+        }
+
         formData['className'] =         this.className;
         formData['courseNumber'] =      this.courseNumber;
-        formData['instructorName'] =    this.instructorFName + " " + this.instructorLName;
+        formData['instructorName'] =    instructorName;
         formData['graduates'] =         this.numGraduates || 0;
         formData['undergraduates'] =    this.numUndergraduates || 0;
         formData['facultyStaff'] =      this.numFacultyStaff || 0;
@@ -218,18 +229,48 @@ export class EntryForm {
     	document.getElementById(section + "-add").style.visibility = "visible";	
     }
 
+    validateForm(formData) {
+            console.log("Val:", formData.instructorName);
+        var formValid = true;
+
+        // Validate fields
+        if(formData.classDate == "") {
+            formValid = false;
+            this.utils.sendMessage("Please enter a class date");
+        }
+
+        else if(formData.className == "") {
+            formValid = false;
+            this.utils.sendMessage("Please enter a class name");
+        }
+
+        else if(formData.courseNumber == "") {
+            formValid = false;
+            this.utils.sendMessage("Please enter a course number");
+        }
+
+        else if(formData.instructorName == "") {
+            formValid = false;
+            this.utils.sendMessage("Please enter an instructor name");
+        }
+
+        else if(formData.acrlFrame.length == 0) {
+
+            console.log("INAME", formData.instructorName);
+            formValid = false;
+            this.utils.sendMessage("Please select an ACRL framework option");
+        }
+
+        return formValid;
+    }
+
     submit() {
 
         var formValid = true;
         var data = this.getFormData();    
 
-        // Validate fields
-        if(data.acrlFrame.length == 0) {
-            formValid = false;
-            this.utils.sendMessage("Please select an ACRL framework option");
-        }
+        if(this.validateForm(data)) {
 
-        if(formValid) {
             this.utils.doAjax('class/add', 'post', data, null).then(responseObject => {
                 if(responseObject.status == "ok") {
                     this.utils.sendMessage("Course added.");
