@@ -26,20 +26,13 @@ export class EntryForm {
 
     activeSession;
 
-    quarters = ['Fall', 'Winter', 'Spring', 'Summer'];
+    librarianPlaceholder;
+    locationPlaceholder;
+    departmentPlaceholder;
 
-    classTypes = ['Undergraduate', 'Graduate', 'Graduate-Undergraduate', 'Workshop', 'Orientation'];
-
-    acrlFrames = [
-
-    	'Authority Is Constructed and Contextual',
-    	'Information Creation as a Process',
-    	'Information Has Value',
-    	'Research as Inquiry',
-    	'Scholarship as Conversation',
-    	'Searching as Strategic Exploration',
-        'None'
-    ];
+    quarters;
+    classTypes;
+    acrlFrames;
 
     constructor(systemUtils, configuration, router) {
 
@@ -50,6 +43,24 @@ export class EntryForm {
         this.librarianList = [];
         this.locationList = [];
         this.departmentList = [];
+
+        this.librarianPlaceholder = "Select a Librarian:";
+        this.locationPlaceholder = "Select a Location:";
+        this.departmentPlaceholder = "Select a Department:";
+
+        this.quarters = ['Fall', 'Winter', 'Spring', 'Summer'];
+        this.classTypes = ['Undergraduate', 'Graduate', 'Graduate-Undergraduate', 'Workshop', 'Orientation'];
+
+        this.acrlFrames = [
+
+            'Authority Is Constructed and Contextual',
+            'Information Creation as a Process',
+            'Information Has Value',
+            'Research as Inquiry',
+            'Scholarship as Conversation',
+            'Searching as Strategic Exploration',
+            'None'
+        ];
 
         this.activeSession = false;
         if(this.config.session.data) {
@@ -183,10 +194,10 @@ export class EntryForm {
         formData['facultyStaff'] =      this.numFacultyStaff || 0;
         formData['other'] =             this.numOther || 0;
 
-        // Get dropdown select data
-        formData['librarian'] =     this.selectedLibrarians;
-        formData['location'] =      this.selectedLocations;
-        formData['department'] =    this.selectedDepartments;
+        // Get dropdown select data.  Use default value if placeholder is selected
+        formData['librarian'] =     this.selectedLibrarians[0] == this.librarianPlaceholder ? ["None"] : this.selectedLibrarians;
+        formData['location'] =      this.selectedLocations[0] == this.locationPlaceholder ? ["None"] : this.selectedLocations;
+        formData['department'] =    this.selectedDepartments[0] == this.departmentPlaceholder ? ["None"] : this.selectedDepartments;
 
         // Get checkbox group data
         formData['classType'] = [this.selectedClassType];
