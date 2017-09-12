@@ -37,12 +37,37 @@ module.exports = (function() {
 		}
 	};
 
+	var getAll = function(callback) {
+		// var results = {
+		// 	location: {}
+		// };
+
+		// try {
+		// 	var cursor = collection.find({}, {"_id": 1, "name": 1, "isActive": 1}).sort({name:1});
+	 //        cursor.each(function(err, item) {
+	 //        	if(item != null) {
+	 //        		results.location[item._id] = item.name;
+	 //        	}
+	 //        	else {
+	 //        		callback({status: "ok", message: "Ok", data: results});
+	 //        	}
+	 //        });
+		// }
+		// catch (e) {
+		// 	callback({status: "error", message: "Error: " + e});
+		// }
+		callback("HELLO");
+	}
+
 	return {
 		addDocument: function(doc,callback) {
 			addDocument(doc,callback);
 		},
 		getList: function(callback) {
 			getList(callback);
+		},
+		getAll: function(callback) {
+			getAll(callback);
 		}
 	};
 })()

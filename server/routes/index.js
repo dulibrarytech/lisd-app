@@ -1,7 +1,7 @@
 var aggregatorController = require("../controllers/aggregatorController.js");
 var classController = require("../controllers/classController.js");
 var userController = require("../controllers/userController.js");
-var librarianController = require("../controllers/librarianController.js");
+var propertyController = require("../controllers/propertyController.js");
 var loginModel = require("../models/Login");
 var settings = require('../config/settings');
 
@@ -64,7 +64,9 @@ module.exports = function (app, passport) {
 	});
 
 	// Protected routes
-	app.use(loginModel.validateToken);
+	if(settings.runtime_env != 'development') {
+		app.use(loginModel.validateToken);
+	}
 
 	app.get('/user/all', function(req, res) { 
 	    userController.userAll(req, res);
@@ -84,5 +86,27 @@ module.exports = function (app, passport) {
 
 	app.delete('/user/remove', function(req, res) { 
 	    userController.userRemove(req, res);
+	});
+
+
+
+	app.get('/property/all/:name', function(req, res) { 
+	    propertyController.propertyAll(req, res);
+	});
+
+	app.post('/:property/add/:name', function(req, res) { 
+	   
+	});
+
+	app.get('/property/get/:name', function(req, res) { 
+	    
+	});
+
+	app.put('/property/update/:name', function(req, res) { 
+	    
+	});
+
+	app.delete('/property/remove/:name', function(req, res) { 
+	   
 	});
 };
