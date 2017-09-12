@@ -62,7 +62,7 @@ module.exports = (function() {
 		var classes = [];
 
 		try {
-			var cursor = collection.find({}, {"_id": 1, "courseInfo.name": 1});
+			var cursor = collection.find({ "isActive": true }, {"_id": 1, "courseInfo.name": 1});
 	        cursor.each(function(err, item) {
 	        	if(item != null) {
 	        		classes.push(item);
