@@ -2,6 +2,7 @@
 
 var database = require('../util/database.js');
 var collection;
+var ObjectId = require('mongodb').ObjectID;
 
 database.connect(function(db) {
 	//var db = database.connection();
@@ -32,10 +33,29 @@ exports.getList = function(callback) {
 };
 
 exports.getAll = function(callback) {
-	var results = [];
 
 	try {
-		var cursor = collection.find({}, {"_id": 0, "name": 1, "isActive": 1}).sort({name:1});
+		var results = [];
+		var cursor = collection.find({}, {"_id": 1, "name": 1, "isActive": 1}).sort({name:1});
+        cursor.each(function(err, item) {
+        	if(item != null) {
+        		results.push(item);
+        	}
+        	else {
+        		callback({status: "ok", message: "Ok", data: results});
+        	}
+        });
+	}
+	catch (e) {
+		callback({status: "error", message: "Error: " + e});
+	}
+}
+
+exports.getData = function(id, callback) {
+
+	try {
+		var results = [];
+		var cursor = collection.find({ "_id": ObjectId(id) }, {"_id": 0, "name": 1, "isActive": 1});
         cursor.each(function(err, item) {
         	if(item != null) {
         		results.push(item);

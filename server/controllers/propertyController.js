@@ -1,11 +1,9 @@
 var locationModel = require("../models/Location");
 var departmentModel = require("../models/Department");
 
-module.exports.propertyAll = function(req, res) {
-	console.log("propAll:", req.params.name);
+var getProperty = function(name) {
 	var property;
-
-	switch(req.params.name) {
+	switch(name) {
 		case "location":
 			property = locationModel;
 			break;
@@ -16,9 +14,19 @@ module.exports.propertyAll = function(req, res) {
 			res.sendStatus(500);
 			break;
 	}
+	return property;
+}
 
-	property.getAll(function(data) {
-		console.log("CB data", data);
-		res.send("OK " + req.params.name);
+module.exports.propertyAll = function(req, res) {
+
+	getProperty(req.params.name).getAll(function(data) {
+		res.send(data);
+	});
+};
+
+module.exports.propertyGet = function(req, res) {
+
+	getProperty(req.params.name).getData(req.query.id, function(data) {
+		res.send(data);
 	});
 };
