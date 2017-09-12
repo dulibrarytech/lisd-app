@@ -99,7 +99,7 @@ module.exports = function (app, passport) {
 	});
 
 	app.get('/property/get/:name', function(req, res) { 
-	    
+	    propertyController.propertyGet(req, res);
 	});
 
 	app.put('/property/update/:name', function(req, res) { 
