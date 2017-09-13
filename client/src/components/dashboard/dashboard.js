@@ -14,6 +14,7 @@ export class Users {
 	activeSession;
 
 	users = [];
+	properties = [];
 	userData={};
 	roles=[];
 	librarians;
@@ -60,6 +61,34 @@ export class Users {
 		this.utils.doAjax('user/all', 'get', null, null).then(responseObject => {
             console.log("User list: ", responseObject);
             this.users = responseObject.data;
+
+            // Hide user list, show property list
+			document.getElementById('user-data-section').style.display = "block";
+			document.getElementById('property-data-section').style.display = "none";
+        });
+	}
+
+	getPropertyList(property) {
+		var url = "property/all/" + property, properties = [];
+		this.utils.doAjax(url, 'get', null, null).then(responseObject => {
+
+			// Will contain name, isActive.
+            console.log("Property list", responseObject);
+
+            for(var index in responseObject) {
+            	properties.push({
+            		name: responseObject[index].name,
+            		isActive: responseObject[index].isActive,
+            		type: property
+            	});
+            }
+
+            // Build object with name, isActive, type (add property name)
+            this.properties = properties;
+
+            // Hide user list, show property list
+			document.getElementById('user-data-section').style.display = "none";
+			document.getElementById('property-data-section').style.display = "block";
         });
 	}
 
