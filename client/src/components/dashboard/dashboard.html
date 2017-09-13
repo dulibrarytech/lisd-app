@@ -4,7 +4,11 @@
 
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
-
+            <ul>
+                <li><a click.delegate="getUserList()">Users</a></li>
+                <li><a click.delegate="getPropertyList('location')">Locations</a></li>
+                <li><a click.delegate="getPropertyList('department')">Departments</a></li>
+            </ul>
         </div>
         <!-- /#sidebar-wrapper -->
 
@@ -18,7 +22,7 @@
             <div class="container-fluid">
                 <!-- <h2 class="view-header">Statistics</h2> -->
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div id="user-data-section" class="col-lg-12">
 
                         <div id="user-data-table" class="view-section">
                             <h4>Users</h4><button class="list-btn" click.delegate="addUser()" style="float: right">Add User</button>
@@ -34,6 +38,39 @@
 
                         <div id="user-data-form" class="view-section">
                         	<!-- <h2 id="user-data-form-label"></h2> -->
+                            <form class="">
+                                <label>First Name:</label>
+                                <input class="form-control" type="text" value.bind="userData.firstname" placeholder="First Name">
+                                <label>Last Name:</label>
+                                <input class="form-control" type="text" value.bind="userData.lastname" placeholder="Last Name">
+                                <label>Role:</label>
+                                <select class="form-control" style="width: 70%" value.bind="userData.role" placeholder="Role">
+                                    <option repeat.for="role of roles">${role}</option>
+                                </select>
+                                <label>DUID:</label>
+                                <input class="form-control" type="text" value.bind="userData.duid" placeholder="DUID">
+                                <button class="btn" click.delegate="submitUserData()">Submit</button><span class="message" style="margin-left: 3em; margin-top: 1em"></span>
+                            </form>
+                        </div>
+
+                    </div>
+
+                    <div id="property-data-section" class="col-lg-12">
+
+                        <div id="property-data-table" class="view-section">
+                            <h4>Locations</h4><button class="list-btn" click.delegate="addUser()" style="float: right">Add Location</button>
+                            <table class="table" id="user-data-table">
+                                <tr>
+                                    <th>Name</th><th>Active</th><th></th><th></th>
+                                </tr>
+                                <tr class="" id="" repeat.for="property of properties">
+                                    <!-- <td>${user.username}</td> --><td>${property.name}</td><td>${property.isActive}</td><td><button class="list-btn" click.delegate="editProperty(property.type, property._id)">Edit</button></td><td><button class="list-btn" click.delegate="removeProperty(property.type, property._id)">Remove</button></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div id="location-data-form" class="view-section">
+                            <!-- <h2 id="user-data-form-label"></h2> -->
                             <form class="">
                                 <label>First Name:</label>
                                 <input class="form-control" type="text" value.bind="userData.firstname" placeholder="First Name">
