@@ -71,6 +71,7 @@ export class Users {
 
 	getPropertyList(property) {
 		var url = "property/all/" + property, properties = [];
+			console.log("Request url", url);
 		this.utils.doAjax(url, 'get', null, null).then(responseObject => {
 
 			// Will contain name, isActive.

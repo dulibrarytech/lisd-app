@@ -32,23 +32,19 @@ exports.getList = function(callback) {
 };
 
 exports.getAll = function(callback) {
-	// var results = {
-	// 	location: {}
-	// };
-
-	// try {
-	// 	var cursor = collection.find({ "isActive": true }, {"_id": 1, "name": 1}).sort({name:1});
- //        cursor.each(function(err, item) {
- //        	if(item != null) {
- //        		results.location[item._id] = item.name;
- //        	}
- //        	else {
- //        		callback({status: "ok", message: "Ok", data: results});
- //        	}
- //        });
-	// }
-	// catch (e) {
-	// 	callback({status: "error", message: "Error: " + e});
-	// }
-	callback("HELLO2");
+	try {
+		var results = [];
+		var cursor = collection.find({}, {"_id": 1, "name": 1, "isActive": 1}).sort({name:1});
+        cursor.each(function(err, item) {
+        	if(item != null) {
+        		results.push(item);
+        	}
+        	else {
+        		callback({status: "ok", message: "Ok", data: results});
+        	}
+        });
+	}
+	catch (e) {
+		callback({status: "error", message: "Error: " + e});
+	}
 }
