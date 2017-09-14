@@ -36,7 +36,7 @@
                             </table>
                         </div>
 
-                        <div id="user-data-form" class="view-section">
+                        <div id="user-data-form" class="data-input-form view-section">
                         	<!-- <h2 id="user-data-form-label"></h2> -->
                             <form class="">
                                 <label>First Name:</label>
@@ -49,6 +49,7 @@
                                 </select>
                                 <label>DUID:</label>
                                 <input class="form-control" type="text" value.bind="userData.duid" placeholder="DUID">
+                                <button class="btn" click.delegate="showDataForm(false)">Cancel</button>
                                 <button class="btn" click.delegate="submitUserData()">Submit</button><span class="message" style="margin-left: 3em; margin-top: 1em"></span>
                             </form>
                         </div>
@@ -69,20 +70,18 @@
                             </table>
                         </div>
 
-                        <div id="location-data-form" class="view-section">
+                        <div id="property-data-form" class="data-input-form view-section">
                             <!-- <h2 id="user-data-form-label"></h2> -->
                             <form class="">
-                                <label>First Name:</label>
+                                <label>Name:</label>
                                 <input class="form-control" type="text" value.bind="userData.firstname" placeholder="First Name">
-                                <label>Last Name:</label>
-                                <input class="form-control" type="text" value.bind="userData.lastname" placeholder="Last Name">
-                                <label>Role:</label>
+                                <label>isActive:</label>
                                 <select class="form-control" style="width: 70%" value.bind="userData.role" placeholder="Role">
-                                    <option repeat.for="role of roles">${role}</option>
+                                    <option>Yes</option>
+                                    <option>No</option>
                                 </select>
-                                <label>DUID:</label>
-                                <input class="form-control" type="text" value.bind="userData.duid" placeholder="DUID">
-                                <button class="btn" click.delegate="submitUserData()">Submit</button><span class="message" style="margin-left: 3em; margin-top: 1em"></span>
+                                <button class="btn" click.delegate="showDataForm(false)">Cancel</button>
+                                <button class="btn" click.delegate="submitPropertyData()">Submit</button><span class="message" style="margin-left: 3em; margin-top: 1em"></span>
                             </form>
                         </div>
 

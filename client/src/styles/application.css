@@ -363,7 +363,8 @@ table.results-table {
 	margin-left: 2em;
 }
 
-div#user-data-table {
+div#user-data-table,
+div#property-data-table {
 	width: 75%;
     margin-left: 5%;
     margin-top: 2em;
@@ -371,8 +372,8 @@ div#user-data-table {
     float: left;
 }
 
-div#user-data-form {
-	width: 18%;
+div.data-input-form {
+	width: 25%;
     margin-left: 5%;
     margin-top: 3em;
     float: left;
@@ -580,6 +581,11 @@ span.message {
 		width: 68%;
 		padding-left: 3.4em;
 	}
+
+	div#property-data-table,
+	div#user-data-table {
+		margin-top: 4em;
+	}
 }
 
 @media only screen and (min-width: 960px) and (max-width: 1099px) { 
@@ -610,6 +616,12 @@ span.message {
 		width: 64.5%;
 		padding-left: 15em;
 	}
+
+	div#property-data-table,
+	div#user-data-table {
+		margin-top: 4em;
+		font-size: 12px;
+	}
 }
 
 @media only screen and (min-width: 768px) and (max-width: 959px) { 
@@ -633,6 +645,14 @@ span.message {
 	section#class-type {
 		width: 45%;
 		padding-left: 8em;
+	}
+
+	div#property-data-table,
+	div#user-data-table {
+		margin-top: 4em;
+		font-size: 12px;
+		width: 100%;
+		margin-left: 0px;
 	}
 }
 
