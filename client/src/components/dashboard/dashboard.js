@@ -40,7 +40,7 @@ export class Users {
 		if(this.config.session.token) {
 			this.getUserList();
 			this.resetUserDataForm();
-		  	this.showUserDataForm(false);
+		  	this.showDataForm(false);
 		}
 		else {
 -			this.router.navigate("/");
@@ -61,6 +61,7 @@ export class Users {
 		this.utils.doAjax('user/all', 'get', null, null).then(responseObject => {
             console.log("User list: ", responseObject);
             this.users = responseObject.data;
+            	console.log("User list stored", this.users);
 
             // Hide user list, show property list
 			document.getElementById('user-data-section').style.display = "block";
@@ -75,16 +76,18 @@ export class Users {
 			// Will contain name, isActive.
             console.log("Property list", responseObject);
 
-            for(var index in responseObject) {
+            for(var index of responseObject.data) {
             	properties.push({
-            		name: responseObject[index].name,
-            		isActive: responseObject[index].isActive,
+            		name: index.name,
+            		isActive: index.isActive,
             		type: property
             	});
+            	console.log("Index:", index);
             }
 
             // Build object with name, isActive, type (add property name)
             this.properties = properties;
+            	console.log("Property list stored", this.properties);
 
             // Hide user list, show property list
 			document.getElementById('user-data-section').style.display = "none";
@@ -92,14 +95,19 @@ export class Users {
         });
 	}
 
-	showUserDataForm(show) {
+	showDataForm(show) {
 		// Show user data form
-		document.getElementById('user-data-form').style.display = show == true ? "block" : "none";
+		//document.getElementById('user-data-form').style.display = show == true ? "block" : "none";
+
+		var elements = document.getElementsByClassName('data-input-form');
+	    for(var i=0; i<elements.length; i++) {
+	        elements[i].style.display = show == true ? "block" : "none";
+	  }
 	}
 
 	addUser() {
 		this.resetUserDataForm();
-		this.showUserDataForm(true);
+		this.showDataForm(true);
 	}
 
 	submitNewUserData() {
@@ -116,7 +124,7 @@ export class Users {
             	this.utils.sendMessage("User added");
             	this.users.push(this.userData);
             	this.resetUserDataForm();
-            	this.showUserDataForm(false);
+            	this.showDataForm(false);
             }
         });
 	}
@@ -144,7 +152,7 @@ export class Users {
             	this.userData.firstname = response.data.firstname;
             	this.userData.lastname = response.data.lastname;
             	this.userData.role = this.roles[response.data.role-1];
-            	this.showUserDataForm(true);
+            	this.showDataForm(true);
             }
         });
 	}
