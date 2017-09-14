@@ -16,6 +16,8 @@ export class Users {
 	users = [];
 	properties = [];
 	userData={};
+	propData={};
+	propActive;
 	roles=[];
 	librarians;
 
@@ -26,6 +28,7 @@ export class Users {
 
 	  	this.activeSession = false;
 	  	this.roles = ["Admin", "Librarian"];
+	  	this.propActive = ["No", "Yes"];
 
 	  	if(this.config.session.token == null) {
 	  		this.router.navigate("/");
@@ -40,10 +43,11 @@ export class Users {
 		if(this.config.session.token) {
 			this.getUserList();
 			this.resetUserDataForm();
+			this.resetPropertyDataForm();
 		  	this.showDataForm(false);
 		}
 		else {
--			this.router.navigate("/");
+			this.router.navigate("/");
  		}
 	}
 
@@ -57,11 +61,19 @@ export class Users {
 	  	};
 	}
 
+	resetPropertyDataForm() {
+		this.propData = {
+			id: null,
+	  		name: "",
+	  		isActive: true
+	  	};
+	}
+
 	getUserList() {
+
+		this.showDataForm(false);
 		this.utils.doAjax('user/all', 'get', null, null).then(responseObject => {
-            console.log("User list: ", responseObject);
             this.users = responseObject.data;
-            	console.log("User list stored", this.users);
 
             // Hide user list, show property list
 			document.getElementById('user-data-section').style.display = "block";
@@ -70,20 +82,18 @@ export class Users {
 	}
 
 	getPropertyList(property) {
-		var url = "property/all/" + property, properties = [];
-			console.log("Request url", url);
-		this.utils.doAjax(url, 'get', null, null).then(responseObject => {
 
-			// Will contain name, isActive.
-            console.log("Property list", responseObject);
+		this.showDataForm(false);
+		var url = "property/all/" + property, properties = [];
+		this.utils.doAjax(url, 'get', null, null).then(responseObject => {
 
             for(var index of responseObject.data) {
             	properties.push({
+            		id: index._id,
             		name: index.name,
             		isActive: index.isActive,
             		type: property
             	});
-            	console.log("Index:", index);
             }
 
             // Build object with name, isActive, type (add property name)
@@ -111,6 +121,11 @@ export class Users {
 		this.showDataForm(true);
 	}
 
+	addProperty(type) {
+		this.resetPropertyDataForm();
+		this.showDataForm(true);
+	}
+
 	submitNewUserData() {
 
 		this.userData.role = this.roles.indexOf(this.userData.role)+1;
@@ -119,7 +134,7 @@ export class Users {
             //this.initUserDisplay(responseObject);
             if(response.status == "error") {
             	this.utils.sendMessage("Server error: Could not add user");
-            	console.log("Error: ", response.message);
+            	console.log(response.message);
             }
             else {
             	this.utils.sendMessage("User added");
@@ -139,13 +154,24 @@ export class Users {
 		}
 	}
 
+	submitPropertyData(type) {
+			console.log("Current propdata:", this.propData);
+			console.log("Current propertylist:", this.properties);
+		if(this.propData.id) {
+			this.updateProperty(type);
+		}
+		else {
+			this.submitNewPropertyData();
+		}
+	}
+
 	// Get the selected user data and populate the user data form 
 	editUser(userID) {
 
 		this.utils.doAjax('user/get', 'get', {userID: userID}, null).then(response => {
 			if(response.status == "error") {
             	this.utils.sendMessage("Server error: Could not get user");
-            	console.log("Error: ", response.message);
+            	console.log(response.message);
             }
             else {
             	this.userData.userID = userID;
@@ -158,7 +184,7 @@ export class Users {
         });
 	}
 
-	// Updates "active" user (Selected from users list)
+	// Updates selected user
 	updateUser() {
 
 		this.userData.role = this.roles.indexOf(this.userData.role)+1;
@@ -166,7 +192,7 @@ export class Users {
 		this.utils.doAjax('user/update', 'put', this.userData, null).then(response => {
 			if(response.status == "error") {
             	this.utils.sendMessage("Server error: Could not update user");
-            	console.log("Error: ", response.message);
+            	console.log(response.message);
             }
             else {
             	this.utils.sendMessage("User updated");
@@ -191,7 +217,7 @@ export class Users {
 		this.utils.doAjax('user/remove', 'delete', {userID: userID}, null).then(response => {
             if(response.status == "error") {
             	this.utils.sendMessage("Server error: Could not remove user");
-            	console.log("Error: ", response.message);
+            	console.log(response.message);
             }
             else {
             	this.utils.sendMessage("User removed");
@@ -210,6 +236,66 @@ export class Users {
             	// 		index.role = this.userData.role;
             	// 	}
             	// }
+            	this.getUserList();
+            }
+        });
+	}
+
+	// Get the selected property data and populate the data form 
+	editProperty(type, propertyID) {
+
+		var url = "property/get/" + type;
+		this.utils.doAjax(url, 'get', {id: propertyID}, null).then(response => {
+			if(response.status == "error") {
+            	this.utils.sendMessage("Server error: Could not get " + type + "s");
+            	console.log(response.message);
+            }
+            else {
+            	var isActive = response.data[0].isActive === false ? 0 : 1;
+            	this.propData.id = propertyID;
+            	this.propData.name = response.data[0].name;
+            	this.propData.isActive = this.propActive[isActive];
+            	this.propData.type = type;
+
+            	this.showDataForm(true);
+            }
+        });
+	}
+
+	// Updates selected property
+	updateProperty(type) {
+
+		var url = "property/update/" + type;
+		this.utils.doAjax(url, 'put', this.propData, null).then(response => {
+			if(response.status == "error") {
+            	this.utils.sendMessage("Server error: Could not update " + type + "s");
+            	console.log(response.message);
+            }
+            else {
+            	this.utils.sendMessage(type + " updated");
+
+            	// Update the users list
+            	for(var index of this.propData) {
+
+            		// Update the local user list
+            		if(index._id == this.propData.id) {
+            			index.name = this.propData.name;
+            			index.isActive = this.propData.isActive == "Yes" ? true : false;
+            		}
+            	}
+            }
+        });
+	}
+
+	removeProperty(type, propertyID) {
+		var url = "property/remove/" + type;
+		this.utils.doAjax(url, 'delete', {userID: userID}, null).then(response => {
+            if(response.status == "error") {
+            	this.utils.sendMessage("Server error: Could not remove " + type + "s");
+            	console.log(response.message);
+            }
+            else {
+            	this.utils.sendMessage(type + " removed");
             	this.getUserList();
             }
         });

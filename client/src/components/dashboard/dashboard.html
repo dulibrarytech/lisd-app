@@ -28,7 +28,7 @@
                             <h4>Users</h4><button class="list-btn" click.delegate="addUser()" style="float: right">Add User</button>
                             <table class="table" id="user-data-table">
                                 <tr>
-                                    <th>Username</th><th>First Name</th><th>Last Name</th><th>Role</th><th>DUID</th><th></th><th></th>
+                                    <!-- <th>Username</th> --><th>First Name</th><th>Last Name</th><th>Role</th><th>DUID</th><th></th><th></th>
                                 </tr>
                                 <tr class="" id="" repeat.for="user of users">
                                     <!-- <td>${user.username}</td> --><td>${user.firstname}</td><td>${user.lastname}</td><td>${user.role}</td><td>${user.duid}</td><td><button class="list-btn" click.delegate="editUser(user._id)">Edit</button></td><td><button class="list-btn" click.delegate="removeUser(user._id)">Remove</button></td>
@@ -65,7 +65,7 @@
                                     <th>Name</th><th>Active</th><th></th><th></th>
                                 </tr>
                                 <tr class="" id="" repeat.for="property of properties">
-                                    <!-- <td>${user.username}</td> --><td>${property.name}</td><td>${property.isActive}</td><td><button class="list-btn" click.delegate="editProperty(property.type, property._id)">Edit</button></td><td><button class="list-btn" click.delegate="removeProperty(property.type, property._id)">Remove</button></td>
+                                    <!-- <td>${user.username}</td> --><td>${property.name}</td><td>${property.isActive}</td><td><button class="list-btn" click.delegate="editProperty(property.type, property.id)">Edit</button></td><td><button class="list-btn" click.delegate="removeProperty(property.type, property._id)">Remove</button></td>
                                 </tr>
                             </table>
                         </div>
@@ -74,14 +74,13 @@
                             <!-- <h2 id="user-data-form-label"></h2> -->
                             <form class="">
                                 <label>Name:</label>
-                                <input class="form-control" type="text" value.bind="userData.firstname" placeholder="First Name">
+                                <input class="form-control" type="text" value.bind="propData.name" placeholder="First Name">
                                 <label>isActive:</label>
-                                <select class="form-control" style="width: 70%" value.bind="userData.role" placeholder="Role">
-                                    <option>Yes</option>
-                                    <option>No</option>
+                                <select class="form-control" style="width: 70%" value.bind="propData.isActive" placeholder="Role">
+                                    <option repeat.for="option of propActive">${option}</option>
                                 </select>
                                 <button class="btn" click.delegate="showDataForm(false)">Cancel</button>
-                                <button class="btn" click.delegate="submitPropertyData()">Submit</button><span class="message" style="margin-left: 3em; margin-top: 1em"></span>
+                                <button class="btn" click.delegate="submitPropertyData(propData.type)">Submit</button><span class="message" style="margin-left: 3em; margin-top: 1em"></span>
                             </form>
                         </div>
 

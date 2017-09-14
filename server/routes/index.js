@@ -103,7 +103,7 @@ module.exports = function (app, passport) {
 	});
 
 	app.put('/property/update/:name', function(req, res) { 
-	    
+	    propertyController.propertyUpdate(req, res);
 	});
 
 	app.delete('/property/remove/:name', function(req, res) { 
