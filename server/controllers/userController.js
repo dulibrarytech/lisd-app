@@ -202,10 +202,10 @@ module.exports.userGet = function(req, res) {
 
 module.exports.userUpdate = function(req, res) {
     var userID = req.body.userID, data = {};
-        data['duid'] = req.body.duid,
-        data['username'] = req.body.username || "",
-        data['firstname'] = req.body.firstname,
-        data['lastname'] = req.body.lastname,
+        data['duid'] = req.body.duid;
+        data['username'] = req.body.username || "";
+        data['firstname'] = req.body.firstname;
+        data['lastname'] = req.body.lastname;
         data['role'] = parseInt(req.body.role);
 
     userModel.updateUserData(userID, data).then(response => {

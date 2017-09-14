@@ -18,15 +18,37 @@ var getProperty = function(name) {
 }
 
 module.exports.propertyAll = function(req, res) {
-
 	getProperty(req.params.name).getAll(function(data) {
 		res.send(data);
 	});
 };
 
 module.exports.propertyGet = function(req, res) {
-
 	getProperty(req.params.name).getData(req.query.id, function(data) {
 		res.send(data);
 	});
+};
+
+module.exports.propertyUpdate = function(req, res) {
+    var propertyID = req.body.id, data = {};
+        data['name'] = req.body.name || "";
+        data['isActive'] = req.body.isActive == "Yes" ? true : false;
+
+        	console.log("Prop update model gets:", propertyID, data);
+
+    getProperty(req.body.type).updateData(propertyID, data, function(response) {
+    	res.status(200);
+        if(response) {
+            res.json({
+                status: "ok",
+                data: response
+            });
+        }
+        else {
+            res.json({
+                status: "error",
+                message: "Could not update user data"
+            });
+        }
+    });
 };

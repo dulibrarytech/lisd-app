@@ -52,7 +52,7 @@ exports.getAll = function(callback) {
 }
 
 exports.getData = function(id, callback) {
-
+		console.log("location model rx ID", id);
 	try {
 		var results = [];
 		var cursor = collection.find({ "_id": ObjectId(id) }, {"_id": 0, "name": 1, "isActive": 1});
@@ -69,3 +69,23 @@ exports.getData = function(id, callback) {
 		callback({status: "error", message: "Error: " + e});
 	}
 }
+
+exports.updateData = function(id, data, callback) {
+
+	try {
+		// Insert the document
+	    collection.updateOne({"_id": ObjectId(id)}, {$set: data}, function(err, results) {
+		    if(err) {
+		    	console.log("Error: " + err);
+		    	callback({status: "error", message: "Error: " + e});
+		    }
+		    else {
+		    	console.log("Location " + id + " updated");
+		    	callback({status: "ok", message: "Ok", data: results});
+		    }
+		});
+	} catch (e) {
+		console.log("Error: " + e);
+		callback({status: "error", message: "Error: " + e});
+	};
+};
