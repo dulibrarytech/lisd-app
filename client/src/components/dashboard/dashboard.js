@@ -161,8 +161,25 @@ export class Users {
 			this.updateProperty(type);
 		}
 		else {
-			this.submitNewPropertyData();
+			this.submitNewPropertyData(type);
 		}
+	}
+
+	submitNewPropertyData(type) {
+		var url = "property/add" + type;
+		this.utils.doAjax(url, 'post', this.propData, null).then(response => {
+            //this.initUserDisplay(responseObject);
+            if(response.status == "error") {
+            	this.utils.sendMessage("Server error: Could not add " + type + " property");
+            	console.log(response.message);
+            }
+            else {
+            	this.utils.sendMessage(type + " property added");
+            	//this.users.push(this.userData);
+            	this.resetPropertyDataForm();
+            	this.showDataForm(false);
+            }
+        });
 	}
 
 	// Get the selected user data and populate the user data form 
