@@ -73,10 +73,7 @@ export class Users {
   }
 
   verifyLastname() {
-    // var data = {
-    //   DUID: this.DUID,
-    //   lastName: this.lastName
-    // }
+
     var data = {
       DUID: this.DUID,
       lastName: this.lastName
