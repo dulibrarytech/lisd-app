@@ -95,7 +95,7 @@ module.exports = function (app, passport) {
 	});
 
 	app.post('/:property/add/:name', function(req, res) { 
-	   
+	   propertyController.propertyAdd(req, res);
 	});
 
 	app.get('/property/get/:name', function(req, res) { 
@@ -107,6 +107,6 @@ module.exports = function (app, passport) {
 	});
 
 	app.delete('/property/remove/:name', function(req, res) { 
-	   
+	   propertyController.propertyRemove(req, res);
 	});
 };

@@ -29,26 +29,27 @@ module.exports.propertyGet = function(req, res) {
 	});
 };
 
+module.exports.propertyAdd = function(req, res) {
+		console.log("Dta received:", req.body.data);
+	getProperty(req.params.name).addData(req.body.data, function(data) {
+		res.send(data);
+	});
+};
+
 module.exports.propertyUpdate = function(req, res) {
     var propertyID = req.body.id, data = {};
         data['name'] = req.body.name || "";
         data['isActive'] = req.body.isActive == "Yes" ? true : false;
 
-        	console.log("Prop update model gets:", propertyID, data);
+        	console.log("DEV: Prop update model gets:", propertyID, data);
 
-    getProperty(req.body.type).updateData(propertyID, data, function(response) {
-    	res.status(200);
-        if(response) {
-            res.json({
-                status: "ok",
-                data: response
-            });
-        }
-        else {
-            res.json({
-                status: "error",
-                message: "Could not update user data"
-            });
-        }
+    getProperty(req.params.name).updateData(propertyID, data, function(response) {
+    	res.send(data);
     });
+};
+
+module.exports.propertyRemove = function(req, res) {
+	getProperty(req.params.name).removeData(req.body.id, function(data) {
+		res.send(data);
+	});
 };
