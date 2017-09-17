@@ -214,7 +214,6 @@ module.exports = (function() {
 	        	}
 	        	else {
 	        		if(results.length == 0) {message = "No results found";} else {message = "Returning class data";}
-	        			console.log("CLASS DATA RESULTS:", results);
 	        		callback({status: "ok", message: message, data: results});
 	        	}
 	        });
