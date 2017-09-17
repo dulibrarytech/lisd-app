@@ -139,10 +139,10 @@ module.exports.userAddDUID = function(req, res) {
 
 module.exports.userAdd = function(req, res) {
     var userID = req.body.userID, data = {};
-        data['duid'] = req.body.duid,
-        data['username'] = req.body.username || "",
-        data['firstname'] = req.body.firstname,
-        data['lastname'] = req.body.lastname,
+        data['duid'] = req.body.duid;
+        data['username'] = req.body.username || "";
+        data['firstname'] = req.body.firstname;
+        data['lastname'] = req.body.lastname;
         data['role'] = parseInt(req.body.role);
 
     // Check for existing user

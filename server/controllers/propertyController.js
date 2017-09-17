@@ -30,7 +30,10 @@ module.exports.propertyGet = function(req, res) {
 };
 
 module.exports.propertyAdd = function(req, res) {
-		console.log("Dta received:", req.body.data);
+		console.log("Data received:", req.body);
+	var data = {};
+        data['name'] = req.body.name || "";
+        data['isActive'] = req.body.isActive == "Yes" ? true : false;
 	getProperty(req.params.name).addData(req.body.data, function(data) {
 		res.send(data);
 	});
