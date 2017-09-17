@@ -96,11 +96,11 @@ exports.addData = function(data, callback) {
 	    collection.insertOne(data, function(err, result) {
 		    if(err) {
 		    	console.log("Error: " + err);
-		    	callback(false);
+		    	callback({status: "ok", message: "Ok", data: null});
 		    }
 		    else {
 		    	console.log("Added location " + result.ops[0]._id);
-		    	callback(result.ops[0]._id.toString());
+		    	callback({status: "ok", message: "Ok", data: result.ops[0]._id.toString()});
 		    }
 		});
 	} catch (e) {
@@ -116,11 +116,11 @@ exports.removeData = function(id, callback) {
 	    collection.deleteOne({ "_id": ObjectId(id)}, function(err, result) {
 		    if(err) {
 		    	console.log("Error: " + err);
-		    	callback(false);
+		    	callback({status: "error", message: "Error: " + e});
 		    }
 		    else {
-		    	console.log("Location " + userID + " removed " + result);
-		    	callback(true);
+		    	console.log("Location " + id + " removed. " + result);
+		    	callback({status: "ok", message: "Ok", data: true});
 		    }
 		});
 	} catch (e) {
