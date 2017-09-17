@@ -33,8 +33,9 @@ module.exports.propertyAdd = function(req, res) {
 		console.log("Data received:", req.body);
 	var data = {};
         data['name'] = req.body.name || "";
-        data['isActive'] = req.body.isActive == "Yes" ? true : false;
-	getProperty(req.params.name).addData(req.body.data, function(data) {
+        //data['isActive'] = req.body.isActive == "Yes" ? true : false;
+        data['isActive'] = true;
+	getProperty(req.params.name).addData(data, function(data) {
 		res.send(data);
 	});
 };
@@ -43,8 +44,6 @@ module.exports.propertyUpdate = function(req, res) {
     var propertyID = req.body.id, data = {};
         data['name'] = req.body.name || "";
         data['isActive'] = req.body.isActive == "Yes" ? true : false;
-
-        	console.log("DEV: Prop update model gets:", propertyID, data);
 
     getProperty(req.params.name).updateData(propertyID, data, function(response) {
     	res.send(data);

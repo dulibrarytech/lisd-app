@@ -169,8 +169,6 @@ exports.updateUserData = function(userID, userData) {
 
 exports.addUserData = function(userData) {
 
-	console.log("Add data object:", userData);
-
 	return new Promise(function(fulfill, reject) {
 		try {
 			// Insert the document
