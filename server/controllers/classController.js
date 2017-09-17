@@ -39,10 +39,25 @@ module.exports.classAdd = function(req, res) {
 	// console.log("server receives: " + data);
 	// res.statusCode = 200;
 	// res.send(data);
-}
+};
 
 module.exports.getClassProperties = function(req, res) {
 	Class.getPropertyData(function(response) {
 		res.send(response);
 	});
-}
+};
+
+module.exports.classGet = function(req, res) {
+	Class.getData(req.query.classID, function(response) {
+		res.send(response);
+	})
+};
+
+module.exports.classUpdate = function(req, res) {
+
+};
+
+module.exports.classGetComments = function(req, res) {
+
+};
+
