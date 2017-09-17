@@ -130,6 +130,56 @@ export class Statistics {
         }
     }
 
+    resetForm() {
+
+        this.resultData = [];
+        this.subsortValues = [];
+        this.selectedSubsortValue = "";
+        
+        this.displayResults = false;
+        this.displayYear = false;
+        this.displayMonth = true;
+        this.displayQuarter = false;
+
+        // Reset element visibility
+        document.getElementById('result-options').style.display = "none";
+        document.getElementById('post-search-options').style.display = "none";
+        document.getElementById('year-quarter-select').style.display = "none";
+
+        document.getElementById('librarian-select').style.display = "none";
+
+        document.getElementById('statistics-search').style.display = "block";
+        document.getElementById('search-options').style.display = "block";
+        document.getElementById('disp-select').style.visibility = "visible";
+
+        // Default year settings:
+        // Set the fromYear to the previous year, set the toYear to current year
+        this.fromYear = this.fromYears[(this.fromYears.length-2)];     
+        var from = parseInt(this.fromYear) + 1;
+        this.toYears = this.getYearList(from);     
+        document.getElementById("toYearSelect").visibility = 'hidden';
+
+        // Search results current table/chart.  No table/chart shown by default
+        this.currentTable = "";
+        this.currentChart = "";
+        document.getElementById('chart-section').style.display = "none";
+
+        // Do not show admin link if there is no session
+        if(this.config.session.token == null) {
+            document.getElementById('menulink-104').style.display = "none";
+        }
+
+        // Currently selected search type will remain selected on new search.  Display librarian select if search type uses it
+        if(this.selectedSearchType == "Librarian Statistics" || this.selectedSearchType == "Class Data") {
+            document.getElementById('librarian-select').style.display = "block";
+        }
+
+        // If a librarian 
+        if(this.config.session.data && this.config.session.data.librarianID != "") {
+            document.getElementById('librarian-select').style.display = "block";
+        }
+    }
+
     renderStatisticsTables(data) {
 
         // Enable the table display
@@ -662,7 +712,8 @@ export class Statistics {
 
     newSearch() {
         // DEV - TEMP TODO create function to reset form resetForm()
-        location.reload(false);
+        //location.reload(false);
+        this.resetForm();
     }
 
     resetCanvasElement() {
