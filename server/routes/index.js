@@ -68,6 +68,7 @@ module.exports = function (app, passport) {
 		app.use(loginModel.validateToken);
 	}
 
+	// User
 	app.get('/user/all', function(req, res) { 
 	    userController.userAll(req, res);
 	});
@@ -88,8 +89,20 @@ module.exports = function (app, passport) {
 	    userController.userRemove(req, res);
 	});
 
+	// Class
+	app.get('/class/get', function(req, res) { 
+	    classController.classGet(req, res);
+	});
 
+	app.put('/class/update', function(req, res) { 
+	    classController.classUpdate(req, res);
+	});
 
+	app.get('/class/get/comments', function(req, res) { 
+	    classController.classGetComments(req, res);
+	});
+
+	// Class property
 	app.get('/property/all/:name', function(req, res) { 
 	    propertyController.propertyAll(req, res);
 	});
