@@ -49,10 +49,10 @@ exports.getAll = function(callback) {
 	catch (e) {
 		callback({status: "error", message: "Error: " + e});
 	}
-}
+};
 
 exports.getData = function(id, callback) {
-		console.log("location model rx ID", id);
+
 	try {
 		var results = [];
 		var cursor = collection.find({ "_id": ObjectId(id) }, {"_id": 0, "name": 1, "isActive": 1});
@@ -68,7 +68,7 @@ exports.getData = function(id, callback) {
 	catch (e) {
 		callback({status: "error", message: "Error: " + e});
 	}
-}
+};
 
 exports.updateData = function(id, data, callback) {
 
@@ -87,5 +87,44 @@ exports.updateData = function(id, data, callback) {
 	} catch (e) {
 		console.log("Error: " + e);
 		callback({status: "error", message: "Error: " + e});
+	};
+};
+
+exports.addData = function(data, callback) {
+	try {
+		// Insert the document
+	    collection.insertOne(data, function(err, result) {
+		    if(err) {
+		    	console.log("Error: " + err);
+		    	callback(false);
+		    }
+		    else {
+		    	console.log("Added location " + result.ops[0]._id);
+		    	callback(result.ops[0]._id.toString());
+		    }
+		});
+	} catch (e) {
+		console.log("Error: " + e);
+		callback(false);
+	};
+};
+
+exports.removeData = function(id, callback) {
+
+	try {
+		// Insert the document
+	    collection.deleteOne({ "_id": ObjectId(id)}, function(err, result) {
+		    if(err) {
+		    	console.log("Error: " + err);
+		    	callback(false);
+		    }
+		    else {
+		    	console.log("Location " + userID + " removed " + result);
+		    	callback(true);
+		    }
+		});
+	} catch (e) {
+		console.log("Error: " + e);
+		callback(false);
 	};
 };
