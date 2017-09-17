@@ -11,10 +11,11 @@
 
 	<div id="class-data-results">
 		<table class="table">
-			<th>Department</th><th>Name</th><th>Date</th><th>Number</th><th>Type</th><th>Instructor</th><th>U</th><th>G</th><th>F</th><th>O</th><th>Location</th>
+			<tr><th>Department</th><th>Name</th><th>Date</th><th>Number</th><th>Type</th><th>Instructor</th><th>U</th><th>G</th><th>F</th><th>O</th><th>Location</th><th>ACRL Frameworks</th><th></th></tr>
 
 			<tr repeat.for="index of resultData">
-				<td>${index.department}</td>
+				<!-- <td>${index.department}</td> -->
+				<td><span repeat.for="department of index.department">${department}</span></td>
 				<td>${index.courseInfo.name}</td>
 				<td>${index.courseInfo.date}</td>
 				<td>${index.courseInfo.number}</td>
@@ -24,7 +25,12 @@
 				<td>${index.enrollmentInfo.graduates}</td>
 				<td>${index.enrollmentInfo.faculty}</td>
 				<td>${index.enrollmentInfo.other}</td>
-				<td>${index.location}</td>
+				<!-- <td>${index.location}</td> -->
+				<td><span repeat.for="location of index.location">${location}</span></td>
+				<td><span repeat.for="framework of index.acrlFrame">${framework}</span></td>
+				<!-- <td style="white-space: pre">${index.acrlFrame}</td> -->
+				<td><button class="list-btn" click.delegate="viewClassComments(index._id)">View Comments</button></td>
+				<td if.bind="activeLibrarian == index.associatedLibrarians[0]"><button class="list-btn" click.delegate="editClassData(index._id)">Edit</button></td>
 			</tr>
 		</table>
 	</div>

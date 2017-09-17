@@ -224,6 +224,10 @@ div#course-enrollment-group label {
 	margin-top: 0.4em;
 }
 
+div#class-data-results table tbody tr td span {
+	display: block;
+}
+
 button.list-btn {
 	border-style: double;
 }

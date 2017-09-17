@@ -851,4 +851,12 @@ export class Statistics {
             console.log("Search type error");
         }
     };
+
+    viewClassComments(classID) {
+        console.log("View comments for class ", classID);
+    };
+
+    editClassData(classID) {
+        console.log("Edit class data ", classID);
+    };
 }
