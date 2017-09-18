@@ -885,7 +885,7 @@ export class Statistics {
     };
 
     viewClassComments(classID) {
-
+        console.log("DEV classID", classID);
         // Store the selected class id
         this.activeClassID = classID;
 
@@ -896,6 +896,7 @@ export class Statistics {
         // Get all comments for this class
         this.utils.doAjax('class/get/comments', 'get', {classID: classID}, null).then(data => {
             if(data.data.length > 0) {
+                    console.log("DEV rx class comments:", data.data);
                 this.classComments = data.data;
             }
             else {
@@ -903,7 +904,7 @@ export class Statistics {
                 this.classComments.push({
                     name: "No comments found",
                     text: null
-                })
+                });
             }
             this.showClassComments = true;
         });
@@ -916,9 +917,25 @@ export class Statistics {
     }
 
     addComment() {
-            console.log("DEV add comment", this.comment);
         this.utils.doAjax('class/add/comment', 'post', {classID: this.activeClassID, comment: this.comment}, null).then(data => {
-            console.log("DEV comment response:", data);
+            if(data.status == "ok") {
+                var newComment = {};
+                newComment['name'] = this.comment.name;
+                newComment['text'] = this.comment.comment;
+
+                // Update the comment list
+                this.classComments.push(newComment);
+
+                // Reset the comment form
+                this.comment.name = "";
+                this.comment.comment = "";
+
+                //utils.sendMessage("Comment added.");
+            }
+            else {
+                console.log(data.message);
+                //utils.sendMessage("Error: could not add comment");
+            }
         });
     }
 
