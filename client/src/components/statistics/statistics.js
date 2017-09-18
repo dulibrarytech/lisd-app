@@ -87,11 +87,6 @@ export class Statistics {
         this.fromYears = this.getYearList(1990);
         this.toYears = this.getYearList(1990);
 
-        // this.displayResults = false;
-        // this.displayYear = false;
-        // this.displayMonth = true;
-        // this.displayQuarter = false;
-
         this.activeSession = false;
         this.activeClassID = 0;
 
@@ -928,6 +923,6 @@ export class Statistics {
     }
 
     editClassData(classID) {
-        console.log("Edit class data ", classID);
+        console.log("Edit class data ", classID);    // this afternoon
     };
 }

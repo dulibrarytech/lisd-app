@@ -68,7 +68,8 @@ module.exports.classGetComments = function(req, res) {
 };
 
 module.exports.classAddComment = function(req, res) {
-	console.log("Controller: add comment data:", req.body);
-	res.send(200);
+	Class.appendComment(req.body.classID, req.body.comment, function(response) {
+		res.send(response);
+	});
 };
 

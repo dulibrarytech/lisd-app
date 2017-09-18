@@ -135,7 +135,8 @@ exports.getClassComments = function(classID, callback) {
 
 exports.appendComment = function(classID, commentData, callback) {
 
-	getClassComments(classID, function(comments) {
+	this.getClassComments(classID, function(comments) {
+		var comments = comments.data;
 		comments.push({
 			name: commentData.name,
 			text: commentData.comment
