@@ -636,6 +636,10 @@ input#comment-input {
 	div#user-data-table {
 		margin-top: 4em;
 	}
+
+	div#class-data-comments {
+	    width: 65%;
+	}
 }
 
 @media only screen and (min-width: 960px) and (max-width: 1099px) { 
@@ -671,6 +675,10 @@ input#comment-input {
 	div#user-data-table {
 		margin-top: 4em;
 		font-size: 12px;
+	}
+
+	div#class-data-comments {
+	    width: 65%;
 	}
 }
 
