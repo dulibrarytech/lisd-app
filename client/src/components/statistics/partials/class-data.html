@@ -9,9 +9,11 @@
 		<div id="class-total"><h4>( ${resultData.length} ${classCountLabel} )</h4></div>
 	</div>
 
-	<div id="class-data-results" class="section-border">
+	<div id="class-data-results" class="table-responsive section-border">
 		<table class="table">
-			<tr><th>Department</th><th>Name</th><th>Date</th><th>Number</th><th>Type</th><th>Instructor</th><th>U</th><th>G</th><th>F</th><th>O</th><th>Location</th><th>ACRL Frameworks</th><th></th></tr>
+			<thead class="thead-default">
+				<tr><th>Department</th><th>Name</th><th>Date</th><th>Number</th><th>Type</th><th>Instructor</th><th>U</th><th>G</th><th>F</th><th>O</th><th>Location</th><th>ACRL Frameworks</th><th></th></tr>
+			</thead>
 
 			<tr repeat.for="index of resultData">
 				<!-- <td>${index.department}</td> -->
@@ -37,7 +39,7 @@
 
 	<div id="class-data-comments" class="section-border" if.bind="showClassComments">
 		<span style="float: left"><h4>Comments</h4></span><span style="float: right"><button class="list-btn" click.delegate="hideClassComments()">Hide Comments</button></span>
-		<!-- <span id="more-comments-note" class="form-note">( Scroll down to see more comments )</span> -->
+		<span id="more-comments-note" class="form-note">( Scroll down to see more comments )</span>
 		<div id="comment-display" class="section-border">
 			<ul>
 				<li repeat.for="index of classComments">
