@@ -36,16 +36,29 @@
 	</div>
 
 	<div id="class-data-comments" if.bind="showClassComments">
-		<ul>
-			<li repeat.for="index of classComments">
-				<dl>
-					<dt>${index.name}</dt>
-					<dd>${index.text || ""}</dd>
-				</dl>
-			</li>
-		</ul>
+		<span style="float: left"><h4>Comments</h4></span><span style="float: right"><button class="list-btn" click.delegate="hideClassComments()">Hide Comments</button></span>
+		<div id="comment-display">
+			<ul>
+				<li repeat.for="index of classComments">
+					<dl>
+						<dt>${index.name}</dt>
+						<dd>${index.text || ""}</dd>
+					</dl>
+				</li>
+			</ul>
+		</div>
 		<br />
-		<button class="list-btn" click.delegate="hideClassComments()">Hide Comments</button>
+
+		<h4>Add Comment</h4>
+		<form id="comment-form" role="form">
+			<div class="form-group">
+				<label class="form-label">Name</label>
+				<input type="text" class="form-control" value.bind="comment.name">
+				<label class="form-label">Comment</label>
+				<input id="comment-input" type="textarea" class="form-control" value.bind="comment.comment">
+			</div>
+			<button click.delegate="addComment()" class="btn btn-primary">Submit</button>
+		</form>
 	</div>
 
 	<!-- <modal showing.bind="true"><h1>MODAL</h1></modal> -->

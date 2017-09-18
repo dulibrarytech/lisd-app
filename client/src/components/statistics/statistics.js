@@ -55,10 +55,12 @@ export class Statistics {
     studentTypes = ["Undergraduate", "Graduate", "Faculty", "Other"];
 
     resultData = [];
-    showClassComments;
-    activeClass = {};
+    activeClassID;
     subsortValues = [];
     selectedSubsortValue;
+
+    showClassComments;
+    comment = {};
 
     currentTable;
     currentChart;
@@ -91,6 +93,8 @@ export class Statistics {
         // this.displayQuarter = false;
 
         this.activeSession = false;
+        this.activeClassID = 0;
+
         if(this.config.session.data) {
             this.activeSession = true;
             this.username = this.config.session.data.fname + " " + this.config.session.data.lname;
@@ -886,6 +890,15 @@ export class Statistics {
     };
 
     viewClassComments(classID) {
+
+        // Store the selected class id
+        this.activeClassID = classID;
+
+        // Reset the comment form
+        this.comment.name = "";
+        this.comment.comment = "";
+
+        // Get all comments for this class
         this.utils.doAjax('class/get/comments', 'get', {classID: classID}, null).then(data => {
             if(data.data.length > 0) {
                 this.classComments = data.data;
@@ -904,6 +917,14 @@ export class Statistics {
     hideClassComments() {
         this.classComments = [];
         this.showClassComments = false;
+        this.activeClassID = 0;
+    }
+
+    addComment() {
+            console.log("DEV add comment", this.comment);
+        this.utils.doAjax('class/add/comment', 'post', {classID: this.activeClassID, comment: this.comment}, null).then(data => {
+            console.log("DEV comment response:", data);
+        });
     }
 
     editClassData(classID) {
