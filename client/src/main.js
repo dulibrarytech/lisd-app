@@ -4,7 +4,8 @@ import 'bootstrap';
 export function configure(aurelia) {
   aurelia.use
     .standardConfiguration()
-    .developmentLogging();
+    .developmentLogging()
+    .plugin('aurelia-modal');
     
 
   // aurelia.use
