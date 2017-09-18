@@ -26,8 +26,10 @@ module.exports.classAdd = function(req, res) {
 	    acrlFrame: req.body['acrlFrame'],
 	    comments: []
 	}
+
+	var commenter = "";
 	data["comments"].push({
-		name: "Commenter",	// TODO: DEV: Not implemented, this is a placeholder
+		name: commenter,	// TODO: add initial comment commentor name is necessary
 		text: req.body.commentText
 	})
 
@@ -50,7 +52,7 @@ module.exports.getClassProperties = function(req, res) {
 module.exports.classGet = function(req, res) {
 	Class.getData(req.query.classID, function(response) {
 		res.send(response);
-	})
+	});
 };
 
 module.exports.classUpdate = function(req, res) {
@@ -58,6 +60,8 @@ module.exports.classUpdate = function(req, res) {
 };
 
 module.exports.classGetComments = function(req, res) {
-
+	Class.getClassComments(req.query.classID, function(response) {
+		res.send(response);
+	});
 };
 

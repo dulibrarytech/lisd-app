@@ -117,13 +117,13 @@ exports.getClassComments = function(classID, callback) {
 
 	try {
 		var results = [];
-		var cursor = collection.find({ "_id": ObjectId(id) }, {"_id": 0, "comments": 1});
+		var cursor = collection.find({ "_id": ObjectId(classID) }, {"_id": 0, "comments": 1});
         cursor.each(function(err, item) {
         	if(item != null) {
         		results.push(item);
         	}
         	else {
-        		callback({status: "ok", message: "Ok", data: results});
+        		callback({status: "ok", message: "Ok", data: results[0].comments});
         	}
         });
 	}

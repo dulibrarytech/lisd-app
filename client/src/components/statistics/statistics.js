@@ -103,38 +103,35 @@ export class Statistics {
 
     attached() {
 
-        // Element vicibility
-        document.getElementById('result-options').style.display = "none";
-        document.getElementById('post-search-options').style.display = "none";
-        document.getElementById('librarian-select').style.display = "none";
-        document.getElementById('year-quarter-select').style.display = "none";
+        // // Element vicibility
+        // document.getElementById('result-options').style.display = "none";
+        // document.getElementById('post-search-options').style.display = "none";
+        // document.getElementById('librarian-select').style.display = "none";
+        // document.getElementById('year-quarter-select').style.display = "none";
 
-        // Default year settings:
-        // Set the fromYear to the previous year, set the toYear to current year
-        this.fromYear = this.fromYears[(this.fromYears.length-2)];     
-        var from = parseInt(this.fromYear) + 1;
-        this.toYears = this.getYearList(from);     
-        document.getElementById("toYearSelect").visibility = 'hidden';
+        // // Default year settings:
+        // // Set the fromYear to the previous year, set the toYear to current year
+        // this.fromYear = this.fromYears[(this.fromYears.length-2)];     
+        // var from = parseInt(this.fromYear) + 1;
+        // this.toYears = this.getYearList(from);     
+        // document.getElementById("toYearSelect").visibility = 'hidden';
 
-        // Search results current table/chart.  No table/chart shown by default
-        this.currentTable = "";
-        this.currentChart = "";
-        document.getElementById('chart-section').style.display = "none";
+        // // Search results current table/chart.  No table/chart shown by default
+        // this.currentTable = "";
+        // this.currentChart = "";
+        // document.getElementById('chart-section').style.display = "none";
 
-        if(this.config.session.token == null) {
-            document.getElementById('menulink-104').style.display = "none";
-        }
+        // if(this.config.session.token == null) {
+        //     document.getElementById('menulink-104').style.display = "none";
+        // }
 
-        if(this.config.session.data && this.config.session.data.librarianID !== "") {
-            document.getElementById('librarian-select').style.display = "block";
-        }
+        // if(this.config.session.data && this.config.session.data.librarianID !== "") {
+        //     document.getElementById('librarian-select').style.display = "block";
+        // }
+        this.resetForm();
     }
 
     resetForm() {
-
-        this.resultData = [];
-        this.subsortValues = [];
-        this.selectedSubsortValue = "";
         
         this.displayResults = false;
         this.displayYear = false;
@@ -160,9 +157,9 @@ export class Statistics {
         document.getElementById("toYearSelect").visibility = 'hidden';
 
         // Search results current table/chart.  No table/chart shown by default
+        document.getElementById('chart-section').style.display = "none";
         this.currentTable = "";
         this.currentChart = "";
-        document.getElementById('chart-section').style.display = "none";
 
         // Do not show admin link if there is no session
         if(this.config.session.token == null) {
@@ -174,10 +171,13 @@ export class Statistics {
             document.getElementById('librarian-select').style.display = "block";
         }
 
-        // If a librarian 
         if(this.config.session.data && this.config.session.data.librarianID != "") {
             document.getElementById('librarian-select').style.display = "block";
         }
+
+        this.resultData = [];
+        this.subsortValues = [];
+        this.selectedSubsortValue = "";
     }
 
     renderStatisticsTables(data) {
@@ -866,6 +866,8 @@ export class Statistics {
                 //this.utils.stopSpinner();
                 this.resultData = data.data;
 
+                
+
                 // Prep the response for the view templates
                 this.resultData.year['total'] = this.resultData.year.totals;
                 delete this.resultData.year.totals;     // Do not display this in the view table
@@ -904,7 +906,10 @@ export class Statistics {
     };
 
     viewClassComments(classID) {
-        console.log("View comments for class ", classID);
+            console.log("DEV View comments for class ", classID);
+        this.utils.doAjax('class/get/comments', 'get', {classID: classID}, null).then(data => {
+            console.log("DEV Comments found:", data.data);
+        });
     };
 
     editClassData(classID) {
