@@ -870,7 +870,6 @@ export class Statistics {
 
                 //this.utils.stopSpinner();
                 this.resultData = data.data;
-
                 if(this.resultData) {
                     // Prep the response for the view templates
                     this.resultData.year['total'] = this.resultData.year.totals;
