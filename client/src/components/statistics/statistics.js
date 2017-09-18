@@ -132,7 +132,7 @@ export class Statistics {
     }
 
     resetForm() {
-        
+            console.log("DEV reset form...");
         this.displayResults = false;
         this.displayYear = false;
         this.displayMonth = true;
@@ -147,7 +147,7 @@ export class Statistics {
 
         document.getElementById('statistics-search').style.display = "block";
         document.getElementById('search-options').style.display = "block";
-        document.getElementById('disp-select').style.visibility = "visible";
+        document.getElementById('disp-select').style.visibility = "hidden";
 
         // Default year settings:
         // Set the fromYear to the previous year, set the toYear to current year
@@ -158,8 +158,6 @@ export class Statistics {
 
         // Search results current table/chart.  No table/chart shown by default
         document.getElementById('chart-section').style.display = "none";
-        this.currentTable = "";
-        this.currentChart = "";
 
         // Do not show admin link if there is no session
         if(this.config.session.token == null) {
@@ -178,6 +176,8 @@ export class Statistics {
         this.resultData = [];
         this.subsortValues = [];
         this.selectedSubsortValue = "";
+        // this.currentTable = "";
+        // this.currentChart = "";
     }
 
     renderStatisticsTables(data) {
@@ -839,22 +839,25 @@ export class Statistics {
                 }
 
                 this.resultData = data.data;
-                this.resultData.month = this.sortResultMonthsByTimePeriod(this.resultData);
-                this.resultData.quarter = this.sortResultQuartersByTimePeriod(this.resultData);
+                if(this.resultData) {
 
-                // TODO: add FUNCTION: initResultView(data)
-                // Show search options, hide the search form
-                document.getElementById('result-options').style.display = "block";                  // TODO move to function
-                // document.getElementById('chart-section').style.display = "none"; 
-                document.getElementById('statistics-search').style.display = "none";
-                document.getElementById('post-search-options').style.display = "block";
-                document.getElementById('search-options').style.display = "none";
+                    this.resultData.month = this.sortResultMonthsByTimePeriod(this.resultData);
+                    this.resultData.quarter = this.sortResultQuartersByTimePeriod(this.resultData);
 
-                document.getElementById('disp-select').style.visibility = "hidden";
+                    // TODO: add FUNCTION: initResultView(data)
+                    // Show search options, hide the search form
+                    document.getElementById('result-options').style.display = "block";                  // TODO move to function
+                    // document.getElementById('chart-section').style.display = "none"; 
+                    document.getElementById('statistics-search').style.display = "none";
+                    document.getElementById('post-search-options').style.display = "block";
+                    document.getElementById('search-options').style.display = "none";
 
-                // Render the view (no chart option)
-                this.displayFormat = "Table";
-                this.renderClassDataTable(this.resultData);
+                    document.getElementById('disp-select').style.visibility = "hidden";
+
+                    // Render the view (no chart option)
+                    this.displayFormat = "Table";
+                    this.renderClassDataTable(this.resultData);
+                }
             });
         }
 
@@ -863,40 +866,42 @@ export class Statistics {
             // all statistics route
             this.utils.doAjax('get/data/search/allStatistics', 'get', data, null).then(data => {
 
+                    console.log("DEV search stats returned", data)
+
                 //this.utils.stopSpinner();
                 this.resultData = data.data;
 
-                
+                if(this.resultData) {
+                    // Prep the response for the view templates
+                    this.resultData.year['total'] = this.resultData.year.totals;
+                    delete this.resultData.year.totals;     // Do not display this in the view table
+                    this.resultData.month = this.sortResultMonthsByTimePeriod(this.resultData);
+                    this.resultData.quarter = this.sortResultQuartersByTimePeriod(this.resultData);
 
-                // Prep the response for the view templates
-                this.resultData.year['total'] = this.resultData.year.totals;
-                delete this.resultData.year.totals;     // Do not display this in the view table
-                this.resultData.month = this.sortResultMonthsByTimePeriod(this.resultData);
-                this.resultData.quarter = this.sortResultQuartersByTimePeriod(this.resultData);
+                    // TODO: add FUNCTION: initResultView(data)
+                    // Show search options, hide the search form
+                    document.getElementById('result-options').style.display = "block";                   // TODO move to function
+                    document.getElementById('statistics-search').style.display = "none";
+                    document.getElementById('post-search-options').style.display = "block";
+                    document.getElementById('search-options').style.display = "none";
 
-                // TODO: add FUNCTION: initResultView(data)
-                // Show search options, hide the search form
-                document.getElementById('result-options').style.display = "block";                   // TODO move to function
-                document.getElementById('statistics-search').style.display = "none";
-                document.getElementById('post-search-options').style.display = "block";
-                document.getElementById('search-options').style.display = "none";
-
-                // Render the view
-                if(this.displayFormat == "Table") {
-                    this.renderStatisticsTables(this.resultData);
-                }
-                else if(this.displayFormat == "Chart") {
-
-                    // Populate group select box, if not single sort
-                    if(this.selectedDisplayStatistics != "All") {
-                        this.subsortValues = []; // Clear past search results
-                        for (var key in this.resultData.year) {
-                            this.subsortValues.push(key);
-                        }
-                        this.selectedSubsortValue = this.subsortValues[0];  // Defaults to first in list
+                    // Render the view
+                    if(this.displayFormat == "Table") {
+                        this.renderStatisticsTables(this.resultData);
                     }
+                    else if(this.displayFormat == "Chart") {
 
-                    this.renderStatisticsCharts(this.resultData);
+                        // Populate group select box, if not single sort
+                        if(this.selectedDisplayStatistics != "All") {
+                            this.subsortValues = []; // Clear past search results
+                            for (var key in this.resultData.year) {
+                                this.subsortValues.push(key);
+                            }
+                            this.selectedSubsortValue = this.subsortValues[0];  // Defaults to first in list
+                        }
+
+                        this.renderStatisticsCharts(this.resultData);
+                    }
                 }
             });
         }
