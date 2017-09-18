@@ -91,6 +91,13 @@ export class EntryForm {
         }
     }
 
+    activate(data) {
+        // console.log("Activate EF: data in:", data);
+        // console.log("Activate EF: quarterSelect is:", this.quarterSelect);
+
+        this.quarterSelect = data.quarterSelect;
+    }
+
     // Add additional select input
     addLibrarian() {
 		var newValue = "librarian" + (++this.librarianCount);

@@ -56,11 +56,13 @@ export class Statistics {
 
     resultData = [];
     activeClassID;
+    activeClass = {};   // Data for class entry (edit) form
     subsortValues = [];
     selectedSubsortValue;
 
     showClassComments;
     comment = {};
+    showClassEditForm;
 
     currentTable;
     currentChart;
@@ -88,7 +90,6 @@ export class Statistics {
         this.toYears = this.getYearList(1990);
 
         this.activeSession = false;
-        this.activeClassID = 0;
 
         if(this.config.session.data) {
             this.activeSession = true;
@@ -100,10 +101,32 @@ export class Statistics {
             this.selectedLibrarian = [this.activeLibrarian];
             this.selectedSearchType = "Librarian Statistics";
         }
+
+        // Class data
+        this.activeClassID = 0;
+        this.activeClass = {
+            className: "",
+            classDate: null,
+            quarterSelect: "",
+            courseNumber: "",
+            instructorFName: "",
+            instructorLName: "",
+            numUnderGraduates: 0,
+            numGraduates: 0,
+            numFacultyStaff: 0,
+            numOther: 0,
+            selectedLibrarians: [],
+            selectedDepartments: [],
+            selectedLocations: [],
+            selectedClassType: "",
+            selectedACRLFrames: []
+        }
     }
 
     attached() {
         this.resetForm();
+        this.showClassEditForm = false;
+        this.hideClassComments();
     }
 
     resetForm() {
@@ -940,6 +963,21 @@ export class Statistics {
     }
 
     editClassData(classID) {
-        console.log("Edit class data ", classID);    // this afternoon
+            console.log("Edit class data ", classID);    // this afternoon
+        this.hideClassComments();
+        this.showClassEditForm = true;
+
+        // Get all comments for this class
+        this.utils.doAjax('class/get', 'get', {classID: classID}, null).then(data => {
+                 console.log("DEV rx class data:", data);
+            if(data.status == "ok") {
+                  
+                // Build the data object for the class data form   
+                this.activeClass.className = data.name;
+            }
+            else {
+                console.log("Could not get class data. ", data.message);
+            }
+        });
     };
 }
