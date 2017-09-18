@@ -456,13 +456,20 @@ span.message {
 	color: green;
 }
 
-div#class-data-comments {
-	width: 50%;
-    padding: 1em;
+div.section-border {
+	padding: 1em;
     border-style: solid;
     border-color: #e5e3e1;
     border-width: 1px;
     border-radius: 5px;
+}
+
+div#class-data-comments {
+	width: 50%;
+}
+
+div#class-data-results {
+	margin-bottom: 3em;
 }
 
 div#comment-display {
