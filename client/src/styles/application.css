@@ -240,6 +240,16 @@ form.login {
     width: 40%;
 }
 
+.form-note {
+	font-size: 10px;
+}
+
+#more-comments-note {
+	position: relative;
+    top: 3em;
+    right: 8em;
+}
+
 div.form-group {
 	background-color: #f8f8f8;
 	padding: 3em;
