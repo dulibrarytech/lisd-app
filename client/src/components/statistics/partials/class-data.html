@@ -32,7 +32,10 @@
 				<td><span repeat.for="framework of index.acrlFrame">${framework}</span></td>
 				<!-- <td style="white-space: pre">${index.acrlFrame}</td> -->
 				<td><button class="list-btn" click.delegate="viewClassComments(index._id)">View Comments</button></td>
-				<td if.bind="activeLibrarian == index.associatedLibrarians[0]"><button class="list-btn" click.delegate="editClassData(index._id)">Edit</button></td>
+				<!-- <td if.bind="activeLibrarian == index.associatedLibrarians[0]"><button class="list-btn" click.delegate="editClassData(index._id)">Edit</button></td> -->
+
+				<td if.bind="1"><button class="list-btn" click.delegate="editClassData(index._id)">Edit</button></td>	<!-- DEV -->
+				
 			</tr>
 		</table>
 	</div>
@@ -57,13 +60,13 @@
 			<div class="form-group">
 				<label class="form-label">Name</label>
 				<input type="text" class="form-control" value.bind="comment.name">
-				<label class="form-label">Comment</label>
+				<label class="form-label" style="margin-top: 1em">Comment</label>
 				<textarea id="comment-input" class="form-control" rows="4" cols="50" value.bind="comment.comment"></textarea>
 			</div>
 			<button click.delegate="addComment()" class="btn btn-primary">Submit</button>
 		</form>
 	</div>
 
-	<!-- <modal showing.bind="true"><h1>MODAL</h1></modal> -->
+	<compose id="class-edit-form-section" if.bind="showClassEditForm" view-model="../../entryform/entryform" model.bind="{quarterSelect: 'Summer'}"></compose>
 
 </template>

@@ -105,6 +105,15 @@ div#entry-form > h3 {
 	padding-bottom: 1em;
 }
 
+#class-edit-form-section > #entry-form {
+	width: 100%;
+	margin: 0;
+}
+
+#class-edit-form-section > #entry-form #comments {
+	display: none;
+}
+
 /*input#date-select {
 	width: 100px;
 }*/
@@ -260,7 +269,7 @@ div.form-group > button {
 }
 
 div.form-group input {
-	margin-bottom: 1em;
+	/*margin-bottom: 1em;*/
 }
 
 .click-span {
