@@ -6,10 +6,10 @@
 	<div id="class-data-search-info">
 		<div id="class-librarian"><h4>${librarianName}</h4></div>
 		<!-- <div id="class-year-range"><h4>${fromYear} - ${toYear}</h4></div> -->
-		<div id="class-total"><h4>${resultData.length} ${classCountLabel}</h4></div>
+		<div id="class-total"><h4>( ${resultData.length} ${classCountLabel} )</h4></div>
 	</div>
 
-	<div id="class-data-results">
+	<div id="class-data-results" class="section-border">
 		<table class="table">
 			<tr><th>Department</th><th>Name</th><th>Date</th><th>Number</th><th>Type</th><th>Instructor</th><th>U</th><th>G</th><th>F</th><th>O</th><th>Location</th><th>ACRL Frameworks</th><th></th></tr>
 
@@ -35,7 +35,7 @@
 		</table>
 	</div>
 
-	<div id="class-data-comments" if.bind="showClassComments">
+	<div id="class-data-comments" class="section-border" if.bind="showClassComments">
 		<span style="float: left"><h4>Comments</h4></span><span style="float: right"><button class="list-btn" click.delegate="hideClassComments()">Hide Comments</button></span>
 		<div id="comment-display">
 			<ul>
