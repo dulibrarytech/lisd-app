@@ -442,7 +442,8 @@ div#quarter-results div table {
 }
 
 div#class-total {
-	margin-top: 3em;
+	margin-top: 2em;
+	margin-bottom: 2em;
 }
 
 div#librarian-select {
