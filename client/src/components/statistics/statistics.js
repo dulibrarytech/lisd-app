@@ -55,8 +55,10 @@ export class Statistics {
     studentTypes = ["Undergraduate", "Graduate", "Faculty", "Other"];
 
     resultData = [];
+    showClassComments;
+    activeClass = {};
     subsortValues = [];
-    selectedSubsortValue = "";
+    selectedSubsortValue;
 
     currentTable;
     currentChart;
@@ -83,10 +85,10 @@ export class Statistics {
         this.fromYears = this.getYearList(1990);
         this.toYears = this.getYearList(1990);
 
-        this.displayResults = false;
-        this.displayYear = false;
-        this.displayMonth = true;
-        this.displayQuarter = false;
+        // this.displayResults = false;
+        // this.displayYear = false;
+        // this.displayMonth = true;
+        // this.displayQuarter = false;
 
         this.activeSession = false;
         if(this.config.session.data) {
@@ -102,49 +104,23 @@ export class Statistics {
     }
 
     attached() {
-
-        // // Element vicibility
-        // document.getElementById('result-options').style.display = "none";
-        // document.getElementById('post-search-options').style.display = "none";
-        // document.getElementById('librarian-select').style.display = "none";
-        // document.getElementById('year-quarter-select').style.display = "none";
-
-        // // Default year settings:
-        // // Set the fromYear to the previous year, set the toYear to current year
-        // this.fromYear = this.fromYears[(this.fromYears.length-2)];     
-        // var from = parseInt(this.fromYear) + 1;
-        // this.toYears = this.getYearList(from);     
-        // document.getElementById("toYearSelect").visibility = 'hidden';
-
-        // // Search results current table/chart.  No table/chart shown by default
-        // this.currentTable = "";
-        // this.currentChart = "";
-        // document.getElementById('chart-section').style.display = "none";
-
-        // if(this.config.session.token == null) {
-        //     document.getElementById('menulink-104').style.display = "none";
-        // }
-
-        // if(this.config.session.data && this.config.session.data.librarianID !== "") {
-        //     document.getElementById('librarian-select').style.display = "block";
-        // }
         this.resetForm();
     }
 
     resetForm() {
-            console.log("DEV reset form...");
+ 
         this.displayResults = false;
         this.displayYear = false;
         this.displayMonth = true;
         this.displayQuarter = false;
+        this.showClassComments = false;
+        this.classComments = [];
 
         // Reset element visibility
         document.getElementById('result-options').style.display = "none";
         document.getElementById('post-search-options').style.display = "none";
         document.getElementById('year-quarter-select').style.display = "none";
-
         document.getElementById('librarian-select').style.display = "none";
-
         document.getElementById('statistics-search').style.display = "block";
         document.getElementById('search-options').style.display = "block";
         document.getElementById('disp-select').style.visibility = "hidden";
@@ -910,11 +886,25 @@ export class Statistics {
     };
 
     viewClassComments(classID) {
-            console.log("DEV View comments for class ", classID);
         this.utils.doAjax('class/get/comments', 'get', {classID: classID}, null).then(data => {
-            console.log("DEV Comments found:", data.data);
+            if(data.data.length > 0) {
+                this.classComments = data.data;
+            }
+            else {
+                this.classComments = [];
+                this.classComments.push({
+                    name: "No comments found",
+                    text: null
+                })
+            }
+            this.showClassComments = true;
         });
     };
+
+    hideClassComments() {
+        this.classComments = [];
+        this.showClassComments = false;
+    }
 
     editClassData(classID) {
         console.log("Edit class data ", classID);

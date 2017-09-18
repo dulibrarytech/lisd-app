@@ -35,6 +35,19 @@
 		</table>
 	</div>
 
+	<div id="class-data-comments" if.bind="showClassComments">
+		<ul>
+			<li repeat.for="index of classComments">
+				<dl>
+					<dt>${index.name}</dt>
+					<dd>${index.text || ""}</dd>
+				</dl>
+			</li>
+		</ul>
+		<br />
+		<button class="list-btn" click.delegate="hideClassComments()">Hide Comments</button>
+	</div>
+
 	<!-- <modal showing.bind="true"><h1>MODAL</h1></modal> -->
 
 </template>

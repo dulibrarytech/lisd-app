@@ -76,11 +76,11 @@ exports.getList = function(callback) {
 exports.getData = function(classID, callback) {
 
 	try {
-		var results = [];
+		var result = [];
 		var cursor = collection.find({ "_id": ObjectId(classID) }, {});
         cursor.each(function(err, item) {
         	if(item != null) {
-        		results.push(item);
+        		result.push(item);
         	}
         	else {
         		var classData = {};
@@ -103,6 +103,7 @@ exports.getData = function(classID, callback) {
         		// Arrays
         		classData['acrlFrameworks'] = result[0].acrlFrame || [];
         		classData['types'] = result[0].type || [];
+        		classData['comments'] = result[0].comments || [];
 
         		callback({status: "ok", message: "Ok", data: classData});
         	}

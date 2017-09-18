@@ -27,11 +27,13 @@ module.exports.classAdd = function(req, res) {
 	    comments: []
 	}
 
-	var commenter = "";
-	data["comments"].push({
-		name: commenter,	// TODO: add initial comment commentor name is necessary
-		text: req.body.commentText
-	})
+	if(req.body.commentText) {
+		var commenter = "Initial comment";
+		data["comments"].push({
+			name: commenter,	// TODO: add initial comment commentor name is necessary
+			text: req.body.commentText
+		});
+	}
 
 	Class.addDocument(data, function(response) {
 		res.send(response);
