@@ -249,6 +249,10 @@ div.form-group > button {
 	float: right;
 }
 
+div.form-group input {
+	margin-bottom: 1em;
+}
+
 .click-span {
 	cursor: pointer;
 	color: #0074BD;
@@ -470,6 +474,10 @@ div#class-data-comments {
 
 div#class-data-results {
 	margin-bottom: 3em;
+}
+
+div#class-data-results table {
+	margin-top: 2em;
 }
 
 div#comment-display {
