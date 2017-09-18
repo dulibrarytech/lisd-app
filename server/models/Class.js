@@ -133,6 +133,35 @@ exports.getClassComments = function(classID, callback) {
 	}
 };
 
+exports.appendComment = function(classID, commentData, callback) {
+
+	getClassComments(classID, function(comments) {
+		comments.push({
+			name: commentData.name,
+			text: commentData.comment
+		});
+
+		try {
+			// Insert the document
+		    collection.updateOne({"_id": ObjectId(classID)}, {$set: {comments: comments}}, function(err, results) {
+			    if(err) {
+			    	console.log("Error: " + err);
+			    	callback({status: "error", message: "Error: " + e});
+			    }
+			    else {
+			    	console.log("Comment added to class ", classID);
+			    	callback({status: "ok", message: "Ok", data: results});
+			    }
+			});
+		} catch (e) {
+			console.log("Error: " + e);
+			callback({status: "error", message: "Error: " + e});
+		};
+	});
+
+
+};
+
 exports.updateData = function(classID, classData, callback) {
 
 	try {

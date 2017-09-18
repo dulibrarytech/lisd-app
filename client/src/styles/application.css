@@ -456,6 +456,26 @@ span.message {
 	color: green;
 }
 
+div#class-data-comments {
+	width: 50%;
+    padding: 1em;
+    border-style: solid;
+    border-color: #e5e3e1;
+    border-width: 1px;
+    border-radius: 5px;
+}
+
+div#comment-display {
+	margin-top: 5em;
+    max-height: 200px;
+    height: 100px;
+    overflow-y: scroll;
+}
+
+input#comment-input {
+	min-height: 100px;
+}
+
 @media only screen and (min-width: 1600px) {
 	section#class-type {
 		padding-left: 6.9em;
