@@ -147,7 +147,7 @@
 		      	<label class="checkbox-text" repeat.for="frame of acrlFrames">${frame}<input type="checkbox" checked.bind="selectedAcrlFrames[frame]"></label>
 		      </div>
 
-		      <div class="form-group" id="comments">
+		      <div class="form-group" id="comments" if.bind="courseAdd">
 		        <div class="input-group">
 		      	  <label class="form-label" for="commentText">Comments:</label>
 		      	  <textarea value.bind="commentText"></textarea>

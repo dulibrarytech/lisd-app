@@ -97,6 +97,7 @@ exports.getData = function(classID, callback) {
         		classData['other'] = result[0].enrollmentInfo.other || 0;
 
         		// Properties - arrays
+        		classData['librarians'] = result[0].associatedLibrarians || [];
         		classData['departments'] = result[0].department || [];
         		classData['locations'] = result[0].location || [];
 

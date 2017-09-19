@@ -104,14 +104,14 @@ export class Statistics {
 
         // Class data
         this.activeClassID = 0;
-        this.activeClass = {
+        this.activeClass = {    // Interface with entryForm fields
             className: "",
             classDate: null,
             quarterSelect: "",
             courseNumber: "",
             instructorFName: "",
             instructorLName: "",
-            numUnderGraduates: 0,
+            numUndergraduates: 0,
             numGraduates: 0,
             numFacultyStaff: 0,
             numOther: 0,
@@ -119,7 +119,10 @@ export class Statistics {
             selectedDepartments: [],
             selectedLocations: [],
             selectedClassType: "",
-            selectedACRLFrames: []
+            selectedACRLFrames: [],
+            librarianCount: 1,
+            locationCount: 1,
+            departmentCount: 1
         }
     }
 
@@ -908,7 +911,7 @@ export class Statistics {
     };
 
     viewClassComments(classID) {
-        console.log("DEV classID", classID);
+
         // Store the selected class id
         this.activeClassID = classID;
 
@@ -919,7 +922,6 @@ export class Statistics {
         // Get all comments for this class
         this.utils.doAjax('class/get/comments', 'get', {classID: classID}, null).then(data => {
             if(data.data.length > 0) {
-                    console.log("DEV rx class comments:", data.data);
                 this.classComments = data.data;
             }
             else {
@@ -963,17 +965,58 @@ export class Statistics {
     }
 
     editClassData(classID) {
-            console.log("Edit class data ", classID);    // this afternoon
-        this.hideClassComments();
-        this.showClassEditForm = true;
 
         // Get all comments for this class
         this.utils.doAjax('class/get', 'get', {classID: classID}, null).then(data => {
-                 console.log("DEV rx class data:", data);
+
             if(data.status == "ok") {
-                  
+                    console.log("Edit class data data rx'd:", data.data);    // this afternoon
+
                 // Build the data object for the class data form   
-                this.activeClass.className = data.name;
+                var classData = data.data, count=0;
+                this.activeClass.className = classData.name;
+                this.activeClass.classDate = classData.date;
+                this.activeClass.quarterSelect = classData.quarter;
+                this.activeClass.courseNumber = classData.number;
+
+                var names = classData.instructor.split(" ");
+                this.activeClass.instructorFName = names[0];
+                this.activeClass.instructorLName = names[1];
+
+                // Set Librarians
+                count=0;
+                for(var index of classData.librarians) {
+                    count++;
+                    this.activeClass.selectedLibrarians.push(index);
+                }
+                this.activeClass.librarianCount = count;
+
+                // Set departments
+                count=0;
+                for(var index of classData.departments) {
+                    count++;
+                    this.activeClass.selectedDepartments.push(index);
+                }
+                this.activeClass.departmentCount = count;
+
+                // Set locations
+                count=0;
+                for(var index of classData.locations) {
+                    count++;
+                    this.activeClass.selectedLocations.push(index);
+                }
+                this.activeClass.locationCount = count;
+
+                this.activeClass.locationCount = count;
+                this.activeClass.numUndergraduates = classData.undergraduates;
+                this.activeClass.numGraduates = classData.graduates;
+                this.activeClass.numFacultyStaff = classData.faculty;
+                this.activeClass.numOther = classData.other;
+                this.activeClass.selectedACRLFrames = classData.acrlFrameworks;
+                this.activeClass.selectedClassType = classData.types[0];
+
+                this.hideClassComments();
+                this.showClassEditForm = true;
             }
             else {
                 console.log("Could not get class data. ", data.message);
