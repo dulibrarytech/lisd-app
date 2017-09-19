@@ -105,10 +105,17 @@ export class EntryForm {
                 }
             }
         }
+
+        // If there is a selected librarian, set it as selected in the dropdown.
+        // if(this.selectedLibrarians.length > 0) {
+        //     for(var i=0; i<this.librarianCount; i++) {
+        //         console.log("Index", i);
+        //     }
+        // }
     }
 
     activate(data) {
-            console.log("DEV Activate EF: data in:", data);
+
        // Class data coming in for edit: store in local fields to populate form
        if(typeof data.className != 'undefined') {
                 
@@ -132,6 +139,9 @@ export class EntryForm {
             this.locationCount = data.locationCount;
             this.departmentCount = data.departmentCount;
 
+            this.selectedLibrarians = data.selectedLibrarians;
+            this.selectedLocations = data.selectedLocations;
+            this.selectedDepartments = data.selectedDepartments;
         }
     }
 
