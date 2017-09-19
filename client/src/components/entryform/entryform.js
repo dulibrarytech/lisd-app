@@ -25,6 +25,7 @@ export class EntryForm {
     selectedAcrlFrames = {};
 
     activeSession;
+    courseAdd;
 
     librarianPlaceholder;
     locationPlaceholder;
@@ -74,6 +75,8 @@ export class EntryForm {
             this.username = this.config.session.data.fname + " " + this.config.session.data.lname;
         }
 
+        this.courseAdd = true;
+
         this.loadDropdownData();
     }
 
@@ -82,6 +85,7 @@ export class EntryForm {
         if(this.config.session.data && this.config.session.data.librarianID !== "") {
             this.activeLibrarian = this.config.session.data.librarianID;
          // Add to property selection array
+                console.log("DEV Librarian detected:", this.activeLibrarian);
             this.selectedLibrarians = [this.activeLibrarian];
             this.selectOption('librarian');
         }
@@ -92,10 +96,32 @@ export class EntryForm {
     }
 
     activate(data) {
-        // console.log("Activate EF: data in:", data);
-        // console.log("Activate EF: quarterSelect is:", this.quarterSelect);
+            console.log("DEV Activate EF: data in:", data);
+       // Class data coming in for edit: store in local fields to populate form
+       if(typeof data.className != 'undefined') {
+                
+            this.activeSession = false;
+            this.courseAdd = false;
 
-        this.quarterSelect = data.quarterSelect;
+            this.className = data.className;
+            this.classDate = data.classDate;
+            this.quarterSelect = data.quarterSelect;
+            this.courseNumber = data.courseNumber;
+            this.instructorFName = data.instructorFName;
+            this.instructorLName = data.instructorLName;
+            this.numUndergraduates = data.numUndergraduates;
+            this.numGraduates = data.numGraduates;
+            this.numFacultyStaff = data.numFacultyStaff;
+            this.numOther = data.numOther;
+            this.selectedClassType = data.selectedClassType;
+            this.selectedACRLFrames = data.selectedACRLFrames;
+
+            this.librarianCount = data.librarianCount;
+            this.locationCount = data.locationCount;
+            this.departmentCount = data.departmentCount;
+
+
+        }
     }
 
     // Add additional select input
@@ -276,7 +302,18 @@ export class EntryForm {
 
         if(this.validateForm(data)) {
 
-            this.utils.doAjax('class/add', 'post', data, null).then(responseObject => {
+            // Set url and method for new class or edit class
+            var url, method;
+            if(this.courseAdd) {
+                url =  "class/add";
+                method = "post";
+            }
+            else {
+                url = "class/update";
+                method = "put";
+            }
+
+            this.utils.doAjax(url, method, data, null).then(responseObject => {
                 if(responseObject.status == "ok") {
                     this.utils.sendMessage("Course added.");
                     setTimeout(function() {
