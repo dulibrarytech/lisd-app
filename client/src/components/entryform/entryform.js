@@ -106,12 +106,12 @@ export class EntryForm {
             }
         }
 
-        // If there is a selected librarian, set it as selected in the dropdown.
-        // if(this.selectedLibrarians.length > 0) {
-        //     for(var i=0; i<this.librarianCount; i++) {
-        //         console.log("Index", i);
-        //     }
-        // }
+        // For class data update, initially show the option to add another value in librarian and property dropdowns
+        if(!this.courseAdd) {
+            document.getElementById("librarian-add").style.visibility = "visible";
+            document.getElementById("location-add").style.visibility = "visible";
+            document.getElementById("department-add").style.visibility = "visible";
+        }
     }
 
     activate(data) {
