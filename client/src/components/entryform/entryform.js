@@ -93,6 +93,18 @@ export class EntryForm {
         if(this.config.session.token == null) {
             document.getElementById('menulink-104').style.display = "none";
         }
+
+        // Check selected acrl frameworks in list
+        var options = document.getElementsByClassName("acrl-option");
+        for(var i = 0; i < options.length; i++) {   // Get the checkbox list elements
+
+            // Iterate the selected frameworks.  Check the corresponding list checkbox for each selected framework
+            for(var j=0; j < this.selectedACRLFrames.length; j++) {
+                if(this.selectedACRLFrames[j] == this.acrlFrames[i]) {
+                    options[i].checked = true;
+                }
+            }
+        }
     }
 
     activate(data) {
@@ -119,7 +131,6 @@ export class EntryForm {
             this.librarianCount = data.librarianCount;
             this.locationCount = data.locationCount;
             this.departmentCount = data.departmentCount;
-
 
         }
     }
