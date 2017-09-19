@@ -119,7 +119,7 @@ export class Statistics {
             selectedDepartments: [],
             selectedLocations: [],
             selectedClassType: "",
-            selectedACRLFrames: [],
+            selectedAcrlFrames: [],
             librarianCount: 1,
             locationCount: 1,
             departmentCount: 1
@@ -1012,7 +1012,7 @@ export class Statistics {
                 this.activeClass.numGraduates = classData.graduates;
                 this.activeClass.numFacultyStaff = classData.faculty;
                 this.activeClass.numOther = classData.other;
-                this.activeClass.selectedACRLFrames = classData.acrlFrameworks;
+                this.activeClass.selectedAcrlFrames = classData.acrlFrameworks;
                 this.activeClass.selectedClassType = classData.types[0];
 
                 this.hideClassComments();

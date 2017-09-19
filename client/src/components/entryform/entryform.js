@@ -22,7 +22,7 @@ export class EntryForm {
     selectedDepartments = [];
 
     selectedClassType = 'Undergraduate';
-    selectedAcrlFrames = {};
+    selectedAcrlFrames = [];
 
     activeSession;
     courseAdd;
@@ -99,8 +99,8 @@ export class EntryForm {
         for(var i = 0; i < options.length; i++) {   // Get the checkbox list elements
 
             // Iterate the selected frameworks.  Check the corresponding list checkbox for each selected framework
-            for(var j=0; j < this.selectedACRLFrames.length; j++) {
-                if(this.selectedACRLFrames[j] == this.acrlFrames[i]) {
+            for(var j=0; j < this.selectedAcrlFrames.length; j++) {
+                if(this.selectedAcrlFrames[j] == this.acrlFrames[i]) {
                     options[i].checked = true;
                 }
             }
@@ -126,7 +126,7 @@ export class EntryForm {
             this.numFacultyStaff = data.numFacultyStaff;
             this.numOther = data.numOther;
             this.selectedClassType = data.selectedClassType;
-            this.selectedACRLFrames = data.selectedACRLFrames;
+            this.selectedAcrlFrames = data.selectedAcrlFrames;
 
             this.librarianCount = data.librarianCount;
             this.locationCount = data.locationCount;
