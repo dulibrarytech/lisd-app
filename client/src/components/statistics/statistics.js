@@ -868,8 +868,6 @@ export class Statistics {
             // all statistics route
             this.utils.doAjax('get/data/search/allStatistics', 'get', data, null).then(data => {
 
-                    console.log("DEV search stats returned", data)
-
                 //this.utils.stopSpinner();
                 this.resultData = data.data;
                 if(this.resultData) {
@@ -975,7 +973,6 @@ export class Statistics {
         this.utils.doAjax('class/get', 'get', {classID: classID}, null).then(data => {
 
             if(data.status == "ok") {
-                    console.log("Edit class data data rx'd:", data.data);    // this afternoon
 
                 // Build the data object for the class data form   
                 var classData = data.data, count=0;

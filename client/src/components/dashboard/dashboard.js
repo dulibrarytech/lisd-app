@@ -98,7 +98,6 @@ export class Users {
 
             // Build object with name, isActive, type (add property name)
             this.properties = properties;
-            	console.log("Property list stored", this.properties);
 
             // Hide user list, show property list
 			document.getElementById('user-data-section').style.display = "none";
@@ -268,7 +267,7 @@ export class Users {
 
 	// Get the selected property data and populate the data form 
 	editProperty(type, propertyID) {
-			console.log("Edit prop id:", propertyID);
+
 		var url = "property/get/" + type;
 		this.utils.doAjax(url, 'get', {id: propertyID}, null).then(response => {
 			if(response.status == "error") {
@@ -314,7 +313,7 @@ export class Users {
 	}
 
 	removeProperty(type, propertyID) {
-			console.log("Removing prop id:", propertyID);
+
 		var url = "property/remove/" + type;
 		this.utils.doAjax(url, 'delete', {id: propertyID}, null).then(response => {
             if(response.status == "error") {
