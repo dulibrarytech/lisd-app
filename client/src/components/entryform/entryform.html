@@ -91,7 +91,7 @@
 
 				      <div repeat.for="i of librarianCount">
 					      <select id="librarian-select-${i+1}" change.trigger="selectOption('librarian')" class="form-control single-dropdown" value.bind="selectedLibrarians[i]">
-					        <option if.bind="courseAdd" selected id="librarian-placeholder">${librarianPlaceholder}</option>
+					        <option selected id="librarian-placeholder">${librarianPlaceholder}</option>
 					        <option repeat.for="librarian of librarianList" value.bind="librarian.id" class="librarian-option"> ${librarian.name} </option>
 					      </select>
 					      <div if.one-time="i==0" class="click-span" style="">&nbsp</div>

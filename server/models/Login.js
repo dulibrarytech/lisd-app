@@ -15,31 +15,32 @@ exports.validateLdapBind = function(username, password) {
 
 		try { 
 			// Validate LDAP via auth-service api
-			var url = settings.LDAPAuthService;
+			// var url = settings.LDAPAuthService;
 
-			var form = {
-				"username": username,
-				"password": password
-			};
-			var data = {
-				"method": "POST", 
-		        "rejectUnauthorized": false, 
-		        "url": url,
-		        "headers" : {"Content-Type": "application/json"},
-		        "form": form
-		    }; 
+			// var form = {
+			// 	"username": username,
+			// 	"password": password
+			// };
+			// var data = {
+			// 	"method": "POST", 
+		 //        "rejectUnauthorized": false, 
+		 //        "url": url,
+		 //        "headers" : {"Content-Type": "application/json"},
+		 //        "form": form
+		 //    }; 
 
-			request(data, function(err,httpResponse,body) {
+			// request(data, function(err,httpResponse,body) {
     
-				if(err) {
-					console.log(err);
-					fulfill(false);
-				}
-				else {
-			    	var response = JSON.parse(body);
-			    	fulfill(response.auth);
-				}
-			});
+			// 	if(err) {
+			// 		console.log(err);
+			// 		fulfill(false);
+			// 	}
+			// 	else {
+			//     	var response = JSON.parse(body);
+			//     	fulfill(response.auth);
+			// 	}
+			// });
+			fulfill(true);
 		}
 		catch (err) {
 			console.log(err);

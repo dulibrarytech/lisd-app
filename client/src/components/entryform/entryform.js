@@ -84,10 +84,11 @@ export class EntryForm {
 
         if(this.config.session.data && this.config.session.data.librarianID !== "") {
             this.activeLibrarian = this.config.session.data.librarianID;
-         // Add to property selection array
-                console.log("DEV Librarian detected:", this.activeLibrarian);
-            this.selectedLibrarians = [this.activeLibrarian];
-            this.selectOption('librarian');
+
+            if(this.courseAdd == true) {
+                this.selectedLibrarians = [this.activeLibrarian];
+                this.selectOption('librarian');
+            }
         }
 
         if(this.config.session.token == null) {
