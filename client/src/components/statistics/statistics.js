@@ -63,6 +63,7 @@ export class Statistics {
     showClassComments;
     comment = {};
     showClassEditForm;
+    showClassEditButton;
 
     currentTable;
     currentChart;
@@ -91,16 +92,32 @@ export class Statistics {
 
         this.activeSession = false;
 
+        // Set session data if a session is present
         if(this.config.session.data) {
             this.activeSession = true;
             this.username = this.config.session.data.fname + " " + this.config.session.data.lname;
+
+            // Set active librarian
+            if(this.config.session.data.librarianID !== "") {
+                this.activeLibrarian = this.config.session.data.librarianID;
+                this.selectedLibrarian = [this.activeLibrarian];
+                this.selectedSearchType = "Librarian Statistics";
+            }
+
+            // Enable editing of all classes if admin.  If librarian user, only librarian's courses can be edited
+            if(this.config.session.data.role) {
+                this.showClassEditButton = this.config.session.data.role == '1' ? true : false;
+            }
         }
 
-        if(this.config.session.data && this.config.session.data.librarianID !== "") {
-            this.activeLibrarian = this.config.session.data.librarianID;
-            this.selectedLibrarian = [this.activeLibrarian];
-            this.selectedSearchType = "Librarian Statistics";
-        }
+        // if(this.config.session.data && this.config.session.data.librarianID !== "") {
+        //     this.activeLibrarian = this.config.session.data.librarianID;
+        //     this.selectedLibrarian = [this.activeLibrarian];
+        //     this.selectedSearchType = "Librarian Statistics";
+        // }
+        // if(this.config.session.data && this.config.session.data.role) {
+        //     this.showClassEditButton = this.config.session.data.role == '1' ? true : false;
+        // }
 
         // Class data
         this.activeClassID = 0;
