@@ -166,15 +166,36 @@ exports.appendComment = function(classID, commentData, callback) {
 
 exports.updateData = function(classID, classData, callback) {
 
+	var doc = { 
+		courseInfo: { 
+			name: classData.className, 
+			number: classData.courseNumber, 
+			instructor: classData.instructor, 
+			quarter: classData.quarter, 
+			date: new Date(classData.date) 
+		}, 
+		enrollmentInfo: {
+		    undergraduates: classData.undergraduates, 
+		    graduates: classData.graduates, 
+		    faculty: classData.faculty, 
+		    other: classData.other 
+		}, 
+		associatedLibrarians: classData.associatedLibrarians, 
+		location: classData.location, 
+		department: classData.department, 
+		type: classData.type, 
+		acrlFrame: classData.acrlFrame
+	};
+
 	try {
 		// Insert the document
-	    collection.updateOne({"_id": ObjectId(id)}, {$set: data}, function(err, results) {
+	    collection.updateOne({"_id": ObjectId(classID)}, {$set: doc}, function(err, results) {
 		    if(err) {
 		    	console.log("Error: " + err);
 		    	callback({status: "error", message: "Error: " + e});
 		    }
 		    else {
-		    	console.log("Location " + id + " updated");
+		    	console.log("Class " + classID + " updated");
 		    	callback({status: "ok", message: "Ok", data: results});
 		    }
 		});

@@ -10,24 +10,24 @@ module.exports.classAdd = function(req, res) {
 	// TODO: Validate in middleware. If invalid, either place null or return 400 to client
 	var data = {
 
-		className: req.body.className,
-		courseNumber: req.body.courseNumber,
-		instructor: req.body.instructorName,
-		date: req.body.classDate,
-		quarter: req.body.quarter,
-		undergraduates: Number(req.body.undergraduates),
-		graduates: Number(req.body.graduates),
-		faculty: Number(req.body.facultyStaff),
-		other: Number(req.body.other),
-		associatedLibrarians: req.body['librarian'],
-	    location: req.body['location'],
-	    department: req.body['department'],
-	    type: req.body['classType'],
-	    acrlFrame: req.body['acrlFrame'],
+		className: req.body.data.className,
+		courseNumber: req.body.data.courseNumber,
+		instructor: req.body.data.instructorName,
+		date: req.body.data.classDate,
+		quarter: req.body.data.quarter,
+		undergraduates: Number(req.body.data.undergraduates),
+		graduates: Number(req.body.data.graduates),
+		faculty: Number(req.body.data.facultyStaff),
+		other: Number(req.body.data.other),
+		associatedLibrarians: req.body.data['librarian'],
+	    location: req.body.data['location'],
+	    department: req.body.data['department'],
+	    type: req.body.data['classType'],
+	    acrlFrame: req.body.data['acrlFrame'],
 	    comments: []
 	}
 
-	if(req.body.commentText) {
+	if(req.body.data.commentText) {
 		var commenter = "Initial comment";
 		data["comments"].push({
 			name: commenter,	// TODO: add initial comment commentor name is necessary
@@ -59,6 +59,31 @@ module.exports.classGet = function(req, res) {
 
 module.exports.classUpdate = function(req, res) {
 
+	var data = {
+
+		className: req.body.data.className,
+		courseNumber: req.body.data.courseNumber,
+		instructor: req.body.data.instructorName,
+		date: req.body.data.classDate,
+		quarter: req.body.data.quarter,
+		undergraduates: Number(req.body.data.undergraduates),
+		graduates: Number(req.body.data.graduates),
+		faculty: Number(req.body.data.facultyStaff),
+		other: Number(req.body.data.other),
+		associatedLibrarians: req.body.data['librarian'],
+	    location: req.body.data['location'],
+	    department: req.body.data['department'],
+	    type: req.body.data['classType'],
+	    acrlFrame: req.body.data['acrlFrame'],
+	    comments: []
+	}
+
+	console.log("Classadd test: data rx by server:", data);
+	console.log("Classadd test: classID:", req.body.classID);
+
+	Class.updateData(req.body.classID, data, function(response) {
+		res.send(response);
+	});
 };
 
 module.exports.classGetComments = function(req, res) {

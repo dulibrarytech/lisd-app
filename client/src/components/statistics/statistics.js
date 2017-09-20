@@ -122,6 +122,7 @@ export class Statistics {
         // Class data
         this.activeClassID = 0;
         this.activeClass = {    // Interface with entryForm fields
+            id: 0,
             className: "",
             classDate: null,
             quarterSelect: "",
@@ -988,11 +989,11 @@ export class Statistics {
 
         // Get all comments for this class
         this.utils.doAjax('class/get', 'get', {classID: classID}, null).then(data => {
-
             if(data.status == "ok") {
 
                 // Build the data object for the class data form   
                 var classData = data.data, count=0;
+                this.activeClass.id = classID;
                 this.activeClass.className = classData.name;
                 this.activeClass.classDate = classData.date;
                 this.activeClass.quarterSelect = classData.quarter;
