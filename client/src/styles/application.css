@@ -406,6 +406,11 @@ div.data-input-form {
     float: left;
 }
 
+div.data-input-form input,
+div.data-input-form select {
+	margin-bottom: 0.8em;
+}
+
 div#user-data-form input,
 div#user-data-form select {
 	margin-bottom: 0.8em;
@@ -504,6 +509,29 @@ div#comment-display {
     max-height: 200px;
     height: 100px;
     overflow-y: scroll;
+}
+
+div#admin-menu {
+	margin-top: 5em;
+}
+
+div#admin-menu ul {
+	padding-left: 2em;
+	margin-top: 1.5em;
+}
+
+div#admin-menu ul li {
+	margin-bottom: 0.5em;
+}
+
+div#admin-menu ul li a {
+	color: #181818;
+}
+
+div#admin-menu ul li a:hover {
+	color: #181818;
+	text-decoration: none;
+	cursor: pointer;
 }
 
 input#comment-input {

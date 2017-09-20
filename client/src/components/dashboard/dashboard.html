@@ -1,14 +1,18 @@
 <template>
+    <require from="../../utils/StringCapitalFirstValueConverter"></require>
 
     <div id="wrapper">
 
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
-            <ul>
-                <li><a click.delegate="getUserList()">Users</a></li>
-                <li><a click.delegate="showPropertyList('location')">Locations</a></li>
-                <li><a click.delegate="showPropertyList('department')">Departments</a></li>
-            </ul>
+            <div id="admin-menu">
+                <h4>Edit Data:</h4>
+                <ul>
+                    <li><a click.delegate="getUserList()">Users</a></li>
+                    <li><a click.delegate="showPropertyList('location')">Locations</a></li>
+                    <li><a click.delegate="showPropertyList('department')">Departments</a></li>
+                </ul>
+            </div>
         </div>
         <!-- /#sidebar-wrapper -->
 
@@ -59,7 +63,7 @@
                     <div id="property-data-section" class="col-lg-12">
 
                         <div id="property-data-table" class="table-responsive view-section">
-                            <h4>${propData.type}s</h4><button class="list-btn" click.delegate="addProperty(propData.type)" style="float: right">Add ${propData.type}</button>
+                            <h4>${propData.type | stringCapitalFirst}s</h4><button class="list-btn" click.delegate="addProperty(propData.type)" style="float: right">Add ${propData.type}</button>
                             <table class="table" id="user-data-table">
                                 <tr>
                                     <th>Name</th><th>Active</th><th></th><th></th>
@@ -75,7 +79,7 @@
                             <form class="">
                                 <label>Name:</label>
                                 <input class="form-control" type="text" value.bind="propData.name" placeholder="">
-                                <label>isActive:</label>
+                                <label>Active:</label>
                                 <select class="form-control" style="width: 70%" value.bind="propData.isActive" placeholder="Role">
                                     <option repeat.for="option of propActive">${option}</option>
                                 </select>
