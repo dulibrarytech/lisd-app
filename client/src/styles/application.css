@@ -241,6 +241,15 @@ button.list-btn {
 	border-style: double;
 }
 
+button.section-header-button {
+	float: right;
+    background-color: white;
+    position: relative;
+    bottom: 2em;
+    right: 0.5em;
+    font-size: 16px;
+}
+
 form.login {
 /*	margin-top: 3em;
     margin-left: 3em;*/
@@ -406,6 +415,10 @@ div.data-input-form {
     float: left;
 }
 
+div.data-input-form h4  {
+	/*margin-bottom: 1.2em;*/
+}
+
 div.data-input-form input,
 div.data-input-form select {
 	margin-bottom: 0.8em;
@@ -414,6 +427,14 @@ div.data-input-form select {
 div#user-data-form input,
 div#user-data-form select {
 	margin-bottom: 0.8em;
+}
+
+div.data-form-header {
+	width: 100%;
+    background-color: #e5e3e1;
+    padding: 1em;
+    margin-bottom: 1.2em;
+    border-radius: 5px;
 }
 
 div.view-section  {
