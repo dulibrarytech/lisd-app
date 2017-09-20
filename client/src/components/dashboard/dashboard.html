@@ -6,8 +6,8 @@
         <div id="sidebar-wrapper">
             <ul>
                 <li><a click.delegate="getUserList()">Users</a></li>
-                <li><a click.delegate="getPropertyList('location')">Locations</a></li>
-                <li><a click.delegate="getPropertyList('department')">Departments</a></li>
+                <li><a click.delegate="showPropertyList('location')">Locations</a></li>
+                <li><a click.delegate="showPropertyList('department')">Departments</a></li>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -59,13 +59,13 @@
                     <div id="property-data-section" class="col-lg-12">
 
                         <div id="property-data-table" class="table-responsive view-section">
-                            <h4>Locations</h4><button class="list-btn" click.delegate="addUser()" style="float: right">Add Location</button>
+                            <h4>${propData.type}s</h4><button class="list-btn" click.delegate="addProperty(propData.type)" style="float: right">Add ${propData.type}</button>
                             <table class="table" id="user-data-table">
                                 <tr>
                                     <th>Name</th><th>Active</th><th></th><th></th>
                                 </tr>
                                 <tr class="" id="" repeat.for="property of properties">
-                                    <!-- <td>${user.username}</td> --><td>${property.name}</td><td>${property.isActive}</td><td><button class="list-btn" click.delegate="editProperty(property.type, property.id)">Edit</button></td><td><button class="list-btn" click.delegate="removeProperty(property.type, property._id)">Remove</button></td>
+                                    <!-- <td>${user.username}</td> --><td>${property.name}</td><td>${property.isActive}</td><td><button class="list-btn" click.delegate="editProperty(property.type, property.id)">Edit</button></td><td><button class="list-btn" click.delegate="removeProperty(property.type, property.id)">Remove</button></td>
                                 </tr>
                             </table>
                         </div>
