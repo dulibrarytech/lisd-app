@@ -62,11 +62,9 @@ export class Users {
 	}
 
 	resetPropertyDataForm() {
-		this.propData = {
-			id: null,
-	  		name: "",
-	  		isActive: true
-	  	};
+	  	this.propData.id = null;
+	  	this.propData.name = "";
+	  	this.propData.isActive = true;
 	}
 
 	getUserList() {
@@ -81,9 +79,11 @@ export class Users {
         });
 	}
 
-	getPropertyList(property) {
+	showPropertyList(property) {
 
+		this.propData.type = property;
 		this.showDataForm(false);
+
 		var url = "property/all/" + property, properties = [];
 		this.utils.doAjax(url, 'get', null, null).then(responseObject => {
 
@@ -122,6 +122,7 @@ export class Users {
 	}
 
 	addProperty(type) {
+		//this.propData.type = type;
 		this.resetPropertyDataForm();
 		this.showDataForm(true);
 	}
@@ -155,8 +156,6 @@ export class Users {
 	}
 
 	submitPropertyData(type) {
-			console.log("Current propdata:", this.propData);
-			console.log("Current propertylist:", this.properties);
 		if(this.propData.id) {
 			this.updateProperty(type);
 		}
@@ -166,9 +165,8 @@ export class Users {
 	}
 
 	submitNewPropertyData(type) {
-			console.log("DEV submit new prop data: type: ", type);
-		var url = "property/add" + type;
-			console.log("DEV submit new prop data: url: ", url);
+
+		var url = "property/add/" + type;
 		this.utils.doAjax(url, 'post', this.propData, null).then(response => {
             //this.initUserDisplay(responseObject);
             if(response.status == "error") {
@@ -180,6 +178,14 @@ export class Users {
             	//this.users.push(this.userData);
             	this.resetPropertyDataForm();
             	this.showDataForm(false);
+            	this.showPropertyList(type);
+
+            	// this.properties.push({
+            	// 	id: this.propData.id,
+            	// 	name: this.propData.name,
+            	// 	isActive: this.propData.isActive,
+            	// 	type: type
+            	// });
             }
         });
 	}
@@ -262,7 +268,7 @@ export class Users {
 
 	// Get the selected property data and populate the data form 
 	editProperty(type, propertyID) {
-
+			console.log("Edit prop id:", propertyID);
 		var url = "property/get/" + type;
 		this.utils.doAjax(url, 'get', {id: propertyID}, null).then(response => {
 			if(response.status == "error") {
@@ -292,30 +298,32 @@ export class Users {
             }
             else {
             	this.utils.sendMessage(type + " updated");
+            	// // Update the users list
+            	// for(var index in this.propData) {
 
-            	// Update the users list
-            	for(var index of this.propData) {
+            	// 	// Update the local user list
+            	// 	if(index._id == this.propData.id) {
+            	// 		index.name = this.propData.name;
+            	// 		index.isActive = this.propData.isActive == "Yes" ? true : false;
+            	// 	}
+            	// }
 
-            		// Update the local user list
-            		if(index._id == this.propData.id) {
-            			index.name = this.propData.name;
-            			index.isActive = this.propData.isActive == "Yes" ? true : false;
-            		}
-            	}
+            	this.showPropertyList(type);
             }
         });
 	}
 
 	removeProperty(type, propertyID) {
+			console.log("Removing prop id:", propertyID);
 		var url = "property/remove/" + type;
-		this.utils.doAjax(url, 'delete', {userID: userID}, null).then(response => {
+		this.utils.doAjax(url, 'delete', {id: propertyID}, null).then(response => {
             if(response.status == "error") {
             	this.utils.sendMessage("Server error: Could not remove " + type + "s");
             	console.log(response.message);
             }
             else {
             	this.utils.sendMessage(type + " removed");
-            	this.getUserList();
+            	this.showPropertyList(type);
             }
         });
 	}
