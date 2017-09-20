@@ -166,7 +166,9 @@ export class Users {
 	}
 
 	submitNewPropertyData(type) {
+			console.log("DEV submit new prop data: type: ", type);
 		var url = "property/add" + type;
+			console.log("DEV submit new prop data: url: ", url);
 		this.utils.doAjax(url, 'post', this.propData, null).then(response => {
             //this.initUserDisplay(responseObject);
             if(response.status == "error") {
