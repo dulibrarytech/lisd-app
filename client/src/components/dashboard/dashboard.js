@@ -12,12 +12,12 @@ export class Users {
 	router;
 
 	activeSession;
-
 	users = [];
 	properties = [];
 	userData={};
 	propData={};
 	propActive;
+	propOperation;
 	roles=[];
 	librarians;
 
@@ -29,6 +29,7 @@ export class Users {
 	  	this.activeSession = false;
 	  	this.roles = ["Admin", "Librarian"];
 	  	this.propActive = ["No", "Yes"];
+	  	this.propOperation = "";
 
 	  	if(this.config.session.token == null) {
 	  		this.router.navigate("/");
@@ -116,12 +117,14 @@ export class Users {
 	}
 
 	addUser() {
+		this.propOperation = "Add new";
 		this.resetUserDataForm();
 		this.showDataForm(true);
 	}
 
 	addProperty(type) {
 		//this.propData.type = type;
+		this.propOperation = "Add new";
 		this.resetPropertyDataForm();
 		this.showDataForm(true);
 	}
@@ -191,6 +194,7 @@ export class Users {
 
 	// Get the selected user data and populate the user data form 
 	editUser(userID) {
+		this.propOperation = "Edit"
 
 		this.utils.doAjax('user/get', 'get', {userID: userID}, null).then(response => {
 			if(response.status == "error") {
@@ -267,6 +271,7 @@ export class Users {
 
 	// Get the selected property data and populate the data form 
 	editProperty(type, propertyID) {
+		this.propOperation = "Edit";
 
 		var url = "property/get/" + type;
 		this.utils.doAjax(url, 'get', {id: propertyID}, null).then(response => {

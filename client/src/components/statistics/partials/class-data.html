@@ -67,7 +67,7 @@
 		</form>
 	</div>
 
-	<button class="list-btn" style="margin-bottom: 1em" click.delegate="hideClassEditForm()">Hide Form</button>
+	<button if.bind="showClassEditForm" class="list-btn" style="margin-bottom: 1em" click.delegate="hideClassEditForm()">Hide Form</button>
 	<compose id="class-edit-form-section" if.bind="showClassEditForm" view-model="../../entryform/entryform" model.bind="activeClass"></compose>
 
 </template>
