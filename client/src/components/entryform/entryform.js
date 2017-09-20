@@ -70,6 +70,16 @@ export class EntryForm {
             'None'
         ];
 
+        // this.acrlFrames = [
+        //     {value: 1, name: 'Authority Is Constructed and Contextual'},
+        //     {value: 2, name: 'Information Creation as a Process'},
+        //     {value: 3, name: 'Information Has Value'},
+        //     {value: 4, name: 'Research as Inquiry'},
+        //     {value: 5, name: 'Scholarship as Conversation'},
+        //     {value: 6, name: 'Searching as Strategic Exploration'},
+        //     {value: 7, name: 'None'}
+        // ];
+
         this.activeSession = false;
         this.activeClassID = 0;
         if(this.config.session.data) {
@@ -294,7 +304,7 @@ export class EntryForm {
         // Get checkbox group data
         formData['classType'] = [this.selectedClassType];
         formData['acrlFrame'] = this.selectedAcrlFrames;
-
+            console.log("DEV acrl frames selected are:", this.selectedAcrlFrames);
         // for(var key in this.selectedAcrlFrames) {
         //         console.log("DEV getFormData test: key:", key);
         //     if(this.selectedAcrlFrames[key] == true) {
@@ -352,6 +362,8 @@ export class EntryForm {
             classID: 0,
             data: data
         };
+
+            console.log("DEV: update data rx:", data);
 
         if(this.validateForm(data)) {
 
