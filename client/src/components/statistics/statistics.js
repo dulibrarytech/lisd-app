@@ -130,6 +130,7 @@ export class Statistics {
         this.resetForm();
         this.showClassEditForm = false;
         this.hideClassComments();
+        this.hideClassEditForm();
     }
 
     resetForm() {
@@ -939,6 +940,10 @@ export class Statistics {
         this.classComments = [];
         this.showClassComments = false;
         this.activeClassID = 0;
+    }
+
+    hideClassEditForm() {
+        this.showClassEditForm = false;
     }
 
     addComment() {

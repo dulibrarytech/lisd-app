@@ -7,7 +7,8 @@ var librarianModel = require("../models/Librarian");
 
 module.exports.authenticateLogin = function(req, res) {
 
-    if(settings.runtime_env == "development") {
+    if(settings.runtime_env == "development" && req.body.username == "dev") {
+
         var devSession = {
             userID: "1",
             fname: "Dev",
