@@ -25,6 +25,7 @@ export class EntryForm {
     selectedAcrlFrames = [];
 
     activeSession;
+    activeClassID;
     courseAdd;
 
     librarianPlaceholder;
@@ -70,6 +71,7 @@ export class EntryForm {
         ];
 
         this.activeSession = false;
+        this.activeClassID = 0;
         if(this.config.session.data) {
             this.activeSession = true;
             this.username = this.config.session.data.fname + " " + this.config.session.data.lname;
@@ -122,7 +124,8 @@ export class EntryForm {
                 
             this.activeSession = false;
             this.courseAdd = false;
-
+            this.activeClassID = data.id;
+                console.log("DEV class id into entryform: ", data.id);
             this.className = data.className;
             this.classDate = data.classDate;
             this.quarterSelect = data.quarterSelect;
@@ -144,6 +147,29 @@ export class EntryForm {
             this.selectedLocations = data.selectedLocations;
             this.selectedDepartments = data.selectedDepartments;
         }
+    }
+
+    resetForm() {
+        this.className = "";
+        this.classDate = "";
+        this.quarterSelect = 1;
+        this.courseNumber = "";
+        this.instructorFName = "";
+        this.instructorLName = "";
+        this.numUndergraduates = "";
+        this.numGraduates = "";
+        this.numFacultyStaff = "";
+        this.numOther = "";
+        this.selectedClassType = "Undergraduate";
+        this.selectedAcrlFrames = [];
+
+        this.librarianCount = 1;
+        this.locationCount = 1;
+        this.departmentCount = 1;
+
+        this.selectedLibrarians = [];
+        this.selectedLocations = [];
+        this.selectedDepartments = [];
     }
 
     // Add additional select input
@@ -267,13 +293,14 @@ export class EntryForm {
 
         // Get checkbox group data
         formData['classType'] = [this.selectedClassType];
-        formData['acrlFrame'] = [];
+        formData['acrlFrame'] = this.selectedAcrlFrames;
 
-        for(var key in this.selectedAcrlFrames) {
-            if(this.selectedAcrlFrames[key] == true) {
-                formData['acrlFrame'].push(key);
-            }
-        }
+        // for(var key in this.selectedAcrlFrames) {
+        //         console.log("DEV getFormData test: key:", key);
+        //     if(this.selectedAcrlFrames[key] == true) {
+        //         formData['acrlFrame'].push(key);
+        //     }
+        // }
 
         formData['commentText'] = this.commentText;
         
@@ -320,26 +347,39 @@ export class EntryForm {
     submit() {
 
         var formValid = true;
-        var data = this.getFormData();    
+        var data = this.getFormData();  
+        var submitData = {
+            classID: 0,
+            data: data
+        };
 
         if(this.validateForm(data)) {
 
             // Set url and method for new class or edit class
-            var url, method;
+            var url, method, msg;
             if(this.courseAdd) {
                 url =  "class/add";
                 method = "post";
+                msg = "Course added.";
             }
             else {
                 url = "class/update";
                 method = "put";
+                msg = "Course updated.";
+                submitData.classID = this.activeClassID;
+
+                // Remove comments from the form data - do not update comments here, it will delete them all
+                delete data.comments;
             }
 
-            this.utils.doAjax(url, method, data, null).then(responseObject => {
+            this.utils.doAjax(url, method, submitData, null).then(responseObject => {
                 if(responseObject.status == "ok") {
-                    this.utils.sendMessage("Course added.");
+                    this.utils.sendMessage(msg);
                     setTimeout(function() {
-                        location.reload(false);
+                        // location.reload(false);
+                        if(this.courseAdd) {
+                            this.resetForm();
+                        }
                     }, 3000);
                 }
                 else {
