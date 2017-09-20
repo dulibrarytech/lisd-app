@@ -70,16 +70,6 @@ export class EntryForm {
             'None'
         ];
 
-        // this.acrlFrames = [
-        //     {value: 1, name: 'Authority Is Constructed and Contextual'},
-        //     {value: 2, name: 'Information Creation as a Process'},
-        //     {value: 3, name: 'Information Has Value'},
-        //     {value: 4, name: 'Research as Inquiry'},
-        //     {value: 5, name: 'Scholarship as Conversation'},
-        //     {value: 6, name: 'Searching as Strategic Exploration'},
-        //     {value: 7, name: 'None'}
-        // ];
-
         this.activeSession = false;
         this.activeClassID = 0;
         if(this.config.session.data) {
@@ -135,7 +125,6 @@ export class EntryForm {
             this.activeSession = false;
             this.courseAdd = false;
             this.activeClassID = data.id;
-                console.log("DEV class id into entryform: ", data.id);
             this.className = data.className;
             this.classDate = data.classDate;
             this.quarterSelect = data.quarterSelect;
@@ -160,6 +149,7 @@ export class EntryForm {
     }
 
     resetForm() {
+
         this.className = "";
         this.classDate = "";
         this.quarterSelect = 1;
@@ -304,13 +294,6 @@ export class EntryForm {
         // Get checkbox group data
         formData['classType'] = [this.selectedClassType];
         formData['acrlFrame'] = this.selectedAcrlFrames;
-            console.log("DEV acrl frames selected are:", this.selectedAcrlFrames);
-        // for(var key in this.selectedAcrlFrames) {
-        //         console.log("DEV getFormData test: key:", key);
-        //     if(this.selectedAcrlFrames[key] == true) {
-        //         formData['acrlFrame'].push(key);
-        //     }
-        // }
 
         formData['commentText'] = this.commentText;
         
@@ -363,8 +346,6 @@ export class EntryForm {
             data: data
         };
 
-            console.log("DEV: update data rx:", data);
-
         if(this.validateForm(data)) {
 
             // Set url and method for new class or edit class
@@ -387,12 +368,9 @@ export class EntryForm {
             this.utils.doAjax(url, method, submitData, null).then(responseObject => {
                 if(responseObject.status == "ok") {
                     this.utils.sendMessage(msg);
-                    setTimeout(function() {
-                        // location.reload(false);
-                        if(this.courseAdd) {
-                            this.resetForm();
-                        }
-                    }, 3000);
+                    if(this.courseAdd) {
+                        this.resetForm();
+                    }
                 }
                 else {
                     this.utils.sendMessage("Error adding course, please contact Systems support.");
