@@ -126,7 +126,7 @@ export class EntryForm {
             this.courseAdd = false;
             this.activeClassID = data.id;
             this.className = data.className;
-            this.classDate = data.classDate;
+            this.classDate = data.classDate.substring(0,10);
             this.courseNumber = data.courseNumber;
             this.instructorFName = data.instructorFName;
             this.instructorLName = data.instructorLName;
