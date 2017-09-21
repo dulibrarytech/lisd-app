@@ -12,7 +12,7 @@
 	<div id="class-data-results" class="table-responsive section-border">
 		<table class="table">
 			<thead class="thead-default">
-				<tr><th>Department</th><th>Name</th><th>Date</th><th>Number</th><th>Type</th><th>Instructor</th><th>U</th><th>G</th><th>F</th><th>O</th><th>Location</th><th>ACRL Frameworks</th><th></th></tr>
+				<tr><th>Department</th><th>Name</th><th>Date</th><th>Quarter</th><th>Number</th><th>Type</th><th>Instructor</th><th>U</th><th>G</th><th>F</th><th>O</th><th>Location</th><th>ACRL Frameworks</th><th></th></tr>
 			</thead>
 
 			<tr repeat.for="index of resultData">
@@ -20,6 +20,7 @@
 				<td><span repeat.for="department of index.department">${department}</span></td>
 				<td>${index.courseInfo.name}</td>
 				<td>${index.courseInfo.date}</td>
+				<td>${index.courseInfo.quarter}</td>
 				<td>${index.courseInfo.number}</td>
 				<td>${index.type}</td>
 				<td>${index.courseInfo.instructor}</td>
