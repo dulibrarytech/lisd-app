@@ -101,6 +101,11 @@ var getDates = function(fromYear, toYear, timeframe, quarter) {
 		to: ""
 	}
 
+		console.log("DEV: getDates: timeframe:", timeframe);
+		console.log("DEV: getDates: quarter:", quarter);
+		console.log("DEV: getDates: fromYear:", fromYear);
+		console.log("DEV: getDates: toYear:", toYear);
+
 	if(timeframe == "Fiscal") {
 		dates.from = fromYear + '-' + settings.server.fiscalYearStart;
 		dates.to = toYear + '-' + settings.server.fiscalYearEnd;
@@ -144,7 +149,7 @@ module.exports.getDataSearchAllStatistics = function(req, res) {
 	var display 	= req.query.statsDisplay; // Can be either All or Department
 	var timeframe	= req.query.searchTimeframe;
 	var statsType   = req.query.statsType;
-
+		console.log("DEV: getDataSearchAllStatistics params in:", req.query);
 	// Set optional params
 	var librarian, quarter;
 	if(typeof req.query.librarian != 'undefined') { librarian = req.query.librarian; }
@@ -162,7 +167,7 @@ module.exports.getDataSearchAllStatistics = function(req, res) {
 		display: display,
 		librarianID: librarian
 	};
-
+		console.log("DEV: getClassTotals model receives:", data);
 	if(statsType == "Student") {
 		Aggregator.getStudentTotals(data, function(responseData) {
 			res.send(responseData);
@@ -170,6 +175,7 @@ module.exports.getDataSearchAllStatistics = function(req, res) {
 	}
 	else if(statsType == "Class") {
 		Aggregator.getClassTotals(data, function(responseData) {
+				console.log("DEV: getClassTotals model returns:", responseData);
 			res.send(responseData);
 		});
 	}
@@ -178,9 +184,9 @@ module.exports.getDataSearchAllStatistics = function(req, res) {
 module.exports.getDataSearchClass = function(req, res) {
 	var fromYear 	= req.query.fromYear;
 	var toYear 		= req.query.toYear;
-	var timeframe	= req.query.timeframe;
-
-	// Set optional params
+	var timeframe	= req.query.searchTimeframe;
+		console.log("DEV: getClassData params in:", req.query);
+	// Set optional 
 	var librarian, quarter;
 	if(typeof req.query.librarian != 'undefined') { librarian = req.query.librarian; }
 	else { librarian = ""; }
@@ -195,8 +201,9 @@ module.exports.getDataSearchClass = function(req, res) {
 		toDate: dates.to,
 		librarianID: librarian
 	};
-
+		console.log("DEV: getClassData model receives:", data);
 	Aggregator.getClassData(data, function(responseData) {
+			console.log("DEV: getClassData model returns:", responseData.length);
 		res.send(responseData);
 	});
 }

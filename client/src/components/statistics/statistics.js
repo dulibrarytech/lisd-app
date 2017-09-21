@@ -528,6 +528,7 @@ export class Statistics {
     }
 
     sortResultMonthsByTimePeriod(resultData) {
+            console.log("Result data into month:", resultData);
          // Reorder months in order of current year timeframe
         var monthsArr = [];
         var tempObj = {};
@@ -606,31 +607,31 @@ export class Statistics {
     }
 
     sortResultQuartersByTimePeriod(data) {
-            console.log("DEV: quarter search test: data into sort function:", this.resultData);
+            console.log("Result data into quarter:", data);
         // Reorder quarters in order of current year timeframe
         var quartersArr = [];
         var tempObj = {};
         if(this.selectedSearchTimeframe == "Fiscal") {
-            for(var key in this.resultData.quarter) {
+            for(var key in data.quarter) {
                 if(parseInt(key) >= 4) {
                     tempObj = {}
-                    tempObj[key] = this.resultData.quarter[key];
+                    tempObj[key] = data.quarter[key];
                     quartersArr.push(tempObj);
                 }
             }
-            for(var key in this.resultData.quarter) {
+            for(var key in data.quarter) {
                 if(parseInt(key) < 4) {
                     tempObj = {}
-                    tempObj[key] = this.resultData.quarter[key];
+                    tempObj[key] = data.quarter[key];
                     quartersArr.push(tempObj);
                 }
             }
         }
         // No reordering, just add the objects to the array in default order
         else if(this.selectedSearchTimeframe == "Academic") {
-            for(var key in this.resultData.quarter) {
+            for(var key in data.quarter) {
                 tempObj = {}
-                tempObj[key] = this.resultData.quarter[key];
+                tempObj[key] = data.quarter[key];
                 quartersArr.push(tempObj);
             }
         }
@@ -640,27 +641,27 @@ export class Statistics {
                 case "Fall":
                     {
                         tempObj = {};
-                        tempObj["1"] = this.resultData.quarter["1"];
+                        tempObj["1"] = data.quarter["1"];
                         quartersArr.push(tempObj);
                     }
                     break;
                 case "Winter":
                     {
                         tempObj = {};
-                        tempObj["2"] = this.resultData.quarter["2"];
+                        tempObj["2"] = data.quarter["2"];
                         quartersArr.push(tempObj);
                     }
                     break;
                 case "Spring":
                     {
                         tempObj = {};
-                        tempObj["3"] = this.resultData.quarter["3"];
+                        tempObj["3"] = data.quarter["3"];
                         quartersArr.push(tempObj);
                     }
                 case "Summer":
                     {
                         tempObj = {};
-                        tempObj["4"] = this.resultData.quarter["4"];
+                        tempObj["4"] = data.quarter["4"];
                         quartersArr.push(tempObj);
                     }
                     break;
@@ -890,7 +891,7 @@ export class Statistics {
 
             // all statistics route
             this.utils.doAjax('get/data/search/allStatistics', 'get', data, null).then(data => {
-
+                    console.log("DEV: quarter search test: /search/allStats returns:", data.data);
                 //this.utils.stopSpinner();
                 this.resultData = data.data;
                 if(this.resultData) {
