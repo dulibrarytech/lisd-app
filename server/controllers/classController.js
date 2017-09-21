@@ -24,11 +24,12 @@ module.exports.classAdd = function(req, res) {
 	    department: req.body.data['department'],
 	    type: req.body.data['classType'],
 	    acrlFrame: req.body.data['acrlFrame'],
-	    comments: []
+	    comments: {}
 	}
 
 	if(req.body.data.commentText) {
 		var commenter = "Initial comment";
+		data["comments"] = [];
 		data["comments"].push({
 			name: commenter,	// TODO: add initial comment commentor name is necessary
 			text: req.body.commentText
@@ -38,11 +39,6 @@ module.exports.classAdd = function(req, res) {
 	Class.addDocument(data, function(response) {
 		res.send(response);
 	});
-
-	// DEV
-	// console.log("server receives: " + data);
-	// res.statusCode = 200;
-	// res.send(data);
 };
 
 module.exports.getClassProperties = function(req, res) {

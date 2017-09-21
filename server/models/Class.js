@@ -29,7 +29,7 @@ exports.addDocument = function(data, callback) {
 		department: data.department, 
 		type: data.type, 
 		acrlFrame: data.acrlFrame,
-		comments: data.comments 
+		comments: data.comments
 	};
 
 	try {
