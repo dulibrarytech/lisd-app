@@ -867,8 +867,8 @@ export class Statistics {
                 this.resultData = data.data;
                 if(this.resultData) {
 
-                    this.resultData.month = this.sortResultMonthsByTimePeriod(this.resultData);
-                    this.resultData.quarter = this.sortResultQuartersByTimePeriod(this.resultData);
+                    //this.resultData.month = this.sortResultMonthsByTimePeriod(this.resultData);
+                    //this.resultData.quarter = this.sortResultQuartersByTimePeriod(this.resultData);
 
                     // TODO: add FUNCTION: initResultView(data)
                     // Show search options, hide the search form
