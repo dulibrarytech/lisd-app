@@ -28,7 +28,7 @@
                 <div class="row">
                     <div id="user-data-section" class="col-lg-12">
 
-                        <div id="user-data-table" class="table-responsive view-section">
+                        <div id="user-data-table" class="table-responsive section-border">
                             <div class="data-form-header"><h4>Users</h4><button class="list-btn section-header-button" click.delegate="addUser()" style="float: right"><strong> + </strong>Add User</button></div>
                             <div class="data-table-wrapper">
                             <table class="table" id="user-data-table">
@@ -64,8 +64,9 @@
 
                     <div id="property-data-section" class="col-lg-12">
 
-                        <div id="property-data-table" class="table-responsive view-section">
+                        <div id="property-data-table" class="table-responsive section-border">
                             <div class="data-form-header"><h4>${propData.type | stringCapitalFirst}s</h4><button class="list-btn section-header-button" click.delegate="addProperty(propData.type)" style="float: right"><strong> + </strong>Add ${propData.type}</button></div>
+                            
                             <table class="table" id="user-data-table">
                                 <tr>
                                     <th>Name</th><th>Active</th><th></th><th></th>
