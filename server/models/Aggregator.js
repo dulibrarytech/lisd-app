@@ -131,6 +131,8 @@ module.exports = (function() {
 		var queryObj;
 		var message;
 
+			console.log("AGG test: getClassTotals: querydata in:", queryData);
+
 		// If a librarian ID is present in the query, restrict results to those that contain that librarian ID
 		if(queryData.librarianID != "") {
 			queryObj = { "courseInfo.date": { $gte: new Date(queryData.fromDate), $lt: new Date(queryData.toDate) }, "associatedLibrarians":  { $in: [queryData.librarianID] } };
