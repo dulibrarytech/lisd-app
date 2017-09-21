@@ -60,4 +60,8 @@ Release Notes
 					Fix date and quarter display bugs on the class edit form
 					Add styles to tables and forms
 
+1.1.2	9-21-17		Fix 1.1.0 bugs
+					Add fixed header on scrolling data tables
+					Add font awesome icons to menu
+
 
