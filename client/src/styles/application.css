@@ -480,6 +480,7 @@ div#legend {
 }
 
 div#year-date-select,
+div#year-quarter-select,
 button#statistics-submit {
 	margin-top: 3em;
 	margin-left: 1.8em;
