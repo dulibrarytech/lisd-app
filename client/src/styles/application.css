@@ -71,8 +71,10 @@ router-view > h3 {
 }
 
 div#menu-links {
-	width: 73%;
+	/*width: 73%;*/
 	padding-top: 1em;
+	margin-right: 0;
+	margin-left: 2em;
 }
 
 div#menu-links > span a {
@@ -405,12 +407,65 @@ div.data-table-wrapper {
 	overflow: scroll;
 }
 
+
+
+.data-table table {
+    width: 100%;
+}
+
+.data-table thead, .data-table tbody, .data-table tr, .data-table td, .data-table th { display: block; }
+
+.data-table tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+.data-table thead th {
+    height: 30px;
+
+    /*text-align: left;*/
+}
+
+.data-table tbody {
+    height: 200px;
+    overflow-y: auto;
+}
+
+.data-table thead {
+    /* fallback */
+}
+
+
+div#user-data-table tbody td, div#user-data-table thead th {
+    width: 15%;
+    float: left;
+}
+
+div#property-data-table tbody td, div#property-data-table thead th {
+    width: 25%;
+    float: left;
+}
+
+
+
+
+
+
+div#user-data-table {
+	width: 75%;
+}
+
+div#property-data-table {
+	width: 60%;
+}
+
 div#user-data-table,
 div#property-data-table {
-	width: 75%;
     margin-left: 5%;
     margin-top: 2em;
-    max-height: 400px;
+   /* max-height: 400px;*/
     float: left;
 }
 
@@ -697,13 +752,16 @@ input#comment-input {
 		padding-left: 3.4em;
 	}
 
-	div#property-data-table,
-	div#user-data-table {
+	div.data-table {
 		margin-top: 4em;
 	}
 
 	div#class-data-comments {
 	    width: 65%;
+	}
+
+	div#year-date-select select {
+    	width: 130px;
 	}
 }
 
@@ -736,14 +794,17 @@ input#comment-input {
 		padding-left: 15em;
 	}
 
-	div#property-data-table,
-	div#user-data-table {
+	div.data-table {
 		margin-top: 4em;
 		font-size: 12px;
 	}
 
 	div#class-data-comments {
 	    width: 65%;
+	}
+
+	div#year-date-select select {
+    	width: 130px;
 	}
 }
 
@@ -770,12 +831,15 @@ input#comment-input {
 		padding-left: 8em;
 	}
 
-	div#property-data-table,
-	div#user-data-table {
+	div.data-table {
 		margin-top: 4em;
 		font-size: 12px;
 		width: 100%;
 		margin-left: 0px;
+	}
+
+	div#year-date-select select {
+    	width: 130px;
 	}
 }
 
@@ -828,11 +892,19 @@ input#comment-input {
 	    width: 47%;
 	    float: left;
 	}
+
+	div#year-date-select select {
+    	width: 130px;
+	}
 }
 
 @media only screen and (max-width: 615px) {
 	div#instructor-input {
 		margin-top: 18px;
+	}
+
+	div#year-date-select select {
+    	width: 130px;
 	}
 }
 

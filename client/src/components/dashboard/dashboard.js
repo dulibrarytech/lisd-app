@@ -92,7 +92,7 @@ export class Users {
             	properties.push({
             		id: index._id,
             		name: index.name,
-            		isActive: index.isActive,
+            		isActive: index.isActive == true ? "Yes" : "No",
             		type: property
             	});
             }
