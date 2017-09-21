@@ -101,11 +101,6 @@ var getDates = function(fromYear, toYear, timeframe, quarter) {
 		to: ""
 	}
 
-		console.log("DEV: getDates: timeframe:", timeframe);
-		console.log("DEV: getDates: quarter:", quarter);
-		console.log("DEV: getDates: fromYear:", fromYear);
-		console.log("DEV: getDates: toYear:", toYear);
-
 	if(timeframe == "Fiscal") {
 		dates.from = fromYear + '-' + settings.server.fiscalYearStart;
 		dates.to = toYear + '-' + settings.server.fiscalYearEnd;

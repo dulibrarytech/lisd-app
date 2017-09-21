@@ -857,9 +857,8 @@ export class Statistics {
 
             // class route
             this.utils.doAjax('get/data/search/class', 'get', data, null).then(data => {
-                //this.utils.stopSpinner();
-                     console.log("DEV: quarter search test: /search/class returns:", data.data);
-                // Make dates pretty (temp?)
+
+                // Remove the timestamp
                 for(var index in data.data) {
                    data.data[index].courseInfo.date = data.data[index].courseInfo.date.substring(0,10);
                 }
@@ -867,17 +866,11 @@ export class Statistics {
                 this.resultData = data.data;
                 if(this.resultData) {
 
-                    //this.resultData.month = this.sortResultMonthsByTimePeriod(this.resultData);
-                    //this.resultData.quarter = this.sortResultQuartersByTimePeriod(this.resultData);
-
-                    // TODO: add FUNCTION: initResultView(data)
                     // Show search options, hide the search form
-                    document.getElementById('result-options').style.display = "block";                  // TODO move to function
-                    // document.getElementById('chart-section').style.display = "none"; 
+                    document.getElementById('result-options').style.display = "block";  
                     document.getElementById('statistics-search').style.display = "none";
                     document.getElementById('post-search-options').style.display = "block";
                     document.getElementById('search-options').style.display = "none";
-
                     document.getElementById('disp-select').style.visibility = "hidden";
 
                     // Render the view (no chart option)
@@ -891,19 +884,18 @@ export class Statistics {
 
             // all statistics route
             this.utils.doAjax('get/data/search/allStatistics', 'get', data, null).then(data => {
-                    console.log("DEV: quarter search test: /search/allStats returns:", data.data);
-                //this.utils.stopSpinner();
+
                 this.resultData = data.data;
                 if(this.resultData) {
+
                     // Prep the response for the view templates
                     this.resultData.year['total'] = this.resultData.year.totals;
                     delete this.resultData.year.totals;     // Do not display this in the view table
                     this.resultData.month = this.sortResultMonthsByTimePeriod(this.resultData);
                     this.resultData.quarter = this.sortResultQuartersByTimePeriod(this.resultData);
 
-                    // TODO: add FUNCTION: initResultView(data)
                     // Show search options, hide the search form
-                    document.getElementById('result-options').style.display = "block";                   // TODO move to function
+                    document.getElementById('result-options').style.display = "block"; 
                     document.getElementById('statistics-search').style.display = "none";
                     document.getElementById('post-search-options').style.display = "block";
                     document.getElementById('search-options').style.display = "none";
@@ -983,12 +975,9 @@ export class Statistics {
                 // Reset the comment form
                 this.comment.name = "";
                 this.comment.comment = "";
-
-                //utils.sendMessage("Comment added.");
             }
             else {
                 console.log(data.message);
-                //utils.sendMessage("Error: could not add comment");
             }
         });
     }
