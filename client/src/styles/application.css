@@ -337,7 +337,8 @@ button.remove-button {
 	padding-top: 0.6em;
 	color: red;*/
 	position: relative;
-	top: 13px;
+	top: 14px;
+	right: 1em;
     margin-top: 11px;
 }
 
@@ -397,6 +398,14 @@ table.results-table {
 	width: 65%;
 	margin-top: 2em;
 	margin-left: 2em;
+}
+
+div#user-data-table {
+	overflow: none;
+}
+
+div.data-table-wrapper {
+	overflow: scroll;
 }
 
 div#user-data-table,
