@@ -110,13 +110,7 @@ export class Users {
   }
 
   displayLoginButton(display) {
-
-    var elements = document.getElementsByClassName('au-target');
-    for(var i=0; i<elements.length; i++) {
-      if(elements[i].text == "Login") {
-          elements[i].style.display = display == false ? "none" : "inline";
-      }
-    }
+    document.getElementById('menulink-103').style.display = display == false ? "none" : "inline";
   }
 
   displayAdminLink(display) {
