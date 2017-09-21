@@ -47,4 +47,17 @@ Release Notes
 					Use default value if a property dropdown placeholder is selected
 					Automatically submit a 0 for student count value if a field is submitted empty (ease of use)
 
+1.1.x 				(Admin functionality/dashboard implemented)
+
+1.1.0	9-21-17		Add user management
+					Add property management
+					Add user edit form
+					Add property edit form
+					Add Class Edit form
+					Add comment viewer
+					Add "add comment" form to class edit
+					Fix bug with "new search" button: Button reverts to original search, does not reload entire app
+					Fix date and quarter display bugs on the class edit form
+					Add styles to tables and forms
+
 
