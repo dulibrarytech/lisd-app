@@ -163,11 +163,14 @@ export class Statistics {
         // Reset element visibility
         document.getElementById('result-options').style.display = "none";
         document.getElementById('post-search-options').style.display = "none";
-        document.getElementById('year-quarter-select').style.display = "none";
         document.getElementById('librarian-select').style.display = "none";
         document.getElementById('statistics-search').style.display = "block";
         document.getElementById('search-options').style.display = "block";
-        document.getElementById('disp-select').style.visibility = "hidden";
+        document.getElementById('disp-select').style.visibility = "visible";
+
+        if(this.selectedSearchTimeframe != "Quarter") {
+            document.getElementById('year-quarter-select').style.display = "none";
+        }
 
         // Default year settings:
         // Set the fromYear to the previous year, set the toYear to current year
@@ -603,6 +606,7 @@ export class Statistics {
     }
 
     sortResultQuartersByTimePeriod(data) {
+            console.log("DEV: quarter search test: data into sort function:", this.resultData);
         // Reorder quarters in order of current year timeframe
         var quartersArr = [];
         var tempObj = {};
@@ -673,6 +677,7 @@ export class Statistics {
     }
 
     onChangeQuarterTimePeriod() {
+
         if(this.selectedSearchTimeframe == "Quarter") {
             document.getElementById('year-quarter-select').style.display = "block";
             document.getElementById('year-date-select').style.display = "none";
@@ -852,7 +857,7 @@ export class Statistics {
             // class route
             this.utils.doAjax('get/data/search/class', 'get', data, null).then(data => {
                 //this.utils.stopSpinner();
-
+                     console.log("DEV: quarter search test: /search/class returns:", data.data);
                 // Make dates pretty (temp?)
                 for(var index in data.data) {
                    data.data[index].courseInfo.date = data.data[index].courseInfo.date.substring(0,10);
