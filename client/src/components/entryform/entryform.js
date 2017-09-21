@@ -127,7 +127,6 @@ export class EntryForm {
             this.activeClassID = data.id;
             this.className = data.className;
             this.classDate = data.classDate;
-            this.quarterSelect = data.quarterSelect;
             this.courseNumber = data.courseNumber;
             this.instructorFName = data.instructorFName;
             this.instructorLName = data.instructorLName;
@@ -145,6 +144,25 @@ export class EntryForm {
             this.selectedLibrarians = data.selectedLibrarians;
             this.selectedLocations = data.selectedLocations;
             this.selectedDepartments = data.selectedDepartments;
+
+            // Set the quarter select dropdown text
+            switch(parseInt(data.quarterSelect)) {
+                case 1:
+                    this.quarterSelect = "Fall";
+                    break;
+                case 2:
+                    this.quarterSelect = "Winter";
+                    break;
+                case 3:
+                    this.quarterSelect = "Spring";
+                    break;
+                case 4:
+                    this.quarterSelect = "Summer";
+                    break;
+                default:
+                    this.quarterSelect = "Fall";
+                    break;
+            }
         }
     }
 
@@ -152,7 +170,7 @@ export class EntryForm {
 
         this.className = "";
         this.classDate = "";
-        this.quarterSelect = 1;
+        this.quarterSelect = "Fall";
         this.courseNumber = "";
         this.instructorFName = "";
         this.instructorLName = "";
