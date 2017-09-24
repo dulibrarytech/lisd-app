@@ -65,7 +65,7 @@ export class Users {
 	resetPropertyDataForm() {
 	  	this.propData.id = null;
 	  	this.propData.name = "";
-	  	this.propData.isActive = true;
+	  	this.propData.isActive = "Yes";
 	}
 
 	getUserList() {
