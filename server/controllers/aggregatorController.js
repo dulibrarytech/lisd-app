@@ -164,7 +164,6 @@ module.exports.getDataSearchAllStatistics = function(req, res) {
 	};
 	if(statsType == "Student") {
 		Aggregator.getStudentTotals(data, function(responseData) {
-				console.log("Return to client:", responseData);
 			res.send(responseData);
 		});
 	}
