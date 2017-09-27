@@ -72,7 +72,7 @@ module.exports = (function() {
 	        		results.push(item);
 	        	}
 	        	else {
-
+	        			//console.log("DEV: agg::getStudentTotals():");
 	        		if(results.length == 0) {
 	        			callback({status: "ok", message: "No results found", data: null});
 	        		}
@@ -281,6 +281,7 @@ module.exports = (function() {
 			studentsByMonth[month].other += courseObject.enrollmentInfo.other;
 
 			totals[month] = courseObject.enrollmentInfo.undergraduates + courseObject.enrollmentInfo.graduates + courseObject.enrollmentInfo.faculty + courseObject.enrollmentInfo.other;
+				console.log("DEV: agg::getStudentTotals(): totals for month " + month + ":", totals[month]);
 
 			typeTotals['undergraduates'] += courseObject.enrollmentInfo.undergraduates;
 			typeTotals['graduates'] += courseObject.enrollmentInfo.graduates;
@@ -297,6 +298,7 @@ module.exports = (function() {
 	};
 
 	var sortStudentResultsByAllQuarter = function(resultArray) {
+			console.log("DEV: agg::getStudentTotals(): resultarray in: ", resultArray);
 
 		var courseObject, quarter;
 		var studentsByQuarter = {}, totals={};
@@ -316,6 +318,8 @@ module.exports = (function() {
 
 			totals[i] = 0;
 		}
+
+		var sum = 0;
 		for(var index in resultArray) {
 			courseObject = resultArray[index];
 			quarter = courseObject.courseInfo.quarter;
@@ -325,19 +329,20 @@ module.exports = (function() {
 			studentsByQuarter[quarter].faculty += courseObject.enrollmentInfo.faculty;
 			studentsByQuarter[quarter].other += courseObject.enrollmentInfo.other;
 
-			totals[quarter] = courseObject.enrollmentInfo.undergraduates + courseObject.enrollmentInfo.graduates + courseObject.enrollmentInfo.faculty + courseObject.enrollmentInfo.other;
+			sum += courseObject.enrollmentInfo.undergraduates + courseObject.enrollmentInfo.graduates + courseObject.enrollmentInfo.faculty + courseObject.enrollmentInfo.other;
 
 			typeTotals['undergraduates'] += courseObject.enrollmentInfo.undergraduates;
 			typeTotals['graduates'] += courseObject.enrollmentInfo.graduates;
 			typeTotals['faculty'] += courseObject.enrollmentInfo.faculty;
 			typeTotals['other'] += courseObject.enrollmentInfo.other;
 		}
+		totals[quarter] = sum;
+			console.log("DEV: agg::getStudentTotals(): sum: ", sum);
 
 		studentsByQuarter['totals'] = {
 			allStudents: totals,
 			studentTotals: typeTotals
 		}
-
 		return studentsByQuarter;
 	};
 
