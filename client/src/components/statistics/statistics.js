@@ -208,7 +208,7 @@ export class Statistics {
         // Enable the table display
         this.displayResults = true;
 
-        //for(var val in this.resultData.month)
+            console.log("DEV: data into tables:", data);
 
         // If a string is passed in, render as a message.  If an object is passed in, attempt to render its data
         if(typeof data == null) { 
@@ -528,7 +528,6 @@ export class Statistics {
     }
 
     sortResultMonthsByTimePeriod(resultData) {
-            console.log("Result data into month:", resultData);
          // Reorder months in order of current year timeframe
         var monthsArr = [];
         var tempObj = {};
@@ -607,7 +606,6 @@ export class Statistics {
     }
 
     sortResultQuartersByTimePeriod(data) {
-            console.log("Result data into quarter:", data);
         // Reorder quarters in order of current year timeframe
         var quartersArr = [];
         var tempObj = {};
@@ -889,7 +887,9 @@ export class Statistics {
                 if(this.resultData) {
 
                     // Prep the response for the view templates
-                    this.resultData.year['total'] = this.resultData.year.totals;
+                    if(this.selectedStatisticsType == "Class") {
+                        this.resultData.year['total'] = this.resultData.year.totals;
+                    }
                     delete this.resultData.year.totals;     // Do not display this in the view table
                     this.resultData.month = this.sortResultMonthsByTimePeriod(this.resultData);
                     this.resultData.quarter = this.sortResultQuartersByTimePeriod(this.resultData);
