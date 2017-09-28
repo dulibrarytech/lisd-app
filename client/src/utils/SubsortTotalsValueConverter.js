@@ -1,5 +1,3 @@
-
-
 export class SubsortTotalsValueConverter {
     
     toView(subsortTotalsObject, index, subField) {
@@ -10,7 +8,6 @@ export class SubsortTotalsValueConverter {
         }
 
         var total, totalsObj;
-
         if(typeof subField == 'undefined') {
             total = 0;
             totalsObj = {};
