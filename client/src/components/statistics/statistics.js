@@ -280,7 +280,7 @@ export class Statistics {
 
                         // Show the total number of classes
                         labels = ['Total Classes'];
-                        data = [this.resultData.year.total];
+                        data = [this.resultData.yearTotals];
                     }
                     else if(this.displayMonth) {
 
@@ -890,6 +890,7 @@ export class Statistics {
 
                 this.resultData = data.data;
                 if(this.resultData) {
+                        console.log("Result data", this.resultData);
                     // Prep the response for the view templates
                     // if(this.selectedStatisticsType == "Class") {
                     //     this.resultData.year['total'] = this.resultData.year.totals;
