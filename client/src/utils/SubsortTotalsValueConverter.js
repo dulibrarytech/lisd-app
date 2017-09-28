@@ -4,6 +4,11 @@ export class SubsortTotalsValueConverter {
     
     toView(subsortTotalsObject, index, subField) {
 
+        // Kludge to release the undefined
+        if(typeof subsortTotalsObject == 'undefined') {
+            return {};
+        }
+
         var total, totalsObj;
 
         if(typeof subField == 'undefined') {
