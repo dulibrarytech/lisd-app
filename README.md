@@ -64,4 +64,7 @@ Release Notes
 					Add fixed header on scrolling data tables
 					Add font awesome icons to menu
 
+1.2.1	9-28-17		Fix issues with result table totals
+					Remove bugs from table aggregation
+
 
