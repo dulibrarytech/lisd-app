@@ -271,6 +271,7 @@ module.exports = (function() {
 
 			totals[i] = 0;
 		}
+
 		for(var index in resultArray) {
 			courseObject = resultArray[index];
 			month = courseObject.courseInfo.date.getMonth() + 1; // getMonth months range 0-11
@@ -280,7 +281,7 @@ module.exports = (function() {
 			studentsByMonth[month].faculty += courseObject.enrollmentInfo.faculty;
 			studentsByMonth[month].other += courseObject.enrollmentInfo.other;
 
-			totals[month] = courseObject.enrollmentInfo.undergraduates + courseObject.enrollmentInfo.graduates + courseObject.enrollmentInfo.faculty + courseObject.enrollmentInfo.other;
+			totals[month] += courseObject.enrollmentInfo.undergraduates + courseObject.enrollmentInfo.graduates + courseObject.enrollmentInfo.faculty + courseObject.enrollmentInfo.other;
 
 			typeTotals['undergraduates'] += courseObject.enrollmentInfo.undergraduates;
 			typeTotals['graduates'] += courseObject.enrollmentInfo.graduates;
@@ -317,9 +318,8 @@ module.exports = (function() {
 			totals[i] = 0;
 		}
 
-		var sum;
 		for(var index in resultArray) {
-			//sum=0;
+
 			courseObject = resultArray[index];
 			quarter = courseObject.courseInfo.quarter;
 
