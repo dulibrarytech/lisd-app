@@ -362,6 +362,7 @@ module.exports = (function() {
 			subFieldArr = courseObject[subsortField]; // this will always be an array
 
 			// If there are >1 subfields, add this courses student counts to the total for each field.  
+			var sum=0;
 			for(var i in subFieldArr) {
 				subField = subFieldArr[i];
 
@@ -382,13 +383,20 @@ module.exports = (function() {
 				studentsByYear[subField].other += courseObject.enrollmentInfo.other;
 
 				// Total number of students for each subsort field (U,G,F,O)
-				totals[subField] = courseObject.enrollmentInfo.undergraduates + courseObject.enrollmentInfo.graduates + courseObject.enrollmentInfo.faculty + courseObject.enrollmentInfo.other;
+				sum = courseObject.enrollmentInfo.undergraduates + courseObject.enrollmentInfo.graduates + courseObject.enrollmentInfo.faculty + courseObject.enrollmentInfo.other;
 
 				// Total of each student type for year range
 				typeTotals.undergraduates += courseObject.enrollmentInfo.undergraduates;
 				typeTotals.graduates += courseObject.enrollmentInfo.graduates;
 				typeTotals.faculty += courseObject.enrollmentInfo.faculty;
 				typeTotals.other += courseObject.enrollmentInfo.other;
+
+				if(typeof totals[subField] == 'undefined') {
+					totals[subField] = sum;
+				}
+				else {
+					totals[subField] += sum;
+				}
 			}
 		}
 
