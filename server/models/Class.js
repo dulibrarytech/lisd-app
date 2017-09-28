@@ -137,15 +137,20 @@ exports.getClassComments = function(classID, callback) {
 exports.appendComment = function(classID, commentData, callback) {
 
 	this.getClassComments(classID, function(comments) {
-		var comments = comments.data;
-		comments.push({
+
+		var comment = comments.data, commentsArr = [];
+		if(typeof comments.data.length != 'undefined') {
+			commentsArr = comments.data;
+		}
+
+		commentsArr.push({
 			name: commentData.name,
 			text: commentData.comment
 		});
 
 		try {
 			// Insert the document
-		    collection.updateOne({"_id": ObjectId(classID)}, {$set: {comments: comments}}, function(err, results) {
+		    collection.updateOne({"_id": ObjectId(classID)}, {$set: {comments: commentsArr}}, function(err, results) {
 			    if(err) {
 			    	console.log("Error: " + err);
 			    	callback({status: "error", message: "Error: " + e});
