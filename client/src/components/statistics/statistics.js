@@ -632,10 +632,24 @@ export class Statistics {
         }
         // No reordering, just add the objects to the array in default order
         else if(this.selectedSearchTimeframe == "Academic") {
+            // for(var key in data.quarter) {
+            //     tempObj = {}
+            //     tempObj[key] = data.quarter[key];
+            //     quartersArr.push(tempObj);
+            // }
             for(var key in data.quarter) {
-                tempObj = {}
-                tempObj[key] = data.quarter[key];
-                quartersArr.push(tempObj);
+                if(parseInt(key) >= 1) {
+                    tempObj = {}
+                    tempObj[key] = data.quarter[key];
+                    quartersArr.push(tempObj);
+                }
+            }
+            for(var key in data.quarter) {
+                if(parseInt(key) < 1) {
+                    tempObj = {}
+                    tempObj[key] = data.quarter[key];
+                    quartersArr.push(tempObj);
+                }
             }
         }
         else if(this.selectedSearchTimeframe == "Quarter") {
