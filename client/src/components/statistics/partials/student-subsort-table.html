@@ -34,7 +34,7 @@
 			<table class="table results-table">
 				<th>${selectedDisplayStatistics}</th><th repeat.for="val of studentTypes">${val}</th><th>Total</th>
 				<tr repeat.for="key of index | subObjectKeys">
-					<td>${key}</td><td repeat.for="val of index | subObjectValues:key">${val}</td><td>${resultData.monthTotals.allStudents | subsortTotals:index}</td>
+					<td>${key}</td><td repeat.for="val of index | subObjectValues:key">${val}</td><td>${resultData.monthTotals.allStudents | subsortTotals:index:key}</td>
 				</tr>
 				<tr>
 					<td style="font-weight: bold">Total</td><td repeat.for="val of resultData.monthTotals.studentTotals | subsortTotals:index | objectValues">${val}</td>
