@@ -153,12 +153,19 @@ export class Statistics {
 
     resetForm() {
  
+        // Reset results display
         this.displayResults = false;
         this.displayYear = false;
         this.displayMonth = true;
         this.displayQuarter = false;
         this.showClassComments = false;
         this.classComments = [];
+
+        // Reset search form
+        this.selectedStatisticsType = "Class";
+        this.selectedListResultsBy = "Month";
+        this.selectedDisplayStatistics = "All";
+        this.displayFormat = "Chart";
 
         // Reset element visibility
         document.getElementById('result-options').style.display = "none";
