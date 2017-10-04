@@ -238,15 +238,10 @@ System.config({
     }
   },
   bundles: {
-    "../dist/utils/lisd-app.js": [  // ../ => kludge
+    "dist/utils/lisd-app.js": [
       "app.html!github:systemjs/plugin-text@0.0.4.js",
       "app.js",
       "main.js"
-    ]
-  },
-  depCache: {
-    "main.js": [
-      "bootstrap"
     ]
   }
 });

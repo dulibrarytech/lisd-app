@@ -1,21 +1,21 @@
-var gulp = require('gulp');
-var bundler = require('aurelia-bundler');
-var bundles = require('../bundles.json');
+// var gulp = require('gulp');
+// var bundler = require('aurelia-bundler');
+// var bundles = require('../bundles.json');
 
-var config = {
-  force: true,
-  baseURL: '.',
-  configPath: './config.js',
-  bundles: bundles.bundles
-};
+// var config = {
+//   force: true,
+//   baseURL: '.',
+//   configPath: './config.js',
+//   bundles: bundles.bundles
+// };
 
-gulp.task('bundle', ['unbundle', 'build'], function() {
-  return bundler.bundle(config);
-});
+// gulp.task('bundle', ['unbundle', 'build'], function() {
+//   return bundler.bundle(config);
+// });
 
-gulp.task('unbundle', function() {
-  return bundler.unbundle(config);
-});
+// gulp.task('unbundle', function() {
+//   return bundler.unbundle(config);
+// });
 var gulp = require('gulp');
 var bundler = require('aurelia-bundler');
 var bundles = require('../bundles.js');
@@ -34,3 +34,4 @@ gulp.task('bundle', ['build'], function() {
 gulp.task('unbundle', function() {
   return bundler.unbundle(config);
 });
+
