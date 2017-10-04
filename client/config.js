@@ -12,7 +12,6 @@ System.config({
     "github:*": "jspm_packages/github/*",
     "npm:*": "jspm_packages/npm/*"
   },
-
   map: {
     "aurelia-bootstrapper": "npm:aurelia-bootstrapper@1.0.0-beta.1.1.2",
     "aurelia-configuration": "npm:aurelia-configuration@1.0.13",
@@ -237,5 +236,17 @@ System.config({
     "npm:vm-browserify@0.0.4": {
       "indexof": "npm:indexof@0.0.1"
     }
+  },
+  bundles: {
+    "../dist/utils/lisd-app.js": [  // ../ => kludge
+      "app.html!github:systemjs/plugin-text@0.0.4.js",
+      "app.js",
+      "main.js"
+    ]
+  },
+  depCache: {
+    "main.js": [
+      "bootstrap"
+    ]
   }
 });
