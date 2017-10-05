@@ -236,12 +236,5 @@ System.config({
     "npm:vm-browserify@0.0.4": {
       "indexof": "npm:indexof@0.0.1"
     }
-  },
-  bundles: {
-    "dist/utils/lisd-app.js": [
-      "app.html!github:systemjs/plugin-text@0.0.4.js",
-      "app.js",
-      "main.js"
-    ]
   }
 });
