@@ -3,18 +3,18 @@ var gulp = require('gulp');
 var minify = require('gulp-minify');
  
 gulp.task('compress', function() {
-	  gulp.src([
-	  		'dist/utils/*.js'
-	  	])
+		console.log("Compress");
+	  gulp.src('dist/utils/*.js')
 	    .pipe(minify({
 	        ext:{
-	            min:'.min.js'
+	        	src:'-debug.js',
+	            min:'.js'
 	        },
 	        exclude: ['tasks'],
 	        ignoreFiles: []
 	    }))
 	    //.pipe(gulp.dest('dist/utils'))
-	    .pipe(gulp.dest('dist/utils'))
+	    .pipe(gulp.dest('src/utils'))
 
 	   //  // Compress dashboard
 	   //  gulp.src([

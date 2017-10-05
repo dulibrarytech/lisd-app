@@ -1,22 +1,18 @@
 var gulp = require('gulp');
 var runSequence = require('run-sequence');
+var rename = require("gulp-rename");
+var clean = require('gulp-clean');
 
-gulp.task('deploy-files', function(callback) {
+gulp.task('deploy-files', ['bundle'], function(callback) {
   return runSequence(
-    'compress',
-    ['deploy-min-js', 'remove-js', 'rename-min'],
+    'remove-js',
+    ['compress'],
     callback
   );
 });
 
-gulp.task('deploy-min-js', [], function(callback) {
-  console.log("deploying");
-});
-
-gulp.task('remove-js', [], function(callback) {
-  console.log("removing js");
-});
-
-gulp.task('rename-min', function(callback) {
-  console.log("Renaming minfiles to js");
+gulp.task('remove-js', function(callback) {
+	console.log("removing");
+  return gulp.src('src/utils/**.js', {read: false})
+        .pipe(clean());
 });
