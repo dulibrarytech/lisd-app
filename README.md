@@ -67,4 +67,15 @@ Release Notes
 1.2.1	9-28-17		Fix issues with result table totals
 					Remove bugs from table aggregation
 
+1.3.1	10-10-17	Update 'new search' to reset search results options form
+					Fix 'insert first comment' bug
+					Fix 'single class' chart year totals display
+					Fix 'subsort quarter' charts total displays for academic year search
+					Reset edit form on new search
+					Fix duplicating properties bug on class edit
+					Hide class results list when the class edit form is displayed
+					Hide the class data results table when the edit class data form is visible
+					Auto-update the table when the class edit form is closed
+					Add librarian names to the class data table
+
 
