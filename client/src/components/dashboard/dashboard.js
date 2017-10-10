@@ -21,6 +21,8 @@ export class Users {
 	roles=[];
 	librarians;
 
+	handleBodyClick;
+
 	constructor(systemUtils, config, router) {
 	  	this.utils = systemUtils;
 	  	this.config = config;
@@ -31,6 +33,8 @@ export class Users {
 	  	this.propActive = ["No", "Yes"];
 	  	this.propOperation = "";
 
+	  	this.confirmRemove = false;
+
 	  	if(this.config.session.token == null) {
 	  		this.router.navigate("/");
 	  	}
@@ -38,6 +42,19 @@ export class Users {
 	  		this.activeSession = true;
 	  		this.username = this.config.session.data.fname + " " + this.config.session.data.lname;
 	  	}
+
+	  	this.handleBodyClick = e => {
+
+            // Remove button safety
+            if(e.target.innerHTML == "Remove") {
+            	e.target.innerHTML = "Confirm";
+            	this.confirmRemove = true;
+            }
+            else if(e.target.innerHTML == "Confirm") {
+            	e.target.innerHTML = "Remove";
+            	this.confirmRemove = false;
+            }
+        };
 	}
 
 	attached() {
@@ -50,7 +67,13 @@ export class Users {
 		else {
 			this.router.navigate("/");
  		}
+
+ 		document.addEventListener('click', this.handleBodyClick);
 	}
+
+	detached() {
+        document.removeEventListener('click', this.handleBodyClick);
+    }
 
 	resetUserDataForm() {
 		this.userData = {
@@ -242,31 +265,20 @@ export class Users {
 	}
 
 	removeUser(userID) {
-		this.utils.doAjax('user/remove', 'delete', {userID: userID}, null).then(response => {
-            if(response.status == "error") {
-            	this.utils.sendMessage("Server error: Could not remove user");
-            	console.log(response.message);
-            }
-            else {
-            	this.utils.sendMessage("User removed");
 
-            	// Update the users list
-            	// for(var index of this.users) {
-
-            	// 	//console.log("DREMTEST1: userID:", userID);
-
-            	// 	// Update the local user list
-            	// 	if(index._id == userID) {
-            	// 		index.duid = this.userData.duid;
-            	// 		index.username = this.userData.username;
-            	// 		index.firstname = this.userData.firstname;
-            	// 		index.lastname = this.userData.lastname;
-            	// 		index.role = this.userData.role;
-            	// 	}
-            	// }
-            	this.getUserList();
-            }
-        });
+		if(this.confirmRemove) {
+			this.utils.doAjax('user/remove', 'delete', {userID: userID}, null).then(response => {
+	            if(response.status == "error") {
+	            	this.utils.sendMessage("Server error: Could not remove user");
+	            	console.log(response.message);
+	            }
+	            else {
+	            	this.utils.sendMessage("User removed");
+	            	this.getUserList();
+	            	this.confirmRemove = false;
+	            }
+	        });
+		}
 	}
 
 	// Get the selected property data and populate the data form 
@@ -302,33 +314,24 @@ export class Users {
             }
             else {
             	this.utils.sendMessage(type + " updated");
-            	// // Update the users list
-            	// for(var index in this.propData) {
-
-            	// 	// Update the local user list
-            	// 	if(index._id == this.propData.id) {
-            	// 		index.name = this.propData.name;
-            	// 		index.isActive = this.propData.isActive == "Yes" ? true : false;
-            	// 	}
-            	// }
-
             	this.showPropertyList(type);
             }
         });
 	}
 
 	removeProperty(type, propertyID) {
-
-		var url = "property/remove/" + type;
-		this.utils.doAjax(url, 'delete', {id: propertyID}, null).then(response => {
-            if(response.status == "error") {
-            	this.utils.sendMessage("Server error: Could not remove " + type + "s");
-            	console.log(response.message);
-            }
-            else {
-            	this.utils.sendMessage(type + " removed");
-            	this.showPropertyList(type);
-            }
-        });
+		if(this.confirmRemove) {
+			var url = "property/remove/" + type;
+			this.utils.doAjax(url, 'delete', {id: propertyID}, null).then(response => {
+	            if(response.status == "error") {
+	            	this.utils.sendMessage("Server error: Could not remove " + type + "s");
+	            	console.log(response.message);
+	            }
+	            else {
+	            	this.utils.sendMessage(type + " removed");
+	            	this.showPropertyList(type);
+	            }
+	        });
+	    }
 	}
 }

@@ -182,7 +182,6 @@ export class Statistics {
             locationCount: 1,
             departmentCount: 1
         }
-            console.log("DEV reset active class", this.activeClass);
     }
 
     resetForm() {
@@ -1058,18 +1057,7 @@ export class Statistics {
     }
 
     showClassEditForm(show) {
-            console.log("DEV showing form ", show);
         this.classEditFormVisible = show;
-
-        // if(1) {
-        //     document.getElementById('class-data-results').style.display = show == true ? "none" : "block";
-        // }
-        // if(1) {
-        //     document.getElementById('class-edit-form-section').style.display = show == true ? "block" : "none";
-        // }
-        // if(1) {
-        //     document.getElementById('class-edit-hide-form-button').style.display = show == true ? "block" : "none";
-        // }
     }
 
     addComment() {
@@ -1142,12 +1130,11 @@ export class Statistics {
                 this.activeClass.numOther = classData.other;
                 this.activeClass.selectedAcrlFrames = classData.acrlFrameworks;
                 this.activeClass.selectedClassType = classData.types[0];
-                    console.log("DEV set activeclass ", this.activeClass);
                 this.hideClassComments();
                 this.showClassEditForm(true);
             }
             else {
-                console.log("Could not get class data. ", data.message);
+                console.log("Error: Could not get class data. ", data.message);
             }
         });
     };
