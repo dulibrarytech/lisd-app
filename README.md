@@ -78,4 +78,6 @@ Release Notes
 					Auto-update the table when the class edit form is closed
 					Add librarian names to the class data table
 
+1.3.2	10-10-17	Add safety to property and user remove button
+
 
