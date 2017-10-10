@@ -617,6 +617,10 @@ div#admin-menu ul li a:hover {
 	cursor: pointer;
 }
 
+#class-edit-hide-form-button {
+	padding: 0.5em;
+}
+
 input#comment-input {
 	min-height: 100px;
 }
