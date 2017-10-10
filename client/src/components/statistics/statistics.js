@@ -757,6 +757,9 @@ export class Statistics {
         // DEV - TEMP TODO create function to reset form resetForm()
         //location.reload(false);
         this.resetForm();
+        this.showClassEditForm = false;
+        this.hideClassComments();
+        this.hideClassEditForm();
     }
 
     resetCanvasElement() {
