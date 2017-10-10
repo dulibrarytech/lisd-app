@@ -121,7 +121,9 @@ export class Statistics {
 
         // Class data
         this.activeClassID = 0;
-        this.activeClass = {    // Interface with entryForm fields
+
+        // Interface with entryForm class form
+        this.activeClass = {
             id: 0,
             className: "",
             classDate: null,
@@ -149,6 +151,31 @@ export class Statistics {
         this.showClassEditForm = false;
         this.hideClassComments();
         this.hideClassEditForm();
+    }
+
+    resetActiveClass() {
+
+        this.activeClass = {
+            id: 0,
+            className: "",
+            classDate: null,
+            quarterSelect: "",
+            courseNumber: "",
+            instructorFName: "",
+            instructorLName: "",
+            numUndergraduates: 0,
+            numGraduates: 0,
+            numFacultyStaff: 0,
+            numOther: 0,
+            selectedLibrarians: [],
+            selectedDepartments: [],
+            selectedLocations: [],
+            selectedClassType: "",
+            selectedAcrlFrames: [],
+            librarianCount: 1,
+            locationCount: 1,
+            departmentCount: 1
+        }
     }
 
     resetForm() {
@@ -907,7 +934,6 @@ export class Statistics {
 
                 this.resultData = data.data;
                 if(this.resultData) {
-                        console.log("Result data", this.resultData);
                     // Prep the response for the view templates
                     // if(this.selectedStatisticsType == "Class") {
                     //     this.resultData.year['total'] = this.resultData.year.totals;
@@ -1005,13 +1031,14 @@ export class Statistics {
     }
 
     editClassData(classID) {
-
         // Get all comments for this class
         this.utils.doAjax('class/get', 'get', {classID: classID}, null).then(data => {
             if(data.status == "ok") {
 
                 // Build the data object for the class data form   
                 var classData = data.data, count=0;
+                this.resetActiveClass();
+
                 this.activeClass.id = classID;
                 this.activeClass.className = classData.name;
                 this.activeClass.classDate = classData.date;
@@ -1046,7 +1073,7 @@ export class Statistics {
                 }
                 this.activeClass.locationCount = count;
 
-                this.activeClass.locationCount = count;
+                // this.activeClass.locationCount = count;
                 this.activeClass.numUndergraduates = classData.undergraduates;
                 this.activeClass.numGraduates = classData.graduates;
                 this.activeClass.numFacultyStaff = classData.faculty;

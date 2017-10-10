@@ -37,7 +37,6 @@ export class EntryForm {
     acrlFrames;
 
     constructor(systemUtils, configuration, router) {
-
         this.utils = systemUtils;
         this.config = configuration;
         this.router = router;
@@ -83,7 +82,6 @@ export class EntryForm {
     }
 
     attached() {
-
         if(this.config.session.data && this.config.session.data.librarianID !== "") {
             this.activeLibrarian = this.config.session.data.librarianID;
 
@@ -118,7 +116,7 @@ export class EntryForm {
     }
 
     activate(data) {
-
+            console.log("data in", data);
        // Class data coming in for edit: store in local fields to populate form
        if(typeof data.className != 'undefined') {
                 
@@ -141,9 +139,25 @@ export class EntryForm {
             this.locationCount = data.locationCount;
             this.departmentCount = data.departmentCount;
 
-            this.selectedLibrarians = data.selectedLibrarians;
-            this.selectedLocations = data.selectedLocations;
-            this.selectedDepartments = data.selectedDepartments;
+                console.log("Sel librarians into entryform for class edit:", data.selectedLibrarians);
+            this.selectedLibrarians = [];
+            for(var index in data.selectedLibrarians) {
+                this.selectedLibrarians[index] = data.selectedLibrarians[index];
+            }
+            //this.selectedLibrarians = data.selectedLibrarians;
+                console.log("Sel loctions into entryform for class edit:", data.selectedLocations);
+            this.selectedLocations = [];
+            for(var index in data.selectedLocations) {
+                this.selectedLocations[index] = data.selectedLocations[index];
+            }
+            //this.selectedLocations = data.selectedLocations;
+                console.log("Sel departments into entryform for class edit:", data.selectedDepartments);
+            this.selectedDepartments = [];
+            for(var index in data.selectedDepartments) {
+                this.selectedDepartments[index] = data.selectedDepartments[index];
+            }
+            //this.selectedDepartments = data.selectedDepartments;
+               
 
             // Set the quarter select dropdown text
             switch(parseInt(data.quarterSelect)) {
