@@ -62,7 +62,7 @@ export class Statistics {
 
     showClassComments;
     comment = {};
-    showClassEditForm;
+    classEditFormVisible;
     showClassEditButton;
 
     currentTable;
@@ -91,6 +91,7 @@ export class Statistics {
         this.toYears = this.getYearList(1990);
 
         this.activeSession = false;
+        this.classEditFormVisible = false;
 
         // Set session data if a session is present
         if(this.config.session.data) {
@@ -148,9 +149,9 @@ export class Statistics {
 
     attached() {
         this.resetForm();
-        this.showClassEditForm = false;
+        //this.f(false);
         this.hideClassComments();
-        this.hideClassEditForm();
+        //this.hideClassEditForm();
     }
 
     resetActiveClass() {
@@ -784,7 +785,7 @@ export class Statistics {
         // DEV - TEMP TODO create function to reset form resetForm()
         //location.reload(false);
         this.resetForm();
-        this.showClassEditForm = false;
+        this.showClassEditForm(false);
         this.hideClassComments();
         this.hideClassEditForm();
     }
@@ -1006,8 +1007,11 @@ export class Statistics {
         this.activeClassID = 0;
     }
 
-    hideClassEditForm() {
-        this.showClassEditForm = false;
+    showClassEditForm(show) {
+        this.classEditFormVisible = show;
+        document.getElementById('class-data-results').style.display = show == true ? "none" : "block";
+        document.getElementById('class-edit-form-section').style.display = show == true ? "block" : "none";
+        document.getElementById('class-edit-hide-form-button').style.display = show == true ? "block" : "none";
     }
 
     addComment() {
@@ -1082,7 +1086,7 @@ export class Statistics {
                 this.activeClass.selectedClassType = classData.types[0];
 
                 this.hideClassComments();
-                this.showClassEditForm = true;
+                this.showClassEditForm(true);
             }
             else {
                 console.log("Could not get class data. ", data.message);
