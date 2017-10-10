@@ -195,7 +195,6 @@ module.exports.getDataSearchClass = function(req, res) {
 		librarianID: librarian
 	};
 	Aggregator.getClassData(data, function(responseData) {
-			console.log("DEV returning to client:", responseData);
 		res.send(responseData);
 	});
 }

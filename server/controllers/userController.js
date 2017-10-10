@@ -16,7 +16,7 @@ module.exports.authenticateLogin = function(req, res) {
             role: 1,
             username: "Dev Session"
         };
-            console.log("Dev session login at ", new Date());
+
         var token = loginModel.createToken(devSession);
 
         res.json({
