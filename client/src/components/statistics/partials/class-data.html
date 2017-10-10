@@ -9,14 +9,15 @@
 		<div id="class-total"><h4>( ${resultData.length} ${classCountLabel} )</h4></div>
 	</div>
 
-	<div id="class-data-results" class="table-responsive section-border">
+	<div id="class-data-results" class="table-responsive section-border" if.bind="!classEditFormVisible">
 		<table class="table">
 			<thead class="thead-default">
-				<tr><th>Department</th><th>Name</th><th>Date</th><th>Quarter</th><th>Number</th><th>Type</th><th>Instructor</th><th>U</th><th>G</th><th>F</th><th>O</th><th>Location</th><th>ACRL Frameworks</th><th></th></tr>
+				<tr><th>Librarians</th><th>Department</th><th>Name</th><th>Date</th><th>Quarter</th><th>Number</th><th>Type</th><th>Instructor</th><th>U</th><th>G</th><th>F</th><th>O</th><th>Location</th><th>ACRL Frameworks</th><th></th></tr>
 			</thead>
 
 			<tr repeat.for="index of resultData">
 				<!-- <td>${index.department}</td> -->
+				<td><span repeat.for="librarian of index.associatedLibrarians">${librarian}</span></td>
 				<td><span repeat.for="department of index.department">${department}</span></td>
 				<td>${index.courseInfo.name}</td>
 				<td>${index.courseInfo.date}</td>
@@ -68,7 +69,7 @@
 		</form>
 	</div>
 
-	<button id="class-edit-hide-form-button" if.bind="classEditFormVisible" class="list-btn" style="margin-bottom: 1em" click.delegate="showClassEditForm('false')">Return to Class List</button>
+	<button id="class-edit-hide-form-button" if.bind="classEditFormVisible" class="list-btn" style="margin-bottom: 1em" click.delegate="closeEditForm()">Return to Class List</button>
 	<compose id="class-edit-form-section" if.bind="classEditFormVisible" view-model="../../entryform/entryform" model.bind="activeClass"></compose>
 
 </template>

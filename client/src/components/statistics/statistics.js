@@ -111,6 +111,10 @@ export class Statistics {
             }
         }
 
+        if(this.config.environment == "development") {
+            this.showClassEditButton = true;
+        }
+
         // if(this.config.session.data && this.config.session.data.librarianID !== "") {
         //     this.activeLibrarian = this.config.session.data.librarianID;
         //     this.selectedLibrarian = [this.activeLibrarian];
@@ -152,6 +156,7 @@ export class Statistics {
         //this.f(false);
         this.hideClassComments();
         //this.hideClassEditForm();
+        this.showClassEditForm(false);
     }
 
     resetActiveClass() {
@@ -177,6 +182,7 @@ export class Statistics {
             locationCount: 1,
             departmentCount: 1
         }
+            console.log("DEV reset active class", this.activeClass);
     }
 
     resetForm() {
@@ -550,7 +556,7 @@ export class Statistics {
             document.getElementById('result-options').style.display = "none";
 
             this.currentTable = "class-data";
-            this.classCountLabel = data.length > 1 ? "Classes" : "Class";
+            this.classCountLabel = (data.length > 1 || data.length == 0) ? "Classes" : "Class";
 
             // Enable the table display
             this.displayResults = true;
@@ -787,7 +793,7 @@ export class Statistics {
         this.resetForm();
         this.showClassEditForm(false);
         this.hideClassComments();
-        this.hideClassEditForm();
+        //this.hideClassEditForm();
     }
 
     resetCanvasElement() {
@@ -888,6 +894,37 @@ export class Statistics {
         return formData;
     }; 
 
+    refreshClassDataTable() {
+        // class route
+        var data = this.getFormData();
+        this.utils.doAjax('get/data/search/class', 'get', data, null).then(data => {
+
+            // Remove the timestamp
+            for(var index in data.data) {
+               data.data[index].courseInfo.date = data.data[index].courseInfo.date.substring(0,10);
+            }
+            this.resultData = data.data;
+
+            // Convert librarian id's to name, for display
+            for(var course of this.resultData) {
+                for(var index in course.associatedLibrarians) {
+                    course.associatedLibrarians[index] = this.getLibrarianName(course.associatedLibrarians[index]);
+                }
+            }
+        });
+    }
+
+    getLibrarianName(librarianID) {
+        var name = "";
+        for(var index of this.librarianList) {
+            if(index.id == librarianID) {
+                name = index.name;
+                break;
+            }
+        }
+        return name;
+    }
+
     submitForms() {
 
         var data = this.getFormData();
@@ -914,6 +951,13 @@ export class Statistics {
                 this.resultData = data.data;
                 if(this.resultData) {
 
+                    // Convert librarian id's to name, for display
+                    for(var course of this.resultData) {
+                        for(var index in course.associatedLibrarians) {
+                            course.associatedLibrarians[index] = this.getLibrarianName(course.associatedLibrarians[index]);
+                        }
+                    }
+
                     // Show search options, hide the search form
                     document.getElementById('result-options').style.display = "block";  
                     document.getElementById('statistics-search').style.display = "none";
@@ -935,6 +979,7 @@ export class Statistics {
 
                 this.resultData = data.data;
                 if(this.resultData) {
+                        
                     // Prep the response for the view templates
                     // if(this.selectedStatisticsType == "Class") {
                     //     this.resultData.year['total'] = this.resultData.year.totals;
@@ -976,7 +1021,7 @@ export class Statistics {
 
     viewClassComments(classID) {
 
-        this.hideClassEditForm();
+        this.showClassEditForm(false);
 
         // Store the selected class id
         this.activeClassID = classID;
@@ -1007,11 +1052,24 @@ export class Statistics {
         this.activeClassID = 0;
     }
 
+    closeEditForm() {
+        this.showClassEditForm(false);
+        this.refreshClassDataTable();
+    }
+
     showClassEditForm(show) {
+            console.log("DEV showing form ", show);
         this.classEditFormVisible = show;
-        document.getElementById('class-data-results').style.display = show == true ? "none" : "block";
-        document.getElementById('class-edit-form-section').style.display = show == true ? "block" : "none";
-        document.getElementById('class-edit-hide-form-button').style.display = show == true ? "block" : "none";
+
+        // if(1) {
+        //     document.getElementById('class-data-results').style.display = show == true ? "none" : "block";
+        // }
+        // if(1) {
+        //     document.getElementById('class-edit-form-section').style.display = show == true ? "block" : "none";
+        // }
+        // if(1) {
+        //     document.getElementById('class-edit-hide-form-button').style.display = show == true ? "block" : "none";
+        // }
     }
 
     addComment() {
@@ -1084,7 +1142,7 @@ export class Statistics {
                 this.activeClass.numOther = classData.other;
                 this.activeClass.selectedAcrlFrames = classData.acrlFrameworks;
                 this.activeClass.selectedClassType = classData.types[0];
-
+                    console.log("DEV set activeclass ", this.activeClass);
                 this.hideClassComments();
                 this.showClassEditForm(true);
             }
