@@ -80,4 +80,6 @@ Release Notes
 
 1.3.2	10-10-17	Add safety to property and user remove button
 
+1.3.3	10-11-17	Update librarian select window on search form to display all librarians, active and inactive
+
 
