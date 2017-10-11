@@ -115,15 +115,6 @@ export class Statistics {
             this.showClassEditButton = true;
         }
 
-        // if(this.config.session.data && this.config.session.data.librarianID !== "") {
-        //     this.activeLibrarian = this.config.session.data.librarianID;
-        //     this.selectedLibrarian = [this.activeLibrarian];
-        //     this.selectedSearchType = "Librarian Statistics";
-        // }
-        // if(this.config.session.data && this.config.session.data.role) {
-        //     this.showClassEditButton = this.config.session.data.role == '1' ? true : false;
-        // }
-
         // Class data
         this.activeClassID = 0;
 
@@ -803,19 +794,14 @@ export class Statistics {
         document.getElementById('chart-section').appendChild(canvasElt);
     }
 
-    // Retrieves the current list from the server and populates all select dropdowns
+    // Populates librarian select dropdown
     getDropdownData() {
 
         var data = {};
 
         // Select elements
         data["librarians"] = [];
-        data["locations"] = [];
-        data["departments"] = [];
-
-        // Ajax
-        this.utils.doAjax('get/data/entry/selectValues', 'get', null, null).then(responseObject => {
-            //this.utils.stopSpinner();
+        this.utils.doAjax('get/data/search/selectValues', 'get', null, null).then(responseObject => {
             // Populate the select boxes with the name and database id of each item
             var currentData = {};
             for(var key in responseObject) {
@@ -823,24 +809,6 @@ export class Statistics {
                     currentData = responseObject[key];
                     for(var dataItem in currentData) {
                         data["librarians"].push({
-                            name: currentData[dataItem],
-                            id: dataItem
-                        });
-                    }
-                }
-                else if(key == 'location') {
-                    currentData = responseObject[key];
-                    for(var dataItem in currentData) {
-                        data["locations"].push({
-                            name: currentData[dataItem],
-                            id: dataItem
-                        });
-                    }
-                }
-                else if(key == 'department') {
-                    currentData = responseObject[key];
-                    for(var dataItem in currentData) {
-                        data["departments"].push({
                             name: currentData[dataItem],
                             id: dataItem
                         });

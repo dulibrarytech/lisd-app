@@ -46,7 +46,6 @@ module.exports.getDataEntrySelectValues = function(req, res) {
 
 	// Callback for getList responseData, send data when all requests are complete
 	var sendResponse = function(responseData) {
-		
 		if(responseData.status == "ok") {
 			for(var key in responseData.data) {
 				responseObject[key] = responseData.data[key];
@@ -75,7 +74,6 @@ module.exports.getDataSearchSelectValues = function(req, res) {
 	var queryModules = [Librarian];
 
 	var sendResponse = function(responseData) {
-		
 		if(responseData.status == "ok") {
 			for(var key in responseData.data) {
 				responseObject[key] = responseData.data[key];
@@ -90,7 +88,7 @@ module.exports.getDataSearchSelectValues = function(req, res) {
 
 	// Request the data from all modules
 	for(var key in queryModules) {
-		queryModules[key].getList(sendResponse);
+		queryModules[key].getAll(sendResponse);
 	}
 }
 
