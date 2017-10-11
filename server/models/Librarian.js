@@ -56,6 +56,28 @@ module.exports = (function() {
 		}
 	};
 
+	var getAll = function(callback) {
+		var results = {
+			librarian: {}
+		};
+
+		try {
+			var cursor = collection.find({}, {"_id": 1, "firstname": 1, "lastname": 1}).sort({ lastname: 1 });
+	        cursor.each(function(err, item) {
+	        	if(item != null) {
+					var nameStr = item.lastname + ", " + item.firstname;
+	        		results.librarian[item._id] = nameStr;
+	        	}
+	        	else {
+	        		callback({status: "ok", message: "Ok", data: results});
+	        	}
+	        });
+		}
+		catch (e) {
+			callback({status: "error", message: "Error: " + e});
+		}
+	};
+
 	var findByUserID = function(userID, callback) {
 		var librarianID = "";
 		var query = {};
@@ -78,24 +100,6 @@ module.exports = (function() {
 		catch (e) {
 			console.log("Error: " + e);
 			callback(librarianID);
-		}
-	};
-
-	var getAllLibrarians = function(callback) {
-		try {
-			var cursor = collection.find({}, {"_id": 1, "name": 1});
-	        cursor.each(function(err, item) {
-	        	if(item != null) {
-	        		// results.librarian[item._id] = item.name;
-	        		console.log("Found librarian item: ", item);
-	        	}
-	        	else {
-	        		callback({status: "ok", message: "Ok", data: results});
-	        	}
-	        });
-		}
-		catch (e) {
-			callback({status: "error", message: "Error: " + e});
 		}
 	};
 
@@ -124,6 +128,9 @@ module.exports = (function() {
 	return {
 		addLibrarian: function(data, callback) {
 			addLibrarian(data, callback);
+		},
+		getAll: function(callback) {
+			getAll(callback);
 		},
 		setLibrarianInactive: function(userID, callback) {
 			setLibrarianInactive(userID, callback);

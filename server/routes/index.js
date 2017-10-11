@@ -47,7 +47,6 @@ module.exports = function (app, passport) {
 	    aggregatorController.getDataSearchClass(req,res);
 	});
 
-
 	// Class model
 	app.post('/class/add', function(req, res) { 
 	    classController.classAdd(req, res);
@@ -55,13 +54,13 @@ module.exports = function (app, passport) {
 
 	// User model
 	app.post('/user/login', function(req, res) { 
-	    
 	    userController.authenticateLogin(req, res);
 	});
 
 	app.post('/user/add/DUID', function(req, res) { 
 	    userController.userAddDUID(req, res);
 	});
+
 
 	// Protected routes
 	if(settings.runtime_env != 'development') {
