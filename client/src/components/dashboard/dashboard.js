@@ -4,26 +4,10 @@ import {Configuration} from '../../../config/configuration';
 import {SystemUtils} from '../../utils/SystemUtils.js';
 import {Router} from 'aurelia-router';
 
-@inject(SystemUtils, Configuration, Router)
-export class Users {
-
-	utils;
-	config;
-	router;
-
-	activeSession;
-	users = [];
-	properties = [];
-	userData={};
-	propData={};
-	propActive;
-	propOperation;
-	roles=[];
-	librarians;
-
-	handleBodyClick;
+export class Dashboard {
 
 	constructor(systemUtils, config, router) {
+
 	  	this.utils = systemUtils;
 	  	this.config = config;
 	  	this.router = router;
@@ -32,7 +16,10 @@ export class Users {
 	  	this.roles = ["Admin", "Librarian"];
 	  	this.propActive = ["No", "Yes"];
 	  	this.propOperation = "";
-
+	  	this.users = [];
+	  	this.properties = [];
+	  	this.userData = {};
+	  	this.propData = {};
 	  	this.confirmRemove = false;
 
 	  	if(this.config.session.token == null) {
@@ -335,3 +322,5 @@ export class Users {
 	    }
 	}
 }
+
+Dashboard.inject = [SystemUtils, Configuration, Router];

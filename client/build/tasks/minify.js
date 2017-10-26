@@ -1,70 +1,29 @@
+var gulp = require('gulp'),
+    uglify = require('gulp-uglify-es').default,
+    plumber = require('gulp-plumber'),
+    runSequence = require('run-sequence');
 
-var gulp = require('gulp');
-var minify = require('gulp-minify');
- 
-gulp.task('compress', function() {
-		console.log("Compress");
-	  gulp.src('dist/utils/*.js')
-	    .pipe(minify({
-	        ext:{
-	        	src:'-debug.js',
-	            min:'.js'
-	        },
-	        exclude: ['tasks'],
-	        ignoreFiles: []
-	    }))
-	    //.pipe(gulp.dest('dist/utils'))
-	    .pipe(gulp.dest('src/utils'))
+gulp.task('default', function () {
+    return 0;
+});
 
-	   //  // Compress dashboard
-	   //  gulp.src([
-	  		
-	  	// ])
-	   //  .pipe(minify({
-	   //      ext:{
-	   //          min:'.min.js'
-	   //      },
-	   //      exclude: ['tasks'],
-	   //      ignoreFiles: []
-	   //  }))
-	   //  .pipe(gulp.dest(''))
+gulp.task('minify', function(callback) {
+  return runSequence(
+    'minify-utils',
+    ['minify-dashboard'],
+    callback
+  );
+});
 
-	   //  // Compress entryform
-	   //  gulp.src([
-	  		
-	  	// ])
-	   //  .pipe(minify({
-	   //      ext:{
-	   //          min:'.min.js'
-	   //      },
-	   //      exclude: ['tasks'],
-	   //      ignoreFiles: []
-	   //  }))
-	   //  .pipe(gulp.dest(''))
+gulp.task('minify-utils', function () {
+    return gulp.src('./src/utils/*.js')
+        .pipe(uglify())
+        .pipe(gulp.dest('./dist/src/utils/'));
+});
 
-	   //  // Compress login
-	   //  gulp.src([
-	  		
-	  	// ])
-	   //  .pipe(minify({
-	   //      ext:{
-	   //          min:'.min.js'
-	   //      },
-	   //      exclude: ['tasks'],
-	   //      ignoreFiles: []
-	   //  }))
-	   //  .pipe(gulp.dest(''))
-
-	   //  // Compress statistics
-	   //  gulp.src([
-	  		
-	  	// ])
-	   //  .pipe(minify({
-	   //      ext:{
-	   //          min:'.min.js'
-	   //      },
-	   //      exclude: ['tasks'],
-	   //      ignoreFiles: []
-	   //  }))
-	   //  .pipe(gulp.dest(''))
+gulp.task("minify-dashboard", function () {
+    return gulp.src("./src/components/dashboard/*.js")
+        .pipe(uglify(/* options */))
+        // .pipe(rename("bundle.min.js"))
+        .pipe(gulp.dest("./dist/src/components/dashboard/"));
 });

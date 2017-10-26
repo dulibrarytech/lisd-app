@@ -3,19 +3,12 @@
 import {inject} from 'aurelia-framework';
 import {HttpClient, json} from 'aurelia-fetch-client';
 import {Configuration} from '../../../config/configuration';
-//let httpClient = new HttpClient();
 
-
-
-@inject(HttpClient, Configuration)
 export class SystemUtils {
 
-	http;
-	spinner;
-
 	constructor(httpClient, config) {
-
 		this.http = httpClient;
+		
     	this.config = config;
 
 		if(typeof httpClient != 'undefined') {
@@ -89,11 +82,6 @@ export class SystemUtils {
 	}
 
 	sendMessage(message) {
-		// ID message spans
-		// document.getElementById('message').innerHTML = message;
-		// setTimeout(function() { 
-		// 	document.getElementById('message').innerHTML = "";
-		// }, 4500);
 
 		// Class message spans
 		var elts = document.getElementsByClassName('message');
@@ -111,9 +99,8 @@ export class SystemUtils {
         this.config.session.data = {};
         this.config.session.token = "";
         //this.router.reload();
-        document.location.reload()
+        document.location.reload();
     }
 }
 
-
-
+SystemUtils.inject = [HttpClient, Configuration];
