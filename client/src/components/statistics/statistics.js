@@ -9,68 +9,7 @@ import {Configuration} from '../../../config/configuration';
 
 import $ from 'jquery'; // for datepicker
 
-@inject(SystemUtils, ChartUtils, MonthStringValueConverter, QuarterStringValueConverter, Configuration)
 export class Statistics {
-
-    config;
-    ajax;
-    utils;
-
-    librarianList = [];
-    librarianCount = 1;
-    selectedLibrarian = "";
-    librarianName = "";
-    classCountLabel = "";
-
-    fromYear = "";
-    toYear = "";
-    fromYears = [];
-    toYears = [];
-
-    activeSession;
-    userName;
-    activeLibrarian;
-
-    selectedSearchTimeframe = "Fiscal";
-    searchTimeframe = ["Fiscal", "Academic", "Quarter"];
-
-    selectedSearchType = "All Statistics";
-    searchType = ["All Statistics", "Librarian Statistics", 'Class Data'];
-
-    selectedStatisticsType = "Class";
-    statisticsType = ["Class", "Student"];
-
-    selectedListResultsBy = "Month";
-    listResultsBy = ["Month", "Quarter", "Total"];
-
-    selectedDisplayStatistics = "All";
-    displayStatistics = ["All", "Department", "Location", "Type", "ACRL Framework"];
-
-    selectedQuarter = "Fall";
-    quarters = ["Fall", "Winter", "Spring", "Summer"];
-
-    displayFormat = "Chart";
-    displayFormats = ["Chart", "Table"];
-
-    studentTypes = ["Undergraduate", "Graduate", "Faculty", "Other"];
-
-    resultData = [];
-    activeClassID;
-    activeClass = {};   // Data for class entry (edit) form
-    subsortValues = [];
-    selectedSubsortValue;
-
-    showClassComments;
-    comment = {};
-    classEditFormVisible;
-    showClassEditButton;
-
-    currentTable;
-    currentChart;
-    displayResults;
-    displayYear;
-    displayMonth;
-    displayQuarter;
 
     constructor(systemUtils, chartUtils, monthConverter, quarterConverter, configuration) {
 
@@ -82,11 +21,41 @@ export class Statistics {
         this.monthStringValueConverter = monthConverter;
         this.quarterStringValueConverter = quarterConverter;
 
+        this.librarianList = [];
+        this.librarianCount = 1;
+        this.selectedLibrarian = "";
+        this.librarianName = "";
+        this.classCountLabel = "";
+
+        this.selectedSearchTimeframe = "Fiscal";
+        this.searchTimeframe = ["Fiscal", "Academic", "Quarter"];
+        this.selectedSearchType = "All Statistics";
+        this.searchType = ["All Statistics", "Librarian Statistics", 'Class Data'];
+        this.selectedStatisticsType = "Class";
+        this.statisticsType = ["Class", "Student"];
+        this.selectedListResultsBy = "Month";
+        this.listResultsBy = ["Month", "Quarter", "Total"];
+        this.selectedDisplayStatistics = "All";
+        this.displayStatistics = ["All", "Department", "Location", "Type", "ACRL Framework"];
+        this.selectedQuarter = "Fall";
+        this.quarters = ["Fall", "Winter", "Spring", "Summer"];
+        this.displayFormat = "Chart";
+        this.displayFormats = ["Chart", "Table"];
+        this.studentTypes = ["Undergraduate", "Graduate", "Faculty", "Other"];
+
+        this.resultData = [];
+        this.activeClass = {};   // Data for class entry (edit) form
+        this.subsortValues = [];
+
+        this.comment = {};
+
         // Get the librarians from the database, populate the librarian select box
         var dropdownData = this.getDropdownData();
         this.librarianList = dropdownData.librarians;
 
         // Get the year select lists
+        this.fromYears = [];
+        this.toYears = [];
         this.fromYears = this.getYearList(1990);
         this.toYears = this.getYearList(1990);
 
@@ -1107,3 +1076,5 @@ export class Statistics {
         });
     };
 }
+
+Statistics.inject = [SystemUtils, ChartUtils, MonthStringValueConverter, QuarterStringValueConverter, Configuration];

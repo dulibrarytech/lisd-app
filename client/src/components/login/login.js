@@ -4,21 +4,14 @@ import {Configuration} from '../../../config/configuration';
 import {SystemUtils} from '../../utils/SystemUtils.js';
 import {Router} from 'aurelia-router';
 
-@inject(SystemUtils, Configuration, Router)
 export class Users {
-
-  heading = '';
-  config;
-  userName;
-  passWord;
-  lastName;
-  DUID;
-
 
   constructor(systemUtils, config, router) {
       this.utils = systemUtils;
       this.config = config;
       this.router = router;
+
+      this.heading = "";
 
       if(this.config.session.token == null) {
           document.getElementById('menulink-104').style.display = "none";
@@ -118,3 +111,4 @@ export class Users {
   }
 }
 
+Users.inject = [SystemUtils, Configuration, Router];

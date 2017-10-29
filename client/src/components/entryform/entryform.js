@@ -6,40 +6,22 @@ import {Configuration} from '../../../config/configuration';
 import {Router} from 'aurelia-router';
 import $ from 'jquery'; // for datepicker
 
-@inject(SystemUtils, Configuration, Router)
 export class EntryForm {
-
-    ajax;
-    config;
-
-    // Form control variables
-    librarianCount = 1;
-    selectedLibrarians = [];
-    activeLibrarian = "";
-    locationCount = 1;
-    selectedLocations = [];
-    departmentCount = 1;
-    selectedDepartments = [];
-
-    selectedClassType = 'Undergraduate';
-    selectedAcrlFrames = [];
-
-    activeSession;
-    activeClassID;
-    courseAdd;
-
-    librarianPlaceholder;
-    locationPlaceholder;
-    departmentPlaceholder;
-
-    quarters;
-    classTypes;
-    acrlFrames;
 
     constructor(systemUtils, configuration, router) {
         this.utils = systemUtils;
         this.config = configuration;
         this.router = router;
+
+        this.librarianCount = 1;
+        this.selectedLibrarians = [];
+        this.activeLibrarian = "";
+        this.locationCount = 1;
+        this.selectedLocations = [];
+        this.departmentCount = 1;
+        this.selectedDepartments = [];
+        this.selectedClassType = "Undergraduate";
+        this.selectedAcrlFrames = [];
 
         this.librarianList = [];
         this.locationList = [];
@@ -413,3 +395,4 @@ export class EntryForm {
     }
 }
  
+EntryForm.inject = [SystemUtils, Configuration, Router];
