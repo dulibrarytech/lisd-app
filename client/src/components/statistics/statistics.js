@@ -60,6 +60,7 @@ export class Statistics {
         this.toYears = this.getYearList(1990);
 
         this.activeSession = false;
+        this.activeLibrarian = "";
         this.classEditFormVisible = false;
 
         // Set session data if a session is present
@@ -69,19 +70,10 @@ export class Statistics {
 
             // Set active librarian
             if(this.config.session.data.librarianID !== "") {
-                this.activeLibrarian = this.config.session.data.librarianID;
+                this.activeLibrarian = this.config.session.data.librarianID || "";
                 this.selectedLibrarian = [this.activeLibrarian];
                 this.selectedSearchType = "Librarian Statistics";
-            }
-
-            // Enable editing of all classes if admin.  If librarian user, only librarian's courses can be edited
-            if(this.config.session.data.role) {
-                this.showClassEditButton = this.config.session.data.role == '1' ? true : false;
-            }
-        }
-
-        if(this.config.environment == "development") {
-            this.showClassEditButton = true;
+            }            
         }
 
         // Class data
@@ -117,6 +109,10 @@ export class Statistics {
         this.hideClassComments();
         //this.hideClassEditForm();
         this.showClassEditForm(false);
+    }
+
+    isAdmin() {
+        return (this.config.session.data && this.config.session.data.role === 1);
     }
 
     resetActiveClass() {
@@ -872,7 +868,6 @@ export class Statistics {
         //  Test for undefined
         data['token'] = this.config.session.token;
 
-
         this.displayResults = false;
 
         var selIndex = document.getElementById('librarian-select-input').selectedIndex;
@@ -883,6 +878,16 @@ export class Statistics {
             // class route
             this.utils.doAjax('get/data/search/class', 'get', data, null).then(data => {
 
+                // Edit button visibility logic
+                // Show edit class button logic: Show if librarian logged in is same as librarian in the class search.  Do not hide the button if admin is logged in
+                // if(data.librarian == this.activeLibrarian || this.isAdmin()) {
+                //     this.showClassEditButton = true;
+                // }
+                // else {
+                //     this.showClassEditButton = false;
+                // }
+                this.showClassEditButton = (data.librarian == this.activeLibrarian || this.isAdmin()) ? true : false;
+
                 // Remove the timestamp
                 for(var index in data.data) {
                    data.data[index].courseInfo.date = data.data[index].courseInfo.date.substring(0,10);
@@ -890,6 +895,11 @@ export class Statistics {
 
                 this.resultData = data.data;
                 if(this.resultData) {
+
+                        console.log("session data:", this.config.session);
+                        console.log("result data:", this.resultData);
+                        console.log("active lib", this.activeLibrarian);
+
 
                     // Convert librarian id's to name, for display
                     for(var course of this.resultData) {
