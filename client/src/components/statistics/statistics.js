@@ -777,10 +777,14 @@ export class Statistics {
                 if(key == 'librarian') {
                     currentData = responseObject[key];
                     for(var dataItem in currentData) {
-                        data["librarians"].push({
-                            name: currentData[dataItem],
-                            id: dataItem
-                        });
+
+                        // Add librarian to list, omit myself (author)
+                        if(dataItem != "5919cebb1ca4786fe844ee13") {
+                            data["librarians"].push({
+                                name: currentData[dataItem],
+                                id: dataItem
+                            });
+                        }
                     }
                 }
             }
