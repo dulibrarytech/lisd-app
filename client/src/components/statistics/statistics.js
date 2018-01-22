@@ -863,7 +863,9 @@ export class Statistics {
 
     submitForms() {
 
-        var data = this.getFormData();
+        var data = this.getFormData(),
+            reqLibrarian = data.librarian;
+            console.log("TEST form data:", data);
 
         //  Test for undefined
         data['token'] = this.config.session.token;
@@ -878,15 +880,8 @@ export class Statistics {
             // class route
             this.utils.doAjax('get/data/search/class', 'get', data, null).then(data => {
 
-                // Edit button visibility logic
-                // Show edit class button logic: Show if librarian logged in is same as librarian in the class search.  Do not hide the button if admin is logged in
-                // if(data.librarian == this.activeLibrarian || this.isAdmin()) {
-                //     this.showClassEditButton = true;
-                // }
-                // else {
-                //     this.showClassEditButton = false;
-                // }
-                this.showClassEditButton = (data.librarian == this.activeLibrarian || this.isAdmin()) ? true : false;
+                // Class edit button visibility logic: Show if admin logged in, or if active librarian == librarian specified in class data search
+                this.showClassEditButton = (reqLibrarian == this.activeLibrarian || this.isAdmin()) ? true : false;
 
                 // Remove the timestamp
                 for(var index in data.data) {
@@ -895,11 +890,6 @@ export class Statistics {
 
                 this.resultData = data.data;
                 if(this.resultData) {
-
-                        console.log("session data:", this.config.session);
-                        console.log("result data:", this.resultData);
-                        console.log("active lib", this.activeLibrarian);
-
 
                     // Convert librarian id's to name, for display
                     for(var course of this.resultData) {
