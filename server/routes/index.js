@@ -97,6 +97,10 @@ module.exports = function (app, passport) {
 	    classController.classUpdate(req, res);
 	});
 
+	app.delete('/class/delete', function(req, res) { 
+	    classController.classDelete(req, res);
+	});
+
 	app.get('/class/get/comments', function(req, res) { 
 	    classController.classGetComments(req, res);
 	});

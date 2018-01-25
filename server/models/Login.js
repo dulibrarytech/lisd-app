@@ -12,7 +12,7 @@ exports.createToken = function(userData) {
 exports.validateLdapBind = function(username, password) {
 
 	return new Promise(function(fulfill, reject) {
-
+		console.log("TEST env:", settings.runtime_env);
 		if(settings.runtime_env == "development") {
 			console.log("Dev mode skips LDAP: ", new Date());
 			fulfill(true);
