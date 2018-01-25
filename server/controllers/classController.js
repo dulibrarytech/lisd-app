@@ -82,6 +82,12 @@ module.exports.classUpdate = function(req, res) {
 	});
 };
 
+module.exports.classDelete = function(req, res) {
+	Class.removeData(req.body.classID, function(response) {
+		res.send(response);
+	});
+};
+
 module.exports.classGetComments = function(req, res) {
 	Class.getClassComments(req.query.classID, function(response) {
 		res.send(response);

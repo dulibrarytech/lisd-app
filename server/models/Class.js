@@ -210,3 +210,22 @@ exports.updateData = function(classID, classData, callback) {
 	};
 };
 
+exports.removeData = function(classID, callback) {
+
+	try {
+		collection.deleteOne({"_id": ObjectId(classID)}, function(err, results) {
+		    if(err) {
+		    	console.log("Error: " + err);
+		    	callback({status: "error", message: "Error: " + e});
+		    }
+		    else {
+		    	console.log("Class " + classID + " removed");
+		    	callback({status: "ok", message: "Ok", data: results});
+		    }
+		});
+	} catch(e) {
+		console.log("Error: " + e);
+		callback({status: "error", message: "Error: " + e});
+	}
+};
+

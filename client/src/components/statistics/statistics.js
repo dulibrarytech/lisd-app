@@ -1076,6 +1076,20 @@ export class Statistics {
             }
         });
     };
+
+    deleteClassData(classID) {
+        // Get all comments for this class
+        this.utils.doAjax('class/delete', 'delete', {classID: classID}, null).then(data => {
+            if(data.status == "ok") {
+                console.log("Class deleted.");
+                this.resetActiveClass();
+                this.refreshClassDataTable();
+            }
+            else {
+                console.log("Error: Could not delete class. ", data.message);
+            }
+        });
+    };   
 }
 
 Statistics.inject = [SystemUtils, ChartUtils, MonthStringValueConverter, QuarterStringValueConverter, Configuration];

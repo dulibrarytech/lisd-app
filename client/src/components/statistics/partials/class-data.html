@@ -35,6 +35,7 @@
 				<!-- <td style="white-space: pre">${index.acrlFrame}</td> -->
 				<td><button class="list-btn" click.delegate="viewClassComments(index._id)">View Comments</button></td>
 				<td if.bind="showClassEditButton"><button class="list-btn" click.delegate="editClassData(index._id)">Edit</button></td>
+				<td if.bind="showClassEditButton"><button class="list-btn" click.delegate="deleteClassData(index._id)">Delete</button></td>
 
 				<!-- <td if.bind="1"><button class="list-btn" click.delegate="editClassData(index._id)">Edit</button></td> -->	<!-- DEV -->
 
