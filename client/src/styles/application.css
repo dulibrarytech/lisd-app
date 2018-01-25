@@ -92,6 +92,10 @@ div.ir-container {
 	font-size: 1em !important;
 }
 
+select.form-control {
+    -moz-appearance: none;
+}
+
 div#entry-form {
 	/*width: 73%;*/
     margin: 3em auto;
