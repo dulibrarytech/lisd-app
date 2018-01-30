@@ -207,12 +207,13 @@ module.exports = (function() {
 		}
 
 		try {
-			var cursor = classCollection.find(queryObj);  // fromDate inclusive
+			var cursor = classCollection.find(queryObj).sort({"courseInfo.date": 1});  // fromDate inclusive
 	        cursor.each(function(err, item) {
 	        	if(item != null) {
 	        		results.push(item);
 	        	}
 	        	else {
+	        		console.log("MODTEST classes fouond by user class search:", results);
 	        		if(results.length == 0) {message = "No results found";} else {message = "Returning class data";}
 	        		callback({status: "ok", message: message, data: results});
 	        	}
