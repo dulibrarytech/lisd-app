@@ -98,7 +98,7 @@ export class EntryForm {
     }
 
     activate(data) {
-            console.log("data in", data);
+
        // Class data coming in for edit: store in local fields to populate form
        if(typeof data.className != 'undefined') {
                 
@@ -181,9 +181,17 @@ export class EntryForm {
         this.locationCount = 1;
         this.departmentCount = 1;
 
-        this.selectedLibrarians = [];
+        //this.selectedLibrarians = [];
+        if(this.activeLibrarian && this.activeLibrarian != "") {
+            this.selectedLibrarians = [this.activeLibrarian];
+        }
+        else {
+            this.selectedLibrarians = [];
+        }
         this.selectedLocations = [];
         this.selectedDepartments = [];
+
+        this.commentText = "";
     }
 
     // Add additional select input
