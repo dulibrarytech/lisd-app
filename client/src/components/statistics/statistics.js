@@ -1078,18 +1078,27 @@ export class Statistics {
     };
 
     deleteClassDataConfirm(classID) {
-        document.getElementById("delete-class-button").style.display = "none";
-        document.getElementById("delete-class-button-confirm").style.display = "block";
+
+        var deleteBtnID = "delete-class-button-" + classID,
+            confirmBtnID = "delete-class-button-confirm-" + classID;
+
+        document.getElementById(deleteBtnID).style.display = "none";
+        document.getElementById(confirmBtnID).style.display = "block";
 
         setTimeout(function() { 
-          document.getElementById("delete-class-button").style.display = "block";
-          document.getElementById("delete-class-button-confirm").style.display = "none";
+          document.getElementById(deleteBtnID).style.display = "block";
+          document.getElementById(confirmBtnID).style.display = "none";
         }, 3000);
     }
 
     deleteClassData(classID) {
-        document.getElementById("delete-class-button").style.display = "block";
-        document.getElementById("delete-class-button-confirm").style.display = "none";
+
+        var deleteBtnID = "delete-class-button-" + classID,
+            confirmBtnID = "delete-class-button-confirm-" + classID;
+
+        document.getElementById(deleteBtnID).style.display = "block";
+        document.getElementById(confirmBtnID).style.display = "none";
+
         // Get all comments for this class
         this.utils.doAjax('class/delete', 'delete', {classID: classID}, null).then(data => {
             if(data.status == "ok") {
