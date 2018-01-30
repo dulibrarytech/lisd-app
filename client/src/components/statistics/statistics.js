@@ -1086,8 +1086,13 @@ export class Statistics {
         document.getElementById(confirmBtnID).style.display = "block";
 
         setTimeout(function() { 
-          document.getElementById(deleteBtnID).style.display = "block";
-          document.getElementById(confirmBtnID).style.display = "none";
+            if(document.getElementById(deleteBtnID)) {
+                document.getElementById(deleteBtnID).style.display = "block";
+            }
+            if(document.getElementById(confirmBtnID)) {
+                document.getElementById(confirmBtnID).style.display = "none";
+            }
+          
         }, 3000);
     }
 
