@@ -1,5 +1,5 @@
 {
-  "name": "aurelia-starter-node",
+  "name": "Library Instructional Statistics Database",
   "version": "1.0.0",
   "description": "Library Instructional Statistics Database Client",
   "main": "app.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://jrynhart@bitbucket.org/jrynhart/lisd-app.git"
   },
   "author": "Jeff Rynhart",
-  "license": "University of Denver",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Vheissu/aurelia-starter-node/issues"
+    "url": ""
   },
-  "homepage": "https://github.com/Vheissu/aurelia-starter-node#readme",
+  "homepage": "",
   "devDependencies": {
     "aurelia-bundler": "^0.3.0",
     "aurelia-tools": "^0.1.18",

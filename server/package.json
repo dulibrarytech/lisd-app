@@ -1,14 +1,14 @@
 {
-  "name": "lisd",
-  "version": "1.0.0",
-  "description": "[description]",
+  "name": "Library Instructional Statistics Database",
+  "version": "see releases.txt",
+  "description": "Aggragated searching of course data",
   "main": "server.js",
   "scripts": {
     "test": "gulp test",
     "start": "node server.js"
   },
   "author": "Jeff Rynhart <jeff.rynhart@du.edu>",
-  "license": "University of Denver",
+  "license": "MIT",
   "dependencies": {
     "bcrypt-nodejs": "latest",
     "body-parser": "^1.17.1",
