@@ -28,7 +28,7 @@ module.exports = function (app, passport) {
 
 	// Data: AGG functions
 	app.get('/get/data/all', function(req, res) {			// TODO remove /get from route
-		saggregatorController.getDataAll(req, res);
+		aggregatorController.getDataAll(req, res);
 	});
 
 	app.get('/get/data/entry/selectValues', function(req, res) {

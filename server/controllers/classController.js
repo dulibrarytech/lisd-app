@@ -7,6 +7,11 @@ var bodyParser = require('body-parser');
 
 module.exports.classAdd = function(req, res) {
 
+	if(!req.body.data || !req.body.data.className) {
+		res.sendStatus(403);
+		return 0;
+	}
+
 	// TODO: Validate in middleware. If invalid, either place null or return 400 to client
 	var data = {
 
@@ -73,9 +78,6 @@ module.exports.classUpdate = function(req, res) {
 	    acrlFrame: req.body.data['acrlFrame'],
 	    comments: []
 	}
-
-	console.log("Classadd test: data rx by server:", data);
-	console.log("Classadd test: classID:", req.body.classID);
 
 	Class.updateData(req.body.classID, data, function(response) {
 		res.send(response);
