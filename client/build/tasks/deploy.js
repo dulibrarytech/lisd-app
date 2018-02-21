@@ -9,8 +9,8 @@ gulp.task('default', function () {
 
 gulp.task('deploy-all', function(callback) {
   return runSequence(
-    'minify-utils',
-    ['minify-dashboard', 'minify-entryform', 'minify-login', 'minify-statistics'],
+    'deploy-utils',
+    ['deploy-dashboard', 'deploy-entryform', 'deploy-login', 'deploy-statistics'],
     callback
   );
 });
