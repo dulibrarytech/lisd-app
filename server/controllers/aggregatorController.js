@@ -9,6 +9,11 @@ var Department = require("../models/Department");
 
 module.exports.getDataAll = function(req,res) {
 
+	if(!req.query.fromYear || !req.query.toYear) {
+		res.sendStatus(403);
+		return 0;
+	}
+
 	var fromYear, toYear;
 	var d = new Date();
 	if(typeof req.query.fromYear == 'undefined') {
@@ -135,6 +140,11 @@ var getDates = function(fromYear, toYear, timeframe, quarter) {
 }
 
 module.exports.getDataSearchAllStatistics = function(req, res) {
+
+	if(!req.query.fromYear || !req.query.toYear || !req.query.statsDisplay || !req.query.searchTimeframe || !req.query.statsType) {
+		res.sendStatus(403);
+		return 0;
+	}
 	
 	// Required params
 	var fromYear 	= req.query.fromYear;
@@ -174,6 +184,12 @@ module.exports.getDataSearchAllStatistics = function(req, res) {
 }
 
 module.exports.getDataSearchClass = function(req, res) {
+
+	if(!req.query.fromYear || !req.query.toYear || !req.query.searchTimeframe) {
+		res.sendStatus(403);
+		return 0;
+	}
+
 	var fromYear 	= req.query.fromYear;
 	var toYear 		= req.query.toYear;
 	var timeframe	= req.query.searchTimeframe;

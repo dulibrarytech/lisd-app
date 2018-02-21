@@ -7,6 +7,11 @@ var librarianModel = require("../models/Librarian");
 
 module.exports.authenticateLogin = function(req, res) {
 
+    if(!req.body.username || !req.body.password) {
+        res.sendStatus(403);
+        return 0;
+    }
+
     if(settings.runtime_env == "development" && req.body.username == "dev") {
 
         var devSession = {
@@ -97,6 +102,12 @@ module.exports.userAll = function(req, res) {
 };
 
 module.exports.userAddDUID = function(req, res) {
+
+    if(!req.body.DUID || !req.body.lastName) {
+        res.sendStatus(403);
+        return 0;
+    }
+
     userModel.insertDuid(req.body.DUID, req.body.lastName).then(response => {
 
         if(response === false) {
@@ -228,7 +239,7 @@ module.exports.userUpdate = function(req, res) {
 
 module.exports.userRemove = function(req, res) {
     var userID = req.body.userID;
-        console.log("Remuser id:", userID);
+
     userModel.removeUserData(userID).then(response => {
         librarianModel.setLibrarianInactive(userID, function(response) {
             res.status(200);
