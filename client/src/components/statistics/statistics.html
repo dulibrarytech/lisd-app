@@ -59,34 +59,21 @@
             </div>
 
             <div class="container-fluid">
-                <!-- <h2 class="view-header">Statistics</h2> -->
-
-                <!-- <modal showing.bind="true"><h1>MODAL</h1></modal> -->
-                
                 <div class="row">
                     <div class="col-lg-12">
 
                         <div id="post-search-options">
                             <button type="button" id="new-search" class="btn btn-default" click.delegate="newSearch()">New Search</button>
+                            <button type="button" id="export-data" class="btn btn-default au-target" click.delegate="exportData()" au-target-id="87">Save to PDF</button>
                             <span style="margin-left: 8em" id="disp-select">
                             <label class="radio-select" repeat.for="format of displayFormats">
                                 <input type="radio" value.bind="format" name="displayFormat" checked.bind="$parent.displayFormat" change.delegate="onChangeDisplayFormat()">${format}
                             </label>
                             </span>
                         </div>
-<!-- 
-                        <div>
-                        <span>${selectedLibrarian}</span>
-                        </div> -->
                         
                         <form id="statistics-search" role="form">
                             <div class="search-input-group">
-                                <!-- <label>Search Time Period:</label>
-                                <div class="form-section">
-                                    <label class="radio-select" repeat.for="option of searchTimeframe">
-                                        <input type="radio" class="" value.bind="option" name="searchTimeframe" checked.bind="$parent.selectedSearchTimeframe" change.delegate="onChangeQuarterTimePeriod()">${option}
-                                    </label>
-                                </div> -->
                                 <div id="year-date-select">
                                     <label>Select Date Range:</label><br />
                                     <div class="form-section" style="display: inline-flex">

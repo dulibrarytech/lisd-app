@@ -73,6 +73,22 @@ export class SystemUtils {
         });
 	}
 
+	fetchDatastream(url, data) {
+		var qString = "?";
+        for(var field in data) {
+            qString += field + "=" + data[field] + "&";
+        }
+        url += qString.slice(0, -1);
+
+		// Add headers
+        this.http.defaults.headers['x-access-token'] = this.config.session.token;
+
+        // Run the request
+        return this.http.fetch(url, {method:"get"}).then(function(stream) {
+        	return stream;
+        });
+	}
+
 	startSpinner() {
 		this.spinner.spin();
 	}

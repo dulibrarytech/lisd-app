@@ -6,6 +6,8 @@ module.exports = (function() {
 	// database.connect();
 
 	var database = require('../util/database.js');
+	var fs = require('file-system');
+	var pdf = require('html-pdf');
 	var classCollection, departmentCollection;
 
 	database.connect(function(db) {
@@ -683,6 +685,24 @@ module.exports = (function() {
 		return classesByQuarter;
 	};
 
+	var streamPdfData = function(htmlData, callback) {
+		pdf.create(htmlData).toStream(function(err, stream){
+			if(err) {
+				console.log("TEST ERROR:", err);
+				callback(err);
+			}
+			else {
+				//callback(stream.pipe("./test.pdf"));
+				callback(stream);
+			}
+		});
+		
+		// pdf.create(htmlData).toFile("./temp.pdf",function(err, res){
+		//   //console.log(res.filename);
+		//   callback(res.filename);
+		// });
+	}
+
 	return {
 		getAllData: function(queryData,callback) {
 			getAllData(queryData,callback);
@@ -695,6 +715,9 @@ module.exports = (function() {
 		},
 		getClassData: function(queryData, callback) {
 			getClassData(queryData, callback);
+		},
+		streamPdfData: function(htmlData, callback) {
+			streamPdfData(htmlData, callback);
 		}
 	};
 })()

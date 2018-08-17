@@ -1075,7 +1075,7 @@ export class Statistics {
                 console.log("Error: Could not get class data. ", data.message);
             }
         });
-    };
+    }
 
     deleteClassDataConfirm(classID) {
 
@@ -1115,7 +1115,40 @@ export class Statistics {
                 console.log("Error: Could not delete class. ", data.message);
             }
         });
-    };   
+    }; 
+
+    exportData() {
+
+        var html = document.getElementById("daterange").innerHTML;
+            html += document.getElementById("stats-type-label").innerHTML;
+
+        // var data = "http://localhost:9004/get/pdf?content=" + html;
+        //     window.open(data);
+
+
+            
+            console.log("TEST exportData vmc:", html);
+
+
+       //  var frame = document.createElement("IFRAME");
+       // frame.setAttribute("src", )
+       // frame.src = data.body;
+       // console.log("TEST frame:", frame);
+       //document.getElementById("page-content-wrapper").appendChild(frame);
+
+        // Get all comments for this class
+        // this.utils.fetchDatastream('get/pdf', {content: html}).then(function(data) {
+        //     console.log("Rx file", data);
+            
+        //    var frame = document.createElement("IFRAME");
+        //    frame.setAttribute("src", )
+        //    frame.src = data.body;
+        //    console.log("TEST frame:", frame);
+        //    document.getElementById("page-content-wrapper").appendChild(frame);
+
+
+        // });
+    }  
 }
 
 Statistics.inject = [SystemUtils, ChartUtils, MonthStringValueConverter, QuarterStringValueConverter, Configuration];

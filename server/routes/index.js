@@ -23,6 +23,10 @@ module.exports = function (app, passport) {
 	    res.render('index.html');
 	});
 
+	app.get('/get/pdf', function(req, res) {
+	    aggregatorController.getPdf(req, res);
+	});
+
 	app.use(checkHeader);
 	//app.use(checkToken);
 
@@ -46,6 +50,10 @@ module.exports = function (app, passport) {
 	app.get('/get/data/search/class', function(req, res) {
 	    aggregatorController.getDataSearchClass(req,res);
 	});
+
+	// app.get('/get/pdf', function(req, res) {
+	//     aggregatorController.getPdf(req, res);
+	// });
 
 	// Class model
 	app.post('/class/add', function(req, res) { 
