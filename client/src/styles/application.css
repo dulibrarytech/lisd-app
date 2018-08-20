@@ -40,6 +40,10 @@ header#du-header {
 	background-color: #d8d8d8;
 }
 
+button#export-data {
+	margin-left: 15px;
+}
+
 div#du-red-header-inner {
 	background-color: #8b2332;
 	height: 50px;

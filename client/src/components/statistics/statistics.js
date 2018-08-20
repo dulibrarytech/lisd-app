@@ -1119,35 +1119,56 @@ export class Statistics {
 
     exportData() {
 
-        var html = document.getElementById("daterange").innerHTML;
-            html += document.getElementById("stats-type-label").innerHTML;
+        var content = ""; 
+        content += document.getElementById("daterange").textContent;
+        content += " ";
+        content += document.getElementById("stats-type-label").textContent;
 
+        // Use the daterange and stats type text as filename.  (including spaces)
+        var filename = content;
+
+        // Simple window open DO NOT ERASE
         // var data = "http://localhost:9004/get/pdf?content=" + html;
         //     window.open(data);
 
+        // Create local pdf
+        var pdf = new jsPDF("p", "mm", "a4");
+        pdf.text(content, 10, 15);
 
-            
-            console.log("TEST exportData vmc:", html);
+        // Convert html to pdf
+        if(this.displayFormat == "Table") {
+            var table = "";
+            switch(this.selectedListResultsBy) {
+                case "Month":
+                    table = "month-results";
+                    break;
+                case "Quarter":
+                    table = "quarter-results";
+                    break;
+                default:
+                    table = "year-results";
+                    break;
+            }
 
+            html2canvas(document.getElementById(table)).then(function(canvas) {
+                var imgData = canvas.toDataURL();
+                //pdf.setFillColor(256,256,256);
+                pdf.addImage(imgData, 'JPEG', 10, 35, 265, 110);
+                pdf.save(filename);
+            }).catch(function(error) {
+                console.log(error);
+            });
 
-       //  var frame = document.createElement("IFRAME");
-       // frame.setAttribute("src", )
-       // frame.src = data.body;
-       // console.log("TEST frame:", frame);
-       //document.getElementById("page-content-wrapper").appendChild(frame);
+        }
+       // pdf.text(content, 10, 15);
 
-        // Get all comments for this class
-        // this.utils.fetchDatastream('get/pdf', {content: html}).then(function(data) {
-        //     console.log("Rx file", data);
-            
-        //    var frame = document.createElement("IFRAME");
-        //    frame.setAttribute("src", )
-        //    frame.src = data.body;
-        //    console.log("TEST frame:", frame);
-        //    document.getElementById("page-content-wrapper").appendChild(frame);
-
-
-        // });
+        else if(this.displayFormat == "Chart") {
+            var chart = document.getElementById('results-chart');
+            var imgData = chart.toDataURL();
+            pdf.setFillColor(256,256,256);
+            pdf.addImage(imgData, 'JPEG', 10, 35, 170, 110);
+            pdf.save(filename);
+        }
     }  
 }
 
