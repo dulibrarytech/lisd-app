@@ -33,4 +33,6 @@ By default the server ships with Express and is set to serve your Aurelia applic
 1. from client/, run "gulp minify-all"
 2. Copy all files from dist/src to the corresponding locations in src/
 
+# Start
+Dev machine (current) node lisd-server.js
 

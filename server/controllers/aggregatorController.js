@@ -213,13 +213,13 @@ module.exports.getDataSearchClass = function(req, res) {
 	});
 }
 
-module.exports.getPdf = function(req, res) {
-		console.log("TEST pdf C pre S: content rx:", req.query.content);
-	Aggregator.streamPdfData(req.query.content, function(stream) {
-		console.log("TEST have stream:", stream);
-		stream.pipe(res);
-		//res.send(stream);
-		//res.send({status: "ok", data: {test:"test"}});
-		//res.download(stream);
-	});
-}
+// module.exports.getPdf = function(req, res) {
+// 		console.log("TEST pdf C pre S: content rx:", req.query.content);
+// 	Aggregator.streamPdfData(req.query.content, function(stream) {
+// 		console.log("TEST have stream:", stream);
+// 		stream.pipe(res);
+// 		//res.send(stream);
+// 		//res.send({status: "ok", data: {test:"test"}});
+// 		//res.download(stream);
+// 	});
+// }

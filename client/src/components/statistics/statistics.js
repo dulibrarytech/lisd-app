@@ -1119,6 +1119,7 @@ export class Statistics {
 
     exportData() {
 
+        // Get the page label for the file header
         var content = ""; 
         content += document.getElementById("daterange").textContent;
         content += " ";
@@ -1150,15 +1151,100 @@ export class Statistics {
                     break;
             }
 
-            html2canvas(document.getElementById(table)).then(function(canvas) {
-                var imgData = canvas.toDataURL();
-                //pdf.setFillColor(256,256,256);
-                pdf.addImage(imgData, 'JPEG', 10, 35, 265, 110);
-                pdf.save(filename);
-            }).catch(function(error) {
-                console.log(error);
-            });
+            // Clunky algorithm to get the proper pdf image height, from the total number of rows present and empty table height
+            var elementCount = 0, height = 0, width = 0, rowHeight = 0, padHeight = 0, totalHeight = 0;
+            if(this.selectedDisplayStatistics == "All" || this.selectedListResultsBy == "Total") {
 
+                // This will print a single table for the results.  Use number of rows present to calculate height
+                var tableElements = document.getElementsByClassName("results-table");
+                elementCount = tableElements[0].children[0].children.length;
+                height = elementCount * 7;
+                width = 275;
+
+                html2canvas(document.getElementById(table)).then(function(canvas) {
+                    var imgData = canvas.toDataURL();
+                    //pdf.setFillColor(256,256,256);
+                    pdf.addImage(imgData, 'JPEG', 10, 35, width, height);
+                    pdf.save(filename);
+                }).catch(function(error) {
+                    console.log(error);
+                });
+            }
+            else {
+                
+                // Multim=lpe tables are present for the results.  Loop the tables, count their rows, and add space for table header and padding
+                var tableElements = document.getElementsByClassName("results-table"), children;
+                var tempNode = document.createElement("DIV");
+                    tempNode.setAttribute("display", "none");
+                var page = 1;
+
+                for(var i=0; i<tableElements.length; i++) {
+                    children = tableElements[i].children[0].children;
+                    elementCount += children.length;
+
+                    rowHeight = elementCount * 10,
+                    padHeight = tableElements.length * 5;
+
+                    height += rowHeight + padHeight;
+                        console.log("height", height);
+                    tempNode.appendChild(tableElements[i])
+
+                    // Write the current tables to the file, when div becomes higher than page height, or if this is the last iteration
+                    if(height >= 250 || i == (tableElements.length - 1)) {
+                        // this.saveToPdf(tempNode, 250);
+                        console.log("Height", height);
+                        height = 0;
+                        console.log("Saving this div", tempNode);
+
+                        if(page > 1) {
+                            console.log("Adding page");
+                            pdf.addPage();
+                        }
+                        page++;
+                            console.log("Saving node", tempNode, " height", height);
+                        html2canvas(tempNode).then(function(canvas) {
+                            console.log("Node saved");
+                            var imgData = canvas.toDataURL();
+                            pdf.addImage(imgData, 'JPEG', 10, 35, 275, 300);
+                            tempNode = document.createElement("DIV");
+                            tempNode.setAttribute("display", "none");
+                            pdf.save(filename);
+                        }).catch(function(error) {
+                            console.log(error);
+                        });
+                    }
+                }
+            }
+
+            // console.log("height", height);
+
+
+            // if height > 250, split into pages.
+
+            // TEST: Remove html2canvas if this is discarded
+            // html2canvas(document.getElementById(table)).then(function(canvas) {
+            //     var imgData = canvas.toDataURL();
+            //     //pdf.setFillColor(256,256,256);
+            //     pdf.addImage(imgData, 'JPEG', 10, 35, 275, height);
+            //     pdf.save(filename);
+            // }).catch(function(error) {
+            //     console.log(error);
+            // });
+
+            // TEST: Remove from_html.js, split_test_to_size.js, standard_fonts_metrics.js, if this is discarded
+            // var elementHandler = {
+            //   // '#ignorePDF': function (element, renderer) {
+            //   //   return true;
+            //   // }
+            // };
+            // var source = window.document.getElementById(table);
+            // pdf.fromHTML(
+            //     source,
+            //     15,
+            //     15,
+            //     {
+            //       'width': 180,'elementHandlers': elementHandler
+            //     });
         }
        // pdf.text(content, 10, 15);
 
@@ -1170,6 +1256,17 @@ export class Statistics {
             pdf.save(filename);
         }
     }  
-}
 
+    appendToPdf(node, height) {
+            console.log("Saving node", node, " height", height);
+        html2canvas(node).then(function(canvas) {
+            console.log("Node saved");
+            var imgData = canvas.toDataURL();
+            pdf.addImage(imgData, 'JPEG', 10, 35, 275, height);
+        }).catch(function(error) {
+            console.log(error);
+        });
+    }
+
+}
 Statistics.inject = [SystemUtils, ChartUtils, MonthStringValueConverter, QuarterStringValueConverter, Configuration];
