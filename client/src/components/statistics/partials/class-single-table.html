@@ -11,7 +11,7 @@
 	<div id="year-results" if.bind="displayYear">
 
 		<!-- <h4>Totals:</h4> -->
-		<table class="table results-table">
+		<table class="table results-table table-striped">
 			<!-- <th></th><th>Number of Classes</th> -->
 			<tr>	
 				<td>Total Classes</td><td>${resultData.yearTotals}</td>
@@ -22,7 +22,7 @@
 	<div id="month-results" if.bind="displayMonth">
 
 		<!-- <h4>Month Totals:</h4> -->
-		<table class="table results-table">
+		<table class="table results-table table-striped">
 			<th>Month</th><th repeat.for="key of resultData.year | objectKeys">${key}</th>			<!-- USE model var -->
 			<tr repeat.for="index of resultData.month">
 				<td>${index | monthString}</td><td>${index | objectValues}</td>
@@ -36,7 +36,7 @@
 	<div id="quarter-results" if.bind="displayQuarter">
 
 		<!-- <h4>Quarter Totals:</h4> -->
-		<table class="table results-table">
+		<table class="table results-table table-striped">
 			<th>Quarter</th><th repeat.for="key of resultData.year | objectKeys">${key}</th>		<!-- USE model var -->
 			<tr repeat.for="index of resultData.quarter">
 				<td>${index | quarterString}</td><td>${index | objectValues}</td>
