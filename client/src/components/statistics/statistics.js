@@ -1144,35 +1144,35 @@ export class Statistics {
             }
 
             // Clunky algorithm to get the proper pdf image height, from the total number of rows present and empty table height
-            var elementCount = 0, height = 0, width = 0, rowHeight = 0, padHeight = 0, totalHeight = 0;
-            var tableElements = document.getElementsByClassName("results-table");
+            //var elementCount = 0, height = 0, width = 0, rowHeight = 0, padHeight = 0, totalHeight = 0;
+            //var tableElements = document.getElementsByClassName("results-table");
             //if(this.selectedDisplayStatistics == "All" || this.selectedListResultsBy == "Total") {
-            if(0) {
-                // Create local pdf
-                pdf = new jsPDF("p", "mm", "a4");
-                pdf.text(content, 10, 15);
+            //if(0) {
+            //     // Create local pdf
+            //     pdf = new jsPDF("p", "mm", "a4");
+            //     pdf.text(content, 10, 15);
                 
-                elementCount = tableElements[0].children[0].children.length;
-                height = elementCount * 7;
-                width = 275;
+            //     elementCount = tableElements[0].children[0].children.length;
+            //     height = elementCount * 7;
+            //     width = 275;
 
-                html2canvas(document.getElementById(table)).then(function(canvas) {
-                    var imgData = canvas.toDataURL();
-                    pdf.addImage(imgData, 'JPEG', 10, 35, width, height);
-                }).catch(function(error) {
-                    console.log(error);
-                });
-            }
-            else {
-                // Create local pdf
-                pdf = new jsPDF("portrait", "pt", "a4");
-                pdf.text(content, 10, 15);
+            //     html2canvas(document.getElementById(table)).then(function(canvas) {
+            //         var imgData = canvas.toDataURL();
+            //         pdf.addImage(imgData, 'JPEG', 10, 35, width, height);
+            //     }).catch(function(error) {
+            //         console.log(error);
+            //     });
+            // }
 
-                var tableDivs += document.getElementById(table).innerHTML;
-                console.log("TD", tableDivs);
-                pdf.fromHTML(tableDivs,20,30);
-                pdf.save(filename);
-            }
+            // Create local pdf
+            pdf = new jsPDF("portrait", "pt", "a4");
+            pdf.text(content, 10, 15);
+                console.log(filename);
+            var tableDivs = document.getElementById(table).innerHTML;
+            console.log("TD", tableDivs);
+            pdf.fromHTML(tableDivs,20,30);
+            console.log("OK");
+            pdf.save(filename);
         }
 
         else if(this.displayFormat == "Chart") {
@@ -1187,17 +1187,5 @@ export class Statistics {
             pdf.save(filename);
         }
     }  
-
-    appendToPdf(node, height) {
-            console.log("Saving node", node, " height", height);
-        html2canvas(node).then(function(canvas) {
-            console.log("Node saved");
-            var imgData = canvas.toDataURL();
-            pdf.addImage(imgData, 'JPEG', 10, 35, 275, height);
-        }).catch(function(error) {
-            console.log(error);
-        });
-    }
-
 }
 Statistics.inject = [SystemUtils, ChartUtils, MonthStringValueConverter, QuarterStringValueConverter, Configuration];
