@@ -1120,21 +1120,13 @@ export class Statistics {
     exportData() {
 
         // Get the page label for the file header
-        var content = ""; 
+        var pdf, content = ""; 
         content += document.getElementById("daterange").textContent;
         content += " ";
         content += document.getElementById("stats-type-label").textContent;
 
         // Use the daterange and stats type text as filename.  (including spaces)
         var filename = content;
-
-        // Simple window open DO NOT ERASE
-        // var data = "http://localhost:9004/get/pdf?content=" + html;
-        //     window.open(data);
-
-        // Create local pdf
-        var pdf = new jsPDF("p", "mm", "a4");
-        pdf.text(content, 10, 15);
 
         // Convert html to pdf
         if(this.displayFormat == "Table") {
@@ -1153,102 +1145,41 @@ export class Statistics {
 
             // Clunky algorithm to get the proper pdf image height, from the total number of rows present and empty table height
             var elementCount = 0, height = 0, width = 0, rowHeight = 0, padHeight = 0, totalHeight = 0;
-            if(this.selectedDisplayStatistics == "All" || this.selectedListResultsBy == "Total") {
-
-                // This will print a single table for the results.  Use number of rows present to calculate height
-                var tableElements = document.getElementsByClassName("results-table");
+            var tableElements = document.getElementsByClassName("results-table");
+            //if(this.selectedDisplayStatistics == "All" || this.selectedListResultsBy == "Total") {
+            if(0) {
+                // Create local pdf
+                pdf = new jsPDF("p", "mm", "a4");
+                pdf.text(content, 10, 15);
+                
                 elementCount = tableElements[0].children[0].children.length;
                 height = elementCount * 7;
                 width = 275;
 
                 html2canvas(document.getElementById(table)).then(function(canvas) {
                     var imgData = canvas.toDataURL();
-                    //pdf.setFillColor(256,256,256);
                     pdf.addImage(imgData, 'JPEG', 10, 35, width, height);
-                    pdf.save(filename);
                 }).catch(function(error) {
                     console.log(error);
                 });
             }
             else {
-                
-                // Multim=lpe tables are present for the results.  Loop the tables, count their rows, and add space for table header and padding
-                var tableElements = document.getElementsByClassName("results-table"), children;
-                var tempNode = document.createElement("DIV");
-                    tempNode.setAttribute("display", "none");
-                var page = 1;
+                // Create local pdf
+                pdf = new jsPDF("portrait", "pt", "a4");
+                pdf.text(content, 10, 15);
 
-                for(var i=0; i<tableElements.length; i++) {
-                    children = tableElements[i].children[0].children;
-                    elementCount += children.length;
-
-                    rowHeight = elementCount * 10,
-                    padHeight = tableElements.length * 5;
-
-                    height += rowHeight + padHeight;
-                        console.log("height", height);
-                    tempNode.appendChild(tableElements[i])
-
-                    // Write the current tables to the file, when div becomes higher than page height, or if this is the last iteration
-                    if(height >= 250 || i == (tableElements.length - 1)) {
-                        // this.saveToPdf(tempNode, 250);
-                        console.log("Height", height);
-                        height = 0;
-                        console.log("Saving this div", tempNode);
-
-                        if(page > 1) {
-                            console.log("Adding page");
-                            pdf.addPage();
-                        }
-                        page++;
-                            console.log("Saving node", tempNode, " height", height);
-                        html2canvas(tempNode).then(function(canvas) {
-                            console.log("Node saved");
-                            var imgData = canvas.toDataURL();
-                            pdf.addImage(imgData, 'JPEG', 10, 35, 275, 300);
-                            tempNode = document.createElement("DIV");
-                            tempNode.setAttribute("display", "none");
-                            pdf.save(filename);
-                        }).catch(function(error) {
-                            console.log(error);
-                        });
-                    }
-                }
+                var tableDivs += document.getElementById(table).innerHTML;
+                console.log("TD", tableDivs);
+                pdf.fromHTML(tableDivs,20,30);
+                pdf.save(filename);
             }
-
-            // console.log("height", height);
-
-
-            // if height > 250, split into pages.
-
-            // TEST: Remove html2canvas if this is discarded
-            // html2canvas(document.getElementById(table)).then(function(canvas) {
-            //     var imgData = canvas.toDataURL();
-            //     //pdf.setFillColor(256,256,256);
-            //     pdf.addImage(imgData, 'JPEG', 10, 35, 275, height);
-            //     pdf.save(filename);
-            // }).catch(function(error) {
-            //     console.log(error);
-            // });
-
-            // TEST: Remove from_html.js, split_test_to_size.js, standard_fonts_metrics.js, if this is discarded
-            // var elementHandler = {
-            //   // '#ignorePDF': function (element, renderer) {
-            //   //   return true;
-            //   // }
-            // };
-            // var source = window.document.getElementById(table);
-            // pdf.fromHTML(
-            //     source,
-            //     15,
-            //     15,
-            //     {
-            //       'width': 180,'elementHandlers': elementHandler
-            //     });
         }
-       // pdf.text(content, 10, 15);
 
         else if(this.displayFormat == "Chart") {
+            // Create local pdf
+            pdf = new jsPDF("p", "mm", "a4");
+            pdf.text(content, 10, 15);
+
             var chart = document.getElementById('results-chart');
             var imgData = chart.toDataURL();
             pdf.setFillColor(256,256,256);
