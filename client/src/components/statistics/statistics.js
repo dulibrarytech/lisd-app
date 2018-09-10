@@ -1130,49 +1130,64 @@ export class Statistics {
 
         // Convert html to pdf
         if(this.displayFormat == "Table") {
-            var table = "";
+            var tableID = "";
             switch(this.selectedListResultsBy) {
                 case "Month":
-                    table = "month-results";
+                    tableID = "month-results";
                     break;
                 case "Quarter":
-                    table = "quarter-results";
+                    tableID = "quarter-results";
                     break;
                 default:
-                    table = "year-results";
+                    tableID = "year-results";
                     break;
             }
 
-            // Clunky algorithm to get the proper pdf image height, from the total number of rows present and empty table height
-            //var elementCount = 0, height = 0, width = 0, rowHeight = 0, padHeight = 0, totalHeight = 0;
-            //var tableElements = document.getElementsByClassName("results-table");
-            //if(this.selectedDisplayStatistics == "All" || this.selectedListResultsBy == "Total") {
-            //if(0) {
-            //     // Create local pdf
-            //     pdf = new jsPDF("p", "mm", "a4");
-            //     pdf.text(content, 10, 15);
-                
-            //     elementCount = tableElements[0].children[0].children.length;
-            //     height = elementCount * 7;
-            //     width = 275;
+            var tableElts = document.getElementById(tableID).children, table, rows, data;
+            var columns = [], rowData = [], tableData = [];
+            if(tableElts.length == 1) {
+                table = tableElts[0];
+                rows = table.children[0].children;
 
-            //     html2canvas(document.getElementById(table)).then(function(canvas) {
-            //         var imgData = canvas.toDataURL();
-            //         pdf.addImage(imgData, 'JPEG', 10, 35, width, height);
-            //     }).catch(function(error) {
-            //         console.log(error);
-            //     });
-            // }
+                for(var i=0; i<rows.length; i++) {
+                    data = rows[i].children;
 
-            // Create local pdf
-            pdf = new jsPDF("portrait", "pt", "a4");
-            pdf.text(content, 10, 15);
-                console.log(filename);
-            var tableDivs = document.getElementById(table).innerHTML;
-            console.log("TD", tableDivs);
-            pdf.fromHTML(tableDivs,20,30);
-            console.log("OK");
-            pdf.save(filename);
+                    for(var j=0; j<data.length; j++) {
+                        if(data[j].nodeName.toLowerCase() == "th") {
+                            columns.push(data[j].innerHTML);
+                        }
+                        else if(data[j].nodeName.toLowerCase() == "td") {
+                            rowData.push(data[j].innerHTML);
+                        }
+
+                        // Kludge - For jspdf autotable, th element count must match td element count.  Some tables do not do this (doh), so add the empty th's here
+                        if(columns.length != rowData.length) {
+                            for(var l=0; l<rowData.length; l++) {
+                                if(typeof columns[l] == 'undefined') {
+                                    columns[l] = "";
+                                }
+                            }
+                        }
+                    }
+
+                    if(rowData.length > 0) {
+                        tableData.push(rowData);
+                        rowData = [];
+                    }
+                }
+            }
+            else if(tableElts.length > 1) {
+
+            }
+            else {
+                // Do not render the table.  Display error message
+                console.log("Error building table for file export")
+            }
+
+            // Only pt supported (not mm or in)
+            var doc = new jsPDF('p', 'pt');
+            doc.autoTable(columns, tableData);
+            doc.save(filename);
         }
 
         else if(this.displayFormat == "Chart") {
