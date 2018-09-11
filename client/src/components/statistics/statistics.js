@@ -1128,6 +1128,10 @@ export class Statistics {
         // Use the daterange and stats type text as filename.  (including spaces)
         var filename = content;
 
+        // Create a new pdf doc, add the current statistics label
+        var doc = new jsPDF('p', 'pt');
+        doc.text(content, 40, 30);
+
         // Convert html to pdf
         if(this.displayFormat == "Table") {
             var tableID = "";
@@ -1175,19 +1179,48 @@ export class Statistics {
                         rowData = [];
                     }
                 }
+                doc.autoTable(columns, tableData, {margin: {top: 50}});
             }
             else if(tableElts.length > 1) {
+                var section = "";
+                for(var div of tableElts) {
+                    columns = [], rows = [];
 
+                    // Add the section header
+                    columns.push(div.children[0].innerHTML);
+                    columns.push("");
+                    tableData.push(columns);
+                    columns = [];
+
+                    table = div.children[1];
+                    rows = table.children[0].children;
+
+                    for(var i=0; i<rows.length; i++) {
+                        data = rows[i].children;
+                        for(var j=0; j<data.length; j++) {
+                            if(data[j].nodeName.toLowerCase() == "th") {
+                                columns.push(data[j].innerHTML);
+                            }
+                            else if(data[j].nodeName.toLowerCase() == "td") {
+                                rowData.push(data[j].innerHTML);
+                            }
+                        }
+                        if(rowData.length > 0) {
+                            tableData.push(rowData);
+                            if(i == rows.length-1) {
+                                tableData.push(["",""]);
+                            }
+                            rowData = [];
+                        }
+                    }
+                }
+                tableData.push(["",""]);
+                doc.autoTable(columns, tableData, {margin: {top: 50}});
             }
             else {
                 // Do not render the table.  Display error message
                 console.log("Error building table for file export")
             }
-
-            // Only pt supported (not mm or in)
-            var doc = new jsPDF('p', 'pt');
-            doc.text(content, 40, 30);
-            doc.autoTable(columns, tableData);
             doc.save(filename);
         }
 
