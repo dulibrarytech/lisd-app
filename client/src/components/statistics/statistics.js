@@ -1153,7 +1153,6 @@ export class Statistics {
             // Handle statistics with a single output table
             if(tableElts.length == 1) {
                 table = tableElts[0];
-                    console.log("TABLE1", table);
                 rows = table.children[0].children;
 
                 for(var i=0; i<rows.length; i++) {
@@ -1182,7 +1181,7 @@ export class Statistics {
                         rowData = [];
                     }
                 }
-                doc.autoTable(columns, tableData);
+                doc.autoTable(columns, tableData, {margin: {top: 50}});
             }
             
             // Handle statistics with multiple tables (sections) by month or by quarter, etc
@@ -1235,6 +1234,11 @@ export class Statistics {
             // Create local pdf
             pdf = new jsPDF("p", "mm", "a4");
             pdf.text(content, 10, 15);
+
+            if(document.getElementById("subsort-select")) {
+                pdf.text(this.selectedSubsortValue, 10, 25);
+                filename += " - " + this.selectedSubsortValue;
+            }
 
             var chart = document.getElementById('results-chart');
             var imgData = chart.toDataURL();
