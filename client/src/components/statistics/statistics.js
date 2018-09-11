@@ -1186,6 +1186,7 @@ export class Statistics {
 
             // Only pt supported (not mm or in)
             var doc = new jsPDF('p', 'pt');
+            doc.text(content, 40, 30);
             doc.autoTable(columns, tableData);
             doc.save(filename);
         }
