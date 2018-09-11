@@ -1149,8 +1149,11 @@ export class Statistics {
 
             var tableElts = document.getElementById(tableID).children, table, rows, data;
             var columns = [], rowData = [], tableData = [];
+            
+            // Handle statistics with a single output table
             if(tableElts.length == 1) {
                 table = tableElts[0];
+                    console.log("TABLE1", table);
                 rows = table.children[0].children;
 
                 for(var i=0; i<rows.length; i++) {
@@ -1179,48 +1182,52 @@ export class Statistics {
                         rowData = [];
                     }
                 }
-                doc.autoTable(columns, tableData, {margin: {top: 50}});
+                doc.autoTable(columns, tableData);
             }
+            
+            // Handle statistics with multiple tables (sections) by month or by quarter, etc
             else if(tableElts.length > 1) {
-                var section = "";
+                var section = "", tableHeight = 50;
                 for(var div of tableElts) {
-                    columns = [], rows = [];
 
-                    // Add the section header
+                    columns = [], rows = [];
                     columns.push(div.children[0].innerHTML);
                     columns.push("");
-                    tableData.push(columns);
-                    columns = [];
 
                     table = div.children[1];
                     rows = table.children[0].children;
 
                     for(var i=0; i<rows.length; i++) {
                         data = rows[i].children;
+                        
                         for(var j=0; j<data.length; j++) {
-                            if(data[j].nodeName.toLowerCase() == "th") {
-                                columns.push(data[j].innerHTML);
-                            }
-                            else if(data[j].nodeName.toLowerCase() == "td") {
+                            if(data[j].nodeName.toLowerCase() == "td") {
                                 rowData.push(data[j].innerHTML);
                             }
                         }
+
                         if(rowData.length > 0) {
                             tableData.push(rowData);
-                            if(i == rows.length-1) {
-                                tableData.push(["",""]);
-                            }
                             rowData = [];
                         }
                     }
+
+                    if(tableHeight >= 700) {
+                        doc.addPage();
+                        tableHeight = 50;
+                    }
+
+                    doc.autoTable(columns, tableData, {margin: {top: tableHeight}, pageBreak: "avoid"});
+                    tableHeight += rows.length*30; 
+                    tableData = [];
                 }
-                tableData.push(["",""]);
-                doc.autoTable(columns, tableData, {margin: {top: 50}});
             }
             else {
                 // Do not render the table.  Display error message
                 console.log("Error building table for file export")
             }
+
+            //doc.autoTable(columns, tableData);
             doc.save(filename);
         }
 
