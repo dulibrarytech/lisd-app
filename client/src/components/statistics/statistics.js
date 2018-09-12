@@ -1181,17 +1181,24 @@ export class Statistics {
                         rowData = [];
                     }
                 }
-                doc.autoTable(columns, tableData, {margin: {top: 50}});
+                
+                var options = {
+                    margin: {top: 50}, 
+                    theme: "grid", 
+                    showHeader: "never"
+                };
+                doc.autoTable(columns, tableData, options);
             }
             
             // Handle statistics with multiple tables (sections) by month or by quarter, etc
             else if(tableElts.length > 1) {
+                columns = ["", ""];
                 var section = "", tableHeight = 50;
                 for(var div of tableElts) {
 
-                    columns = [], rows = [];
-                    columns.push(div.children[0].innerHTML);
-                    columns.push("");
+                    rowData.push([div.children[0].innerHTML]);
+                    tableData.push(rowData);
+                    rowData = [];
 
                     table = div.children[1];
                     rows = table.children[0].children;
@@ -1210,23 +1217,21 @@ export class Statistics {
                             rowData = [];
                         }
                     }
-
-                    if(tableHeight >= 700) {
-                        doc.addPage();
-                        tableHeight = 50;
-                    }
-
-                    doc.autoTable(columns, tableData, {margin: {top: tableHeight}, pageBreak: "avoid"});
-                    tableHeight += rows.length*30; 
-                    tableData = [];
+                    tableData.push(["", ""]);
                 }
+
+                var options = {
+                    margin: {top: 50}, 
+                    pageBreak: "avoid", 
+                    theme: "grid", 
+                    showHeader: "never"
+                };
+                doc.autoTable(columns, tableData, options);
             }
             else {
                 // Do not render the table.  Display error message
                 console.log("Error building table for file export")
             }
-
-            //doc.autoTable(columns, tableData);
             doc.save(filename);
         }
 
