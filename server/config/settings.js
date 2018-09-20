@@ -3,11 +3,10 @@ require('dotenv').config();
 
 var settings = {
 
-	"secret": "lisdS3cr3tlisdKeY",
-	"cryptKey": "lisd&ecr3tlisdCryPtK3y",
-	// Dates must be in format "MM/DD"
-	"LDAPAuthService": "https://lib-moon.du.edu/auth-service/index.php/api/v1/authenticate",
-	"lisdClientHeader": "lisd-client",
+	"secret": process.env.LISD_SECRET,
+	"cryptKey": process.env.LISD_CRYPTKEY,
+	"LDAPAuthService": process.env.LDAP_SERVICE,
+	"lisdClientHeader": process.env.LISD_CLIENT,
 
 	"runtime_env": process.env.LISD_ENV,
 

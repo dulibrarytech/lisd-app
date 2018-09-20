@@ -7,24 +7,6 @@ The client-side aspect aka Aurelia application is in the ``client`` folder. This
 
 # Configuration settings:
 Client: config/configuration.js
-Server: Create a file named '.env':
-
-####################################
-PORT=[port #]
-BASE_URL=[Base url of server app]
-
-LISD_ENV=[development|production]
-
-LISD_SECRET=lisdS3cr3tlisdKeY
-LISD_CRYPTKEY=lisd&ecr3tlisdCryPtK3y
-LDAP_SERVICE=[ldap service url]
-
-DB_HOST=
-DB_PORT=
-DB_NAME=
-
-ENABLE_BROWSER_TEST=[true to enable browser test on server api routes]
-####################################
 
 By default the server ships with Express and is set to serve your Aurelia application from the ``client`` directory.
 
