@@ -633,6 +633,10 @@ input#comment-input {
 	min-height: 100px;
 }
 
+#disp-select {
+	margin-top: 20px;
+}
+
 @media only screen and (min-width: 1600px) {
 	section#class-type {
 		padding-left: 6.9em;

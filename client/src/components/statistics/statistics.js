@@ -27,6 +27,7 @@ export class Statistics {
         this.librarianName = "";
         this.classCountLabel = "";
 
+        // TODO Add to configuration class
         this.selectedSearchTimeframe = "Fiscal";
         this.searchTimeframe = ["Fiscal", "Academic", "Quarter"];
         this.selectedSearchType = "All Statistics";
@@ -40,7 +41,7 @@ export class Statistics {
         this.selectedQuarter = "Fall";
         this.quarters = ["Fall", "Winter", "Spring", "Summer"];
         this.displayFormat = this.config.defaultStatisticsFormat;
-        this.displayFormats = ["Chart", "Table"];
+        this.displayFormats = ["Table", "Chart"];
         this.studentTypes = ["Undergraduate", "Graduate", "Faculty", "Other"];
 
         this.resultData = [];

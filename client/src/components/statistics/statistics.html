@@ -65,11 +65,11 @@
                         <div id="post-search-options">
                             <button type="button" id="new-search" class="btn btn-default" click.delegate="newSearch()">New Search</button>
                             <button type="button" id="export-data" class="btn btn-default au-target" click.delegate="exportData()" au-target-id="87">Save to PDF</button>
-                            <span style="margin-left: 8em" id="disp-select">
-                            <label class="radio-select" repeat.for="format of displayFormats">
-                                <input type="radio" value.bind="format" name="displayFormat" checked.bind="$parent.displayFormat" change.delegate="onChangeDisplayFormat()">${format}
-                            </label>
-                            </span>
+                            <div id="disp-select">
+                                <label class="radio-select" repeat.for="format of displayFormats">
+                                    <input type="radio" value.bind="format" name="displayFormat" checked.bind="$parent.displayFormat" change.delegate="onChangeDisplayFormat()">${format}
+                                </label>
+                            </div>
                         </div>
                         
                         <form id="statistics-search" role="form">
