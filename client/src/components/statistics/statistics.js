@@ -860,7 +860,6 @@ export class Statistics {
     }
 
     submitForms() {
-
         var data = this.getFormData(),
             reqLibrarian = data.librarian;
 

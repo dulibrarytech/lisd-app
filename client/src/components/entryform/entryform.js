@@ -274,14 +274,6 @@ export class EntryForm {
         }
     }
 
-    // setActiveLibrarian(librarianID) {
-
-    //     this.activeLibrarian = librarianID;
-
-    //     // Add to property selection array
-    //     this.selectedLibrarians = [this.activeLibrarian];
-    // }
-
     // Return an object of all form data
     getFormData() {
 
@@ -323,8 +315,7 @@ export class EntryForm {
     }
 
     selectOption(section) {
-
-        // Don't allow multiple selection of departments
+        // Only allow one department selection
         if(section != "department") {
             document.getElementById(section + "-add").style.visibility = "visible"; 
         }
