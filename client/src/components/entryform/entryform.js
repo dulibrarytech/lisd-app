@@ -323,7 +323,11 @@ export class EntryForm {
     }
 
     selectOption(section) {
-    	document.getElementById(section + "-add").style.visibility = "visible";	
+
+        // Don't allow multiple selection of departments
+        if(section != "department") {
+            document.getElementById(section + "-add").style.visibility = "visible"; 
+        }
     }
 
     validateForm(formData) {
