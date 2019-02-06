@@ -39,7 +39,7 @@ export class Statistics {
         this.displayStatistics = ["All", "Department", "Location", "Type", "ACRL Framework"];
         this.selectedQuarter = "Fall";
         this.quarters = ["Fall", "Winter", "Spring", "Summer"];
-        this.displayFormat = "Chart";
+        this.displayFormat = this.config.defaultStatisticsFormat;
         this.displayFormats = ["Chart", "Table"];
         this.studentTypes = ["Undergraduate", "Graduate", "Faculty", "Other"];
 
@@ -154,7 +154,7 @@ export class Statistics {
         this.selectedStatisticsType = "Class";
         this.selectedListResultsBy = "Month";
         this.selectedDisplayStatistics = "All";
-        this.displayFormat = "Chart";
+        this.displayFormat = this.config.defaultStatisticsFormat;
 
         // Reset element visibility
         document.getElementById('result-options').style.display = "none";
@@ -862,7 +862,6 @@ export class Statistics {
 
         var data = this.getFormData(),
             reqLibrarian = data.librarian;
-            console.log("TEST form data:", data);
 
         //  Test for undefined
         data['token'] = this.config.session.token;

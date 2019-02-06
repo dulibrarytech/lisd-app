@@ -7,5 +7,8 @@ export class Configuration {
       	data: null,
       	token: null
       };
+
+      // "Table" | "Chart"
+      this.defaultStatisticsFormat = "Table";
   }
 }
