@@ -507,7 +507,7 @@ export class Statistics {
             // Show search options, hide the search form
             document.getElementById('result-options').style.display = "block";
             document.getElementById('statistics-search').style.display = "none";
-            document.getElementById('new-search').style.display = "block";
+            document.getElementById('new-search').style.display = "inline-block";
             document.getElementById('search-options').style.display = "none";
             document.getElementById('result-options').style.display = "none";
 
@@ -860,6 +860,7 @@ export class Statistics {
     }
 
     submitForms() {
+
         var data = this.getFormData(),
             reqLibrarian = data.librarian;
 
