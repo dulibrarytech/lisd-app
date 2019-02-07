@@ -38,9 +38,8 @@
 		</table>
 	</div>
 
-	<div id="class-data-comments" class="section-border" if.bind="showClassComments">
-		<span style="float: left"><h4>Comments</h4></span><span style="float: right"><button class="list-btn" click.delegate="hideClassComments()">Hide Comments</button></span>
-		<span id="more-comments-note" class="form-note">( Scroll down to see more comments )</span>
+	<div id="dialog" style="display: none">
+		<h4>Comments</h4>
 		<div id="comment-display" class="section-border">
 			<ul>
 				<li repeat.for="index of classComments">

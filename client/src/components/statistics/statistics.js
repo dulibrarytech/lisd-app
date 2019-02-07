@@ -980,6 +980,11 @@ export class Statistics {
                 });
             }
             this.showClassComments = true;
+
+            $( "#dialog" ).dialog({
+                width: 600,
+                height: 700
+            });
         });
     };
 
@@ -999,23 +1004,25 @@ export class Statistics {
     }
 
     addComment() {
-        this.utils.doAjax('class/add/comment', 'post', {classID: this.activeClassID, comment: this.comment}, null).then(data => {
-            if(data.status == "ok") {
-                var newComment = {};
-                newComment['name'] = this.comment.name;
-                newComment['text'] = this.comment.comment;
+        if(this.comment.comment != "") {
+            this.utils.doAjax('class/add/comment', 'post', {classID: this.activeClassID, comment: this.comment}, null).then(data => {
+                if(data.status == "ok") {
+                    var newComment = {};
+                    newComment['name'] = this.comment.name;
+                    newComment['text'] = this.comment.comment;
 
-                // Update the comment list
-                this.classComments.push(newComment);
+                    // Update the comment list
+                    this.classComments.push(newComment);
 
-                // Reset the comment form
-                this.comment.name = "";
-                this.comment.comment = "";
-            }
-            else {
-                console.log(data.message);
-            }
-        });
+                    // Reset the comment form
+                    this.comment.name = "";
+                    this.comment.comment = "";
+                }
+                else {
+                    console.log(data.message);
+                }
+            });
+        }
     }
 
     editClassData(classID) {

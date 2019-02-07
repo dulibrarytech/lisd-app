@@ -288,6 +288,10 @@ div.form-group input {
 	/*margin-bottom: 1em;*/
 }
 
+#dialog div.form-group {
+	background-color: #e9e9e9;
+}
+
 .click-span {
 	cursor: pointer;
 	color: #0074BD;
@@ -583,7 +587,7 @@ div.section-border {
     border-radius: 5px;
 }
 
-div#class-data-comments {
+div.class-data-comments {
 	width: 50%;
 }
 
@@ -596,9 +600,9 @@ div#class-data-results table {
 }
 
 div#comment-display {
-	margin-top: 5em;
+	margin-top: 27px;
     max-height: 200px;
-    height: 100px;
+    height: 165px;
     overflow-y: scroll;
 }
 
@@ -772,7 +776,7 @@ input#comment-input {
 		margin-top: 4em;
 	}
 
-	div#class-data-comments {
+	div.class-data-comments {
 	    width: 65%;
 	}
 
@@ -815,7 +819,7 @@ input#comment-input {
 		font-size: 12px;
 	}
 
-	div#class-data-comments {
+	div.class-data-comments {
 	    width: 65%;
 	}
 
