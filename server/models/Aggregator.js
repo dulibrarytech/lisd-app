@@ -215,7 +215,6 @@ module.exports = (function() {
 	        		results.push(item);
 	        	}
 	        	else {
-	        		console.log("MODTEST classes fouond by user class search:", results);
 	        		if(results.length == 0) {message = "No results found";} else {message = "Returning class data";}
 	        		callback({status: "ok", message: message, data: results});
 	        	}

@@ -31,7 +31,7 @@ export class Statistics {
         this.selectedSearchTimeframe = "Fiscal";
         this.searchTimeframe = ["Fiscal", "Academic", "Quarter"];
         this.selectedSearchType = "All Statistics";
-        this.searchType = ["All Statistics", "Librarian Statistics", 'Class Data'];
+        this.searchType = ["All Statistics", "Librarian Statistics", 'Class Data', 'Class Data By Librarian'];
         this.selectedStatisticsType = "Class";
         this.statisticsType = ["Class", "Student"];
         this.selectedListResultsBy = "Month";
@@ -185,7 +185,7 @@ export class Statistics {
         }
 
         // Currently selected search type will remain selected on new search.  Display librarian select if search type uses it
-        if(this.selectedSearchType == "Librarian Statistics" || this.selectedSearchType == "Class Data") {
+        if(this.selectedSearchType == "Librarian Statistics" || this.selectedSearchType == "Class Data By Librarian") {
             document.getElementById('librarian-select').style.display = "block";
         }
 
@@ -704,7 +704,7 @@ export class Statistics {
         }
 
         // Show librarian select if class data or librarian statistics, hide it if general statistics
-        if(this.selectedSearchType == "Librarian Statistics" || this.selectedSearchType == "Class Data") {
+        if(this.selectedSearchType == "Librarian Statistics" || this.selectedSearchType == "Class Data By Librarian") {
             document.getElementById('librarian-select').style.display = "block";
         }
         else {
