@@ -165,8 +165,30 @@ exports.appendComment = function(classID, commentData, callback) {
 			callback({status: "error", message: "Error: " + e});
 		};
 	});
+};
 
+exports.updateComment = function(classID, commentIndex, comment, callback) {
+	this.getClassComments(classID, function(comments) {
 
+		comments.data[commentIndex].name = comment.name;
+		comments.data[commentIndex].text = comment.comment;
+
+		try {
+		    collection.updateOne({"_id": ObjectId(classID)}, {$set: {comments: comments.data}}, function(err, results) {
+			    if(err) {
+			    	console.log("Error: " + err);
+			    	callback({status: "error", message: "Error: " + e});
+			    }
+			    else {
+			    	console.log("Comment updates for class ", classID);
+			    	callback({status: "ok", message: "Ok", data: results});
+			    }
+			});
+		} catch (e) {
+			console.log("Error: " + e);
+			callback({status: "error", message: "Error: " + e});
+		};
+	});
 };
 
 exports.updateData = function(classID, classData, callback) {

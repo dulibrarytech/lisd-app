@@ -641,6 +641,14 @@ input#comment-input {
 	margin-top: 20px;
 }
 
+.form-list-edit-link {
+	color: blue;
+}
+
+.form-list-edit-link:hover {
+	cursor: pointer;
+}
+
 @media only screen and (min-width: 1600px) {
 	section#class-type {
 		padding-left: 6.9em;

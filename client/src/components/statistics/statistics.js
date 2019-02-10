@@ -49,6 +49,9 @@ export class Statistics {
         this.subsortValues = [];
 
         this.comment = {};
+        this.editCommentData = false;
+        this.activeCommentIndex = null;
+        this.commentFormLabel = "Add Comment"
 
         // Get the librarians from the database, populate the librarian select box
         var dropdownData = this.getDropdownData();
@@ -110,6 +113,10 @@ export class Statistics {
         this.hideClassComments();
         //this.hideClassEditForm();
         this.showClassEditForm(false);
+
+        this.editCommentData = false;
+        this.activeCommentIndex = null;
+        this.commentFormLabel = "Add Comment";
     }
 
     isAdmin() {
@@ -974,16 +981,17 @@ export class Statistics {
             }
             else {
                 this.classComments = [];
-                this.classComments.push({
-                    name: "No comments found",
-                    text: null
-                });
+                // this.classComments.push({
+                //     name: "No comments found",
+                //     text: null
+                // });
             }
             this.showClassComments = true;
 
             $( "#dialog" ).dialog({
                 width: 600,
-                height: 700
+                height: 700,
+                title: "Comments"
             });
         });
     };
@@ -992,6 +1000,45 @@ export class Statistics {
         this.classComments = [];
         this.showClassComments = false;
         this.activeClassID = 0;
+    }
+
+    editComment(index) {
+        if(this.isAdmin()) {
+            this.comment.name = this.classComments[index].name;
+            this.comment.comment = this.classComments[index].text;
+            this.activeCommentIndex = index;
+            this.editCommentData = true;
+            this.commentFormLabel = "Edit Comment";
+        }
+    }
+
+    updateComment(index) {
+        if(this.isAdmin()) {
+            if(typeof index == "undefined" || index == "") {
+                index = this.activeCommentIndex;
+            }
+            this.utils.doAjax('class/update/comment', 'put', {classID: this.activeClassID, commentIndex: index, commentBody: this.comment}, null).then(response => {
+                if(response.status == "ok") {
+
+                    // Clear form
+                    this.comment.name = "";
+                    this.comment.comment= "";
+
+                    // Refresh the comment display
+                    this.viewClassComments(this.activeClassID);
+                }
+                else {
+                    console.log("Error: comment cound not be updated.  Possible server error");
+                }
+                this.editCommentData = false;
+                this.activeCommentIndex = null;
+                this.commentFormLabel = "Add Comment";
+            });
+        }
+    }
+
+    closeCommentDialog() {
+        $( "#dialog" ).dialog('close');
     }
 
     closeEditForm() {

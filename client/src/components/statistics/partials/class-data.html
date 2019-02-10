@@ -39,20 +39,22 @@
 	</div>
 
 	<div id="dialog" style="display: none">
-		<h4>Comments</h4>
+<!-- 		<h4>Comments</h4> -->
+		<h6 if.bind="classComments.length <= 0">There are no comments yet for this course</h6>
 		<div id="comment-display" class="section-border">
 			<ul>
-				<li repeat.for="index of classComments">
+				<li repeat.for="index of classComments.length">
 					<dl>
-						<dt>${index.name}</dt>
-						<dd>${index.text || ""}</dd>
+						<dt>${classComments[index].name}</dt>
+						<dd>${classComments[index].text || ""}</dd>
+						<dd if.bind="isAdmin()" click.trigger="editComment(index)" class="form-list-edit-link">(Edit)</dd>
 					</dl>
 				</li>
 			</ul>
 		</div>
 		<br />
 
-		<h4>Add Comment</h4>
+		<h4>${commentFormLabel}</h4>
 		<form id="comment-form" role="form">
 			<div class="form-group">
 				<label class="form-label">Name</label>
@@ -60,7 +62,9 @@
 				<label class="form-label" style="margin-top: 1em">Comment</label>
 				<textarea id="comment-input" class="form-control" rows="4" cols="50" value.bind="comment.comment"></textarea>
 			</div>
-			<button click.delegate="addComment()" class="btn btn-primary">Submit</button>
+			<button click.delegate="addComment()" if.bind="!editCommentData" class="btn btn-primary">Submit</button>
+			<button click.delegate="updateComment()" if.bind="editCommentData" class="btn btn-primary">Update</button>
+			<button click.delegate="closeCommentDialog()" class="btn btn-primary">Close</button>
 		</form>
 	</div>
 

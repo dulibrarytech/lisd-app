@@ -102,3 +102,9 @@ module.exports.classAddComment = function(req, res) {
 	});
 };
 
+module.exports.classUpdateComment = function(req, res) {
+	Class.updateComment(req.body.classID, req.body.commentIndex, req.body.commentBody, function(response) {
+		res.send(response);
+	});
+};
+

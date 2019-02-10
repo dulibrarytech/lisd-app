@@ -113,6 +113,10 @@ module.exports = function (app, passport) {
 	    classController.classAddComment(req, res);
 	});
 
+	app.put('/class/update/comment', function(req, res) { 
+	    classController.classUpdateComment(req, res);
+	});
+
 	// Class property
 	app.get('/property/all/:name', function(req, res) { 
 	    propertyController.propertyAll(req, res);
