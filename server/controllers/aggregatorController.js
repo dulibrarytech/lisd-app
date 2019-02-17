@@ -200,9 +200,6 @@ module.exports.getDataSearchClass = function(req, res) {
 	if(typeof req.query.quarter != 'undefined') { quarter = req.query.quarter; }
 	else { quarter = ""; }
 
-	console.log("TEST", librarian);
-	librarian = "";
-
 	// Set the date for the time period requested
 	var dates = getDates(fromYear, toYear, timeframe, quarter);
 	

@@ -825,7 +825,7 @@ export class Statistics {
             formData['quarter'] = "";
         }
 
-        if(this.selectedSearchType == "Librarian Statistics" || this.selectedSearchType == "Class Data") {
+        if(this.selectedSearchType == "Librarian Statistics" || this.selectedSearchType == "Class Data" || this.selectedSearchType == "Class Data By Librarian") {
             formData['librarian'] = this.selectedLibrarian;
         }
         else {
@@ -869,51 +869,55 @@ export class Statistics {
     submitForms() {
 
         var data = this.getFormData(),
-            reqLibrarian = data.librarian;
+            reqLibrarian = data.librarian,
+            selIndex = document.getElementById('librarian-select-input').selectedIndex;
 
         //  Test for undefined
         data['token'] = this.config.session.token;
 
         this.displayResults = false;
-
-        var selIndex = document.getElementById('librarian-select-input').selectedIndex;
         this.librarianName = document.getElementById('librarian-select-input')[selIndex].textContent;
 
-        if(this.selectedSearchType == "Class Data") {
+        if(this.selectedSearchType == "Class Data" || this.selectedSearchType == "Class Data By Librarian") {
 
-            // class route
-            this.utils.doAjax('get/data/search/class', 'get', data, null).then(data => {
+            if(this.selectedSearchType == "Class Data By Librarian" && reqLibrarian == "null") {
+                console.log("No librarian is selected");
+            }
+            else {
+                // class route
+                this.utils.doAjax('get/data/search/class', 'get', data, null).then(data => {
 
-                // Class edit button visibility logic: Show if admin logged in, or if active librarian == librarian specified in class data search
-                this.showClassEditButton = (reqLibrarian == this.activeLibrarian || this.isAdmin()) ? true : false;
+                    // Class edit button visibility logic: Show if admin logged in, or if active librarian == librarian specified in class data search
+                    this.showClassEditButton = (reqLibrarian == this.activeLibrarian || this.isAdmin()) ? true : false;
 
-                // Remove the timestamp
-                for(var index in data.data) {
-                   data.data[index].courseInfo.date = data.data[index].courseInfo.date.substring(0,10);
-                }
-
-                this.resultData = data.data;
-                if(this.resultData) {
-
-                    // Convert librarian id's to name, for display
-                    for(var course of this.resultData) {
-                        for(var index in course.associatedLibrarians) {
-                            course.associatedLibrarians[index] = this.getLibrarianName(course.associatedLibrarians[index]);
-                        }
+                    // Remove the timestamp
+                    for(var index in data.data) {
+                       data.data[index].courseInfo.date = data.data[index].courseInfo.date.substring(0,10);
                     }
 
-                    // Show search options, hide the search form
-                    document.getElementById('result-options').style.display = "block";  
-                    document.getElementById('statistics-search').style.display = "none";
-                    document.getElementById('post-search-options').style.display = "block";
-                    document.getElementById('search-options').style.display = "none";
-                    document.getElementById('disp-select').style.visibility = "hidden";
+                    this.resultData = data.data;
+                    if(this.resultData) {
 
-                    // Render the view (no chart option)
-                    this.displayFormat = "Table";
-                    this.renderClassDataTable(this.resultData);
-                }
-            });
+                        // Convert librarian id's to name, for display
+                        for(var course of this.resultData) {
+                            for(var index in course.associatedLibrarians) {
+                                course.associatedLibrarians[index] = this.getLibrarianName(course.associatedLibrarians[index]);
+                            }
+                        }
+
+                        // Show search options, hide the search form
+                        document.getElementById('result-options').style.display = "block";  
+                        document.getElementById('statistics-search').style.display = "none";
+                        document.getElementById('post-search-options').style.display = "block";
+                        document.getElementById('search-options').style.display = "none";
+                        document.getElementById('disp-select').style.visibility = "hidden";
+
+                        // Render the view (no chart option)
+                        this.displayFormat = "Table";
+                        this.renderClassDataTable(this.resultData);
+                    }
+                });
+            }
         }
 
         else if(this.selectedSearchType == "All Statistics" || this.selectedSearchType == "Librarian Statistics") {
