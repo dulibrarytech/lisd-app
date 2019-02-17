@@ -876,7 +876,7 @@ export class Statistics {
         data['token'] = this.config.session.token;
 
         this.displayResults = false;
-        this.librarianName = document.getElementById('librarian-select-input')[selIndex].textContent;
+        this.librarianName = this.selectedLibrarian == "null" ? "" : document.getElementById('librarian-select-input')[selIndex].textContent;
 
         if(this.selectedSearchType == "Class Data" || this.selectedSearchType == "Class Data By Librarian") {
 
@@ -922,45 +922,50 @@ export class Statistics {
 
         else if(this.selectedSearchType == "All Statistics" || this.selectedSearchType == "Librarian Statistics") {
 
-            // all statistics route
-            this.utils.doAjax('get/data/search/allStatistics', 'get', data, null).then(data => {
+            if(this.selectedSearchType == "Librarian Statistics" && reqLibrarian == "null") {
+                console.log("No librarian is selected");
+            }
+            else {
+                // all statistics route
+                this.utils.doAjax('get/data/search/allStatistics', 'get', data, null).then(data => {
 
-                this.resultData = data.data;
-                if(this.resultData) {
-                        
-                    // Prep the response for the view templates
-                    // if(this.selectedStatisticsType == "Class") {
-                    //     this.resultData.year['total'] = this.resultData.year.totals;
-                    // }
-                    delete this.resultData.year.totals;     // Do not display this in the view table
-                    this.resultData.month = this.sortResultMonthsByTimePeriod(this.resultData);
-                    this.resultData.quarter = this.sortResultQuartersByTimePeriod(this.resultData);
+                    this.resultData = data.data;
+                    if(this.resultData) {
+                            
+                        // Prep the response for the view templates
+                        // if(this.selectedStatisticsType == "Class") {
+                        //     this.resultData.year['total'] = this.resultData.year.totals;
+                        // }
+                        delete this.resultData.year.totals;     // Do not display this in the view table
+                        this.resultData.month = this.sortResultMonthsByTimePeriod(this.resultData);
+                        this.resultData.quarter = this.sortResultQuartersByTimePeriod(this.resultData);
 
-                    // Show search options, hide the search form
-                    document.getElementById('result-options').style.display = "block"; 
-                    document.getElementById('statistics-search').style.display = "none";
-                    document.getElementById('post-search-options').style.display = "block";
-                    document.getElementById('search-options').style.display = "none";
+                        // Show search options, hide the search form
+                        document.getElementById('result-options').style.display = "block"; 
+                        document.getElementById('statistics-search').style.display = "none";
+                        document.getElementById('post-search-options').style.display = "block";
+                        document.getElementById('search-options').style.display = "none";
 
-                    // Render the view
-                    if(this.displayFormat == "Table") {
-                        this.renderStatisticsTables(this.resultData);
-                    }
-                    else if(this.displayFormat == "Chart") {
-
-                        // Populate group select box, if not single sort
-                        if(this.selectedDisplayStatistics != "All") {
-                            this.subsortValues = []; // Clear past search results
-                            for (var key in this.resultData.year) {
-                                this.subsortValues.push(key);
-                            }
-                            this.selectedSubsortValue = this.subsortValues[0];  // Defaults to first in list
+                        // Render the view
+                        if(this.displayFormat == "Table") {
+                            this.renderStatisticsTables(this.resultData);
                         }
+                        else if(this.displayFormat == "Chart") {
 
-                        this.renderStatisticsCharts(this.resultData);
+                            // Populate group select box, if not single sort
+                            if(this.selectedDisplayStatistics != "All") {
+                                this.subsortValues = []; // Clear past search results
+                                for (var key in this.resultData.year) {
+                                    this.subsortValues.push(key);
+                                }
+                                this.selectedSubsortValue = this.subsortValues[0];  // Defaults to first in list
+                            }
+
+                            this.renderStatisticsCharts(this.resultData);
+                        }
                     }
-                }
-            });
+                });
+            }
         }
         else {
             console.log("Search type error");

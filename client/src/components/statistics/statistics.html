@@ -125,7 +125,7 @@
                             
                             <div id="daterange"><h4>${fromYear} - ${toYear} ${selectedSearchTimeframe}</h4></div>
                             <div id="stats-type-label"><h4>${selectedStatisticsType} Statistics <span if.bind="selectedListResultsBy != 'Total'">by ${selectedListResultsBy}</span></h4></div>
-                            <div id="librarian-label" if.bind="selectedLibrarian != 'Select a Librarian:'"><h4>${librarianName}</h4></div>
+                            <div id="librarian-label" if.bind="librarianName != ''"><h4>${librarianName}</h4></div>
                             <br />
 
                             <div id="subsort-select" if.bind="selectedDisplayStatistics != 'All'">
