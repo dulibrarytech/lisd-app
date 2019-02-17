@@ -1,6 +1,7 @@
 export class Configuration {  
   constructor(){
       this.baseUrl = 'http://localhost:9004/';
+      this.clientPath = '';
       this.environment = 'development';
 
       this.session = {

@@ -2,13 +2,13 @@
 
 import {inject} from 'aurelia-framework';
 import {HttpClient, json} from 'aurelia-fetch-client';
-import {Configuration} from '../../../config/configuration';
+import {Configuration} from 'config/configuration';
 
 export class SystemUtils {
 
 	constructor(httpClient, config) {
-		this.http = httpClient;
-		
+
+		this.http = httpClient;	
     	this.config = config;
 
 		if(typeof httpClient != 'undefined') {
