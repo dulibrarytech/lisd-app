@@ -1,11 +1,11 @@
 import 'fetch';
 import { customElement, inject } from 'aurelia-framework';
 
-import {SystemUtils} from '../../utils/SystemUtils.js';
-import {ChartUtils} from '../../utils/ChartUtils.js';
-import {MonthStringValueConverter} from '../../utils/MonthStringValueConverter.js';
-import {QuarterStringValueConverter} from '../../utils/QuarterStringValueConverter.js';
-import {Configuration} from '../../../config/configuration';
+import {SystemUtils} from 'utils/SystemUtils.js';
+import {ChartUtils} from 'utils/ChartUtils.js';
+import {MonthStringValueConverter} from 'utils/MonthStringValueConverter.js';
+import {QuarterStringValueConverter} from 'utils/QuarterStringValueConverter.js';
+import {Configuration} from 'config/configuration';
 
 import $ from 'jquery'; // for datepicker
 

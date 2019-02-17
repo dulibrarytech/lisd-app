@@ -1,8 +1,8 @@
 import 'fetch';
 import { customElement, inject } from 'aurelia-framework';
 
-import {SystemUtils} from '../../../src/utils/SystemUtils.js';
-import {Configuration} from '../../../config/configuration';
+import {SystemUtils} from 'utils/SystemUtils.js';
+import {Configuration} from 'config/configuration';
 import {Router} from 'aurelia-router';
 import $ from 'jquery'; // for datepicker
 
