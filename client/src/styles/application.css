@@ -36,6 +36,10 @@ header#du-header {
 	margin-bottom: 0 !important;
 }
 
+.navbar-static-top {
+    z-index: 0 !important;
+}
+
 #menubar {
 	background-color: #d8d8d8;
 }
@@ -395,8 +399,8 @@ div#quarter-results div {
 
 div#chart-section,
 div#results-section {
-	margin-top: 3em;
-    margin-left: 3.5em;
+/*	margin-top: 3em;*/
+    margin-left: 33px;
 }
 
 input#from-date-select,
@@ -642,7 +646,7 @@ input#comment-input {
 }
 
 .form-list-edit-link {
-	color: blue;
+	color: #858381;
 }
 
 .form-list-edit-link:hover {
