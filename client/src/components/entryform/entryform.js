@@ -364,7 +364,7 @@ export class EntryForm {
         };
 
         if(this.validateForm(data)) {
-
+            
             // Set url and method for new class or edit class
             var url, method, msg;
             if(this.courseAdd) {

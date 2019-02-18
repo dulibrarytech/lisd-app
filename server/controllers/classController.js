@@ -37,7 +37,7 @@ module.exports.classAdd = function(req, res) {
 		data["comments"] = [];
 		data["comments"].push({
 			name: commenter,	// TODO: add initial comment commentor name is necessary
-			text: req.body.commentText
+			text: req.body.data.commentText
 		});
 	}
 
