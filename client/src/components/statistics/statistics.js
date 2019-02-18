@@ -975,6 +975,7 @@ export class Statistics {
     viewClassComments(classID) {
 
         this.showClassEditForm(false);
+        this.editCommentData = false;
 
         // Store the selected class id
         this.activeClassID = classID;
