@@ -178,7 +178,8 @@ export class Statistics {
 
         // Default year settings:
         // Set the fromYear to the previous year, set the toYear to current year
-        this.fromYear = this.fromYears[(this.fromYears.length-2)];     
+        //this.fromYear = this.fromYears[(this.fromYears.length-3)];   
+        this.fromYear = this.getCurrentFiscalYear();  
         var from = parseInt(this.fromYear) + 1;
         this.toYears = this.getYearList(from);     
         document.getElementById("toYearSelect").visibility = 'hidden';
@@ -797,11 +798,21 @@ export class Statistics {
     getYearList(startYear) {
         var years = [];
         // Set for and to year arrays
-        var data = new Date();
         for(var i = startYear; i <= new Date().getFullYear()+1; i++) {
             years.push(i);
         }
         return years;
+    }
+
+    getCurrentFiscalYear() {
+        var date = new Date(), curFiscal;
+        if(date.getMonth() >= parseInt(this.config.fiscalYearStart)) {
+            curFiscal = date.getFullYear();
+        }
+        else {
+            curFiscal = date.getFullYear() - 1;
+        }
+        return curFiscal;
     }
 
     getFormData() {
