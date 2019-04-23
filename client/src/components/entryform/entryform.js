@@ -107,8 +107,8 @@ export class EntryForm {
             this.className = data.className;
             this.classDate = data.classDate.substring(0,10);
             this.courseNumber = data.courseNumber;
-            this.instructorFName = data.instructorFName;
-            this.instructorLName = data.instructorLName;
+            this.instructorFName = data.instructorFName.trim();
+            this.instructorLName = data.instructorLName.trim();
             this.numUndergraduates = data.numUndergraduates;
             this.numGraduates = data.numGraduates;
             this.numFacultyStaff = data.numFacultyStaff;
@@ -289,7 +289,7 @@ export class EntryForm {
 
         var instructorName = "";
         if(this.instructorFName != "" && this.instructorLName != "") {
-            instructorName = this.instructorFName + " " + this.instructorLName;
+            instructorName = this.instructorFName.trim() + " " + this.instructorLName.trim();
         }
 
         formData['className'] =         this.className;
@@ -322,7 +322,6 @@ export class EntryForm {
     }
 
     validateForm(formData) {
-
         var formValid = true;
 
         // Validate fields

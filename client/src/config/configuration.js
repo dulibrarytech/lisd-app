@@ -9,8 +9,6 @@ export class Configuration {
       this.clientPath = '';
       this.environment = 'development';
 
-      this.fiscalYearStart = "6";
-
       this.session = {
       	data: null,
       	token: null

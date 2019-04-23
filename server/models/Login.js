@@ -12,7 +12,6 @@ exports.createToken = function(userData) {
 exports.validateLdapBind = function(username, password) {
 
 	return new Promise(function(fulfill, reject) {
-		console.log("TEST env:", settings.runtime_env);
 		if(settings.runtime_env == "development") {
 			console.log("Dev mode skips LDAP: ", new Date());
 			fulfill(true);
@@ -62,13 +61,12 @@ exports.validateToken = function(req, res, next) {
 
 	// decode token
 	if (token) {
-
 		// verifies secret and checks exp
 		jwt.verify(token, settings.secret, function(err, decoded) {      
 			if (err) {
 				
 				//return res.json({ success: false, message: 'Failed to authenticate token.' });    
-				console.log("Invalid token");
+				console.log("Validation error: Invalid token");
 				return res.status(403).send();
 			} else {
 
