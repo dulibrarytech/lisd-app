@@ -880,7 +880,7 @@ export class Statistics {
     submitForms() {
 
         var data = this.getFormData(),
-            reqLibrarian = data.librarian,
+            reqLibrarian = data.librarian == "" ? null : data.librarian,
             selIndex = document.getElementById('librarian-select-input').selectedIndex;
 
         //  Test for undefined
@@ -1108,7 +1108,7 @@ export class Statistics {
                 this.activeClass.quarterSelect = classData.quarter;
                 this.activeClass.courseNumber = classData.number;
 
-                var names = classData.instructor.split(" ");
+                var names = classData.instructor.split(/\ +/g);
                 this.activeClass.instructorFName = names[0];
                 this.activeClass.instructorLName = names[1];
 
