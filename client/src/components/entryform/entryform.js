@@ -15,6 +15,7 @@ export class EntryForm {
 
         this.librarianCount = 1;
         this.selectedLibrarians = [];
+        this.selectedLibrarianIDs = [];
         this.activeLibrarian = "";
         this.locationCount = 1;
         this.selectedLocations = [];
@@ -60,7 +61,7 @@ export class EntryForm {
 
         this.courseAdd = true;
 
-        this.loadDropdownData();
+        // this.loadDropdownData();
     }
 
     attached() {
@@ -98,10 +99,8 @@ export class EntryForm {
     }
 
     activate(data) {
-
        // Class data coming in for edit: store in local fields to populate form
        if(typeof data.className != 'undefined') {
-                
             this.activeSession = false;
             this.courseAdd = false;
             this.activeClassID = data.id;
@@ -121,19 +120,20 @@ export class EntryForm {
             this.locationCount = data.locationCount;
             this.departmentCount = data.departmentCount;
 
-                console.log("Sel librarians into entryform for class edit:", data.selectedLibrarians);
+
+            // From librarian List, convert the IDs in the selLibs array to the librarian names
+            // (Get name if ID found)
+
             this.selectedLibrarians = [];
             for(var index in data.selectedLibrarians) {
                 this.selectedLibrarians[index] = data.selectedLibrarians[index];
             }
             //this.selectedLibrarians = data.selectedLibrarians;
-                console.log("Sel loctions into entryform for class edit:", data.selectedLocations);
             this.selectedLocations = [];
             for(var index in data.selectedLocations) {
                 this.selectedLocations[index] = data.selectedLocations[index];
             }
             //this.selectedLocations = data.selectedLocations;
-                console.log("Sel departments into entryform for class edit:", data.selectedDepartments);
             this.selectedDepartments = [];
             for(var index in data.selectedDepartments) {
                 this.selectedDepartments[index] = data.selectedDepartments[index];
@@ -160,6 +160,7 @@ export class EntryForm {
                     break;
             }
         }
+        this.loadDropdownData();
     }
 
     resetForm() {
@@ -235,7 +236,6 @@ export class EntryForm {
 
     // Retrieves the current list from the server and populates all select dropdowns
     loadDropdownData() {
-
         this.utils.doAjax('get/data/entry/selectValues', 'get', null, null).then(responseObject => {
             this.setSelectOptions(responseObject);
         });
