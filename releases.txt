@@ -74,4 +74,6 @@ Release Notes
 					Added modal dialog to view course comments #3
 					Fix misaligned buttons in class data view #2
 					Add option to search for course statistics without restriction to a single librarian #1
+
+2.2.0	8-14-19		Add export functionality for class data statistics
 					
