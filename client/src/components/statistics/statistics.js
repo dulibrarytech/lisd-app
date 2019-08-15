@@ -752,12 +752,9 @@ export class Statistics {
     }
 
     newSearch() {
-        // DEV - TEMP TODO create function to reset form resetForm()
-        //location.reload(false);
         this.resetForm();
         this.showClassEditForm(false);
         this.hideClassComments();
-        //this.hideClassEditForm();
     }
 
     resetCanvasElement() {
@@ -837,8 +834,7 @@ export class Statistics {
         }
 
         if(this.selectedSearchType == "Librarian Statistics" || this.selectedSearchType == "Class Data" || this.selectedSearchType == "Class Data By Librarian") {
-            formData['librarian'] = this.selectedLibrarian;
-        }
+            formData['librarian'] = this.selectedLibrarian;        }
         else {
             formData['librarian'] = "";
         } 
@@ -882,6 +878,9 @@ export class Statistics {
         var data = this.getFormData(),
             reqLibrarian = data.librarian == "" ? null : data.librarian,
             selIndex = document.getElementById('librarian-select-input').selectedIndex;
+                console.log("TEST req lib", reqLibrarian);
+                console.log("TEST active lib", this.activeLibrarian);
+
 
         //  Test for undefined
         data['token'] = this.config.session.token;
@@ -1203,13 +1202,151 @@ export class Statistics {
         // Use the daterange and stats type text as filename.  (including spaces)
         var filename = content;
 
-        // Create a new pdf doc, add the current statistics label
-        var doc = new jsPDF('p', 'pt');
-        doc.text(content, 40, 30);
+        // Export class data chart
+        if(this.selectedSearchType == "Class Data" || this.selectedSearchType == "Class Data By Librarian") {
+
+            var doc = new jsPDF('l', 'pt', 'a4', true);
+            doc.text(content, 40, 30);
+
+            var tableID = "class-data-results";
+            var tableElts = document.getElementById(tableID).children, table, rows, data;
+            var columns = [], rowData = [], tableData = [];
+
+            // Build the header
+            table = tableElts[0];
+            rows = table.children[0].children;
+
+            for(var i=0; i<rows.length; i++) {
+                data = rows[i].children;
+
+                for(var j=0; j<data.length; j++) {
+                    if(data[j].nodeName.toLowerCase() == "th") {
+
+                        if(data[j].innerHTML == "Librarians") {
+                            columns.push(["Librarian"]);
+                        }
+                        else if(data[j].innerHTML == "Quarter") {
+                            columns.push(["Q"]);
+                        }
+                        else if(data[j].innerHTML == "U") {
+                            columns.push(["Und"]);
+                        }
+                        else if(data[j].innerHTML == "G") {
+                            columns.push(["Grd"]);
+                        }
+                        else if(data[j].innerHTML == "F") {
+                            columns.push(["Fac"]);
+                        }
+                        else if(data[j].innerHTML == "O") {
+                            columns.push(["Oth"]);
+                        }
+                        else {
+                            columns.push([data[j].innerHTML]);
+                        }
+                    }
+                    else if(data[j].nodeName.toLowerCase() == "td") {
+                        rowData.push(data[j].innerHTML);
+                    }
+
+                    // Kludge - For jspdf autotable, th element count must match td element count.  Some tables do not do this (doh), so add the empty th's here
+                    if(columns.length != rowData.length) {
+                        for(var l=0; l<rowData.length; l++) {
+                            if(typeof columns[l] == 'undefined') {
+                                columns[l] = "";
+                            }
+                        }
+                    }
+                }
+
+                if(rowData.length > 0) {
+                    tableData.push(rowData);
+                    rowData = [];
+                }
+            }
+
+            // Build the body
+            rows = table.children[1].children;
+            for(var i=0; i<rows.length; i++) {
+                data = rows[i].children;
+
+                for(var j=0; j<data.length; j++) {
+
+                    if(data[j].nodeName.toLowerCase() == "td") {
+
+                        // Loop throught the td child elements and add them delimited by newline
+                        if(data[j].children.length > 0) {
+                            let tdElements = data[j].children,
+                                rowElementData = "";
+
+                            for(var k=0; k<tdElements.length; k++) {
+
+                                // Add the child element's html content if it is not a button element
+                                if(tdElements[k].nodeName.toLowerCase() != "button") {
+                                    rowElementData += tdElements[k].innerHTML.substring(0,30) + ' \n';
+                                }
+                            }
+
+                            // rowData.push(rowElementData);
+                            rowData.push({
+                                content: rowElementData,
+                                styles: {
+                                    overflow: "linebreak"
+                                }
+                            });
+                        }
+                        else {
+                            //rowData.push(data[j].innerHTML);
+                            rowData.push({
+                                content: data[j].innerHTML.substring(0,100),
+                                styles: {
+                                    overflow: "linebreak"
+                                }
+                            });
+                        }
+                    }
+
+                    // // Kludge - For jspdf autotable, th element count must match td element count.  Some tables do not do this (doh), so add the empty th's here
+                    if(columns.length != rowData.length) {
+                        for(var l=0; l<rowData.length; l++) {
+                            if(typeof columns[l] == 'undefined') {
+                                columns[l] = "";
+                            }
+                        }
+                    }
+                }
+
+                if(rowData.length > 0) {
+                    tableData.push(rowData);
+                    rowData = [];
+                }
+            }
+
+            var options = {
+                margin: {top: 50}, 
+                theme: "striped",
+                styles: {
+                    fontSize: 6,
+                    overflow: "hidden",
+                    minCellWidth: 50
+                },
+                headStyles: {
+                    fontSize: 6,
+                    overflow: "normal",
+                    minCellWidth: 50
+                }
+            };
+
+            doc.autoTable(columns, tableData, options);
+            doc.save(filename);
+        }
 
         // Convert html to pdf
-        if(this.displayFormat == "Table") {
+        else if(this.displayFormat == "Table") {
+            // Create a new pdf doc, add the current statistics label
+            var doc = new jsPDF('p', 'pt');
+            doc.text(content, 40, 30);
             var tableID = "";
+
             switch(this.selectedListResultsBy) {
                 case "Month":
                     tableID = "month-results";
