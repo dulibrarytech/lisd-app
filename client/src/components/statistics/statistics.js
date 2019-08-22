@@ -1257,7 +1257,6 @@ export class Statistics {
             rows = table.children[1].children;
             for(var i=0; i<rows.length; i++) {
                 data = rows[i].children;
-
                 for(var j=0; j<data.length; j++) {
 
                     if(data[j].nodeName.toLowerCase() == "td") {
@@ -1271,14 +1270,14 @@ export class Statistics {
 
                                 // Add the child element's html content if it is not a button element
                                 if(tdElements[k].nodeName.toLowerCase() != "button") {
-                                    rowElementData += tdElements[k].innerHTML + ' \n';
+                                    rowElementData += tdElements[k].innerText + ' \n';
                                 }
                             }
 
                             rowData.push(rowElementData);
                         }
                         else {
-                            rowData.push(data[j].innerHTML);
+                            rowData.push(data[j].innerText);
                         }
                     }
 
@@ -1334,7 +1333,7 @@ export class Statistics {
                         overflow: "linebreak"
                     },
                     6: {
-                        cellWidth: 40,
+                        cellWidth: "auto",
                         overflow: "ellipsize"
                     },
                     7: {
