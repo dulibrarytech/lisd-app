@@ -10,14 +10,14 @@
 	<div id="class-data-results" class="table-responsive section-border" if.bind="!classEditFormVisible">
 		<table id="cdr-table" class="table">
 			<thead class="thead-default">
-				<tr><th width="100px">Librarians</th><th>Department</th><th width="100px">Name</th><th>Date</th><th>Quarter</th><th>Number</th><th>Type</th><th>Instructor</th><th>U</th><th>G</th><th>F</th><th>O</th><th>Location</th><th>ACRL Frameworks</th><th></th></tr>
+				<tr><th>Librarians</th><th>Department</th><th>Name</th><th>Date</th><th>Quarter</th><th>Number</th><th>Type</th><th>Instructor</th><th>U</th><th>G</th><th>F</th><th>O</th><th>Location</th><th>ACRL Frameworks</th><th></th></tr>
 			</thead>
 
 			<tr repeat.for="index of resultData">
 				<!-- <td>${index.department}</td> -->
-				<td width="100px"><span repeat.for="librarian of index.associatedLibrarians">${librarian}</span></td>
+				<td><span repeat.for="librarian of index.associatedLibrarians">${librarian}</span></td>
 				<td><span repeat.for="department of index.department">${department}</span></td>
-				<td width="100px">${index.courseInfo.name}</td>
+				<td>${index.courseInfo.name}</td>
 				<td>${index.courseInfo.date}</td>
 				<td>${index.courseInfo.quarter}</td>
 				<td>${index.courseInfo.number}</td>

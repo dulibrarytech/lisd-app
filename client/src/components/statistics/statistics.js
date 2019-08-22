@@ -1228,18 +1228,7 @@ export class Statistics {
                         else if(data[j].innerHTML == "Quarter") {
                             columns.push(["Q"]);
                         }
-                        else if(data[j].innerHTML == "U") {
-                            columns.push(["Und"]);
-                        }
-                        else if(data[j].innerHTML == "G") {
-                            columns.push(["Grd"]);
-                        }
-                        else if(data[j].innerHTML == "F") {
-                            columns.push(["Fac"]);
-                        }
-                        else if(data[j].innerHTML == "O") {
-                            columns.push(["Oth"]);
-                        }
+
                         else {
                             columns.push([data[j].innerHTML]);
                         }
@@ -1248,7 +1237,7 @@ export class Statistics {
                         rowData.push(data[j].innerHTML);
                     }
 
-                    // Kludge - For jspdf autotable, th element count must match td element count.  Some tables do not do this (doh), so add the empty th's here
+                    // Kludge - For jspdf autotable, th element count must match td element count.  Some tables do not do this, so add the empty th's here
                     if(columns.length != rowData.length) {
                         for(var l=0; l<rowData.length; l++) {
                             if(typeof columns[l] == 'undefined') {
@@ -1282,26 +1271,14 @@ export class Statistics {
 
                                 // Add the child element's html content if it is not a button element
                                 if(tdElements[k].nodeName.toLowerCase() != "button") {
-                                    rowElementData += tdElements[k].innerHTML.substring(0,30) + ' \n';
+                                    rowElementData += tdElements[k].innerHTML + ' \n';
                                 }
                             }
 
-                            // rowData.push(rowElementData);
-                            rowData.push({
-                                content: rowElementData,
-                                styles: {
-                                    overflow: "linebreak"
-                                }
-                            });
+                            rowData.push(rowElementData);
                         }
                         else {
-                            //rowData.push(data[j].innerHTML);
-                            rowData.push({
-                                content: data[j].innerHTML.substring(0,100),
-                                styles: {
-                                    overflow: "linebreak"
-                                }
-                            });
+                            rowData.push(data[j].innerHTML);
                         }
                     }
 
@@ -1322,17 +1299,67 @@ export class Statistics {
             }
 
             var options = {
-                margin: {top: 50}, 
+                margin: {top: 50, left: 30}, 
                 theme: "striped",
                 styles: {
                     fontSize: 6,
-                    overflow: "hidden",
-                    minCellWidth: 50
+                    overflow: "linebreak"
                 },
                 headStyles: {
                     fontSize: 6,
-                    overflow: "normal",
-                    minCellWidth: 50
+                    overflow: "normal"
+                },
+                columnStyles: {
+                    0: {
+                        cellWidth: 50,
+                        minCellWidth: 50
+                    },
+                    1: {
+                        cellWidth: 70,
+                        minCellWidth: 70,
+                        overflow: "linebreak"
+                    },
+                    2: {
+                        cellWidth: 100,
+                        overflow: "linebreak"
+                    },
+                    3: {
+                        cellWidth: 40
+                    },
+                    4: {
+                        cellWidth: 10
+                    },
+                    5: {
+                        cellWidth: 40,
+                        overflow: "linebreak"
+                    },
+                    6: {
+                        cellWidth: 40,
+                        overflow: "ellipsize"
+                    },
+                    7: {
+                        cellWidth: 50,
+                        overflow: "linebreak"
+                    },
+                    8: {
+                        cellWidth: 5
+                    },
+                    9: {
+                        cellWidth: 5
+                    },
+                    10: {
+                        cellWidth: 5
+                    },
+                    11: {
+                        cellWidth: 5
+                    },
+                    12: {
+                        cellWidth: 50,
+                    },
+                    13: {
+                        cellWidth: 100,
+                        overflow: "linebreak"
+                    }
                 }
             };
 
