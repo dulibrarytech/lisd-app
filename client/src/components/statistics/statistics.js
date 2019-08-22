@@ -1230,11 +1230,11 @@ export class Statistics {
                         }
 
                         else {
-                            columns.push([data[j].innerHTML]);
+                            columns.push([data[j].innerText]);
                         }
                     }
                     else if(data[j].nodeName.toLowerCase() == "td") {
-                        rowData.push(data[j].innerHTML);
+                        rowData.push(data[j].innerText);
                     }
 
                     // Kludge - For jspdf autotable, th element count must match td element count.  Some tables do not do this, so add the empty th's here
@@ -1398,10 +1398,10 @@ export class Statistics {
 
                     for(var j=0; j<data.length; j++) {
                         if(data[j].nodeName.toLowerCase() == "th") {
-                            columns.push(data[j].innerHTML);
+                            columns.push(data[j].innerText);
                         }
                         else if(data[j].nodeName.toLowerCase() == "td") {
-                            rowData.push(data[j].innerHTML);
+                            rowData.push(data[j].innerText);
                         }
 
                         // Kludge - For jspdf autotable, th element count must match td element count.  Some tables do not do this (doh), so add the empty th's here
@@ -1434,7 +1434,7 @@ export class Statistics {
                 var section = "", tableHeight = 50;
                 for(var div of tableElts) {
 
-                    rowData.push([div.children[0].innerHTML]);
+                    rowData.push([div.children[0].innerText]);
                     tableData.push(rowData);
                     rowData = [];
 
@@ -1446,7 +1446,7 @@ export class Statistics {
                         
                         for(var j=0; j<data.length; j++) {
                             if(data[j].nodeName.toLowerCase() == "td") {
-                                rowData.push(data[j].innerHTML);
+                                rowData.push(data[j].innerText);
                             }
                         }
 
