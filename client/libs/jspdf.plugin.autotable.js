@@ -1093,7 +1093,9 @@ function printFullRow(row, isLastRow) {
         printRow(row);
     }
     else {
-        if (shouldPrintOnCurrentPage(row, remainingPageSpace, table)) {
+        // DU LISD: Never split a row
+        //if (shouldPrintOnCurrentPage(row, remainingPageSpace, table)) {
+        if (0) {
             var remainderRow = modifyRowToFit(row, remainingPageSpace, table);
             printRow(row);
             addPage();

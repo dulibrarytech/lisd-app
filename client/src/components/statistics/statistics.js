@@ -215,7 +215,6 @@ export class Statistics {
 
         // If a string is passed in, render as a message.  If an object is passed in, attempt to render its data
         if(typeof data == null) { 
-            
             document.getElementById("results-table").innerHTML = "<span id='view-message'>" + data.message + "</span>"; 
         }
         else if(typeof data == "object") { 
@@ -878,9 +877,6 @@ export class Statistics {
         var data = this.getFormData(),
             reqLibrarian = data.librarian == "" ? null : data.librarian,
             selIndex = document.getElementById('librarian-select-input').selectedIndex;
-                console.log("TEST req lib", reqLibrarian);
-                console.log("TEST active lib", this.activeLibrarian);
-
 
         //  Test for undefined
         data['token'] = this.config.session.token;
@@ -1298,16 +1294,16 @@ export class Statistics {
             }
 
             var options = {
-                margin: {top: 50, left: 30}, 
+                margin: {top: 50, left: 30, bottom: 20}, 
                 theme: "striped",
                 styles: {
                     fontSize: 6,
                     overflow: "linebreak"
                 },
                 headStyles: {
-                    fontSize: 6,
-                    overflow: "normal"
+                    fontSize: 6
                 },
+                pageBreak: "auto",
                 columnStyles: {
                     0: {
                         cellWidth: 50,
