@@ -76,4 +76,6 @@ Release Notes
 					Add option to search for course statistics without restriction to a single librarian #1
 
 2.2.0	8-14-19		Add export functionality for class data statistics
+
+2.2.1	9-10-19		Add missing table headers on pdf export
 					
