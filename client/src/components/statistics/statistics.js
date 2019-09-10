@@ -1188,7 +1188,7 @@ export class Statistics {
     }; 
 
     exportData() {
-
+            console.log("TEST ExpD");
         // Get the page label for the file header
         var pdf, content = ""; 
         content += document.getElementById("daterange").textContent;
@@ -1229,7 +1229,7 @@ export class Statistics {
                             columns.push([data[j].innerText]);
                         }
                     }
-                    else if(data[j].nodeName.toLowerCase() == "td") {
+                    else if(data[j].nodeName.toLowerCase() == "td" || data[j].nodeName.toLowerCase() == "th") {
                         rowData.push(data[j].innerText);
                     }
 
@@ -1255,7 +1255,7 @@ export class Statistics {
                 data = rows[i].children;
                 for(var j=0; j<data.length; j++) {
 
-                    if(data[j].nodeName.toLowerCase() == "td") {
+                    if(data[j].nodeName.toLowerCase() == "td" || data[j].nodeName.toLowerCase() == "th") {
 
                         // Loop throught the td child elements and add them delimited by newline
                         if(data[j].children.length > 0) {
@@ -1364,6 +1364,7 @@ export class Statistics {
 
         // Convert html to pdf
         else if(this.displayFormat == "Table") {
+                console.log("TEST H");
             // Create a new pdf doc, add the current statistics label
             var doc = new jsPDF('p', 'pt');
             doc.text(content, 40, 30);
@@ -1383,7 +1384,7 @@ export class Statistics {
 
             var tableElts = document.getElementById(tableID).children, table, rows, data;
             var columns = [], rowData = [], tableData = [];
-            
+
             // Handle statistics with a single output table
             if(tableElts.length == 1) {
                 table = tableElts[0];
@@ -1393,10 +1394,7 @@ export class Statistics {
                     data = rows[i].children;
 
                     for(var j=0; j<data.length; j++) {
-                        if(data[j].nodeName.toLowerCase() == "th") {
-                            columns.push(data[j].innerText);
-                        }
-                        else if(data[j].nodeName.toLowerCase() == "td") {
+                        if(data[j].nodeName.toLowerCase() == "td" || data[j].nodeName.toLowerCase() == "th") {
                             rowData.push(data[j].innerText);
                         }
 
@@ -1426,10 +1424,9 @@ export class Statistics {
             
             // Handle statistics with multiple tables (sections) by month or by quarter, etc
             else if(tableElts.length > 1) {
-                columns = ["", ""];
-                var section = "", tableHeight = 50;
-                for(var div of tableElts) {
+                var section = "", tableHeight = 50, colCount = 0;
 
+                for(var div of tableElts) {
                     rowData.push([div.children[0].innerText]);
                     tableData.push(rowData);
                     rowData = [];
@@ -1439,9 +1436,11 @@ export class Statistics {
 
                     for(var i=0; i<rows.length; i++) {
                         data = rows[i].children;
-                        
+                        if(colCount == 0) {
+                            colCount = data.length;
+                        }
                         for(var j=0; j<data.length; j++) {
-                            if(data[j].nodeName.toLowerCase() == "td") {
+                            if(data[j].nodeName.toLowerCase() == "td" || data[j].nodeName.toLowerCase() == "th") {
                                 rowData.push(data[j].innerText);
                             }
                         }
@@ -1456,10 +1455,15 @@ export class Statistics {
 
                 var options = {
                     margin: {top: 50}, 
-                    pageBreak: "avoid", 
+                    pageBreak: "avoid",
                     theme: "grid", 
                     showHeader: "never"
                 };
+
+                for(var i=0; i<colCount; i++) {
+                    columns.push("");
+                }
+
                 doc.autoTable(columns, tableData, options);
             }
             else {
