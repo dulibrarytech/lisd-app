@@ -13,10 +13,10 @@ var settings = {
 	"server": {
 
 		"fiscalYearStart": 		"07-01",
-		"fiscalYearEnd": 			"06-30",
+		"fiscalYearEnd": 			"07-01",
 
 		"academicYearStart": 		"09-01",
-		"academicYearEnd": 		"08-30",
+		"academicYearEnd": 		"09-01",
 
 		"quarter1Start": 			"09-01",
 		"quarter1End": 			"12-15",
