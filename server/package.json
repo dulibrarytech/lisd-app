@@ -1,6 +1,6 @@
 {
   "name": "Library Instructional Statistics Database",
-  "version": "see releases.txt",
+  "version": "2.2.1",
   "description": "Aggragated searching of course data",
   "main": "server.js",
   "scripts": {
