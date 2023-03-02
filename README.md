@@ -1,17 +1,55 @@
 # Library Instruction Statistics Database
 
-## Structure
-The client-side aspect aka Aurelia application is in the ``client`` folder. This is where you author your Aurelia classes, etc. The server-side aspect is in the ``server`` folder which contains Node.js files, etc. 
+## Environment
 
-# Configuration settings:
-Client: config/configuration.js
+Server: node v10.16.3
+Client: node v10.16.3
+        jspm v0.16.45
 
-By default the server ships with Express and is set to serve your Aurelia application from the ``client`` directory.
+## Deploy app
 
-# Deployment
-# To minify client js files:
+### Database - mongodb
+
+1. install mongodb
+2. Create database (db-schema.js)
+3. Add env variables (server/.env)
+DB_HOST={mongodb host}
+DB_PORT={port 27017}
+DB_NAME={lisd db name}
+
+### Client
+
+#### Configuration
+
+client/config/configuration.js
+
+#### Build
+
+cd client
+npm install
+jspm install
+
+##### Minify public files
+
 1. from client/, run "gulp minify-all"
 2. Copy all files from dist/src to the corresponding locations in src/
 
-# Start
-Dev machine (current) node lisd-server.js
+### Server
+
+#### Configuration
+
+No configuration needed before deployment
+
+##### App settings
+
+server/config/settings.js
+
+#### Build
+
+cd server
+npm install
+
+## Start app
+
+node lisd-server.js
+

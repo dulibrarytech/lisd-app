@@ -78,4 +78,19 @@ Release Notes
 2.2.0	8-14-19		Add export functionality for class data statistics
 
 2.2.1	9-10-19		Add missing table headers on pdf export
+
+2.2.2	3-1-23		Package updates:
+					----------------
+					
+					server npm packages:
+					--------------------
+					removed bcrypt packages
+
+					client npm packages:
+					--------------------
+					removed gentelella (deps)
+
+					client jspm packages:
+					---------------------
+					aurelia-framework to v1.4.1
 					

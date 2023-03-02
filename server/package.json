@@ -1,7 +1,4 @@
 {
-  "name": "Library Instructional Statistics Database",
-  "version": "2.2.1",
-  "description": "Aggragated searching of course data",
   "main": "server.js",
   "scripts": {
     "test": "gulp test",
@@ -10,7 +7,6 @@
   "author": "Jeff Rynhart <jeff.rynhart@du.edu>",
   "license": "MIT",
   "dependencies": {
-    "bcrypt-nodejs": "latest",
     "body-parser": "^1.17.1",
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
@@ -21,7 +17,7 @@
     "dotenv": "^2.0.0",
     "downloadjs": "^1.4.7",
     "ejs": "^2.4.1",
-    "express": "^4.15.2",
+    "express": "^4.18.2",
     "express-session": "~1.7.6",
     "file-system": "^2.2.2",
     "html-pdf": "^2.2.0",
@@ -37,7 +33,7 @@
     "passport-jwt": "^2.2.1",
     "passport-local": "~1.0.0",
     "request": "2.0",
-    "serve-favicon": "^2.3.0",
+    "serve-favicon": "^2.5.0",
     "simple-encryptor": "^1.1.0"
   },
   "devDependencies": {
