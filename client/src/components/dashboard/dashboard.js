@@ -3,6 +3,7 @@ import { customElement, inject } from 'aurelia-framework';
 import {Configuration} from 'config/configuration';
 import {SystemUtils} from 'utils/SystemUtils.js';
 import {Router} from 'aurelia-router';
+import {Session} from 'libs/session.js';
 
 export class Dashboard {
 
@@ -22,12 +23,14 @@ export class Dashboard {
 	  	this.propData = {};
 	  	this.confirmRemove = false;
 
-	  	if(this.config.session.token == null) {
+	  	if(Session.isSession() == false) {
 	  		this.router.navigate("/");
 	  	}
 	  	else {
 	  		this.activeSession = true;
-	  		this.username = this.config.session.data.fname + " " + this.config.session.data.lname;
+			this.username = Session.getData('userData').fname + " " + Session.getData('userData').lname;
+
+			document.getElementById('menulink-103').style.display = "none"; // hide login link
 	  	}
 
 	  	this.handleBodyClick = e => {
@@ -45,14 +48,14 @@ export class Dashboard {
 	}
 
 	attached() {
-		if(this.config.session.token) {
+		if(Session.isSession()) {
 			this.getUserList();
 			this.resetUserDataForm();
 			this.resetPropertyDataForm();
 		  	this.showDataForm(false);
 		}
 		else {
-			this.router.navigate("/");
+			window.location.replace(`${this.config.ssoUrl}?app_url=${this.config.ssoResponseUrl}`);
  		}
 
  		document.addEventListener('click', this.handleBodyClick);
@@ -118,8 +121,6 @@ export class Dashboard {
 
 	showDataForm(show) {
 		// Show user data form
-		//document.getElementById('user-data-form').style.display = show == true ? "block" : "none";
-
 		var elements = document.getElementsByClassName('data-input-form');
 	    for(var i=0; i<elements.length; i++) {
 	        elements[i].style.display = show == true ? "block" : "none";

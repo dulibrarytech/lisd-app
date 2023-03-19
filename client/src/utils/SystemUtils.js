@@ -3,6 +3,7 @@
 import {inject} from 'aurelia-framework';
 import {HttpClient, json} from 'aurelia-fetch-client';
 import {Configuration} from 'config/configuration';
+import {Session} from 'libs/session.js';
 
 export class SystemUtils {
 
@@ -12,7 +13,6 @@ export class SystemUtils {
     	this.config = config;
 
 		if(typeof httpClient != 'undefined') {
-			var token = config.session.token;
 			httpClient.configure(config => {
 	            config
 	                .withBaseUrl(this.config.baseUrl)
@@ -112,10 +112,8 @@ export class SystemUtils {
 	}
 
 	logout() {
-        this.config.session.data = {};
-        this.config.session.token = "";
-        //this.router.reload();
-        document.location.reload();
+		Session.destroy();
+        window.location.replace(this.config.ssoLogoutUrl);
     }
 }
 

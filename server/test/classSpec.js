@@ -52,7 +52,6 @@ describe("Class", function(){
 					//assert.isObject(results, 'results is an object');
 					expect(results.status).to.equal('ok');
 	                if(results.message) {console.log("MESSAGE: " + results.message);}
-					console.log("TEST RESULTS: ");
 					console.log(results);
 
 				});

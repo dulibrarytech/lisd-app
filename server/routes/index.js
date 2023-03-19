@@ -56,9 +56,13 @@ module.exports = function (app, passport) {
 	    classController.classAdd(req, res);
 	});
 
-	// User model
+	// Auth/Login routes
 	app.post('/user/login', function(req, res) { 
 	    userController.authenticateLogin(req, res);
+	});
+
+	app.post('/user/sso', function(req, res) { 
+	    userController.authenticateSSO(req, res);
 	});
 
 	app.post('/user/add/DUID', function(req, res) { 

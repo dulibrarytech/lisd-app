@@ -4,6 +4,7 @@ import { customElement, inject } from 'aurelia-framework';
 import {SystemUtils} from 'utils/SystemUtils.js';
 import {Configuration} from 'config/configuration';
 import {Router} from 'aurelia-router';
+import {Session} from 'libs/session.js';
 import $ from 'jquery'; // for datepicker
 
 export class EntryForm {
@@ -54,9 +55,9 @@ export class EntryForm {
 
         this.activeSession = false;
         this.activeClassID = 0;
-        if(this.config.session.data) {
+        if(Session.getData('userData')) {
             this.activeSession = true;
-            this.username = this.config.session.data.fname + " " + this.config.session.data.lname;
+            this.username = Session.getData('userData').fname + " " + Session.getData('userData').lname;
         }
 
         this.courseAdd = true;
@@ -65,8 +66,8 @@ export class EntryForm {
     }
 
     attached() {
-        if(this.config.session.data && this.config.session.data.librarianID !== "") {
-            this.activeLibrarian = this.config.session.data.librarianID;
+        if(Session.getData('userData') && Session.getData('userData').librarianID !== "") {
+            this.activeLibrarian = Session.getData('userData').librarianID;
 
             if(this.courseAdd == true) {
                 this.selectedLibrarians = [this.activeLibrarian];
@@ -74,8 +75,12 @@ export class EntryForm {
             }
         }
 
-        if(this.config.session.token == null) {
-            document.getElementById('menulink-104').style.display = "none";
+        if(Session.isSession() == false) {
+            let menulink = document.getElementById('menulink-104');
+            if(menulink) menulink.style.display = "none";
+        }
+        else {
+            document.getElementById('menulink-103').style.display = "none"; // hide login link
         }
 
         // Check selected acrl frameworks in list

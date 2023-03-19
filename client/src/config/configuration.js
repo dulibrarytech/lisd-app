@@ -8,6 +8,9 @@ export class Configuration {
       this.baseUrl = 'http://localhost:9004/';
       this.clientPath = '';
       this.environment = 'development';
+      this.ssoUrl = "https://authproxy.du.edu/secure";
+      this.ssoResponseUrl = "http://localhost:9004/user/sso";
+      this.ssoLogoutUrl = "https://login.du.edu/_layouts/pg/signout.aspx";
 
       this.session = {
       	data: null,

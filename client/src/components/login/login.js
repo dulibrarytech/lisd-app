@@ -3,19 +3,29 @@ import { customElement, inject } from 'aurelia-framework';
 import {Configuration} from 'config/configuration';
 import {SystemUtils} from 'utils/SystemUtils.js';
 import {Router} from 'aurelia-router';
+import {Session} from 'libs/session.js';
 
-export class Users {
+export class Login {
 
   constructor(systemUtils, config, router) {
       this.utils = systemUtils;
       this.config = config;
       this.router = router;
-
       this.heading = "";
 
-      if(this.config.session.token == null) {
-          document.getElementById('menulink-104').style.display = "none";
+      if(Session.isSession() == false) {
+          let menulink = document.getElementById('menulink-104');
+          if(menulink) menulink.style.display = "none";
       }
+  }
+
+  canActivate() {
+    if(Session.isSession()) {
+        this.router.navigate("/");
+    }
+    else {
+      window.location.replace(`${this.config.ssoUrl}?app_url=${this.config.ssoResponseUrl}`);
+    }
   }
 
   login() {
@@ -51,12 +61,10 @@ export class Users {
         }
         else {
           console.log(response.sessionData.username + " logged in successfully");
-          this.config.session.data = response.sessionData;
-          this.config.session.token = response.token;
+          Session.create({userData: response.sessionData}, response.token);
 
-          if(this.config.session.data.role == '1') {
-            // Show admin link (to dashboard route)
-            this.displayAdminLink(true);  // TEMP
+          if(Session.getData('userData').role == 1) {
+            this.displayAdminLink(true);
           }
 
           this.displayLoginButton(false);
@@ -86,12 +94,10 @@ export class Users {
           }
           else {
             console.log(response.sessionData.username + " logged in successfully");
-            this.config.session.data = response.sessionData;
-            this.config.session.token = response.token;
+            Session.create({userData: response.sessionData}, response.token);
 
-            if(this.config.session.data.role == '1') {
-              // Show admin link (to dashboard route)
-              this.displayAdminLink(true);  // TEMP
+            if(Session.getData('userData').role == 1) {
+              this.displayAdminLink(true);
             }
 
             this.displayLoginButton(false);
@@ -111,4 +117,4 @@ export class Users {
   }
 }
 
-Users.inject = [SystemUtils, Configuration, Router];
+Login.inject = [SystemUtils, Configuration, Router];

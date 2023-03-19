@@ -1,6 +1,6 @@
 require('dotenv').config();
 var settings = require("../config/settings.js");
-var jwt    = require('jsonwebtoken');
+//var jwt    = require('jsonwebtoken');
 var loginModel = require("../models/Login");
 var userModel = require("../models/User");
 var librarianModel = require("../models/Librarian");
@@ -36,19 +36,15 @@ module.exports.authenticateLogin = function(req, res) {
         var password = req.body.password;
 
         userModel.findDUID(username).then(duid => {
-            
-            // TODO validate LDAP first. Local validation occurs .then()
             loginModel.validateLdapBind(duid, password).then(ldapAuth => {
 
                 if(ldapAuth === true) {
-                    userModel.validateLisdUser(username).then(response => {   // or use controller.authenticateLogin
+                    userModel.validateLisdUser(username).then(response => {
 
                         if (response !== false) {
-
-                            // Check if user is a librarian
                             librarianModel.findByUserID(response.userID, function(librarianID) {
 
-                                response['librarianID'] = librarianID; // TEMP
+                                response['librarianID'] = librarianID;
                                 var token = loginModel.createToken(response);
 
                                 res.json({
@@ -85,6 +81,34 @@ module.exports.authenticateLogin = function(req, res) {
         res.sendStatus(400);
     }
 };
+
+module.exports.authenticateSSO = function(req, res) {
+    let username = req.body.employeeID || ""; // duid
+  	let host = req.body.HTTP_HOST || "";
+
+    if(host == settings.ssoHost) {
+        try {
+            userModel.validateLisdUser(username).then(userData => { 
+                if (userData !== false) {
+    
+                    librarianModel.findByUserID(userData.userID, function(librarianID) {
+                        userData['librarianID'] = librarianID;
+
+                        var token = loginModel.createToken(userData);  //w or w/out librID
+    
+                        let ssoClientLoginUrl = `${settings.ssoClientLoginUrl}?token=${token}`;
+                        res.redirect(ssoClientLoginUrl); // token present, lib id present (null or present)
+                    });
+    
+                } else res.send(401)
+            });
+        }
+        catch(error) {
+            console.error(error);
+        }
+    }
+    else res.send(401)
+}
 
 module.exports.userAll = function(req, res) {
     userModel.getAllUsers().then(users => {

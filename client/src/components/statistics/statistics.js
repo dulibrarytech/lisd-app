@@ -6,6 +6,7 @@ import {ChartUtils} from 'utils/ChartUtils.js';
 import {MonthStringValueConverter} from 'utils/MonthStringValueConverter.js';
 import {QuarterStringValueConverter} from 'utils/QuarterStringValueConverter.js';
 import {Configuration} from 'config/configuration';
+import {Session} from 'libs/session.js';
 
 import $ from 'jquery'; // for datepicker
 
@@ -68,13 +69,13 @@ export class Statistics {
         this.classEditFormVisible = false;
 
         // Set session data if a session is present
-        if(this.config.session.data) {
+        if(Session.getData('userData')) {
             this.activeSession = true;
-            this.username = this.config.session.data.fname + " " + this.config.session.data.lname;
+            this.username = Session.getData('userData').fname + " " + Session.getData('userData').lname;
 
             // Set active librarian
-            if(this.config.session.data.librarianID !== "") {
-                this.activeLibrarian = this.config.session.data.librarianID || "";
+            if(Session.getData('userData').librarianID !== "") {
+                this.activeLibrarian = Session.getData('userData').librarianID || "";
                 this.selectedLibrarian = [this.activeLibrarian];
                 this.selectedSearchType = "Librarian Statistics";
             }            
@@ -120,7 +121,8 @@ export class Statistics {
     }
 
     isAdmin() {
-        return (this.config.session.data && this.config.session.data.role === 1);
+        //return (this.config.session.data && this.config.session.data.role === 1); // sess upgrade
+        return (Session.getData('userData') && Session.getData('userData').role == 1)
     }
 
     resetActiveClass() {
@@ -188,8 +190,12 @@ export class Statistics {
         document.getElementById('chart-section').style.display = "none";
 
         // Do not show admin link if there is no session
-        if(this.config.session.token == null) {
-            document.getElementById('menulink-104').style.display = "none";
+        if(Session.isSession() == false) {
+            let menulink = document.getElementById('menulink-104');
+            if(menulink) menulink.style.display = "none";
+        }
+        else {
+            document.getElementById('menulink-103').style.display = "none"; // hide login link
         }
 
         // Currently selected search type will remain selected on new search.  Display librarian select if search type uses it
@@ -197,7 +203,7 @@ export class Statistics {
             document.getElementById('librarian-select').style.display = "block";
         }
 
-        if(this.config.session.data && this.config.session.data.librarianID != "") {
+        if(Session.getData('userData') && Session.getData('userData').librarianID != "") {
             document.getElementById('librarian-select').style.display = "block";
         }
 
@@ -879,7 +885,8 @@ export class Statistics {
             selIndex = document.getElementById('librarian-select-input').selectedIndex;
 
         //  Test for undefined
-        data['token'] = this.config.session.token;
+        // data['token'] = this.config.session.token; // sess upgrade 
+        data['token'] = Session.getToken();
 
         this.displayResults = false;
         this.librarianName = this.selectedLibrarian == "null" ? "" : document.getElementById('librarian-select-input')[selIndex].textContent;
@@ -1188,7 +1195,6 @@ export class Statistics {
     }; 
 
     exportData() {
-            console.log("TEST ExpD");
         // Get the page label for the file header
         var pdf, content = ""; 
         content += document.getElementById("daterange").textContent;
@@ -1364,7 +1370,6 @@ export class Statistics {
 
         // Convert html to pdf
         else if(this.displayFormat == "Table") {
-                console.log("TEST H");
             // Create a new pdf doc, add the current statistics label
             var doc = new jsPDF('p', 'pt');
             doc.text(content, 40, 30);

@@ -55,7 +55,6 @@ exports.validateLdapBind = function(username, password) {
 };
 
 exports.validateToken = function(req, res, next) {
-
 	// check header or url parameters or post parameters for token
 	var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
@@ -64,27 +63,17 @@ exports.validateToken = function(req, res, next) {
 		// verifies secret and checks exp
 		jwt.verify(token, settings.secret, function(err, decoded) {      
 			if (err) {
-				
-				//return res.json({ success: false, message: 'Failed to authenticate token.' });    
 				console.log("Validation error: Invalid token");
 				return res.status(403).send();
 			} else {
-
 				// if everything is good, save to request for use in other routes
 				req.decoded = decoded;    
-
-				// TODO refresh token, then re-store in header:
-				// delete decoded.iat;
-				// delete decoded.exp;
-				//req.headers['x-access-token'] = createToken(decoded);
-
 				next();
 			}
 		});
 
 	} else {
-
-		console.log("No token present"); // DEV
+		console.log("No token present");
 		return res.status(403).send();
 
 	}

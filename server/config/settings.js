@@ -7,6 +7,8 @@ var settings = {
 	"cryptKey": process.env.LISD_CRYPTKEY,
 	"LDAPAuthService": process.env.LDAP_SERVICE,
 	"lisdClientHeader": process.env.LISD_CLIENT,
+	"ssoHost": process.env.SSO_HOST,
+	"ssoClientLoginUrl": process.env.SSO_CLIENT_LOGIN_URL,
 
 	"runtime_env": process.env.LISD_ENV,
 

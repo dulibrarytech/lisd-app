@@ -615,7 +615,7 @@ div#admin-menu {
 }
 
 div#admin-menu ul {
-	padding-left: 2em;
+	/* padding-left: 2em; */
 	margin-top: 1.5em;
 }
 

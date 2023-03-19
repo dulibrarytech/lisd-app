@@ -33,7 +33,6 @@ describe("Aggregator", function(){
 					assert.isObject(results);
 					expect(results.status).to.equal("ok");
 					if(results.message) {console.log("MESSAGE: " + results.message);}
-					console.log("TEST RESULTS: ");
 					console.log(results);
 				});
 			});
@@ -48,7 +47,6 @@ describe("Aggregator", function(){
 					assert.isObject(results);
 					expect(results.status).to.equal("ok");
 					if(results.message) {console.log("MESSAGE: " + results.message);}
-					console.log("TEST RESULTS: ");
 					console.log(results);
 				});
 			});
@@ -63,7 +61,6 @@ describe("Aggregator", function(){
 					assert.isObject(results);
 					expect(results.status).to.equal("ok");
 					if(results.message) {console.log("MESSAGE: " + results.message);}
-					console.log("TEST RESULTS: ");
 					console.log(results);
 				});
 			});
