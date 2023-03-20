@@ -65,6 +65,10 @@ module.exports = function (app, passport) {
 	    userController.authenticateSSO(req, res);
 	});
 
+	app.post('/user/validate', function(req, res) { 
+	    userController.validateToken(req, res);
+	});
+
 	app.post('/user/add/DUID', function(req, res) { 
 	    userController.userAddDUID(req, res);
 	});

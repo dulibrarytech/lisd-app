@@ -20,22 +20,21 @@ export class Login {
 
   loginSSO(token = null) {
     if(token) {
-        // parse token
-        let userData = JWTDecode.jwtDecode(token) || {};
-
-        // add userdata (token payload) to session, add token string to session
-        Session.create({userData}, token);
-
-        // set ui state
-        if(userData.role == 1) {
+      this.utils.doAjax('user/validate', 'post', {token}, null).then(response => {
+        
+        if(response.isValid) {
+          let userData = response.data || JWTDecode.jwtDecode(token) || {};
+          Session.create({userData}, token);
+  
+          if(userData.role == 1) {
             this.displayAdminLink(true);
+          }
+          this.displayLoginButton(false);
         }
-        this.displayLoginButton(false);
-
-        // navigate to form (dashboard)
         this.router.navigate("/");
+      });
     }
-    else console.error("SSO token not found")
+    else this.router.navigate("/");
   }
 
   displayLoginButton(display) {

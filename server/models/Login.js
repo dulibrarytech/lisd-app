@@ -55,18 +55,13 @@ exports.validateLdapBind = function(username, password) {
 };
 
 exports.validateToken = function(req, res, next) {
-	// check header or url parameters or post parameters for token
 	var token = req.body.token || req.query.token || req.headers['x-access-token'];
-
-	// decode token
 	if (token) {
-		// verifies secret and checks exp
 		jwt.verify(token, settings.secret, function(err, decoded) {      
 			if (err) {
 				console.log("Validation error: Invalid token");
 				return res.status(403).send();
 			} else {
-				// if everything is good, save to request for use in other routes
 				req.decoded = decoded;    
 				next();
 			}
@@ -77,5 +72,16 @@ exports.validateToken = function(req, res, next) {
 		return res.status(403).send();
 
 	}
-
 };
+
+exports.validateTokenString = function(token="") {
+	let data = false;
+
+	try {
+		data = jwt.verify(token, settings.secret);
+	} catch(err) {
+		console.log(err);
+	}
+
+	return data;
+}

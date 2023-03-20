@@ -1,6 +1,5 @@
 require('dotenv').config();
 var settings = require("../config/settings.js");
-//var jwt    = require('jsonwebtoken');
 var loginModel = require("../models/Login");
 var userModel = require("../models/User");
 var librarianModel = require("../models/Librarian");
@@ -94,10 +93,10 @@ module.exports.authenticateSSO = function(req, res) {
                     librarianModel.findByUserID(userData.userID, function(librarianID) {
                         userData['librarianID'] = librarianID;
 
-                        var token = loginModel.createToken(userData);  //w or w/out librID
+                        var token = loginModel.createToken(userData);
     
                         let ssoClientLoginUrl = `${settings.ssoClientLoginUrl}?token=${token}`;
-                        res.redirect(ssoClientLoginUrl); // token present, lib id present (null or present)
+                        res.redirect(ssoClientLoginUrl);
                     });
     
                 } else res.send(401)
@@ -108,6 +107,15 @@ module.exports.authenticateSSO = function(req, res) {
         }
     }
     else res.send(401)
+}
+
+module.exports.validateToken = function(req, res) {
+    let isValid = false;
+    let token = req.body.token || null;
+	let data = loginModel.validateTokenString(token);
+
+	if(data) isValid = true;
+	res.send({isValid, data})
 }
 
 module.exports.userAll = function(req, res) {
