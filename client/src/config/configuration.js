@@ -8,9 +8,9 @@ export class Configuration {
       this.baseUrl = 'http://localhost:9004/';
       this.clientPath = '';
       this.environment = 'development';
-      this.ssoUrl = "";
-      this.ssoResponseUrl = "";
-      this.ssoLogoutUrl = "";
+      this.ssoUrl = "{url to sso auth endpoint}";
+      this.ssoResponseUrl = "http[s]//{url to client}/user/sso";
+      this.ssoLogoutUrl = "{url to sso logout endpoint}";
 
       this.session = {
       	data: null,
