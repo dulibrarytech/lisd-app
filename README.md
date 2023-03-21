@@ -6,6 +6,8 @@ Server: node v10.16.3
 Client: node v10.16.3
         jspm v0.16.45
 
+        npm v6.9.0
+
 ## Deploy app
 
 ### Database - mongodb
