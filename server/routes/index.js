@@ -23,9 +23,9 @@ module.exports = function (app, passport) {
 	    res.render('index.html');
 	});
 
-	// app.get('/get/pdf', function(req, res) {
-	//     aggregatorController.getPdf(req, res);
-	// });
+	app.post('/user/sso', function(req, res) { 
+	    userController.authenticateSSO(req, res);
+	});
 
 	app.use(checkHeader);
 	//app.use(checkToken);
@@ -59,10 +59,6 @@ module.exports = function (app, passport) {
 	// Auth/Login routes
 	app.post('/user/login', function(req, res) { 
 	    userController.authenticateLogin(req, res);
-	});
-
-	app.post('/user/sso', function(req, res) { 
-	    userController.authenticateSSO(req, res);
 	});
 
 	app.post('/user/validate', function(req, res) { 
