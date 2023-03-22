@@ -58,7 +58,7 @@ export class SystemUtils {
         }
 
         // Add headers
-        this.http.defaults.headers['x-access-token'] = this.config.session.token || null;
+        this.http.defaults.headers['x-access-token'] = Session.getToken();
 
         // Start spinner
         var target = document.getElementById('content');
@@ -81,7 +81,7 @@ export class SystemUtils {
         url += qString.slice(0, -1);
 
 		// Add headers
-        this.http.defaults.headers['x-access-token'] = this.config.session.token;
+        this.http.defaults.headers['x-access-token'] = Session.getToken();
 
         // Run the request
         return this.http.fetch(url, {method:"get"}).then(function(stream) {

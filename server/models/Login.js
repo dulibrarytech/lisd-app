@@ -55,7 +55,9 @@ exports.validateLdapBind = function(username, password) {
 };
 
 exports.validateToken = function(req, res, next) {
+	console.log("TEST token: body/query/header", req.body.token , req.query.token , req.headers['x-access-token'])
 	var token = req.body.token || req.query.token || req.headers['x-access-token'];
+	console.log("TEST token found:", token)
 	if (token) {
 		jwt.verify(token, settings.secret, function(err, decoded) {      
 			if (err) {
