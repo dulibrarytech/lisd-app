@@ -83,9 +83,9 @@ module.exports.authenticateLogin = function(req, res) {
 
 module.exports.authenticateSSO = function(req, res) {
     let username = req.body.employeeID || ""; // duid
-  	let host = req.body.HTTP_HOST || "";
+  	let host = req.body.HTTP_HOST || null;
 
-    if(host == settings.ssoHost) {
+    if(host && host == settings.ssoHost) {
         try {
             userModel.validateLisdUser(username).then(userData => { 
                 if (userData !== false) {
