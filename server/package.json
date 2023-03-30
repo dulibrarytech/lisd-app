@@ -2,7 +2,7 @@
   "main": "server.js",
   "scripts": {
     "test": "gulp test",
-    "start": "node server.js"
+    "start": "node lisd-server.js"
   },
   "author": "Jeff Rynhart <jeff.rynhart@du.edu>",
   "license": "MIT",

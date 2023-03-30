@@ -23,16 +23,6 @@ export class Dashboard {
 	  	this.propData = {};
 	  	this.confirmRemove = false;
 
-	  	if(Session.isSession() == false) {
-	  		this.router.navigate("/");
-	  	}
-	  	else {
-	  		this.activeSession = true;
-			this.username = Session.getData('userData').fname + " " + Session.getData('userData').lname;
-
-			document.getElementById('menulink-103').style.display = "none"; // hide login link
-	  	}
-
 	  	this.handleBodyClick = e => {
 
             // Remove button safety
@@ -49,13 +39,18 @@ export class Dashboard {
 
 	attached() {
 		if(Session.isSession()) {
+			this.activeSession = true;
+			this.username = Session.getData('userData').fname + " " + Session.getData('userData').lname;
+
 			this.getUserList();
 			this.resetUserDataForm();
 			this.resetPropertyDataForm();
 		  	this.showDataForm(false);
+
+			document.getElementById('menulink-103').style.display = "none"; // hide login link
 		}
 		else {
-			window.location.replace(`${this.config.ssoUrl}?app_url=${this.config.ssoResponseUrl}`);
+			this.router.navigate("/login");
  		}
 
  		document.addEventListener('click', this.handleBodyClick);
