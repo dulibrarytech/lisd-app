@@ -16,6 +16,7 @@ export class SystemUtils {
 			httpClient.configure(config => {
 	            config
 	                .withBaseUrl(this.config.baseUrl)
+					//.withBaseUrl(this.config.baseUrl + this.config.clientPath)
 	                .withDefaults({
 	                    headers: {
 	                        'Accept': 'application/json',
