@@ -653,7 +653,7 @@ input#comment-input {
 	cursor: pointer;
 }
 
-.radio-select > input.radio {
+.radio-select > input[type=radio] {
 	height: 20px;
 }
 
