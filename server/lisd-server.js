@@ -19,11 +19,12 @@ var allowCrossDomain = function(req, res, next) {
 };
 
 require('dotenv').config();
-var settings = require("./config/settings");
-//require('./config/passport')(passport); // pass passport for configuration
 
-var database = require('./util/database.js');
-database.connect();
+var settings = require("./config/settings");
+
+// TEST single connection in bootstrap
+// var database = require('./util/database.js');
+// database.connect();
 
 app.set('superSecret', settings.secret); // secret variable
 app.set('views', path.join(__dirname, 'views'));
@@ -38,12 +39,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(flash());
 
-//app.use(auth.initialize());
 require('./routes/index')(app);
 
-//app.disable('x-powered-by');
-
-// Start server
 app.set('port', process.env.PORT || 8080);
 var server = app.listen(app.get('port'), function() {
     console.log('LISD service listening on port ' + server.address().port);

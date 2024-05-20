@@ -3,32 +3,37 @@ module.exports = (function() {
 
 	require('dotenv').config();
 
-	var url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME;
-	var MongoClient = require('mongodb').MongoClient, assert = require('assert');
-	var database;
+	const { MongoClient } = require('mongodb');
 
-	var connect = function(callback) {
-		MongoClient.connect(url, function( err, db ) {
-			assert.equal(null, err);
-			database = db;
+	const url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT;
+	const client = new MongoClient(url);
 
-			if(callback) {
-				callback(db);
-			}
-			
-		});
-	};
+	const dbName = process.env.DB_NAME;
 
-	var connection = function() {
+	var database = null;
+
+	var connect = async () => {
+		try {
+			console.log(`Connecting to database ${dbName}..`);
+			await client.connect();
+			database = client.db(dbName);
+		}
+		catch(error) {
+			console.log(`Database connect error: ${error}`);
+		}
+
 		return database;
 	};
 
 	return {
-		connect: function(callback) {
-			connect(callback);
+		connect: function() {
+			return connect();
 		},
 		connection: function() {
-			return connection();
+			return database;
+		},
+		closeConnection: function() {
+			database.close();
 		}
 	};
 })()

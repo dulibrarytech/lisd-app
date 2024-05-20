@@ -23,18 +23,12 @@
     "html-pdf": "^2.2.0",
     "jsonwebtoken": "^7.4.0",
     "jwt-simple": "^0.5.1",
-    "ldapauth": "^2.2.4",
     "method-override": "~1.0.0",
-    "mongodb": "^2.2.9",
+    "mongodb": "^6.6.2",
     "mongoose": "^4.9.8",
     "morgan": "^1.8.1",
-    "mysql": "^2.11.1",
-    "passport": "~0.2.0",
-    "passport-jwt": "^2.2.1",
-    "passport-local": "~1.0.0",
     "request": "2.0",
-    "serve-favicon": "^2.5.0",
-    "simple-encryptor": "^1.1.0"
+    "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
