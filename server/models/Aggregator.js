@@ -2,49 +2,34 @@
 
 module.exports = (function() {
 
-	// var database = require('../util/database.js');
-	// database.connect();
-
 	var database = require('../util/database.js');
-	var fs = require('file-system');
-	var pdf = require('html-pdf');
-	var classCollection, departmentCollection;
+	var collection = {};
 
-	database.connect(function(db) {
-		//var db = database.connection();
-		classCollection = db.collection('lisd_class');
-	});
+	// TEST single connection in bootstrap
+	// collection = database.connection().collection('lisd_librarian');
 
-	var monthlyTotals = {};
-	monthlyTotals['january'] = {};
-	monthlyTotals['february'] = {};
-	monthlyTotals['march'] = {};
-	monthlyTotals['april'] = {};
-	monthlyTotals['may'] = {};
-	monthlyTotals['june'] = {};
-	monthlyTotals['july'] = {};
-	monthlyTotals['august'] = {};
-	monthlyTotals['september'] = {};
-	monthlyTotals['october'] = {};
-	monthlyTotals['november'] = {};
-	monthlyTotals['december'] = {};
+	console.log("Aggregator model connecting to database..");
+	database.connect()
+		.then((db) => {
+			if(!db) throw "Aggregator database connection failed";
+			else {
+				console.log(`Aggregator model connected to database: ${db}`);
+				collection = db.collection('lisd_class');
+			}
+		})
+		.catch(console.error)
+		.finally(() => {
+			// if(database) database.closeConnection();
+		});
 
-	var getAllData = function(queryData, callback) {
-
+	var getAllData = async function(queryData, callback) {
 		var results = [];
 		var message;
 
 		try {
-			var cursor = classCollection.find( { "courseInfo.date": { $gte: new Date(queryData.fromDate), $lt: new Date(queryData.toDate) } } );  // fromDate inclusive
-	        cursor.each(function(err, item) {
-	        	if(item != null) {
-	        		results.push(item);
-	        	}
-	        	else {
-	        		if(results.length == 0) {message = "No results found";} else {message = "Returning all data";}
-	        		callback({status: "ok", message: message, data: results});
-	        	}
-	        });
+			var results = await collection.find( { "courseInfo.date": { $gte: new Date(queryData.fromDate), $lt: new Date(queryData.toDate) } } ).toArray();  // fromDate inclusive
+			if(results.length == 0) {message = "No results found";} else {message = "Returning all data";}
+			callback({status: "ok", message: message, data: results});
 		}
 		catch (e) {
 			callback({status: "error", message: "Error: " + e});
@@ -52,8 +37,7 @@ module.exports = (function() {
 	};
 
 	// Has display options All, Department
-	var getStudentTotals = function(queryData, callback) {
-
+	var getStudentTotals = async function(queryData, callback) {
 		var resultSet = {};
 		var results = [];
 		var queryObj;
@@ -68,57 +52,45 @@ module.exports = (function() {
 		}
 
 		try {
-			var cursor = classCollection.find(queryObj);
-	        cursor.each(function(err, item) {
-	        	if(item != null) {
-	        		results.push(item);
-	        	}
-	        	else {
+			var results = await collection.find(queryObj).toArray();
+			
+			// department, location, type
+			if(queryData.display == "Department") {
 
-	        		if(results.length == 0) {
-	        			callback({status: "ok", message: "No results found", data: null});
-	        		}
-	        		else {
-	        			// department, location, type
-		        		if(queryData.display == "Department") {
+				resultSet['year'] = subsortStudentResultsByYear(results, 'department');
+				resultSet['month']  = subsortStudentResultsByMonth(results, 'department');
+				resultSet['quarter']  = subsortStudentResultsByQuarter(results, 'department');
+			}
+			else if(queryData.display == "Location") {
 
-		        			resultSet['year'] = subsortStudentResultsByYear(results, 'department');
-		        			resultSet['month']  = subsortStudentResultsByMonth(results, 'department');
-		        			resultSet['quarter']  = subsortStudentResultsByQuarter(results, 'department');
-		        		}
-		        		else if(queryData.display == "Location") {
+				resultSet['year'] = subsortStudentResultsByYear(results, 'location');
+				resultSet['month']  = subsortStudentResultsByMonth(results, 'location');
+				resultSet['quarter']  = subsortStudentResultsByQuarter(results, 'location');
+			}
+			else if(queryData.display == "Type") {
 
-		        			resultSet['year'] = subsortStudentResultsByYear(results, 'location');
-		        			resultSet['month']  = subsortStudentResultsByMonth(results, 'location');
-		        			resultSet['quarter']  = subsortStudentResultsByQuarter(results, 'location');
-		        		}
-		        		else if(queryData.display == "Type") {
+				resultSet['year'] = subsortStudentResultsByYear(results, 'type');
+				resultSet['month']  = subsortStudentResultsByMonth(results, 'type');
+				resultSet['quarter']  = subsortStudentResultsByQuarter(results, 'type');
+			}
+			else if(queryData.display == "ACRL Framework") {
 
-		        			resultSet['year'] = subsortStudentResultsByYear(results, 'type');
-		        			resultSet['month']  = subsortStudentResultsByMonth(results, 'type');
-		        			resultSet['quarter']  = subsortStudentResultsByQuarter(results, 'type');
-		        		}
-		        		else if(queryData.display == "ACRL Framework") {
+				resultSet['year'] = subsortStudentResultsByYear(results, 'acrlFrame');
+				resultSet['month']  = subsortStudentResultsByMonth(results, 'acrlFrame');
+				resultSet['quarter']  = subsortStudentResultsByQuarter(results, 'acrlFrame');
+			}
+			else { // All
+				resultSet['year'] = sortStudentResultsByAllYear(results);
+				resultSet['month'] = sortStudentResultsByAllMonth(results);
+				resultSet['quarter'] = sortStudentResultsByAllQuarter(results);
+			}
 
-		        			resultSet['year'] = subsortStudentResultsByYear(results, 'acrlFrame');
-		        			resultSet['month']  = subsortStudentResultsByMonth(results, 'acrlFrame');
-		        			resultSet['quarter']  = subsortStudentResultsByQuarter(results, 'acrlFrame');
-		        		}
-		        		else { // All
-		        			resultSet['year'] = sortStudentResultsByAllYear(results);
-		        			resultSet['month'] = sortStudentResultsByAllMonth(results);
-		        			resultSet['quarter'] = sortStudentResultsByAllQuarter(results);
-		        		}
+			resultSet['yearTotals'] = resultSet.year.totals;
+			resultSet['monthTotals'] = resultSet.month.totals;
+			resultSet['quarterTotals'] = resultSet.quarter.totals;
 
-		        		resultSet['yearTotals'] = resultSet.year.totals;
-		        		resultSet['monthTotals'] = resultSet.month.totals;
-		        		resultSet['quarterTotals'] = resultSet.quarter.totals;
-
-		        		if(results.length == 0) {message = "No results found";} else {message = "Returning all data";}
-	        			callback({status: "ok", message: message, data: resultSet});
-	        		}
-	        	}
-	        });
+			if(results.length == 0) {message = "No results found";} else {message = "Returning all data"}
+			callback({status: "ok", message, data: resultSet});
 		}
 		catch (e) {
 			callback({status: "error", message: "Error: " + e});
@@ -126,8 +98,7 @@ module.exports = (function() {
 	};
 
 	// Has display options All, Department, Location, Type
-	var getClassTotals = function(queryData, callback) {
-
+	var getClassTotals = async function(queryData, callback) {
 		var resultSet = {};
 		var results = [];
 		var queryObj;
@@ -142,60 +113,52 @@ module.exports = (function() {
 		}
 
 		try {
-			var cursor = classCollection.find(queryObj);  // fromDate inclusive
-	        cursor.each(function(err, item) {
-	        	if(item != null) {
-	        		results.push(item);
-	        	}
-	        	else {
+			var results = await collection.find(queryObj).toArray();  // fromDate inclusive
 
-	        		// department, location, type
-	        		if(queryData.display == "Department") {
+			// department, location, type
+			if(queryData.display == "Department") {
 
-	        			resultSet['year'] = subsortClassResultsByYear(results, 'department');
-	        			resultSet['month']  = subsortClassResultsByMonth(results, 'department');
-	        			resultSet['quarter']  = subsortClassResultsByQuarter(results, 'department');
-	        		}
-	        		else if(queryData.display == "Location") {
+				resultSet['year'] = subsortClassResultsByYear(results, 'department');
+				resultSet['month']  = subsortClassResultsByMonth(results, 'department');
+				resultSet['quarter']  = subsortClassResultsByQuarter(results, 'department');
+			}
+			else if(queryData.display == "Location") {
 
-	        			resultSet['year'] = subsortClassResultsByYear(results, 'location');
-	        			resultSet['month']  = subsortClassResultsByMonth(results, 'location');
-	        			resultSet['quarter']  = subsortClassResultsByQuarter(results, 'location');
-	        		}
-	        		else if(queryData.display == "Type") {
+				resultSet['year'] = subsortClassResultsByYear(results, 'location');
+				resultSet['month']  = subsortClassResultsByMonth(results, 'location');
+				resultSet['quarter']  = subsortClassResultsByQuarter(results, 'location');
+			}
+			else if(queryData.display == "Type") {
 
-	        			resultSet['year'] = subsortClassResultsByYear(results, 'type');
-	        			resultSet['month']  = subsortClassResultsByMonth(results, 'type');
-	        			resultSet['quarter']  = subsortClassResultsByQuarter(results, 'type');
-	        		}
-	        		else if(queryData.display == "ACRL Framework") {
+				resultSet['year'] = subsortClassResultsByYear(results, 'type');
+				resultSet['month']  = subsortClassResultsByMonth(results, 'type');
+				resultSet['quarter']  = subsortClassResultsByQuarter(results, 'type');
+			}
+			else if(queryData.display == "ACRL Framework") {
 
-	        			resultSet['year'] = subsortClassResultsByYear(results, 'acrlFrame');
-	        			resultSet['month']  = subsortClassResultsByMonth(results, 'acrlFrame');
-	        			resultSet['quarter']  = subsortClassResultsByQuarter(results, 'acrlFrame');
-	        		}
-	        		else { // All
-	        			resultSet['year'] = sortClassResultsByAllYear(results);
-	        			resultSet['month'] = sortClassResultsByAllMonth(results);
-	        			resultSet['quarter'] = sortClassResultsByAllQuarter(results);
-	        		}
+				resultSet['year'] = subsortClassResultsByYear(results, 'acrlFrame');
+				resultSet['month']  = subsortClassResultsByMonth(results, 'acrlFrame');
+				resultSet['quarter']  = subsortClassResultsByQuarter(results, 'acrlFrame');
+			}
+			else { // All
+				resultSet['year'] = sortClassResultsByAllYear(results);
+				resultSet['month'] = sortClassResultsByAllMonth(results);
+				resultSet['quarter'] = sortClassResultsByAllQuarter(results);
+			}
 
-	        		resultSet['yearTotals'] = resultSet.year.totals;
-	        		resultSet['monthTotals'] = resultSet.month.totals;
-	        		resultSet['quarterTotals'] = resultSet.quarter.totals;
+			resultSet['yearTotals'] = resultSet.year.totals;
+			resultSet['monthTotals'] = resultSet.month.totals;
+			resultSet['quarterTotals'] = resultSet.quarter.totals;
 
-	        		if(results.length == 0) {message = "No results found";} else {message = "Returning all data";}
-	        		callback({status: "ok", message: message, data: resultSet});
-	        	}
-	        });
+			if(results.length == 0) {message = "No results found";} else {message = "Returning all data"}
+			callback({status: "ok", message: message, data: resultSet});
 		}
 		catch (e) {
 			callback({status: "error", message: "Error: " + e});
 		}
 	};
 
-	var getClassData = function(queryData, callback) {
-		var resultSet = [];
+	var getClassData = async function(queryData, callback) {
 		var results = [];
 		var queryObj;
 		var message;
@@ -209,16 +172,9 @@ module.exports = (function() {
 		}
 
 		try {
-			var cursor = classCollection.find(queryObj).sort({"courseInfo.date": 1});  // fromDate inclusive
-	        cursor.each(function(err, item) {
-	        	if(item != null) {
-	        		results.push(item);
-	        	}
-	        	else {
-	        		if(results.length == 0) {message = "No results found";} else {message = "Returning class data";}
-	        		callback({status: "ok", message: message, data: results});
-	        	}
-	        });
+			var results = await collection.find(queryObj).sort({"courseInfo.date": 1}).toArray();  // fromDate inclusive
+			if(results.length == 0) {message = "No results found";} else {message = "Returning class data";}
+			callback({status: "ok", message: message, data: results});
 		}
 		catch (e) {
 			callback({status: "error", message: "Error: " + e});

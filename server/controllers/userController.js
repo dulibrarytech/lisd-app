@@ -5,6 +5,7 @@ var userModel = require("../models/User");
 var librarianModel = require("../models/Librarian");
 
 module.exports.authenticateLogin = function(req, res) {
+    console.log("TEST C authenticateLogin()")
 
     if(!req.body.username || !req.body.password) {
         res.sendStatus(403);
@@ -53,7 +54,7 @@ module.exports.authenticateLogin = function(req, res) {
                             });
 
                         } else {
-                            res.status(200);
+                            res.sendStatus(200);
                             res.json({
                                 token: null,  // Invalid local credentials. Return duid
                                 sessionData: {
@@ -64,7 +65,7 @@ module.exports.authenticateLogin = function(req, res) {
                     });
                 }
                 else {
-                    res.status(200);
+                    res.sendStatus(200);
                     res.json({
                         token: null,  // Invalid ldap credentials 
                         sessionData: {
@@ -99,14 +100,14 @@ module.exports.authenticateSSO = function(req, res) {
                         res.redirect(ssoClientLoginUrl);
                     });
     
-                } else res.send(401)
+                } else res.sendStatus(401)
             });
         }
         catch(error) {
             console.error(error);
         }
     }
-    else res.send(401)
+    else res.sendStatus(401)
 }
 
 module.exports.validateToken = function(req, res) {

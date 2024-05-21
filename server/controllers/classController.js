@@ -90,10 +90,13 @@ module.exports.classDelete = function(req, res) {
 	});
 };
 
-module.exports.classGetComments = function(req, res) {
-	Class.getClassComments(req.query.classID, function(response) {
-		res.send(response);
-	});
+module.exports.classGetComments = async function(req, res) {
+	// Class.getClassComments(req.query.classID, function(response) {
+	// 	res.send(response);
+	// });
+
+	let response = await Class.getClassComments(req.query.classID);
+	res.send(response);
 };
 
 module.exports.classAddComment = function(req, res) {

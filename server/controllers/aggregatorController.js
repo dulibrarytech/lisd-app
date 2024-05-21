@@ -44,10 +44,11 @@ module.exports.getDataAll = function(req,res) {
 module.exports.getDataEntrySelectValues = function(req, res) {
 
 	var response = res;
-	//var responseData = [];
 	var responseObject = {};
 	var count = 0;
-	var queryModules = [Librarian, Location, Department];
+
+	// var queryModules = [Librarian, Location, Department]; // DEV
+	var queryModules = [Librarian];
 
 	// Callback for getList responseData, send data when all requests are complete
 	var sendResponse = function(responseData) {
@@ -59,7 +60,6 @@ module.exports.getDataEntrySelectValues = function(req, res) {
 		}
 
 		if(count >= queryModules.length) {
-			//console.log("sending response:");
 			response.send(responseObject);
 		}
 	};

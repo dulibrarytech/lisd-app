@@ -1,15 +1,24 @@
 'use strict'
 
 var database = require('../util/database.js');
-var collection;
-var ObjectId = require('mongodb').ObjectID;
+var collection = {};
+var ObjectId = require('mongodb').ObjectId;
 
-database.connect(function(db) {
-	collection = db.collection('lisd_class');
-});
+console.log("Class model connecting to database..");
+database.connect()
+	.then((db) => {
+		if(!db) throw "Class database connection failed";
+		else {
+			console.log(`Class model connected to database: ${db}`);
+			collection = db.collection('lisd_class');
+		}
+	})
+	.catch(console.error)
+	.finally(() => {
+		// if(database) database.closeConnection();
+	});
 
-exports.addDocument = function(data, callback) {
-
+exports.addDocument = async function(data, callback) {
 	var doc = { 
 		courseInfo: { 
 			name: data.className, 
@@ -33,166 +42,127 @@ exports.addDocument = function(data, callback) {
 	};
 
 	try {
-		// Insert the document
-	    collection.insertOne(doc, function(err, result) {
-		    if(err) {
-		    	console.log("Error: " + err);
-		    	callback({status: 'error', message: err});
-		    }
-		    else {
-		    	console.log("DB Insert OK");
-		    	callback({status: "ok", message: 'Inserted 1 document into the collection', data: result});
-		    }
-		    // db.close();
-		});
+		let result = await collection.insertOne(doc);
+		if(result.acknowledged != true) throw `Class data could not be added. Data: ${doc}`;
+		else callback({status: 'ok', message: 'Inserted 1 document into the collection'});
+
 	} catch (e) {
 		callback({status: 'error', message: e});
 	};
-	//db.close();
 }
 
 /* 
 * Return object of all available class property choices for libnrarian, location, and department
 */
-exports.getList = function(callback) {
+exports.getList = async function(callback) {
 	var classes = [];
 
 	try {
-		var cursor = collection.find({ "isActive": true }, {"_id": 1, "courseInfo.name": 1});
-        cursor.each(function(err, item) {
-        	if(item != null) {
-        		classes.push(item);
-        	}
-        	else {
-        		callback({status: "ok", message: "Ok", data: classes});
-        	}
-        });
+		var cursor = await collection.find({ "isActive": true }, {"_id": 1, "courseInfo.name": 1}).toArray();
+
+		for(let item of cursor) {
+			classes.push(item);
+		}
+
+		callback({status: "ok", message: "Ok", data: classes});
 	}
 	catch (e) {
 		callback({status: "error", message: "Error: " + e});
 	}
 }
 
-exports.getData = function(classID, callback) {
-
+exports.getData = async function(classID, callback) {
 	try {
-		var result = [];
-		var cursor = collection.find({ "_id": ObjectId(classID) }, {});
-        cursor.each(function(err, item) {
-        	if(item != null) {
-        		result.push(item);
-        	}
-        	else {
-        		var classData = {};
+		var classData = {};
+		var result = await collection.findOne({ "_id": new ObjectId(classID) });
 
-        		// Strings
-        		classData['name'] = result[0].courseInfo.name || "Not found";
-        		classData['number'] = result[0].courseInfo.number || 0;
-        		classData['instructor'] = result[0].courseInfo.instructor || "Not found";
-        		classData['quarter'] = result[0].courseInfo.quarter || 0;
-        		classData['date'] = result[0].courseInfo.date || new Date();
-        		classData['undergraduates'] = result[0].enrollmentInfo.undergraduates || 0;
-        		classData['graduates'] = result[0].enrollmentInfo.graduates || 0;
-        		classData['faculty'] = result[0].enrollmentInfo.faculty || 0;
-        		classData['other'] = result[0].enrollmentInfo.other || 0;
+		// Strings
+		classData['name'] = result.courseInfo.name || "Not found";
+		classData['number'] = result.courseInfo.number || 0;
+		classData['instructor'] = result.courseInfo.instructor || "Not found";
+		classData['quarter'] = result.courseInfo.quarter || 0;
+		classData['date'] = result.courseInfo.date || new Date();
+		classData['undergraduates'] = result.enrollmentInfo.undergraduates || 0;
+		classData['graduates'] = result.enrollmentInfo.graduates || 0;
+		classData['faculty'] = result.enrollmentInfo.faculty || 0;
+		classData['other'] = result.enrollmentInfo.other || 0;
 
-        		// Properties - arrays
-        		classData['librarians'] = result[0].associatedLibrarians || [];
-        		classData['departments'] = result[0].department || [];
-        		classData['locations'] = result[0].location || [];
+		// Properties - arrays
+		classData['librarians'] = result.associatedLibrarians || [];
+		classData['departments'] = result.department || [];
+		classData['locations'] = result.location || [];
 
-        		// Arrays
-        		classData['acrlFrameworks'] = result[0].acrlFrame || [];
-        		classData['types'] = result[0].type || [];
-        		classData['comments'] = result[0].comments || [];
+		// Arrays
+		classData['acrlFrameworks'] = result.acrlFrame || [];
+		classData['types'] = result.type || [];
+		classData['comments'] = result.comments || [];
 
-        		callback({status: "ok", message: "Ok", data: classData});
-        	}
-        });
+		callback({status: "ok", message: "Ok", data: classData});
 	}
 	catch (e) {
 		callback({status: "error", message: "Error: " + e});
 	}
 };
 
-exports.getClassComments = function(classID, callback) {
-
+exports.getClassComments = async function(classID) {
 	try {
-		var results = [];
-		var cursor = collection.find({ "_id": ObjectId(classID) }, {"_id": 0, "comments": 1});
-        cursor.each(function(err, item) {
-        	if(item != null) {
-        		results.push(item);
-        	}
-        	else {
-        		callback({status: "ok", message: "Ok", data: results[0].comments});
-        	}
-        });
+		var classData = await collection.findOne({ "_id": new ObjectId(classID) }, {"_id": 0, "comments": 1});
+		return {status: "ok", message: "Ok", data: classData.comments};
 	}
 	catch (e) {
-		callback({status: "error", message: "Error: " + e});
+		return {status: "error", message: "Error: " + e};
 	}
 };
 
-exports.appendComment = function(classID, commentData, callback) {
+exports.appendComment = async function(classID, commentData, callback) {
+	let comments = await this.getClassComments(classID);
+	let comment = comments.data, commentsArr = [];
 
-	this.getClassComments(classID, function(comments) {
+	if(typeof comment.length != 'undefined') {
+		commentsArr = comment;
+	}
 
-		var comment = comments.data, commentsArr = [];
-		if(typeof comments.data.length != 'undefined') {
-			commentsArr = comments.data;
-		}
+	commentsArr.push({
+		name: commentData.name,
+		text: commentData.comment
+	});
 
-		commentsArr.push({
-			name: commentData.name,
-			text: commentData.comment
+	try {
+		// Insert the document
+		let results = await collection.updateOne({"_id": new ObjectId(classID)}, {$set: {comments: commentsArr}});
+		console.log("Comment added to class ", classID);
+		callback({status: "ok", message: "Ok", data: results});
+
+	} catch (e) {
+		console.log("Error: " + e);
+		callback({status: "error", message: "Error: " + e});
+	};
+};
+
+exports.updateComment = async function(classID, commentIndex, comment, callback) {
+	let comments = await this.getClassComments(classID);
+
+	comments.data[commentIndex].name = comment.name;
+	comments.data[commentIndex].text = comment.comment;
+
+	try {
+		collection.updateOne({"_id": new ObjectId(classID)}, {$set: {comments: comments.data}}, function(err, results) {
+			if(err) {
+				console.log("Error: " + err);
+				callback({status: "error", message: "Error: " + e});
+			}
+			else {
+				console.log("Comment updates for class ", classID);
+				callback({status: "ok", message: "Ok", data: results});
+			}
 		});
-
-		try {
-			// Insert the document
-		    collection.updateOne({"_id": ObjectId(classID)}, {$set: {comments: commentsArr}}, function(err, results) {
-			    if(err) {
-			    	console.log("Error: " + err);
-			    	callback({status: "error", message: "Error: " + e});
-			    }
-			    else {
-			    	console.log("Comment added to class ", classID);
-			    	callback({status: "ok", message: "Ok", data: results});
-			    }
-			});
-		} catch (e) {
-			console.log("Error: " + e);
-			callback({status: "error", message: "Error: " + e});
-		};
-	});
-};
-
-exports.updateComment = function(classID, commentIndex, comment, callback) {
-	this.getClassComments(classID, function(comments) {
-
-		comments.data[commentIndex].name = comment.name;
-		comments.data[commentIndex].text = comment.comment;
-
-		try {
-		    collection.updateOne({"_id": ObjectId(classID)}, {$set: {comments: comments.data}}, function(err, results) {
-			    if(err) {
-			    	console.log("Error: " + err);
-			    	callback({status: "error", message: "Error: " + e});
-			    }
-			    else {
-			    	console.log("Comment updates for class ", classID);
-			    	callback({status: "ok", message: "Ok", data: results});
-			    }
-			});
-		} catch (e) {
-			console.log("Error: " + e);
-			callback({status: "error", message: "Error: " + e});
-		};
-	});
+	} catch (e) {
+		console.log("Error: " + e);
+		callback({status: "error", message: "Error: " + e});
+	};
 };
 
 exports.updateData = function(classID, classData, callback) {
-
 	var doc = { 
 		courseInfo: { 
 			name: classData.className, 
@@ -216,35 +186,24 @@ exports.updateData = function(classID, classData, callback) {
 
 	try {
 		// Insert the document
-	    collection.updateOne({"_id": ObjectId(classID)}, {$set: doc}, function(err, results) {
-		    if(err) {
-		    	console.log("Error: " + err);
-		    	callback({status: "error", message: "Error: " + e});
-		    }
-		    else {
-		    	console.log("Class " + classID + " updated");
-		    	callback({status: "ok", message: "Ok", data: results});
-		    }
-		});
+	    let results = collection.updateOne({"_id": new ObjectId(classID)}, {$set: doc});
+
+		console.log("Class " + classID + " updated");
+		callback({status: "ok", message: "Ok", data: results});
+
 	} catch (e) {
 		console.log("Error: " + e);
 		callback({status: "error", message: "Error: " + e});
 	};
 };
 
-exports.removeData = function(classID, callback) {
-
+exports.removeData = async function(classID, callback) {
 	try {
-		collection.deleteOne({"_id": ObjectId(classID)}, function(err, results) {
-		    if(err) {
-		    	console.log("Error: " + err);
-		    	callback({status: "error", message: "Error: " + e});
-		    }
-		    else {
-		    	console.log("Class " + classID + " removed");
-		    	callback({status: "ok", message: "Ok", data: results});
-		    }
-		});
+		let results = await collection.deleteOne({"_id": new ObjectId(classID)});
+
+		console.log("Class " + classID + " removed");
+		callback({status: "ok", message: "Ok", data: results});
+
 	} catch(e) {
 		console.log("Error: " + e);
 		callback({status: "error", message: "Error: " + e});
