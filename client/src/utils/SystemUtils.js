@@ -1,6 +1,5 @@
 'use strict'
 
-import {inject} from 'aurelia-framework';
 import {HttpClient, json} from 'aurelia-fetch-client';
 import {Configuration} from 'config/configuration';
 import {Session} from 'libs/session.js';
@@ -15,8 +14,7 @@ export class SystemUtils {
 		if(typeof httpClient != 'undefined') {
 			httpClient.configure(config => {
 	            config
-	                .withBaseUrl(this.config.baseUrl)
-					//.withBaseUrl(this.config.baseUrl + this.config.clientPath)
+					.withBaseUrl(this.config.baseUrl + this.config.clientPath + '/')
 	                .withDefaults({
 	                    headers: {
 	                        'Accept': 'application/json',

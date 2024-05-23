@@ -5,7 +5,6 @@ var userModel = require("../models/User");
 var librarianModel = require("../models/Librarian");
 
 module.exports.authenticateLogin = function(req, res) {
-    console.log("TEST C authenticateLogin()")
 
     if(!req.body.username || !req.body.password) {
         res.sendStatus(403);

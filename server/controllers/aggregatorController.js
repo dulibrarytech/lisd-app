@@ -47,8 +47,8 @@ module.exports.getDataEntrySelectValues = function(req, res) {
 	var responseObject = {};
 	var count = 0;
 
-	// var queryModules = [Librarian, Location, Department]; // DEV
-	var queryModules = [Librarian];
+	var queryModules = [Librarian, Location, Department];
+	//var queryModules = [Librarian]; // DEV
 
 	// Callback for getList responseData, send data when all requests are complete
 	var sendResponse = function(responseData) {
